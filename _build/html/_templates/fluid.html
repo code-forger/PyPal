@@ -1,0 +1,149 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>fluid Package &mdash; pypalgame 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="pypalgame 0.1 documentation" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">pypalgame 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="fluid-package">
+<h1>fluid Package<a class="headerlink" href="#fluid-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2><a class="reference internal" href="#module-fluid" title="fluid"><tt class="xref py py-mod docutils literal"><span class="pre">fluid</span></tt></a> Package<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-fluid"></span></div>
+<div class="section" id="module-fluid.grid">
+<span id="grid-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">grid</span></tt> Module<a class="headerlink" href="#module-fluid.grid" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="fluid.grid.Grid">
+<em class="property">class </em><tt class="descclassname">fluid.grid.</tt><tt class="descname">Grid</tt><big>(</big><em>size</em>, <em>cell_size</em>, <em>density</em>, <em>dampening</em>, <em>linear_dampening</em>, <em>angular_dampening</em><big>)</big><a class="headerlink" href="#fluid.grid.Grid" title="Permalink to this definition">¶</a></dt>
+<dd><p>a grid fluid</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-fluid.particle">
+<span id="particle-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">particle</span></tt> Module<a class="headerlink" href="#module-fluid.particle" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="fluid.particle.Particle">
+<em class="property">class </em><tt class="descclassname">fluid.particle.</tt><tt class="descname">Particle</tt><a class="headerlink" href="#fluid.particle.Particle" title="Permalink to this definition">¶</a></dt>
+<dd><p>a particle fluid</p>
+<dl class="method">
+<dt id="fluid.particle.Particle.add_particle">
+<tt class="descname">add_particle</tt><big>(</big><em>pos</em>, <em>velocity</em><big>)</big><a class="headerlink" href="#fluid.particle.Particle.add_particle" title="Permalink to this definition">¶</a></dt>
+<dd><p>adds a particle to the fluid</p>
+<p>pos: a 3 part tuple of the position of the particle
+velocity: a 3 part tuple of  the velocity of the particle</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fluid.particle.Particle.finalize">
+<tt class="descname">finalize</tt><big>(</big><big>)</big><a class="headerlink" href="#fluid.particle.Particle.finalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>must be calledafter all the particles have been added.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fluid.particle.Particle.get_particles">
+<tt class="descname">get_particles</tt><big>(</big><big>)</big><a class="headerlink" href="#fluid.particle.Particle.get_particles" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a list of all the particle positions</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">fluid Package</a><ul>
+<li><a class="reference internal" href="#id1"><tt class="docutils literal"><span class="pre">fluid</span></tt> Package</a></li>
+<li><a class="reference internal" href="#module-fluid.grid"><tt class="docutils literal"><span class="pre">grid</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-fluid.particle"><tt class="docutils literal"><span class="pre">particle</span></tt> Module</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/_templates/fluid.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">pypalgame 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Michael Rochester.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
