@@ -1,3 +1,4 @@
+from bodybase import BodyBase
 class GenericBody(BodyBase):
     def __init__(pos,mass = None, density = None):
         """

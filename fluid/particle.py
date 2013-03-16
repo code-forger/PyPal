@@ -1,4 +1,4 @@
-class Particle(GeometryBase):
+class Particle():
     """a particle fluid"""
     def __init__():
         """

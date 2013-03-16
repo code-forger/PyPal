@@ -1,4 +1,4 @@
-class Revolute(GeometryBase):
+class Revolute():
     """a link that connects two objects rotationally"""
     def __init__(parent,child,pos,direction):
         """

@@ -1,4 +1,4 @@
-class Prismatic(GeometryBase):
+class Prismatic():
     """a link that connects two objects telescopically"""
     def __init__(parent,child,pos,direction):
         """

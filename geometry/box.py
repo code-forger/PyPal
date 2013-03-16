@@ -1,3 +1,4 @@
+from geometry_base import GeometryBase
 class Box(GeometryBase):
     """a geometry that represents a cuboid"""
     def __init__(rect,mass = None, density = None):

@@ -6,8 +6,15 @@ Module functions:
 
 """
 
-import ctypes
-_PAL = ctypes.cdll.LoadLibrary('./libPyPalGame.so')
+import actuator
+import body
+import fluid
+import geometry
+import link
+import sensor
+import vehicle
+
+from private_locals import *
 
 def __init__(gravity = (0,-9.8,0),pygame = None):
     """Initializes the module.
@@ -64,10 +71,11 @@ def get_events():
 
 #collision detection functions
 
-def SetCollisionAccuracy(accuracy)
+def SetCollisionAccuracy(accuracy):
     """
     acccuracy: sets the acuracy of the simulateion, Ranges from 0..1, 0 indicates fast and inaccurate, 1 indicates accurate and slow. 
     """
+    pass
 
 def raycast(pos,direction,max_range):
     """
@@ -76,9 +84,10 @@ def raycast(pos,direction,max_range):
     dirction: the direction the cast will take
     max_range: the max range of the cast
     """
+    pass
 
 if __name__ == "__main__":
 
-    x = _PAL.build()
+    x = pal_lib.build()
     print x
-    _PAL.runPhy(x)
+    pal_lib.runPhy(x)

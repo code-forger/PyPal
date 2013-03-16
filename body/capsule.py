@@ -1,3 +1,4 @@
+from bodybase import BodyBase
 class Capsule(BodyBase):
     def __init__(rect,mass = None, density = None, static = False):
         """

@@ -1,4 +1,4 @@
-class Spherical(GeometryBase):
+class Spherical():
     """a link that connects two objects spherically"""
     def __init__(parent,child,pos):
         """

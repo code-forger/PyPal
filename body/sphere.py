@@ -1,9 +1,10 @@
-class Box(BodyBase):
-    def __init__(rect,mass = None, density = None,static = False):
+from bodybase import BodyBase
+class Sphere(BodyBase):
+    def __init__(rect,mass = None, density = None, static = False):
         """
         constructs a box and adds it to the world
         
-        rect: a 6 part tuple with x,y,z,width,height,depth.
+        rect: a 4 part tuple with x,y,z,radius.
         mass: the mass of the object, if mass is specified it will be used.
         density: if no mass is specified and a density is, the mass will be 
         calculated from the density and the volumne.

@@ -1,3 +1,4 @@
+from bodybase import BodyBase
 class Convex(BodyBase):
     def __init__(pos,points,mass = None, density = None):
         """

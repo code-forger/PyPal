@@ -1,3 +1,4 @@
+from bodybase import BodyBase
 class MeshTerrain(BodyBase):
     """ a mesh based terrain object """
     def __init__(pos,points,triangles):

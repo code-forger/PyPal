@@ -1,3 +1,4 @@
+from bodybase import BodyBase
 class HeightMapTerrain(BodyBase):
     """ an height map terrain object """
     def __init__(pos,size,height_map):

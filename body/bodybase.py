@@ -1,3 +1,5 @@
+from private_locals import *
+
 class BodyBase():
 
     """The Base of any body in the world

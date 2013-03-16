@@ -1,4 +1,5 @@
-class convex(GeometryBase):
+from geometry_base import GeometryBase
+class Convex(GeometryBase):
     """a geometry that represents a convex shape"""
     def __init__(points,mass = None, density = None):
         """

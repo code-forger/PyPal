@@ -1,3 +1,4 @@
+from geometry_base import GeometryBase
 class Concave(GeometryBase):
     """a geometry that represents a concave shape"""
     def __init__(points,triangles,mass = None, density = None):

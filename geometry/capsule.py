@@ -1,3 +1,4 @@
+from geometry_base import GeometryBase
 class Capsule(GeometryBase):
     """a geometry that represents a capsule"""
     def __init__(points,triangles,mass = None, density = None):

@@ -1,4 +1,4 @@
-class Grid(GeometryBase):
+class Grid():
     """a grid fluid"""
     def __init__(size,cell_size,density,dampening,linear_dampening,angular_dampening):
         """
