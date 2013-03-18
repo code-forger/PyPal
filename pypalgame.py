@@ -13,15 +13,22 @@ import geometry
 import link
 import sensor
 import vehicle
+import ctypes as c
 
-from private_locals import *
+import private_globals as g
 
-def __init__(gravity = (0,-9.8,0),pygame = None):
+
+
+def init(gravity = (0,-9.8,0),pygame = None):
     """Initializes the module.
 
     gravity: int int int, default = (0,-9.8,0): gravity to be applied to the world.
     pygame: the pygame instance to be used to emit events.
     """
+    libs = c.c_char_p("/usr/local/lib/")
+    g.physics = g.pal_lib.pal_init(libs)
+    g.pal_lib.physics_init(g.physics,c.c_float(gravity[0]),c.c_float(gravity[1]),c.c_float(gravity[2]))
+        
     pass
 
 def update(time_step):
@@ -29,6 +36,7 @@ def update(time_step):
 
     timestep: time since last step
     """
+    g.pal_lib.physics_update(g.physics,c.c_float(time_step))
     pass
 
 def cleanup():
@@ -86,8 +94,3 @@ def raycast(pos,direction,max_range):
     """
     pass
 
-if __name__ == "__main__":
-
-    x = pal_lib.build()
-    print x
-    pal_lib.runPhy(x)

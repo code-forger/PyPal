@@ -6,9 +6,12 @@ class BodyBase():
 
     Provides a set of basic accessor functions for all bodies.
     """
-    def get_position():
+    def get_position(self):
         """Returns position as a 3 part tuple:(x,y,z)."""
-        pass
+        pos = [c.c_float() for x in range(3)]
+        pal_lib.get_position(self.obj,c.byref(pos[0]),c.byref(pos[1]),c.byref(pos[2]))
+        
+        return [p.value for p in pos]
 
     def set_material(material):
         """Sets the material of the body."""
