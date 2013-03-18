@@ -15,33 +15,34 @@ import sensor
 import vehicle
 import ctypes as c
 
-import private_globals as g
+import private_globals as pal
 
 
 
 def init(gravity = (0,-9.8,0),pygame = None):
     """Initializes the module.
 
+    This function must be called before any other function from this library is called
+
     gravity: int int int, default = (0,-9.8,0): gravity to be applied to the world.
     pygame: the pygame instance to be used to emit events.
     """
     libs = c.c_char_p("/usr/local/lib/")
-    g.physics = g.pal_lib.pal_init(libs)
-    g.pal_lib.physics_init(g.physics,c.c_float(gravity[0]),c.c_float(gravity[1]),c.c_float(gravity[2]))
-        
-    pass
+    pal.physics = pal.lib.pal_init(libs)
+    pal.lib.physics_init(pal.physics,c.c_float(gravity[0]),c.c_float(gravity[1]),c.c_float(gravity[2]))
+    pal.collision = pal.lib.pal_get_collision()
 
 def update(time_step):
     """Steps the simulation.
 
     timestep: time since last step
     """
-    g.pal_lib.physics_update(g.physics,c.c_float(time_step))
+    pal.lib.physics_update(pal.physics,c.c_float(time_step))
     pass
 
 def cleanup():
     """Ends the simulation."""
-    pass
+    pal.lib.pal_cleanup()
 
 def get_time():
     """Returns age of the simulation."""

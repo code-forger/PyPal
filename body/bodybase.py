@@ -1,4 +1,4 @@
-from private_locals import *
+from private_globals import *
 
 class BodyBase():
 
@@ -6,31 +6,32 @@ class BodyBase():
 
     Provides a set of basic accessor functions for all bodies.
     """
-    def get_position(self):
+    def get_position(self):#TESTED
         """Returns position as a 3 part tuple:(x,y,z)."""
         pos = [c.c_float() for x in range(3)]
-        pal_lib.get_position(self.obj,c.byref(pos[0]),c.byref(pos[1]),c.byref(pos[2]))
-        
+        lib.body_get_position(self.obj,c.byref(pos[0]),c.byref(pos[1]),c.byref(pos[2]))
         return [p.value for p in pos]
 
-    def set_material(material):
-        """Sets the material of the body."""
-        pass
+    def set_material(self,material):
+        """Sets the material of the body. DO NOT USE"""
+        lib.body_set_material(self.obj,c.c_void_p(None))
 
-    def get_group():
+    def get_group(self):#TESTED
         """Returns the collisions group of the body."""
-        pass
+        return lib.body_get_group(self.obj)
 
-    def set_group(group):
+    def set_group(self,group):#TESTED
         """Puts the body in the provided collision group."""
-        pass
+        lib.body_set_group(self.obj,group)
 
-    def set_user_data(data):
+    def set_user_data(self,data):#TESTED
         """Sets user data to be stored in the body."""
-        pass
+        idc = len(userdata)
+        userdata.append(data)
+        lib.body_set_data(self.obj,c.pointer(c.c_int(idc)))
 
-    def get_user_data():
-        """Returns the user data currently in the body."""
+    def get_user_data(self):#TESTED
+        return userdata[lib.body_get_data(self.obj)]
         pass
 
     def set_position(pos=None,rot=None):

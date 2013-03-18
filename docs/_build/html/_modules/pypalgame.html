@@ -1,0 +1,187 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pypalgame &mdash; PyPalGame 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="PyPalGame 0.1 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">PyPalGame 0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for pypalgame</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Python Bindings for PAL geared toward game development</span>
+
+<span class="sd">Module functions:</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">actuator</span>
+<span class="kn">import</span> <span class="nn">body</span>
+<span class="kn">import</span> <span class="nn">fluid</span>
+<span class="kn">import</span> <span class="nn">geometry</span>
+<span class="kn">import</span> <span class="nn">link</span>
+<span class="kn">import</span> <span class="nn">sensor</span>
+<span class="kn">import</span> <span class="nn">vehicle</span>
+<span class="kn">import</span> <span class="nn">ctypes</span> <span class="kn">as</span> <span class="nn">c</span>
+
+<span class="kn">import</span> <span class="nn">private_globals</span> <span class="kn">as</span> <span class="nn">g</span>
+
+
+
+<span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="n">gravity</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mf">9.8</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="n">pygame</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="init"><a class="viewcode-back" href="../pypalgame.html#pypalgame.init">[docs]</a>    <span class="sd">&quot;&quot;&quot;Initializes the module.</span>
+
+<span class="sd">    gravity: int int int, default = (0,-9.8,0): gravity to be applied to the world.</span>
+<span class="sd">    pygame: the pygame instance to be used to emit events.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">libs</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">(</span><span class="s">&quot;/usr/local/lib/&quot;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">physics</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">pal_lib</span><span class="o">.</span><span class="n">pal_init</span><span class="p">(</span><span class="n">libs</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">pal_lib</span><span class="o">.</span><span class="n">physics_init</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">physics</span><span class="p">,</span><span class="n">c</span><span class="o">.</span><span class="n">c_float</span><span class="p">(</span><span class="n">gravity</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="n">c</span><span class="o">.</span><span class="n">c_float</span><span class="p">(</span><span class="n">gravity</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span><span class="n">c</span><span class="o">.</span><span class="n">c_float</span><span class="p">(</span><span class="n">gravity</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+        
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="n">time_step</span><span class="p">):</span></div>
+<div class="viewcode-block" id="update"><a class="viewcode-back" href="../pypalgame.html#pypalgame.update">[docs]</a>    <span class="sd">&quot;&quot;&quot;Steps the simulation.</span>
+
+<span class="sd">    timestep: time since last step</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">pal_lib</span><span class="o">.</span><span class="n">physics_update</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">physics</span><span class="p">,</span><span class="n">c</span><span class="o">.</span><span class="n">c_float</span><span class="p">(</span><span class="n">time_step</span><span class="p">))</span>
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">cleanup</span><span class="p">():</span></div>
+<div class="viewcode-block" id="cleanup"><a class="viewcode-back" href="../pypalgame.html#pypalgame.cleanup">[docs]</a>    <span class="sd">&quot;&quot;&quot;Ends the simulation.&quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">get_time</span><span class="p">():</span></div>
+<div class="viewcode-block" id="get_time"><a class="viewcode-back" href="../pypalgame.html#pypalgame.get_time">[docs]</a>    <span class="sd">&quot;&quot;&quot;Returns age of the simulation.&quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">get_time_step</span><span class="p">():</span></div>
+<div class="viewcode-block" id="get_time_step"><a class="viewcode-back" href="../pypalgame.html#pypalgame.get_time_step">[docs]</a>    <span class="sd">&quot;&quot;&quot;Returns last timestep.&quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">set_group_collision</span><span class="p">(</span><span class="n">group1</span><span class="p">,</span><span class="n">group2</span><span class="p">,</span><span class="n">collide</span><span class="p">):</span></div>
+<div class="viewcode-block" id="set_group_collision"><a class="viewcode-back" href="../pypalgame.html#pypalgame.set_group_collision">[docs]</a>    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    group1,group2: the groups between which the relation is being set.</span>
+<span class="sd">    collide: bool, wether or not the two groups can collide with eachother  </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">get_gravity</span><span class="p">():</span></div>
+<div class="viewcode-block" id="get_gravity"><a class="viewcode-back" href="../pypalgame.html#pypalgame.get_gravity">[docs]</a>    <span class="sd">&quot;&quot;&quot;Returns the current direction of gravity.</span>
+
+<span class="sd">    returns:(x,y,z)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">get_up_axis</span><span class="p">():</span></div>
+<div class="viewcode-block" id="get_up_axis"><a class="viewcode-back" href="../pypalgame.html#pypalgame.get_up_axis">[docs]</a>    <span class="sd">&quot;&quot;&quot;Return the index, i.e. x (0), y (1), or z(2), to use for up.&quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">get_events</span><span class="p">():</span></div>
+<div class="viewcode-block" id="get_events"><a class="viewcode-back" href="../pypalgame.html#pypalgame.get_events">[docs]</a>    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    returns all collision events for this step if ygame was not passed into</span>
+<span class="sd">    __init__.</span>
+<span class="sd">    if pygame was specifies in __init__ this function will post pygame mesages</span>
+<span class="sd">    instead.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<span class="c">#collision detection functions</span>
+
+<span class="k">def</span> <span class="nf">SetCollisionAccuracy</span><span class="p">(</span><span class="n">accuracy</span><span class="p">):</span></div>
+<div class="viewcode-block" id="SetCollisionAccuracy"><a class="viewcode-back" href="../pypalgame.html#pypalgame.SetCollisionAccuracy">[docs]</a>    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    acccuracy: sets the acuracy of the simulateion, Ranges from 0..1, 0 indicates fast and inaccurate, 1 indicates accurate and slow. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">raycast</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span><span class="n">direction</span><span class="p">,</span><span class="n">max_range</span><span class="p">):</span></div>
+<div class="viewcode-block" id="raycast"><a class="viewcode-back" href="../pypalgame.html#pypalgame.raycast">[docs]</a>    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    returns a structure thusly: [pos,normal,distance,body,normal] any of these values may be &#39;None&#39; if unavailable</span>
+<span class="sd">    pos: the position to start the cast from</span>
+<span class="sd">    dirction: the direction the cast will take</span>
+<span class="sd">    max_range: the max range of the cast</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+</pre></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">PyPalGame 0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Michael Rochester.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,191 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pypalgame Module &mdash; PyPalGame 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PyPalGame 0.1 documentation" href="index.html" />
+    <link rel="next" title="sensor Package" href="sensor.html" />
+    <link rel="prev" title="link Package" href="link.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sensor.html" title="sensor Package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="link.html" title="link Package"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">PyPalGame 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-pypalgame">
+<span id="pypalgame-module"></span><h1>pypalgame Module<a class="headerlink" href="#module-pypalgame" title="Permalink to this headline">¶</a></h1>
+<p>Python Bindings for PAL geared toward game development</p>
+<p>Module functions:</p>
+<dl class="function">
+<dt id="pypalgame.init">
+<tt class="descclassname">pypalgame.</tt><tt class="descname">init</tt><big>(</big><em>gravity=(0</em>, <em>-9.8</em>, <em>0)</em>, <em>pygame=None</em><big>)</big><a class="reference internal" href="_modules/pypalgame.html#init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pypalgame.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes the module.</p>
+<p>gravity: int int int, default = (0,-9.8,0): gravity to be applied to the world.
+pygame: the pygame instance to be used to emit events.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pypalgame.update">
+<tt class="descclassname">pypalgame.</tt><tt class="descname">update</tt><big>(</big><em>time_step</em><big>)</big><a class="reference internal" href="_modules/pypalgame.html#update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pypalgame.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Steps the simulation.</p>
+<p>timestep: time since last step</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pypalgame.cleanup">
+<tt class="descclassname">pypalgame.</tt><tt class="descname">cleanup</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pypalgame.html#cleanup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pypalgame.cleanup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ends the simulation.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pypalgame.get_time">
+<tt class="descclassname">pypalgame.</tt><tt class="descname">get_time</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pypalgame.html#get_time"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pypalgame.get_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns age of the simulation.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pypalgame.get_time_step">
+<tt class="descclassname">pypalgame.</tt><tt class="descname">get_time_step</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pypalgame.html#get_time_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pypalgame.get_time_step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns last timestep.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pypalgame.set_group_collision">
+<tt class="descclassname">pypalgame.</tt><tt class="descname">set_group_collision</tt><big>(</big><em>group1</em>, <em>group2</em>, <em>collide</em><big>)</big><a class="reference internal" href="_modules/pypalgame.html#set_group_collision"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pypalgame.set_group_collision" title="Permalink to this definition">¶</a></dt>
+<dd><p>group1,group2: the groups between which the relation is being set.
+collide: bool, wether or not the two groups can collide with eachother</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pypalgame.get_gravity">
+<tt class="descclassname">pypalgame.</tt><tt class="descname">get_gravity</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pypalgame.html#get_gravity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pypalgame.get_gravity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the current direction of gravity.</p>
+<p>returns:(x,y,z)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pypalgame.get_up_axis">
+<tt class="descclassname">pypalgame.</tt><tt class="descname">get_up_axis</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pypalgame.html#get_up_axis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pypalgame.get_up_axis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the index, i.e. x (0), y (1), or z(2), to use for up.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pypalgame.get_events">
+<tt class="descclassname">pypalgame.</tt><tt class="descname">get_events</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pypalgame.html#get_events"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pypalgame.get_events" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns all collision events for this step if ygame was not passed into
+__init__.
+if pygame was specifies in __init__ this function will post pygame mesages
+instead.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pypalgame.SetCollisionAccuracy">
+<tt class="descclassname">pypalgame.</tt><tt class="descname">SetCollisionAccuracy</tt><big>(</big><em>accuracy</em><big>)</big><a class="reference internal" href="_modules/pypalgame.html#SetCollisionAccuracy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pypalgame.SetCollisionAccuracy" title="Permalink to this definition">¶</a></dt>
+<dd><p>acccuracy: sets the acuracy of the simulateion, Ranges from 0..1, 0 indicates fast and inaccurate, 1 indicates accurate and slow.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pypalgame.raycast">
+<tt class="descclassname">pypalgame.</tt><tt class="descname">raycast</tt><big>(</big><em>pos</em>, <em>direction</em>, <em>max_range</em><big>)</big><a class="reference internal" href="_modules/pypalgame.html#raycast"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pypalgame.raycast" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a structure thusly: [pos,normal,distance,body,normal] any of these values may be &#8216;None&#8217; if unavailable
+pos: the position to start the cast from
+dirction: the direction the cast will take
+max_range: the max range of the cast</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="link.html"
+                        title="previous chapter">link Package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="sensor.html"
+                        title="next chapter">sensor Package</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sensor.html" title="sensor Package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="link.html" title="link Package"
+             >previous</a> |</li>
+        <li><a href="index.html">PyPalGame 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Michael Rochester.
+    </div>
+  </body>
+</html>

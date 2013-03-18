@@ -1,0 +1,154 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>actuator.impulse &mdash; PyPalGame 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="PyPalGame 0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">PyPalGame 0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for actuator.impulse</h1><div class="highlight"><pre>
+<div class="viewcode-block" id="Impulse"><a class="viewcode-back" href="../../actuator.html#actuator.impulse.Impulse">[docs]</a><span class="k">class</span> <span class="nc">Impulse</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">body</span><span class="p">,</span><span class="n">pos</span><span class="p">,</span><span class="n">direction</span><span class="p">,</span><span class="n">impulse</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        applies an impulse to a body</span>
+<span class="sd">        </span>
+<span class="sd">    	body: The body to connect the actuator to</span>
+<span class="sd">	    pos: The x position of the actuator&#39;s center</span>
+<span class="sd">	    direction: The unit vector which supplies the direction of the actuator&#39;s impulse.</span>
+<span class="sd">	    impulse: the impulse for the actuator to apply, if none is set the actuator will do nothing</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="Impulse.set_impulse"><a class="viewcode-back" href="../../actuator.html#actuator.impulse.Impulse.set_impulse">[docs]</a>    <span class="k">def</span> <span class="nf">set_impulse</span><span class="p">(</span><span class="n">impulse</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;sets the impulse of the actuator&quot;&quot;&quot;</span>
+</div>
+<div class="viewcode-block" id="Impulse.run"><a class="viewcode-back" href="../../actuator.html#actuator.impulse.Impulse.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;ensures the actuator will be running for this step.&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+</div></div>
+<div class="viewcode-block" id="Hydrofoil"><a class="viewcode-back" href="../../actuator.html#actuator.impulse.Hydrofoil">[docs]</a><span class="k">class</span> <span class="nc">Hydrofoil</span><span class="p">(</span><span class="n">Impulse</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">body</span><span class="p">,</span><span class="n">pos</span><span class="p">,</span><span class="n">direction</span><span class="p">,</span><span class="n">lift_vector</span><span class="p">,</span><span class="n">area</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">density</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        applies an hydrofoil to a body</span>
+<span class="sd">        </span>
+<span class="sd">    	body: The body to connect the actuator to</span>
+<span class="sd">	    pos: The x position of the actuator&#39;s center</span>
+<span class="sd">	    direction: The unit vector which supplies the orientation of the actuator.</span>
+<span class="sd">	    lift_vector: the direction in which the lift force is applied</span>
+<span class="sd">	    area 	The frontal area of the hydrofoil.</span>
+<span class="sd">	    a 	The quadratic term of the lift coefficient</span>
+<span class="sd">	    b 	The linear term of the lift coefficient</span>
+<span class="sd">	    c 	The constant term of the lift coefficient</span>
+<span class="sd">	    density 	The density of the liquid. </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="Hydrofoil.set_angle"><a class="viewcode-back" href="../../actuator.html#actuator.impulse.Hydrofoil.set_angle">[docs]</a>    <span class="k">def</span> <span class="nf">set_angle</span><span class="p">(</span><span class="n">angle</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;sets the angle of attack of the actuator in range-pi/2 to pi/2&quot;&quot;&quot;</span>
+</div>
+<div class="viewcode-block" id="Hydrofoil.run"><a class="viewcode-back" href="../../actuator.html#actuator.impulse.Hydrofoil.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;ensures the actuator will be running for this step.&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+</div></div>
+<div class="viewcode-block" id="Propeller"><a class="viewcode-back" href="../../actuator.html#actuator.impulse.Propeller">[docs]</a><span class="k">class</span> <span class="nc">Propeller</span><span class="p">(</span><span class="n">Impulse</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">body</span><span class="p">,</span><span class="n">pos</span><span class="p">,</span><span class="n">direction</span><span class="p">,</span><span class="n">lumped</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        applies an propeller to a body</span>
+<span class="sd">        </span>
+<span class="sd">    	body: The body to connect the actuator to</span>
+<span class="sd">	    pos: The x position of the actuator&#39;s center</span>
+<span class="sd">	    direction: The unit vector which supplies the orientation of the actuator.</span>
+<span class="sd">	    lumped: The lumped parameter </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="Propeller.set_voltage"><a class="viewcode-back" href="../../actuator.html#actuator.impulse.Propeller.set_voltage">[docs]</a>    <span class="k">def</span> <span class="nf">set_voltage</span><span class="p">(</span><span class="n">voltage</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;sets the voltage of the actuator&quot;&quot;&quot;</span>
+</div>
+<div class="viewcode-block" id="Propeller.run"><a class="viewcode-back" href="../../actuator.html#actuator.impulse.Propeller.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;ensures the actuator will be running for this step.&quot;&quot;&quot;</span>
+        <span class="k">pass</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">PyPalGame 0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Michael Rochester.
+    </div>
+  </body>
+</html>

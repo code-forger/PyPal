@@ -1,4 +1,7 @@
 import ctypes as c
-pal_lib = c.cdll.LoadLibrary('./libPyPalGame.so')
+lib = c.cdll.LoadLibrary('/usr/local/lib/libPyPalGame.so')
 
 physics = None
+collision = None
+
+userdata = []

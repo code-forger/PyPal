@@ -1,0 +1,465 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>body Package &mdash; PyPalGame 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PyPalGame 0.1 documentation" href="index.html" />
+    <link rel="next" title="conf Module" href="conf.html" />
+    <link rel="prev" title="actuator Package" href="actuator.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="conf.html" title="conf Module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="actuator.html" title="actuator Package"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">PyPalGame 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="body-package">
+<h1>body Package<a class="headerlink" href="#body-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2><a class="reference internal" href="#module-body" title="body"><tt class="xref py py-mod docutils literal"><span class="pre">body</span></tt></a> Package<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-body"></span></div>
+<div class="section" id="module-body.bodybase">
+<span id="bodybase-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">bodybase</span></tt> Module<a class="headerlink" href="#module-body.bodybase" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="body.bodybase.BodyBase">
+<em class="property">class </em><tt class="descclassname">body.bodybase.</tt><tt class="descname">BodyBase</tt><a class="reference internal" href="_modules/body/bodybase.html#BodyBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.bodybase.BodyBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Base of any body in the world</p>
+<p>Provides a set of basic accessor functions for all bodies.</p>
+<dl class="method">
+<dt id="body.bodybase.BodyBase.get_position">
+<tt class="descname">get_position</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/bodybase.html#BodyBase.get_position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.bodybase.BodyBase.get_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns position as a 3 part tuple:(x,y,z).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.bodybase.BodyBase.set_material">
+<tt class="descname">set_material</tt><big>(</big><em>material</em><big>)</big><a class="reference internal" href="_modules/body/bodybase.html#BodyBase.set_material"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.bodybase.BodyBase.set_material" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the material of the body.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.bodybase.BodyBase.get_group">
+<tt class="descname">get_group</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/bodybase.html#BodyBase.get_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.bodybase.BodyBase.get_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the collisions group of the body.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.bodybase.BodyBase.set_group">
+<tt class="descname">set_group</tt><big>(</big><em>group</em><big>)</big><a class="reference internal" href="_modules/body/bodybase.html#BodyBase.set_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.bodybase.BodyBase.set_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Puts the body in the provided collision group.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.bodybase.BodyBase.set_user_data">
+<tt class="descname">set_user_data</tt><big>(</big><em>data</em><big>)</big><a class="reference internal" href="_modules/body/bodybase.html#BodyBase.set_user_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.bodybase.BodyBase.set_user_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets user data to be stored in the body.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.bodybase.BodyBase.get_user_data">
+<tt class="descname">get_user_data</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/bodybase.html#BodyBase.get_user_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.bodybase.BodyBase.get_user_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the user data currently in the body.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.bodybase.BodyBase.set_position">
+<tt class="descname">set_position</tt><big>(</big><em>pos=None</em>, <em>rot=None</em><big>)</big><a class="reference internal" href="_modules/body/bodybase.html#BodyBase.set_position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.bodybase.BodyBase.set_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the position of the object and/or its orientation.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.bodybase.BodyBase.apply_force">
+<tt class="descname">apply_force</tt><big>(</big><em>force</em>, <em>pos=(0</em>, <em>0</em>, <em>0)</em><big>)</big><a class="reference internal" href="_modules/body/bodybase.html#BodyBase.apply_force"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.bodybase.BodyBase.apply_force" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies a force to the object for a single step at an optional offset in world coordinates.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.bodybase.BodyBase.apply_impulse">
+<tt class="descname">apply_impulse</tt><big>(</big><em>impulse</em>, <em>pos=(0</em>, <em>0</em>, <em>0)</em><big>)</big><a class="reference internal" href="_modules/body/bodybase.html#BodyBase.apply_impulse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.bodybase.BodyBase.apply_impulse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies an impulse to the object for a single step at an optional offset in world coordinates.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.bodybase.BodyBase.apply_angular_impulse">
+<tt class="descname">apply_angular_impulse</tt><big>(</big><em>impulse</em><big>)</big><a class="reference internal" href="_modules/body/bodybase.html#BodyBase.apply_angular_impulse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.bodybase.BodyBase.apply_angular_impulse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies an angular impulse to the object for a single step.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.bodybase.BodyBase.get_velocity">
+<tt class="descname">get_velocity</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/bodybase.html#BodyBase.get_velocity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.bodybase.BodyBase.get_velocity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the linear velocity of the body.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.bodybase.BodyBase.set_velocity">
+<tt class="descname">set_velocity</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/bodybase.html#BodyBase.set_velocity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.bodybase.BodyBase.set_velocity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the linear velocity of the body.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.bodybase.BodyBase.get_angular_velocity">
+<tt class="descname">get_angular_velocity</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/bodybase.html#BodyBase.get_angular_velocity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.bodybase.BodyBase.get_angular_velocity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the angular velocity of the body.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.bodybase.BodyBase.set_angular_velocity">
+<tt class="descname">set_angular_velocity</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/bodybase.html#BodyBase.set_angular_velocity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.bodybase.BodyBase.set_angular_velocity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the angular velocity of the body.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.bodybase.BodyBase.is_active">
+<tt class="descname">is_active</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/bodybase.html#BodyBase.is_active"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.bodybase.BodyBase.is_active" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if the body is not asleep.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.bodybase.BodyBase.set_active">
+<tt class="descname">set_active</tt><big>(</big><em>active</em><big>)</big><a class="reference internal" href="_modules/body/bodybase.html#BodyBase.set_active"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.bodybase.BodyBase.set_active" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the body to active or not.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.bodybase.BodyBase.notifyCollision">
+<tt class="descname">notifyCollision</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/bodybase.html#BodyBase.notifyCollision"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.bodybase.BodyBase.notifyCollision" title="Permalink to this definition">¶</a></dt>
+<dd><p>informs the body that it can at any time have its current collision points requested</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.bodybase.BodyBase.getContacts">
+<tt class="descname">getContacts</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/bodybase.html#BodyBase.getContacts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.bodybase.BodyBase.getContacts" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the bodies that this body is currently in contact with.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="body.bodybase.BodyBase.mass">
+<tt class="descname">mass</tt><a class="reference internal" href="_modules/body/bodybase.html#BodyBase.mass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.bodybase.BodyBase.mass" title="Permalink to this definition">¶</a></dt>
+<dd><p>the mass of the object</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-body.box">
+<span id="box-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">box</span></tt> Module<a class="headerlink" href="#module-body.box" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="body.box.Box">
+<em class="property">class </em><tt class="descclassname">body.box.</tt><tt class="descname">Box</tt><big>(</big><em>rect</em>, <em>mass=None</em>, <em>density=None</em>, <em>static=False</em><big>)</big><a class="reference internal" href="_modules/body/box.html#Box"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.box.Box" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#body.bodybase.BodyBase" title="body.bodybase.BodyBase"><tt class="xref py py-class docutils literal"><span class="pre">body.bodybase.BodyBase</span></tt></a></p>
+<dl class="method">
+<dt id="body.box.Box.get_height">
+<tt class="descname">get_height</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/box.html#Box.get_height"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.box.Box.get_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the height of the object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.box.Box.get_width">
+<tt class="descname">get_width</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/box.html#Box.get_width"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.box.Box.get_width" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the depth of the object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.box.Box.get_size">
+<tt class="descname">get_size</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/box.html#Box.get_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.box.Box.get_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the size of the object in a 3 part tuple</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.box.Box.get_metrics">
+<tt class="descname">get_metrics</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/box.html#Box.get_metrics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.box.Box.get_metrics" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the pos and size of the object in a 6 part tuple</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-body.capsule">
+<span id="capsule-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">capsule</span></tt> Module<a class="headerlink" href="#module-body.capsule" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="body.capsule.Capsule">
+<em class="property">class </em><tt class="descclassname">body.capsule.</tt><tt class="descname">Capsule</tt><big>(</big><em>rect</em>, <em>mass=None</em>, <em>density=None</em>, <em>static=False</em><big>)</big><a class="reference internal" href="_modules/body/capsule.html#Capsule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.capsule.Capsule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#body.bodybase.BodyBase" title="body.bodybase.BodyBase"><tt class="xref py py-class docutils literal"><span class="pre">body.bodybase.BodyBase</span></tt></a></p>
+<dl class="method">
+<dt id="body.capsule.Capsule.get_radius">
+<tt class="descname">get_radius</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/capsule.html#Capsule.get_radius"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.capsule.Capsule.get_radius" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the radius of the object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.capsule.Capsule.get_length">
+<tt class="descname">get_length</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/capsule.html#Capsule.get_length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.capsule.Capsule.get_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the length of the object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.capsule.Capsule.get_size">
+<tt class="descname">get_size</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/capsule.html#Capsule.get_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.capsule.Capsule.get_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the size of the object in a 2 part tuple</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.capsule.Capsule.get_metrics">
+<tt class="descname">get_metrics</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/capsule.html#Capsule.get_metrics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.capsule.Capsule.get_metrics" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the pos and size of the object in a 5 part tuple</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-body.convex">
+<span id="convex-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">convex</span></tt> Module<a class="headerlink" href="#module-body.convex" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="body.convex.Convex">
+<em class="property">class </em><tt class="descclassname">body.convex.</tt><tt class="descname">Convex</tt><big>(</big><em>pos</em>, <em>points</em>, <em>mass=None</em>, <em>density=None</em><big>)</big><a class="reference internal" href="_modules/body/convex.html#Convex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.convex.Convex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#body.bodybase.BodyBase" title="body.bodybase.BodyBase"><tt class="xref py py-class docutils literal"><span class="pre">body.bodybase.BodyBase</span></tt></a></p>
+<dl class="method">
+<dt id="body.convex.Convex.get_point">
+<tt class="descname">get_point</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/convex.html#Convex.get_point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.convex.Convex.get_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the points of the object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.convex.Convex.get_metrics">
+<tt class="descname">get_metrics</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/convex.html#Convex.get_metrics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.convex.Convex.get_metrics" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the pos of the object in a 3 part tuple</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-body.generic_body">
+<span id="generic-body-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">generic_body</span></tt> Module<a class="headerlink" href="#module-body.generic_body" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="body.generic_body.GenericBody">
+<em class="property">class </em><tt class="descclassname">body.generic_body.</tt><tt class="descname">GenericBody</tt><big>(</big><em>pos</em>, <em>mass=None</em>, <em>density=None</em><big>)</big><a class="reference internal" href="_modules/body/generic_body.html#GenericBody"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.generic_body.GenericBody" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#body.bodybase.BodyBase" title="body.bodybase.BodyBase"><tt class="xref py py-class docutils literal"><span class="pre">body.bodybase.BodyBase</span></tt></a></p>
+<dl class="method">
+<dt id="body.generic_body.GenericBody.setDynamicsType">
+<tt class="descname">setDynamicsType</tt><big>(</big><em>dynType</em><big>)</big><a class="reference internal" href="_modules/body/generic_body.html#GenericBody.setDynamicsType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.generic_body.GenericBody.setDynamicsType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the body to dynamic, static, or kinematic</p>
+<p>dynType: &#8220;dynamic&#8221;, &#8220;static&#8221; or &#8220;kinematic&#8221;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.generic_body.GenericBody.setMass">
+<tt class="descname">setMass</tt><big>(</big><em>mass=None</em>, <em>density=None</em><big>)</big><a class="reference internal" href="_modules/body/generic_body.html#GenericBody.setMass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.generic_body.GenericBody.setMass" title="Permalink to this definition">¶</a></dt>
+<dd><p>density: if no mass is specified and a density is, the mass will be 
+calculated from the density and the volumne.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.generic_body.GenericBody.setInertia">
+<tt class="descname">setInertia</tt><big>(</big><em>Ixx</em>, <em>Iyy</em>, <em>Izz</em><big>)</big><a class="reference internal" href="_modules/body/generic_body.html#GenericBody.setInertia"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.generic_body.GenericBody.setInertia" title="Permalink to this definition">¶</a></dt>
+<dd><p>density: if no mass is specified and a density is, the mass will be 
+calculated from the density and the volumne.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.generic_body.GenericBody.connectGeometry">
+<tt class="descname">connectGeometry</tt><big>(</big><em>geometry</em><big>)</big><a class="reference internal" href="_modules/body/generic_body.html#GenericBody.connectGeometry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.generic_body.GenericBody.connectGeometry" title="Permalink to this definition">¶</a></dt>
+<dd><p>connects a geometry</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.generic_body.GenericBody.getGeometrys">
+<tt class="descname">getGeometrys</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/generic_body.html#GenericBody.getGeometrys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.generic_body.GenericBody.getGeometrys" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a list of geometries</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.generic_body.GenericBody.removeGrometry">
+<tt class="descname">removeGrometry</tt><big>(</big><em>geometry</em><big>)</big><a class="reference internal" href="_modules/body/generic_body.html#GenericBody.removeGrometry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.generic_body.GenericBody.removeGrometry" title="Permalink to this definition">¶</a></dt>
+<dd><p>removes a geometry if found</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-body.heightmap_terrain">
+<span id="heightmap-terrain-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">heightmap_terrain</span></tt> Module<a class="headerlink" href="#module-body.heightmap_terrain" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="body.heightmap_terrain.HeightMapTerrain">
+<em class="property">class </em><tt class="descclassname">body.heightmap_terrain.</tt><tt class="descname">HeightMapTerrain</tt><big>(</big><em>pos</em>, <em>size</em>, <em>height_map</em><big>)</big><a class="reference internal" href="_modules/body/heightmap_terrain.html#HeightMapTerrain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.heightmap_terrain.HeightMapTerrain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#body.bodybase.BodyBase" title="body.bodybase.BodyBase"><tt class="xref py py-class docutils literal"><span class="pre">body.bodybase.BodyBase</span></tt></a></p>
+<p>an height map terrain object</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-body.mesh_terrain">
+<span id="mesh-terrain-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">mesh_terrain</span></tt> Module<a class="headerlink" href="#module-body.mesh_terrain" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="body.mesh_terrain.MeshTerrain">
+<em class="property">class </em><tt class="descclassname">body.mesh_terrain.</tt><tt class="descname">MeshTerrain</tt><big>(</big><em>pos</em>, <em>points</em>, <em>triangles</em><big>)</big><a class="reference internal" href="_modules/body/mesh_terrain.html#MeshTerrain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.mesh_terrain.MeshTerrain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#body.bodybase.BodyBase" title="body.bodybase.BodyBase"><tt class="xref py py-class docutils literal"><span class="pre">body.bodybase.BodyBase</span></tt></a></p>
+<p>a mesh based terrain object</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-body.oriented_terrain">
+<span id="oriented-terrain-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">oriented_terrain</span></tt> Module<a class="headerlink" href="#module-body.oriented_terrain" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="body.oriented_terrain.OrientedTerrain">
+<em class="property">class </em><tt class="descclassname">body.oriented_terrain.</tt><tt class="descname">OrientedTerrain</tt><big>(</big><em>pos</em>, <em>normal</em>, <em>min_size</em><big>)</big><a class="reference internal" href="_modules/body/oriented_terrain.html#OrientedTerrain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.oriented_terrain.OrientedTerrain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#body.bodybase.BodyBase" title="body.bodybase.BodyBase"><tt class="xref py py-class docutils literal"><span class="pre">body.bodybase.BodyBase</span></tt></a></p>
+<p>an oriented terrain object</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-body.sphere">
+<span id="sphere-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">sphere</span></tt> Module<a class="headerlink" href="#module-body.sphere" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="body.sphere.Sphere">
+<em class="property">class </em><tt class="descclassname">body.sphere.</tt><tt class="descname">Sphere</tt><big>(</big><em>rect</em>, <em>mass=None</em>, <em>density=None</em>, <em>static=False</em><big>)</big><a class="reference internal" href="_modules/body/sphere.html#Sphere"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.sphere.Sphere" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#body.bodybase.BodyBase" title="body.bodybase.BodyBase"><tt class="xref py py-class docutils literal"><span class="pre">body.bodybase.BodyBase</span></tt></a></p>
+<dl class="method">
+<dt id="body.sphere.Sphere.get_height">
+<tt class="descname">get_height</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/sphere.html#Sphere.get_height"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.sphere.Sphere.get_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the height of the object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.sphere.Sphere.get_width">
+<tt class="descname">get_width</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/sphere.html#Sphere.get_width"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.sphere.Sphere.get_width" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the depth of the object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.sphere.Sphere.get_size">
+<tt class="descname">get_size</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/sphere.html#Sphere.get_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.sphere.Sphere.get_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the size of the object in a 3 part tuple</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.sphere.Sphere.get_metrics">
+<tt class="descname">get_metrics</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/sphere.html#Sphere.get_metrics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.sphere.Sphere.get_metrics" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the pos and size of the object in a 6 part tuple</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-body.terrain">
+<span id="terrain-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">terrain</span></tt> Module<a class="headerlink" href="#module-body.terrain" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="body.terrain.Terrain">
+<em class="property">class </em><tt class="descclassname">body.terrain.</tt><tt class="descname">Terrain</tt><big>(</big><em>pos</em>, <em>min_size</em><big>)</big><a class="reference internal" href="_modules/body/terrain.html#Terrain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.terrain.Terrain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#body.bodybase.BodyBase" title="body.bodybase.BodyBase"><tt class="xref py py-class docutils literal"><span class="pre">body.bodybase.BodyBase</span></tt></a></p>
+<p>a simple terrain object</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">body Package</a><ul>
+<li><a class="reference internal" href="#id1"><tt class="docutils literal"><span class="pre">body</span></tt> Package</a></li>
+<li><a class="reference internal" href="#module-body.bodybase"><tt class="docutils literal"><span class="pre">bodybase</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-body.box"><tt class="docutils literal"><span class="pre">box</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-body.capsule"><tt class="docutils literal"><span class="pre">capsule</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-body.convex"><tt class="docutils literal"><span class="pre">convex</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-body.generic_body"><tt class="docutils literal"><span class="pre">generic_body</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-body.heightmap_terrain"><tt class="docutils literal"><span class="pre">heightmap_terrain</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-body.mesh_terrain"><tt class="docutils literal"><span class="pre">mesh_terrain</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-body.oriented_terrain"><tt class="docutils literal"><span class="pre">oriented_terrain</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-body.sphere"><tt class="docutils literal"><span class="pre">sphere</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-body.terrain"><tt class="docutils literal"><span class="pre">terrain</span></tt> Module</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="actuator.html"
+                        title="previous chapter">actuator Package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="conf.html"
+                        title="next chapter">conf Module</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="conf.html" title="conf Module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="actuator.html" title="actuator Package"
+             >previous</a> |</li>
+        <li><a href="index.html">PyPalGame 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Michael Rochester.
+    </div>
+  </body>
+</html>

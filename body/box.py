@@ -11,7 +11,7 @@ class Box(BodyBase):
         calculated from the density and the volumne.
         static: used to create this object static, if static is true, mass will be ignored
         """
-        self.obj = pal_lib.create_box(c.c_float(rect[0]),c.c_float(rect[1]),c.c_float(rect[2]),c.c_float(rect[3]),c.c_float(rect[4]),c.c_float(rect[5]),c.c_float(mass))
+        self.obj = lib.create_box(c.c_float(rect[0]),c.c_float(rect[1]),c.c_float(rect[2]),c.c_float(rect[3]),c.c_float(rect[4]),c.c_float(rect[5]),c.c_float(mass))
 
         pass
 

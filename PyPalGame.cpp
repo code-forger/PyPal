@@ -1,43 +1,27 @@
+#include <typeinfo>
+#include <iostream>
 #include <stdio.h> //for our old friend, the printf function
 #include "pal/palFactory.h"
 #include "pal/palCollision.h"
-int run() {
-	PF->LoadPALfromDLL("/usr/local/lib/"); //use this if you wish to load PAL from .dll or .so
-	//otherwise, we can staticly link in an implementation by include the pal_i files
-	//eg: tokamak_pal.cpp and tokamak_pal.h
+/* This is the c++ -> c bindings:
+ * the pal_ prefix relates to any function that uses PF excluding all the create functions
+ * the create_ prefix relates to any function that creats and adds an object to the wor;d
+ * all other prefixes relate to the class that should be passed in as its first parameter
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */
 
-	PF->SelectEngine("Bullet");		 // Here is the name of the physics engine you wish to use. You could replace DEFAULT_ENGINE with "Tokamak", "ODE", etc...
-	palPhysics *pp = PF->CreatePhysics(); //create the main physics class
-	if (pp == NULL) 
-    {
-		printf("Failed to create the physics engine. Check to see if you spelt the engine name correctly, or that the engine DLL is in the right location\n");
-		return 0;
-	}
-	palPhysicsDesc desc;
-	pp->Init(desc); //initialize it, set the main gravity vector
-	palTerrainPlane *pt= PF->CreateTerrainPlane(); //create the ground
-	pt->Init(0,0,0,50.0f); //initialize it, set its location to 0,0,0 and minimum size to 50
-	palBox *pb = PF->CreateBox(); //create a box
-	pb->Init(0,1.5f ,0, 1,1,1, 1); //initialize it, set its location to 0,1.5,0 (one and a half units up in the air), set dimensions to 1x1x1 and its mass to 1
-	
-    palPhysics*ppp = PF->GetActivePhysics();
-	palCollisionDetection *pcd = dynamic_cast<palCollisionDetection *>(ppp);
-
-    pcd->NotifyCollision(pb,true);
-    palContact pc;
-    for (int i=0;i < 26;i++) 
-    { //run 25 steps of the simulation
-		pp->Update(0.02f); //update the physics engine. advance the simulation time by 0.02
-
-        pcd->GetContacts(pb,pc);
-		palVector3 pos;
-		pb->GetPosition(pos); //get the location of the box
-
-		printf("Current box position is %6.5f at time %d with %d collisions\n",pos.y,i,pc.m_ContactPoints.size());
-	}
-	PF->Cleanup(); //we are done with the physics. clean up.
-}
-extern "C" { int runner(){run();}}
+/*********************************************************
+ *                                                       *
+ *               the pal functions                       *
+ *                                                       *
+ *********************************************************/
 extern "C" 
 {
     palPhysics* pal_init(char[])
@@ -52,7 +36,23 @@ extern "C"
         }
         return pp;
     }
+
+    palCollisionDetection* pal_get_collision()
+    {
+        palPhysics*ppp = PF->GetActivePhysics();
+	    palCollisionDetection *pcd = dynamic_cast<palCollisionDetection *>(ppp);
+        return pcd;
+    }
+
+    void pal_cleanup(){
+	    PF->Cleanup();
+    }
 }
+/*********************************************************
+ *                                                       *
+ *               the physics class functions             *
+ *                                                       *
+ *********************************************************/
 extern "C" 
 {
     void physics_init(palPhysics* pp, float x, float y, float z)
@@ -63,14 +63,17 @@ extern "C"
         desc.m_vGravity[2] = z; 
         pp->Init(desc);
     }
-}
-extern "C" 
-{
+
     void physics_update(palPhysics* pp, float step)
     {
 	    pp->Update(step);
     }
 }
+/*********************************************************
+ *                                                       *
+ *               the create functions                    *
+ *                                                       *
+ *********************************************************/
 extern "C" 
 {
     palTerrainPlane * create_terrain_plane(Float x, Float y, Float z, Float min_size)
@@ -79,9 +82,7 @@ extern "C"
         pt->Init(x,y,z,min_size); //initialize it, set its location to 0,0,0 and minimum size to 50
 	    return pt;
     }
-}
-extern "C" 
-{
+
     palBox * create_box(Float x, Float y, Float z, Float width, Float height, Float depth, Float mass)
     {
         palBox *pb = PF->CreateBox(); //create a box
@@ -89,16 +90,45 @@ extern "C"
         return pb;
     }
 }
-
+/*********************************************************
+ *                                                       *
+ *               the body_base_ functions                *
+ *                                                       *
+ *********************************************************/
 extern "C" 
 {
-    void get_position(palBox* pb,float&x,float&y,float&z)
+    void body_get_position(palBody*b,float&x,float&y,float&z)
     {
         palVector3 pos;
-        pb->GetPosition(pos);
+        b->GetPosition(pos);
         x = pos[0];
         y = pos[1];
         z = pos[2];
+    }
+
+    void body_set_material(palBody*b,palMaterial *material)
+    {
+        b->SetMaterial(material);
+    }
+
+    int body_get_group(palBody*b)
+    {
+        return b->GetGroup();
+    }
+
+    void body_set_group(palBody*b,int group)
+    {
+        b->SetGroup(group);
+    }
+
+    void body_set_data(palBody*b,int* data)
+    {
+        b->SetUserData(data);
+    }
+
+    int body_get_data(palBody*b)
+    {
+        return *(int*)b->GetUserData();
     }
 }
 
