@@ -15,8 +15,7 @@ import sensor
 import vehicle
 import ctypes as c
 
-import private_globals as pal
-
+import private_globals as _pal
 
 
 def init(gravity = (0,-9.8,0),pygame = None):
@@ -28,21 +27,20 @@ def init(gravity = (0,-9.8,0),pygame = None):
     pygame: the pygame instance to be used to emit events.
     """
     libs = c.c_char_p("/usr/local/lib/")
-    pal.physics = pal.lib.pal_init(libs)
-    pal.lib.physics_init(pal.physics,c.c_float(gravity[0]),c.c_float(gravity[1]),c.c_float(gravity[2]))
-    pal.collision = pal.lib.pal_get_collision()
+    _pal.lib.pal_init(libs)
+    _pal.lib.physics_init(c.c_float(gravity[0]),c.c_float(gravity[1]),c.c_float(gravity[2]))
 
 def update(time_step):
     """Steps the simulation.
 
     timestep: time since last step
     """
-    pal.lib.physics_update(pal.physics,c.c_float(time_step))
+    _pal.lib.physics_update(c.c_float(time_step))
     pass
 
 def cleanup():
     """Ends the simulation."""
-    pal.lib.pal_cleanup()
+    _pal.lib.pal_cleanup()
 
 def get_time():
     """Returns age of the simulation."""
@@ -77,6 +75,7 @@ def get_events():
     if pygame was specifies in __init__ this function will post pygame mesages
     instead.
     """
+    pass
 
 #collision detection functions
 

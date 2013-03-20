@@ -26,7 +26,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="PyPalGame 0.1 documentation" href="index.html" />
-    <link rel="next" title="conf Module" href="conf.html" />
+    <link rel="next" title="fluid Package" href="fluid.html" />
     <link rel="prev" title="actuator Package" href="actuator.html" /> 
   </head>
   <body>
@@ -40,7 +40,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="conf.html" title="conf Module"
+          <a href="fluid.html" title="fluid Package"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="actuator.html" title="actuator Package"
@@ -75,7 +75,7 @@
 <dl class="method">
 <dt id="body.bodybase.BodyBase.set_material">
 <tt class="descname">set_material</tt><big>(</big><em>material</em><big>)</big><a class="reference internal" href="_modules/body/bodybase.html#BodyBase.set_material"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.bodybase.BodyBase.set_material" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the material of the body.</p>
+<dd><p>Sets the material of the body. DO NOT USE</p>
 </dd></dl>
 
 <dl class="method">
@@ -99,7 +99,7 @@
 <dl class="method">
 <dt id="body.bodybase.BodyBase.get_user_data">
 <tt class="descname">get_user_data</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/bodybase.html#BodyBase.get_user_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.bodybase.BodyBase.get_user_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the user data currently in the body.</p>
+<dd><p>Returns user data currently stored in the body.</p>
 </dd></dl>
 
 <dl class="method">
@@ -163,14 +163,14 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="body.bodybase.BodyBase.notifyCollision">
-<tt class="descname">notifyCollision</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/bodybase.html#BodyBase.notifyCollision"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.bodybase.BodyBase.notifyCollision" title="Permalink to this definition">¶</a></dt>
+<dt id="body.bodybase.BodyBase.notify_collision">
+<tt class="descname">notify_collision</tt><big>(</big><em>enabled</em><big>)</big><a class="headerlink" href="#body.bodybase.BodyBase.notify_collision" title="Permalink to this definition">¶</a></dt>
 <dd><p>informs the body that it can at any time have its current collision points requested</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="body.bodybase.BodyBase.getContacts">
-<tt class="descname">getContacts</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/bodybase.html#BodyBase.getContacts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.bodybase.BodyBase.getContacts" title="Permalink to this definition">¶</a></dt>
+<dt id="body.bodybase.BodyBase.get_contacts">
+<tt class="descname">get_contacts</tt><big>(</big><big>)</big><a class="headerlink" href="#body.bodybase.BodyBase.get_contacts" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns the bodies that this body is currently in contact with.</p>
 </dd></dl>
 
@@ -189,16 +189,15 @@
 <dt id="body.box.Box">
 <em class="property">class </em><tt class="descclassname">body.box.</tt><tt class="descname">Box</tt><big>(</big><em>rect</em>, <em>mass=None</em>, <em>density=None</em>, <em>static=False</em><big>)</big><a class="reference internal" href="_modules/body/box.html#Box"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.box.Box" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#body.bodybase.BodyBase" title="body.bodybase.BodyBase"><tt class="xref py py-class docutils literal"><span class="pre">body.bodybase.BodyBase</span></tt></a></p>
-<dl class="method">
-<dt id="body.box.Box.get_height">
-<tt class="descname">get_height</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/box.html#Box.get_height"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.box.Box.get_height" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns the height of the object</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="body.box.Box.get_width">
-<tt class="descname">get_width</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/box.html#Box.get_width"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.box.Box.get_width" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns the depth of the object</p>
+<dl class="classmethod">
+<dt id="body.box.Box.create">
+<em class="property">classmethod </em><tt class="descname">create</tt><big>(</big><em>rect</em>, <em>mass=None</em>, <em>density=None</em>, <em>static=False</em><big>)</big><a class="headerlink" href="#body.box.Box.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>constructs a box and adds it to the world</p>
+<p>rect: a 6 part tuple with x,y,z,width,height,depth.
+mass: the mass of the object, if mass is specified it will be used.
+density: if no mass is specified and a density is, the mass will be 
+calculated from the density and the volumne.
+static: used to create this object static, if static is true, mass will be ignored</p>
 </dd></dl>
 
 <dl class="method">
@@ -208,10 +207,9 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="body.box.Box.get_metrics">
-<tt class="descname">get_metrics</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/box.html#Box.get_metrics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.box.Box.get_metrics" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns the pos and size of the object in a 6 part tuple</p>
-</dd></dl>
+<dt id="body.box.Box.delete">
+<tt class="descname">delete</tt><big>(</big><big>)</big><a class="headerlink" href="#body.box.Box.delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -222,16 +220,17 @@
 <dt id="body.capsule.Capsule">
 <em class="property">class </em><tt class="descclassname">body.capsule.</tt><tt class="descname">Capsule</tt><big>(</big><em>rect</em>, <em>mass=None</em>, <em>density=None</em>, <em>static=False</em><big>)</big><a class="reference internal" href="_modules/body/capsule.html#Capsule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.capsule.Capsule" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#body.bodybase.BodyBase" title="body.bodybase.BodyBase"><tt class="xref py py-class docutils literal"><span class="pre">body.bodybase.BodyBase</span></tt></a></p>
-<dl class="method">
-<dt id="body.capsule.Capsule.get_radius">
-<tt class="descname">get_radius</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/capsule.html#Capsule.get_radius"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.capsule.Capsule.get_radius" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns the radius of the object</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="body.capsule.Capsule.get_length">
-<tt class="descname">get_length</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/capsule.html#Capsule.get_length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.capsule.Capsule.get_length" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns the length of the object</p>
+<dl class="classmethod">
+<dt id="body.capsule.Capsule.create">
+<em class="property">classmethod </em><tt class="descname">create</tt><big>(</big><em>rect</em>, <em>mass=None</em>, <em>density=None</em>, <em>static=False</em><big>)</big><a class="headerlink" href="#body.capsule.Capsule.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>constructs a box and adds it to the world</p>
+<p>rect: a 5 part tuple with x,y,z,radius,length.
+Note: if a 6 part rect is passed in, the width will be taken as the
+radius and the height as the length, the depth will be ignored.
+mass: the mass of the object, if mass is specified it will be used.
+density: if no mass is specified and a density is, the mass will be 
+calculated from the density and the volumne.
+static: used to create this object static, if static is true, mass will be ignored</p>
 </dd></dl>
 
 <dl class="method">
@@ -241,10 +240,9 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="body.capsule.Capsule.get_metrics">
-<tt class="descname">get_metrics</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/capsule.html#Capsule.get_metrics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.capsule.Capsule.get_metrics" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns the pos and size of the object in a 5 part tuple</p>
-</dd></dl>
+<dt id="body.capsule.Capsule.delete">
+<tt class="descname">delete</tt><big>(</big><big>)</big><a class="headerlink" href="#body.capsule.Capsule.delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -354,29 +352,27 @@ calculated from the density and the volumne.</p>
 <dt id="body.sphere.Sphere">
 <em class="property">class </em><tt class="descclassname">body.sphere.</tt><tt class="descname">Sphere</tt><big>(</big><em>rect</em>, <em>mass=None</em>, <em>density=None</em>, <em>static=False</em><big>)</big><a class="reference internal" href="_modules/body/sphere.html#Sphere"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.sphere.Sphere" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#body.bodybase.BodyBase" title="body.bodybase.BodyBase"><tt class="xref py py-class docutils literal"><span class="pre">body.bodybase.BodyBase</span></tt></a></p>
-<dl class="method">
-<dt id="body.sphere.Sphere.get_height">
-<tt class="descname">get_height</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/sphere.html#Sphere.get_height"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.sphere.Sphere.get_height" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns the height of the object</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="body.sphere.Sphere.get_width">
-<tt class="descname">get_width</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/sphere.html#Sphere.get_width"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.sphere.Sphere.get_width" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns the depth of the object</p>
+<dl class="classmethod">
+<dt id="body.sphere.Sphere.create">
+<em class="property">classmethod </em><tt class="descname">create</tt><big>(</big><em>rect</em>, <em>mass=None</em>, <em>density=None</em>, <em>static=False</em><big>)</big><a class="headerlink" href="#body.sphere.Sphere.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>constructs a sphere and adds it to the world</p>
+<p>rect: a 6 part tuple with x,y,z,width,height,depth.
+mass: the mass of the object, if mass is specified it will be used.
+density: if no mass is specified and a density is, the mass will be 
+calculated from the density and the volumne.
+static: used to create this object static, if static is true, mass will be ignored</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="body.sphere.Sphere.get_size">
 <tt class="descname">get_size</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/sphere.html#Sphere.get_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.sphere.Sphere.get_size" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns the size of the object in a 3 part tuple</p>
+<dd><p>returns the radius of the sphere</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="body.sphere.Sphere.get_metrics">
-<tt class="descname">get_metrics</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/body/sphere.html#Sphere.get_metrics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.sphere.Sphere.get_metrics" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns the pos and size of the object in a 6 part tuple</p>
-</dd></dl>
+<dt id="body.sphere.Sphere.delete">
+<tt class="descname">delete</tt><big>(</big><big>)</big><a class="headerlink" href="#body.sphere.Sphere.delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -388,6 +384,18 @@ calculated from the density and the volumne.</p>
 <em class="property">class </em><tt class="descclassname">body.terrain.</tt><tt class="descname">Terrain</tt><big>(</big><em>pos</em>, <em>min_size</em><big>)</big><a class="reference internal" href="_modules/body/terrain.html#Terrain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#body.terrain.Terrain" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#body.bodybase.BodyBase" title="body.bodybase.BodyBase"><tt class="xref py py-class docutils literal"><span class="pre">body.bodybase.BodyBase</span></tt></a></p>
 <p>a simple terrain object</p>
+<dl class="classmethod">
+<dt id="body.terrain.Terrain.create">
+<em class="property">classmethod </em><tt class="descname">create</tt><big>(</big><em>pos</em>, <em>min_size</em><big>)</big><a class="headerlink" href="#body.terrain.Terrain.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>pos: position of the plane
+min_size: the minimumsize of the plane</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="body.terrain.Terrain.delete">
+<tt class="descname">delete</tt><big>(</big><big>)</big><a class="headerlink" href="#body.terrain.Terrain.delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>
@@ -421,8 +429,8 @@ calculated from the density and the volumne.</p>
   <p class="topless"><a href="actuator.html"
                         title="previous chapter">actuator Package</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="conf.html"
-                        title="next chapter">conf Module</a></p>
+  <p class="topless"><a href="fluid.html"
+                        title="next chapter">fluid Package</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -450,7 +458,7 @@ calculated from the density and the volumne.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="conf.html" title="conf Module"
+          <a href="fluid.html" title="fluid Package"
              >next</a> |</li>
         <li class="right" >
           <a href="actuator.html" title="actuator Package"

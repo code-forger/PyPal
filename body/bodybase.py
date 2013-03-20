@@ -26,13 +26,11 @@ class BodyBase():
 
     def set_user_data(self,data):#TESTED
         """Sets user data to be stored in the body."""
-        idc = len(userdata)
-        userdata.append(data)
-        lib.body_set_data(self.obj,c.pointer(c.c_int(idc)))
+        userdata[lib.body_get_data(self.obj)] = data
 
     def get_user_data(self):#TESTED
+        """Returns user data currently stored in the body."""
         return userdata[lib.body_get_data(self.obj)]
-        pass
 
     def set_position(pos=None,rot=None):
         """Sets the position of the object and/or its orientation."""
@@ -76,13 +74,23 @@ class BodyBase():
 
     #collision detection functions
 
-    def notifyCollision():
+    def notify_collision(self,enabled):
         """informs the body that it can at any time have its current collision points requested"""
-        pass
+        lib.collision_notify(self.obj,enabled)
 
-    def getContacts():
+    def get_contacts(self):
         """returns the bodies that this body is currently in contact with."""
-        pass
+        contacts = lib.get_contacts(self.obj)
+        ret = []
+        lib.contacts_get_distance.restype = c.c_float
+        for x in range(lib.contacts_get_size(contacts)):
+            ret.append([all_objects[str(lib.body_get_data(lib.contacts_get_body_one(contacts,x)))],
+                      all_objects[str(lib.body_get_data(lib.contacts_get_body_two(contacts,x)))],
+                      lib.contacts_get_distance(contacts,x)])
+        lib.remove_contact(contacts)
+        return ret
+        
+            
 
     @property
     def mass():

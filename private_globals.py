@@ -1,7 +1,8 @@
 import ctypes as c
+import weakref
 lib = c.cdll.LoadLibrary('/usr/local/lib/libPyPalGame.so')
 
-physics = None
-collision = None
+userdata = {}
 
-userdata = []
+all_objects = {}
+all_next = 0

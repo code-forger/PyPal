@@ -1,7 +1,10 @@
-from private_globals import *
+import private_globals as pal
+import ctypes as c
+import weakref
 from bodybase import BodyBase
 class Box(BodyBase):
-    def __init__(self,rect,mass = None, density = None,static = False):
+    @classmethod
+    def create(self,rect,mass=None, density = None,static = False):
         """
         constructs a box and adds it to the world
         
@@ -11,26 +14,32 @@ class Box(BodyBase):
         calculated from the density and the volumne.
         static: used to create this object static, if static is true, mass will be ignored
         """
-        self.obj = lib.create_box(c.c_float(rect[0]),c.c_float(rect[1]),c.c_float(rect[2]),c.c_float(rect[3]),c.c_float(rect[4]),c.c_float(rect[5]),c.c_float(mass))
+        box = Box(rect,mass,density,static)
+        pal.all_objects[str(pal.all_next)] = box
+        pal.lib.body_set_data(box.obj,pal.all_next)
+        pal.all_next += 1
+        return weakref.proxy(box)
 
-        pass
+    def __init__(self,rect,mass = None, density = None,static = False):#TESTED
+        """
+        THIS METHOD IS PRIVATE: to create a box use the create class method
+        constructs a box and adds it to the world
+        
+        rect: a 6 part tuple with x,y,z,width,height,depth.
+        mass: the mass of the object, if mass is specified it will be used.
+        density: if no mass is specified and a density is, the mass will be 
+        calculated from the density and the volumne.
+        static: used to create this object static, if static is true, mass will be ignored
+        """
+        self.obj = pal.lib.create_box(c.c_float(rect[0]),c.c_float(rect[1]),c.c_float(rect[2]),c.c_float(rect[3]),c.c_float(rect[4]),c.c_float(rect[5]),c.c_float(mass))
 
-    def get_width():
-        """returns the width of the object"""
-        pass
-
-    def get_height():
-        """returns the height of the object"""
-        pass
-
-    def get_width():
-        """returns the depth of the object"""
-        pass
-
-    def get_size():
+    def get_size(self):
         """returns the size of the object in a 3 part tuple"""
-        pass
+        size = [c.c_float() for x in range(3)]
+        pal.lib.box_get_size(self.obj,c.byref(size[0]),c.byref(size[1]),c.byref(size[2]))
+        return [p.value for p in size]
 
-    def get_metrics():
-        """returns the pos and size of the object in a 6 part tuple"""
-        pass
+    def delete(self):
+        x = pal.lib.body_get_data(self.obj)
+        pal.lib.box_remove(self.obj)
+        del pal.all_objects[str(x)]
