@@ -38,6 +38,11 @@ class Sphere(BodyBase):
         """returns the radius of the sphere"""
         return self.size
 
+    def set_position(self,pos):
+        """Sets the position of the object and/or its orientation."""
+        pal.lib.sphere_set_position(self.obj,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]))
+
+
     def delete(self):
         x = pal.lib.body_get_data(self.obj)
         pal.lib.sphere_remove(self.obj)

@@ -5,7 +5,7 @@
 #include "pal/palCollision.h"
 /* This is the c++ -> c bindings:
  * the pal_ prefix relates to any function that uses PF excluding all the create functions
- * the create_ prefix relates to any function that creats and adds an object to the wor;d
+ * the create_ prefix relates to any function that creats and adds an object to the world
  * all other prefixes relate to the class that should be passed in as its first parameter
  *
  *
@@ -16,67 +16,6 @@
  *
  *
  */
-int run() {
-    PF->LoadPALfromDLL("/usr/local/lib/"); //use this if you wish to load PAL from .dll or .so
-    //otherwise, we can staticly link in an implementation by include the pal_i files
-    //eg: tokamak_pal.cpp and tokamak_pal.h
-
-
-    PF->SelectEngine("Bullet");		 // Here is the name of the physics engine you wish to use. You could replace DEFAULT_ENGINE with "Tokamak", "ODE", etc...
-    palPhysics *pp = PF->CreatePhysics(); //create the main physics class
-    if (pp == NULL) {
-      std::cout << "Failed to create the physics engine. Check to see if you spelt the engine name correctly, or that the engine DLL is in the right location\n";
-      return 0;
-    }
-    palPhysicsDesc desc;
-    pp->Init(desc); //initialize it, set the main gravity vector
-    palTerrainPlane *pt= PF->CreateTerrainPlane(); //create the ground
-    pt->Init(0,0,0,50.0f); //initialize it, set its location to 0,0,0 and minimum size to 50
-    pt->SetGroup(2);
-    palBox *pb = PF->CreateBox(); //create a box
-    pb->Init(0,1.5f ,0, 1,1,1, 1); //initialize it, set its location to 0,1.5,0 (one and a half units up in the air), set dimensions to 1x1x1 and its mass to 1
-	pb->SetGroup(0);
-    palBox *pb1 = PF->CreateBox(); //create a box
-    pb1->Init(0,3.0f ,0, 1,1,1, 1); //initialize it, set its location to 0,1.5,0 (one and a half units up in the air), set dimensions to 1x1x1 and its mass to 1
-	pb1->SetGroup(1);
-    palPhysics*ppp = PF->GetActivePhysics();
-    palCollisionDetection *pcd = dynamic_cast<palCollisionDetection *>(ppp);
-    pcd->SetGroupCollision(0,1,true);
-    pcd->SetGroupCollision(2,1,true);
-    pcd->NotifyCollision(pb,true);
-    pcd->NotifyCollision(pb1,true);
-    palContact pc;
-    float x,x1;
-    int y,y1;
-    for (int i=0;i < 40;i++) { //run 25 steps of the simulation
-      pp->Update(0.02f); //update the physics engine. advance the simulation time by 0.02
-
-      pcd->GetContacts(pb,pc);
-      y = pc.m_ContactPoints.size();
-      pcd->GetContacts(pb1,pb,pc);
-      y1 = pc.m_ContactPoints.size();
-      palVector3 pos;
-      pb->GetPosition(pos); //get the location of the box
-      x = pos.y;     
-      pb1->GetPosition(pos); //get the location of the box  
-      x1 = pos.y;       
-      printf("position is %6.5f,%6.5f at time %d with %d,%d collisions\n",x,x1,i,y,y1);
-    }
-    delete pb;
-    pb = NULL;
-    
-    for (int i=0;i < 12;i++) { //run 25 steps of the simulation
-      pp->Update(0.02f); //update the physics engine. advance the simulation time by 0.02
-
-      pcd->GetContacts(pb1,pc);
-      palVector3 pos;
-      pb1->GetPosition(pos); //get the location of the box
-
-      printf("Current box position is %6.5f at time %d with %d collisions\n",pos.y,i,pc.m_ContactPoints.size());
-    }
-    PF->Cleanup(); //we are done with the physics. clean up.
-}
-extern "C"{void runner(){run();}}
 
 /*********************************************************
  *                                                       *
@@ -180,18 +119,25 @@ extern "C"
  *********************************************************/
 extern "C" 
 {
-    palTerrainPlane * create_terrain_plane(Float x, Float y, Float z, Float min_size)
-    {
-        palTerrainPlane *pt= PF->CreateTerrainPlane(); //create the ground
-        pt->Init(x,y,z,min_size); //initialize it, set its location to 0,0,0 and minimum size to 50
-	    return pt;
-    }
-
     palBox * create_box(Float x, Float y, Float z, Float width, Float height, Float depth, Float mass)
     {
         palBox *pb = PF->CreateBox(); //create a box
 	    pb->Init(x,y,z,width,height,depth,mass);
         return pb;
+    }
+
+    palStaticBox * create_static_box(Float x, Float y, Float z, Float width, Float height, Float depth)
+    {
+        palStaticBox *pb = (palStaticBox *)PF->CreateBox(); //create a box
+	    pb->Init(x,y,z,width,height,depth);
+        return pb;
+    }
+
+    palCapsule * create_capsule(Float x, Float y, Float z, Float radius, Float length, Float mass)
+    {
+        palCapsule *pc = PF->CreateCapsule(); //create a box
+	    pc->Init(x, y, z, radius, length, mass);
+        return pc;
     }
 
     palSphere * create_sphere(Float x, Float y, Float z, Float radius, Float mass)
@@ -201,11 +147,26 @@ extern "C"
         return ps;
     }
 
-    palCapsule * create_capsule(Float x, Float y, Float z, Float radius, Float length, Float mass)
+    palTerrainPlane * create_terrain_plane(Float x, Float y, Float z, Float min_size)
     {
-        palCapsule *pc = PF->CreateCapsule(); //create a box
-	    pc->Init(x, y, z, radius, length, mass);
-        return pc;
+        palTerrainPlane *pt= PF->CreateTerrainPlane(); //create the ground
+        pt->Init(x,y,z,min_size); //initialize it, set its location to 0,0,0 and minimum size to 50
+	    return pt;
+    }
+
+    palTerrainHeightmap * create_terrain_heightmap(Float x, Float y, Float z, Float width, Float depth, int terrain_data_width, int terrain_data_depth, const Float *pHeightmap)
+    {
+        palTerrainHeightmap *pth= PF->CreateTerrainHeightmap(); //create the ground
+        pth->Init(x,y,z,width,depth,terrain_data_width,terrain_data_depth,pHeightmap); //initialize it, set its location to 0,0,0 and minimum size to 50
+	    return pth;
+    }
+
+    palRevoluteLink * create_revolute(palBody *parent,palBody *child,Float x,Float y,
+                                      Float z, Float axis_x,Float axis_y, Float axis_z)
+    {
+        palRevoluteLink *prl= PF->CreateRevoluteLink();
+        prl->Init(parent,child,x,y,z,axis_x,axis_y,axis_z); //initialize it, set its location to 0,0,0 and minimum size to 50
+	    return prl;
     }
 }
 /*********************************************************
@@ -248,6 +209,22 @@ extern "C"
     {
         return b->GetUserData();
     }
+
+    void body_get_primative_location(palBodyBase*b,float&x,float&y,float&z,float&x1,float&y1,float&z1)
+    {
+        palGeometry* g = b->m_Geometries[0];
+        palMatrix4x4 *m= &g->GetLocationMatrix();
+        palVector3 *v;
+
+        mat_get_translation(m, v);
+        x = v[0][0];
+        y = v[0][1];
+        z = v[0][2];
+        mat_get_rotation(m,&x1,&y1,&z1);
+
+        
+    }
+
 }
 
 /*********************************************************
@@ -269,6 +246,32 @@ extern "C"
         height = b->GetHeight();
         depth = b->GetDepth();
     }
+
+    void box_set_position(palBox*b,float x,float y,float z)
+    {
+        b->SetPosition(x,y,z);
+    }
+}
+
+/*********************************************************
+ *                                                       *
+ *               the static box functions                *
+ *                                                       *
+ *********************************************************/
+extern "C" 
+{
+    void static_box_remove(palStaticBox*b){
+        PF->Remove(b);
+        delete b;
+        b = NULL;
+    }
+
+    void static_box_get_size(palStaticBox*b,float&width,float&height,float&depth)
+    {
+        width = b->GetWidth();
+        height = b->GetHeight();
+        depth = b->GetDepth();
+    }
 }
 
 /*********************************************************
@@ -282,6 +285,11 @@ extern "C"
         PF->Remove(b);
         delete b;
         b = NULL;
+    }
+
+    void cpasule_set_position(palSphere*b,float x,float y,float z)
+    {
+        b->SetPosition(x,y,z);
     }
 }
 
@@ -297,9 +305,12 @@ extern "C"
         delete b;
         b = NULL;
     }
+
+    void sphere_set_position(palSphere*b,float x,float y,float z)
+    {
+        b->SetPosition(x,y,z);
+    }
 }
-
-
 
 /*********************************************************
  *                                                       *
@@ -315,5 +326,36 @@ extern "C"
     }
 }
 
+/*********************************************************
+ *                                                       *
+ *               the terrain heightmap functions         *
+ *                                                       *
+ *********************************************************/
+extern "C" 
+{
+    void terrain_heightmap_remove(palTerrainHeightmap*b){
+        PF->Remove(b);
+        delete b;
+        b = NULL;
+    }
+}
+
+/*********************************************************
+ *                                                       *
+ *               the revolute link functions             *
+ *                                                       *
+ *********************************************************/
+extern "C" 
+{
+    void revolute_link_remove(palRevoluteLink*rl){
+        PF->Remove(rl);
+        delete rl;
+        rl = NULL;
+    }
+
+    float revolute_link_get_angle(palRevoluteLink*rl){
+        return rl->GetAngle();
+    }
+}
 
 

@@ -1,8 +1,9 @@
 import ctypes as c
 import weakref
-lib = c.cdll.LoadLibrary('/usr/local/lib/libPyPalGame.so')
+lib = c.cdll.LoadLibrary('./libPyPalGame.so')
 
 userdata = {}
 
-all_objects = {}
+all_objects = {} # this dictionarry holds the ONLY strong reference to the object in this library, never give a strong reference to ANYONE
+notified_objects = {}
 all_next = 0

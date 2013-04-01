@@ -22,7 +22,6 @@ class Terrain(BodyBase):
         min_size: the minimumsize of the plane
         """
         self.obj = pal.lib.create_terrain_plane(c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]),c.c_float(min_size))
-    
 
     def delete(self):
         x = pal.lib.body_get_data(self.obj)

@@ -1,5 +1,5 @@
 from bodybase import BodyBase
-from box import Box
+from box import Box, StaticBox
 from capsule import Capsule
 from convex import Convex
 from generic_body import GenericBody

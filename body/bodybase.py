@@ -12,6 +12,13 @@ class BodyBase():
         lib.body_get_position(self.obj,c.byref(pos[0]),c.byref(pos[1]),c.byref(pos[2]))
         return [p.value for p in pos]
 
+    def get_location(self):#TESTED
+        """Returns position as a 3 part tuple:(x,y,z)."""
+        print "getting location"
+        pos = [c.c_float() for x in range(6)]
+        lib.body_get_primative_location(self.obj,c.byref(pos[0]),c.byref(pos[1]),c.byref(pos[2]),c.byref(pos[3]),c.byref(pos[4]),c.byref(pos[5]))
+        return [p.value for p in pos]
+
     def set_material(self,material):
         """Sets the material of the body. DO NOT USE"""
         lib.body_set_material(self.obj,c.c_void_p(None))
@@ -32,7 +39,7 @@ class BodyBase():
         """Returns user data currently stored in the body."""
         return userdata[lib.body_get_data(self.obj)]
 
-    def set_position(pos=None,rot=None):
+    def set_orientation(rot):
         """Sets the position of the object and/or its orientation."""
         pass
 
@@ -77,6 +84,10 @@ class BodyBase():
     def notify_collision(self,enabled):
         """informs the body that it can at any time have its current collision points requested"""
         lib.collision_notify(self.obj,enabled)
+        if enabled:
+            notified_objects.append(weakref.proxy(self.obj))
+        elif self.obj in notified_objects:
+            notified_objects.remove(self.obj)
 
     def get_contacts(self):
         """returns the bodies that this body is currently in contact with."""
@@ -84,9 +95,9 @@ class BodyBase():
         ret = []
         lib.contacts_get_distance.restype = c.c_float
         for x in range(lib.contacts_get_size(contacts)):
-            ret.append([all_objects[str(lib.body_get_data(lib.contacts_get_body_one(contacts,x)))],
+            ret.append(weakref.proxy([all_objects[str(lib.body_get_data(lib.contacts_get_body_one(contacts,x)))],
                       all_objects[str(lib.body_get_data(lib.contacts_get_body_two(contacts,x)))],
-                      lib.contacts_get_distance(contacts,x)])
+                      lib.contacts_get_distance(contacts,x)]))
         lib.remove_contact(contacts)
         return ret
         
