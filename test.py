@@ -51,8 +51,8 @@ ssprite.image = pygame.Surface((20,20))
 pygame.draw.circle(ssprite.image,(0,0,255),(10,10),10)
 ssprite.rect = Rect(pospos([sphere.get_position()[0],sphere.get_position()[1],20,20]))
 
-revolute = pal.link.Revolute.create(box,sphere,box.get_position(),(0,.5,.5))
-r = revolute.obj
+#revolute = pal.link.Revolute.create(box,sphere,box.get_position(),(0,.5,.5))
+#r = revolute.obj
 
 cl = pygame.time.Clock()
 running = True
@@ -65,8 +65,8 @@ while running:
         elif event.type == KEYDOWN:
             if event.key == K_SPACE:
                 sphere.set_position((0,3,0))
-    print "ready to update", terain.obj, box.obj, sphere.obj, revolute.obj,\
-          t == terain.obj,b == box.obj, s == sphere.obj, r == revolute.obj
+    print "ready to update", terain.obj, box.obj, sphere.obj,\
+          t == terain.obj,b == box.obj, s == sphere.obj#, r == revolute.obj
     pal.update(1./50.)
     print "updated"
 
