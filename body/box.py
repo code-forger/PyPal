@@ -14,7 +14,7 @@ class Box(BodyBase):
         calculated from the density and the volumne.
         static: used to create this object static, if static is true, mass will be ignored
         """
-        box = Box(rect,mass,density,static)
+        box = Box(rect,mass,density)
         pal.all_objects[str(pal.all_next)] = box
         pal.lib.body_set_data(box.obj,pal.all_next)
         pal.all_next += 1

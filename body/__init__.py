@@ -8,5 +8,3 @@ from mesh_terrain import MeshTerrain
 from oriented_terrain import OrientedTerrain
 from sphere import Sphere
 from terrain import Terrain
-
-print "Imported all bodies sucessfully"

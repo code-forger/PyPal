@@ -168,6 +168,13 @@ extern "C"
         prl->Init(parent,child,x,y,z,axis_x,axis_y,axis_z); //initialize it, set its location to 0,0,0 and minimum size to 50
 	    return prl;
     }
+
+    palDCMotor * create_dcmotor(palRevoluteLink *revolute_link, Float torque, Float EMF, Float resistance)
+    {
+        palDCMotor *pm= dynamic_cast<palDCMotor*>(PF->CreateObject("palDCMotor"));
+        pm->Init(revolute_link,torque,EMF,resistance); //initialize it, set its location to 0,0,0 and minimum size to 50
+	    return pm;
+    }
 }
 /*********************************************************
  *                                                       *
@@ -210,19 +217,15 @@ extern "C"
         return b->GetUserData();
     }
 
-    void body_get_primative_location(palBodyBase*b,float&x,float&y,float&z,float&x1,float&y1,float&z1)
+    void body_get_primative_location(palBody*b,float&x,float&y,float&z,float&x1,float&y1,float&z1)
     {
-        palGeometry* g = b->m_Geometries[0];
-        palMatrix4x4 *m= &g->GetLocationMatrix();
-        palVector3 *v;
-
-        mat_get_translation(m, v);
-        x = v[0][0];
-        y = v[0][1];
-        z = v[0][2];
+        palMatrix4x4 *m = &b->m_Geometries.front()->GetLocationMatrix();//->GetBaseBody();
+        palVector3 v;
+        mat_get_translation(m, &v);
+        x = v[0];
+        y = v[1];
+        z = v[2];
         mat_get_rotation(m,&x1,&y1,&z1);
-
-        
     }
 
 }
@@ -358,4 +361,25 @@ extern "C"
     }
 }
 
+/*********************************************************
+ *                                                       *
+ *               the DCMotor functions                   *
+ *                                                       *
+ *********************************************************/
+extern "C" 
+{
+    void dcmotor_remove(palDCMotor*m){
+        PF->Remove(m);
+        delete m;
+        m = NULL;
+    }
+
+    void dcmotor_run(palDCMotor*a){
+        a->Apply();
+    }
+
+    void dcmotor_set_voltage(palDCMotor*m,float voltage){
+        m->SetVoltage(voltage);
+    }
+}
 

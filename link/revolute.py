@@ -16,7 +16,7 @@ class Revolute():
         """
         link = Revolute(parent,child,pos,direction)
         pal.all_objects[str(pal.all_next)] = link
-        pal.lib.body_set_data(link.obj,pal.all_next)
+        link.index = pal.all_next
         pal.all_next += 1
         return weakref.proxy(link)
 
@@ -29,7 +29,7 @@ class Revolute():
         pos: a 3 part tuple for the position of the link
         direction: a 3 part unit vector of the driection of the link
         """
-        self.obj = pal.lib.create_revolute(parent.obj,child.obj,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]),c.c_float(direction[0]),c.c_float(direction[1]),c.c_float(direction[2]),)
+        self.obj = pal.lib.create_revolute(parent.obj,child.obj,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]),c.c_float(direction[0]),c.c_float(direction[1]),c.c_float(direction[2]))
 
     def set_limits(lower,upper):
         """
@@ -69,3 +69,8 @@ class Revolute():
         torque: a floating point value
         """
         pass
+
+    def delete(self):
+        x = self.index
+        pal.lib.dcmotor_remove(self.obj)
+        del pal.all_objects[str(x)]
