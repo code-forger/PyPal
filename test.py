@@ -21,13 +21,6 @@ def pospos(pos):
     pos[1]+=490
     return pos
 
-def posposn(pos):
-    pos[0] *= 10
-    pos[1] *= -10
-    pos[0]+=250
-    pos[1]+=250
-    return pos
-
 pygame.init()
 window = sgc.surface.Screen((500,500))
 
@@ -60,7 +53,8 @@ ssprite.rect = Rect(pospos([box.get_position()[0],box.get_position()[1],10,10]))
 #pygame.draw.circle(ssprite.image,(0,0,255),(10,10),10)
 #ssprite.rect = Rect(pospos([sphere.get_position()[0],sphere.get_position()[1],20,20]))
 
-revolute = pal.link.Revolute.create(box,box1,box.get_position(),(0,.5,.5))
+
+revolute = pal.link.Revolute.create(box,box1,box.get_position(),(0,0,1))
 
 
 
@@ -76,7 +70,7 @@ while running:
         elif event.type == KEYDOWN:
             if event.key == K_SPACE:
                 if not motorbool:
-                    motor = pal.actuator.DCMotor.create(revolute,10,1,1)
+                    motor = pal.actuator.DCMotor.create(revolute,5,1,1)
                     motor.set_voltage(10)
                 else:
                     motor.delete()
@@ -92,6 +86,10 @@ while running:
     drawable.draw(window)
     pygame.display.flip()
 
+box.delete()
+box1.delete()
+terain.delete()
+revolute.delete()
 
 print pal._pal.all_objects#,box.get_size()
 

@@ -72,5 +72,5 @@ class Revolute():
 
     def delete(self):
         x = self.index
-        pal.lib.dcmotor_remove(self.obj)
+        pal.lib.revolute_link_remove(self.obj)
         del pal.all_objects[str(x)]

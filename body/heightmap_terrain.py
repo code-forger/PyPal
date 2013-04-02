@@ -33,7 +33,6 @@ class HeightMapTerrain(BodyBase):
 
     def delete(self):
         x = pal.lib.body_get_data(self.obj)
-        if self in notified_objects:
-            notify_objects.remove(self)
+        pal.lib.body_clear_data(self.obj)
         pal.lib.terrain_heightmap_remove(self.obj)
         del pal.all_objects[str(x)]

@@ -45,5 +45,6 @@ class Sphere(BodyBase):
 
     def delete(self):
         x = pal.lib.body_get_data(self.obj)
+        pal.lib.body_clear_data(self.obj)
         pal.lib.sphere_remove(self.obj)
         del pal.all_objects[str(x)]

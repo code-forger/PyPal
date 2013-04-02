@@ -29,7 +29,7 @@ extern "C"
 {
     palPhysics* pal_init(char[])
     {
-        PF->LoadPALfromDLL("/usr/local/lib/");
+        PF->LoadPALfromDLL((char*)"/usr/local/lib/");
         PF->SelectEngine("Bullet");
         pp = PF->CreatePhysics();
         if (pp == NULL) 
@@ -43,6 +43,10 @@ extern "C"
 
     void pal_cleanup(){
 	    PF->Cleanup();
+    }
+
+    float pal_get_time(){
+        return pp->GetTime();
     }
 }
 /*********************************************************
@@ -207,14 +211,22 @@ extern "C"
         b->SetGroup(group);
     }
 
-    void body_set_data(palBody*b,int* data)
+    void body_set_data(palBody*b,int data)
     {
-        b->SetUserData(data);
+        int* i = new int;
+        *i = data;
+        b->SetUserData(i);
     }
 
     int body_get_data(palBody*b)
     {
-        return b->GetUserData();
+        return *((int*)b->GetUserData());
+    }
+
+    int body_clear_data(palBody*b)
+    {
+        int*i = (int*)b->GetUserData();
+        delete i;
     }
 
     void body_get_primative_location(palBody*b,float&x,float&y,float&z,float&x1,float&y1,float&z1)

@@ -44,7 +44,8 @@ def cleanup():
 
 def get_time():
     """Returns age of the simulation."""
-    pass
+    _pal.lib.pal_get_time.restype = c.c_float
+    return _pal.lib.pal_get_time()
 
 def get_time_step():
     """Returns last timestep."""
