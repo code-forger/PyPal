@@ -3,8 +3,7 @@ import ctypes as c
 import weakref
 from bodybase import BodyBase
 class Sphere(BodyBase):
-    @classmethod
-    def create(self,rect,mass = None, density = None, static = False):
+    def __new__(cls,rect,mass = None, density = None):
         """
         constructs a sphere and adds it to the world
         
@@ -14,14 +13,15 @@ class Sphere(BodyBase):
         calculated from the density and the volumne.
         static: used to create this object static, if static is true, mass will be ignored
         """
-        sphere = Sphere(rect,mass,density,static)
+        sphere = super(Sphere,cls).__new__(cls)
+        sphere._create(rect,mass,density)
         pal.all_objects[str(pal.all_next)] = sphere
         pal.lib.body_set_data(sphere.obj,pal.all_next)
         pal.all_next += 1
-        self.size = rect[3]
+        sphere.size = rect[3]
         return weakref.proxy(sphere)
 
-    def __init__(self,rect,mass = None, density = None, static = False):
+    def _create(self,rect,mass = None, density = None):
         """
         THIS METHOD IS PRIVATE: to create a sphere use the create class method
         constructs a sphere and adds it to the world

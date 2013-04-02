@@ -1,10 +1,9 @@
 import private_globals as pal
 import ctypes as c
 import weakref
-class Revolute():
+class Revolute(object):
     """a link that connects two objects rotationally"""
-    @classmethod
-    def create(self,parent,child,pos,direction):
+    def __new__(cls,parent,child,pos,direction,collide):
         """
         constructs a revolate link and adds it to the world
         
@@ -14,13 +13,14 @@ class Revolute():
         calculated from the density and the volumne.
         static: used to create this object static, if static is true, mass will be ignored
         """
-        link = Revolute(parent,child,pos,direction)
+        link = super(Revolute,cls).__new__(cls)
+        link._create(parent,child,pos,direction,collide)
         pal.all_objects[str(pal.all_next)] = link
         link.index = pal.all_next
         pal.all_next += 1
         return weakref.proxy(link)
 
-    def __init__(self,parent,child,pos,direction):
+    def _create(self,parent,child,pos,direction,collide):
         """
         connects two objects together
 
@@ -29,15 +29,15 @@ class Revolute():
         pos: a 3 part tuple for the position of the link
         direction: a 3 part unit vector of the driection of the link
         """
-        self.obj = pal.lib.create_revolute(parent.obj,child.obj,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]),c.c_float(direction[0]),c.c_float(direction[1]),c.c_float(direction[2]))
+        self.obj = pal.lib.create_revolute(parent.obj,child.obj,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]),c.c_float(direction[0]),c.c_float(direction[1]),c.c_float(direction[2]),c.c_bool(collide))
 
-    def set_limits(lower,upper):
+    def set_limits(self,lower,upper):
         """
         sets the maximum and the minimum rotational angle of the link in radians
         lower: the minimum angle
         upper: the maximum angle
         """
-        pass
+        pal.lib.revolute_set_limits(self.obj,c.c_float(lower),c.c_float(upper))
 
     def get_position():
         """

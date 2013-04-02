@@ -1,6 +1,6 @@
 from private_globals import *
 
-class BodyBase():
+class BodyBase(object):
 
     """The Base of any body in the world
 
@@ -44,10 +44,6 @@ class BodyBase():
 
     def apply_force(force,pos=(0,0,0)):
         """Applies a force to the object for a single step at an optional offset in world coordinates."""
-        pass
-
-    def apply_impulse(impulse,pos=(0,0,0)):
-        """Applies an impulse to the object for a single step at an optional offset in world coordinates."""
         pass
 
     def apply_angular_impulse(impulse):

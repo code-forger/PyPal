@@ -4,19 +4,19 @@ import weakref
 from bodybase import BodyBase
 class HeightMapTerrain(BodyBase):
     """ an height map terrain object """
-    @classmethod
-    def create(self,pos,size,chunks,height_map):
+    def __new__(cls,pos,size,chunks,height_map):
         """
         pos: position of the plane
         min_size: the minimumsize of the plane
         """
-        terrain = HeightMapTerrain(pos,size,chunks,height_map)
+        terrain = super(HeightMapTerrain,cls).__new__(cls)
+        terrain._create(pos,size,chunks,height_map)
         pal.all_objects[str(pal.all_next)] = terrain
         pal.lib.body_set_data(terrain.obj,pal.all_next)
         pal.all_next += 1
         return weakref.proxy(terrain)
 
-    def __init__(self,pos,size,chunks,height_map):#TESTED
+    def _create(self,pos,size,chunks,height_map):#TESTED
         """
         pos: position of the plane
         min_size: the minimumsize of the plane

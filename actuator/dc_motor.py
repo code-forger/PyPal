@@ -1,9 +1,8 @@
 import private_globals as pal
 import ctypes as c
 import weakref
-class DCMotor():
-    @classmethod
-    def create(self,link,torque,emf,resistance):
+class DCMotor(object):
+    def __new__(cls,link,torque,emf,resistance):
         """
         constructs a revolate link and adds it to the world
         
@@ -13,13 +12,14 @@ class DCMotor():
         calculated from the density and the volumne.
         static: used to create this object static, if static is true, mass will be ignored
         """
-        motor = DCMotor(link,torque,emf,resistance)
+        motor = super(DCMotor,cls).__new__(cls)
+        motor._create(link,torque,emf,resistance)
         pal.all_objects[str(pal.all_next)] = motor
         motor.index = pal.all_next
         pal.all_next += 1
         return weakref.proxy(motor)
 
-    def __init__(self,link,torque,emf,resistance):
+    def _create(self,link,torque,emf,resistance):
         """
         applies a torque to a revolute link
         

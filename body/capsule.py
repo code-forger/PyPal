@@ -3,8 +3,7 @@ import ctypes as c
 import weakref
 from bodybase import BodyBase
 class Capsule(BodyBase):
-    @classmethod
-    def create(self,rect,mass = None, density = None, static = False):
+    def __new__(cls,rect,mass = None, density = None, static = False):
         """
         constructs a box and adds it to the world
         
@@ -16,14 +15,15 @@ class Capsule(BodyBase):
         calculated from the density and the volumne.
         static: used to create this object static, if static is true, mass will be ignored
         """
-        capsule = Capsule(rect,mass,density,static)
+        capsule = super(Capsule,cls).__new__(cls)
+        capsule._create(rect,mass,density,static)
         pal.all_objects[str(pal.all_next)] = capsule
         pal.lib.body_set_data(capsule.obj,pal.all_next)
         pal.all_next += 1
         self.size = rect[3:5]
         return weakref.proxy(capsule)
 
-    def __init__(self,rect,mass = None, density = None, static = False):
+    def _create(self,rect,mass = None, density = None, static = False):
         """
         THIS METHOD IS PRIVATE: to create a capsule use the create class method
         constructs a box and adds it to the world

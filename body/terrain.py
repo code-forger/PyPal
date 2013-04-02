@@ -4,19 +4,19 @@ import weakref
 from bodybase import BodyBase
 class Terrain(BodyBase):
     """ a simple terrain object """
-    @classmethod
-    def create(self,pos,min_size):
+    def __new__(cls,pos,min_size):
         """
         pos: position of the plane
         min_size: the minimumsize of the plane
         """
-        terrain = Terrain(pos,min_size)
+        terrain = super(Terrain,cls).__new__(cls)
+        terrain._create(pos,min_size)
         pal.all_objects[str(pal.all_next)] = terrain
         pal.lib.body_set_data(terrain.obj,pal.all_next)
         pal.all_next += 1
         return weakref.proxy(terrain)
 
-    def __init__(self,pos,min_size):#TESTED
+    def _create(self,pos,min_size):#TESTED
         """
         pos: position of the plane
         min_size: the minimumsize of the plane
