@@ -66,14 +66,6 @@ class BodyBase(object):
         """Sets the angular velocity of the body."""
         pass
 
-    def is_active():
-        """Returns true if the body is not asleep."""
-        pass
-
-    def set_active(active):
-        """Sets the body to active or not."""
-        pass
-
     #collision detection functions
 
     def notify_collision(self,enabled):

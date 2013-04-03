@@ -292,8 +292,6 @@ extern "C"
         z = v[2];
         //mat_get_rotation((palMatrix4x4*)m,&x1,&y1,&z1);
     }
-
-
 }
 
 /*********************************************************
@@ -323,6 +321,16 @@ extern "C"
     void box_apply_impulse(palBox*b,float ix, float iy, float iz){
         b->ApplyImpulse(ix,iy,iz);
         std::cout << "fire\n";
+    }
+
+    void box_set_active(palBox*b,bool active)
+    {
+        b->SetActive(active);
+    }
+
+    bool box_is_active(palBox*b)
+    {
+        return b->IsActive();
     }
 }
 

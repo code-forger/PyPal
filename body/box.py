@@ -48,6 +48,15 @@ class Box(BodyBase):
         """Applies an impulse to the object for a single step at an optional offset in world coordinates."""
         pal.lib.box_apply_impulse(self.obj,c.c_float(impulse[0]),c.c_float(impulse[1]),c.c_float(impulse[2]))
 
+    def is_active(self):
+        """Returns true if the body is not asleep."""
+        pal.lib.box_is_active.restype = c.c_bool
+        return pal.lib.box_is_active(self.obj)
+
+    def set_active(self,active):
+        """Sets the body to active or not."""
+        pal.lib.box_set_active(self.obj,c.c_bool(active))
+
     def delete(self):
         x = pal.lib.body_get_data(self.obj)
         pal.lib.box_remove(self.obj)
