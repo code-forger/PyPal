@@ -1,6 +1,6 @@
 import ctypes as c
 import weakref
-lib = c.cdll.LoadLibrary('./libPyPalGame.so')
+lib = c.cdll.LoadLibrary('libs/libPyPalGame.so')
 
 userdata = {}
 

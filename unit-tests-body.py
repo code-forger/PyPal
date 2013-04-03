@@ -2,7 +2,7 @@ import pypalgame as pal
 
 import unittest
 import weakref
-class TestSequenceFunctions(unittest.TestCase):
+class TestBoxFunctions(unittest.TestCase):
     def setUp(self):
         pal.init()
 
@@ -46,5 +46,12 @@ class TestSequenceFunctions(unittest.TestCase):
         
 
 
-unittest.main()
+
+suite = unittest.TestLoader().loadTestsFromTestCase(TestBoxFunctions)
+unittest.TextTestRunner(verbosity=3).run(suite)
+
+
+
+
+
 

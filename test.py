@@ -108,10 +108,10 @@ while running:
     window.fill((0,0,0))
     drawable.draw(window)
     pygame.display.flip()
-    print "time:%2.2f pos:%2.2f %2.2f %2.2f " % (pal.get_time(), 
-                                                 box1.get_position()[0], 
-                                                 box1.get_position()[1], 
-                                                 box1.get_position()[2])
+    #print "time:%2.2f pos:%2.2f %2.2f %2.2f " % (pal.get_time(), 
+    #                                             box1.get_position()[0], 
+    #                                             box1.get_position()[1], 
+    #                                             box1.get_position()[2])
 
 print pal._pal.all_objects
 box.delete()
