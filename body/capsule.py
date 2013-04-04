@@ -20,7 +20,7 @@ class Capsule(BodyBase):
         pal.all_objects[str(pal.all_next)] = capsule
         pal.lib.body_set_data(capsule.obj,pal.all_next)
         pal.all_next += 1
-        self.size = rect[3:5]
+        capsule.size = rect[3:5]
         return weakref.proxy(capsule)
 
     def _create(self,rect,mass = None, density = None, static = False):
@@ -38,7 +38,6 @@ class Capsule(BodyBase):
         """
         self.obj = pal.lib.create_capsule(c.c_float(rect[0]),c.c_float(rect[1]),c.c_float(rect[2]),c.c_float(rect[3]),c.c_float(rect[4]),c.c_float(mass))
 
-
     def get_size(self):
         """returns the size of the object in a 2 part tuple"""
         return self.size
@@ -46,6 +45,19 @@ class Capsule(BodyBase):
     def set_position(self,pos):
         """Sets the position of the object and/or its orientation."""
         pal.lib.capsule_set_position(self.obj,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]))
+
+    def apply_impulse(self,impulse):
+        """Applies an impulse to the object for a single step at an optional offset in world coordinates."""
+        pal.lib.capsule_apply_impulse(self.obj,c.c_float(impulse[0]),c.c_float(impulse[1]),c.c_float(impulse[2]))
+
+    def is_active(self):
+        """Returns true if the body is not asleep."""
+        pal.lib.capsule_is_active.restype = c.c_bool
+        return pal.lib.capsule_is_active(self.obj)
+
+    def set_active(self,active):
+        """Sets the body to active or not."""
+        pal.lib.capsule_set_active(self.obj,c.c_bool(active))
 
     def delete(self):
         x = pal.lib.body_get_data(self.obj)

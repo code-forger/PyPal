@@ -31,6 +31,14 @@ class Prismatic(object):
         """
         self.obj = pal.lib.create_prismatic(parent.obj,child.obj,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]),c.c_float(direction[0]),c.c_float(direction[1]),c.c_float(direction[2]),c.c_bool(collide))
 
+    def set_limits(self, min_limit, max_limit):
+        """
+        Sets limits on the link
+
+        maX_limit: the maximum distance the child body can be from the link
+        min_limit: the minimum distance the child body can be from the link
+        """
+        pal.lib.prismatic_link_set_limits(self.obj, c.c_float(min_limit), c.c_float(max_limit))
 
     def delete(self):
         x = self.index

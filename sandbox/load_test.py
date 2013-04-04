@@ -43,7 +43,7 @@ tsprite.rect = Rect(posz([terain.get_position()[0],terain.get_position()[1],500,
 box = []
 sprites = []
 spritesd = []
-dim = 5
+dim = 6
 number = dim*dim*dim
 fps = 50.
 cl = pygame.time.Clock()
@@ -79,7 +79,7 @@ box.append(b)
 
 running = True
 while running:
-    time = cl.tick(fps)
+    time = cl.tick()
     for event in pygame.event.get():
         if event.type == QUIT:
             running = not running

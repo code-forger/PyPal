@@ -283,7 +283,6 @@ extern "C"
 
     void box_apply_impulse(palBox*b,float ix, float iy, float iz){
         b->ApplyImpulse(ix,iy,iz);
-        std::cout << "fire\n";
     }
 
     void box_set_active(palBox*b,bool active)
@@ -329,9 +328,23 @@ extern "C"
         b = NULL;
     }
 
-    void cpasule_set_position(palSphere*b,float x,float y,float z)
+    void capsule_set_position(palSphere*b,float x,float y,float z)
     {
         b->SetPosition(x,y,z);
+    }
+
+    void capsule_apply_impulse(palCapsule*c,float ix, float iy, float iz){
+        c->ApplyImpulse(ix,iy,iz);
+    }
+
+    void capsule_set_active(palCapsule*c,bool active)
+    {
+        c->SetActive(active);
+    }
+
+    bool capsule_is_active(palCapsule*c)
+    {
+        return c->IsActive();
     }
 }
 
@@ -342,14 +355,28 @@ extern "C"
  *********************************************************/
 extern "C" 
 {
-    void sphere_remove(palSphere*b){
-        delete b;
-        b = NULL;
+    void sphere_remove(palSphere*s){
+        delete s;
+        s = NULL;
     }
 
-    void sphere_set_position(palSphere*b,float x,float y,float z)
+    void sphere_set_position(palSphere*s,float x,float y,float z)
     {
-        b->SetPosition(x,y,z);
+        s->SetPosition(x,y,z);
+    }
+
+    void sphere_apply_impulse(palSphere*s,float ix, float iy, float iz){
+        s->ApplyImpulse(ix,iy,iz);
+    }
+
+    void sphere_set_active(palSphere*s,bool active)
+    {
+        s->SetActive(active);
+    }
+
+    bool sphere_is_active(palSphere*s)
+    {
+        return s->IsActive();
     }
 }
 
@@ -389,6 +416,10 @@ extern "C"
     void prismatic_link_remove(palPrismaticLink*pl){
         delete pl;
         pl = NULL;
+    }
+
+    void prismatic_link_set_limits(palPrismaticLink*pl,float min,float max){
+        pl->SetLimits(min, max);
     }
 }
 

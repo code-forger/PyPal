@@ -60,13 +60,14 @@ b2sprite.image.fill((0,255,0))
 b2sprite.rect = Rect(pospos([box.get_position()[0],box.get_position()[1],10,10]))
 
 
-sphere = pal.body.Sphere((5,10,0,1),mass=1)
+sphere = pal.body.Capsule((5,10,0,1,3),mass=1)
 ssprite = pygame.sprite.Sprite(drawable)
 ssprite.image = pygame.Surface((20,20))
 pygame.draw.circle(ssprite.image,(0,0,255),(10,10),10)
 ssprite.rect = Rect(pospos([sphere.get_position()[0],sphere.get_position()[1],20,20]))
 
 prismatic = pal.link.Prismatic(box,box3,box.get_position(),(1,0,0),False)
+prismatic.set_limits(3,20)
 revolute = pal.link.Revolute(box3,box1,box3.get_position(),(0,0,1),False)
 
 rigid = pal.link.Rigid(box2,sphere,False)
@@ -112,6 +113,7 @@ while running:
     #                                             box1.get_position()[0], 
     #                                             box1.get_position()[1], 
     #                                             box1.get_position()[2])
+    print sphere.is_active()
 
 print pal._pal.all_objects
 box.delete()

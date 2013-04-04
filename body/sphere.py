@@ -42,6 +42,18 @@ class Sphere(BodyBase):
         """Sets the position of the object and/or its orientation."""
         pal.lib.sphere_set_position(self.obj,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]))
 
+    def apply_impulse(self,impulse):
+        """Applies an impulse to the object for a single step at an optional offset in world coordinates."""
+        pal.lib.sphere_apply_impulse(self.obj,c.c_float(impulse[0]),c.c_float(impulse[1]),c.c_float(impulse[2]))
+
+    def is_active(self):
+        """Returns true if the body is not asleep."""
+        pal.lib.sphere_is_active.restype = c.c_bool
+        return pal.lib.sphere_is_active(self.obj)
+
+    def set_active(self,active):
+        """Sets the body to active or not."""
+        pal.lib.sphere_set_active(self.obj,c.c_bool(active))
 
     def delete(self):
         x = pal.lib.body_get_data(self.obj)
