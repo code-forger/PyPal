@@ -14,11 +14,18 @@ def draw_box(b):
     location = b.get_location()
     print location
 
-def pospos(pos):
+def posz(pos):
     pos[0] *= 10
     pos[1] *= -10
     pos[0]+=250
     pos[1]+=490
+    return pos
+
+def posy(pos):
+    pos[0] *= 10
+    pos[1] *= -10
+    pos[0]+=500+250
+    pos[1]+=250
     return pos
 
 pygame.init()
@@ -51,6 +58,12 @@ b3sprite = pygame.sprite.Sprite(drawable)
 b3sprite.image = pygame.Surface((10,10))
 b3sprite.image.fill((0,255,0))
 b3sprite.rect = Rect(pospos([box.get_position()[0],box.get_position()[1],10,10]))
+
+box4 = pal.body.Compound((10,10,10))
+b4sprite = pygame.sprite.Sprite(drawable)
+b4sprite.image = pygame.Surface((10,10))
+b4sprite.image.fill((0,255,0))
+b4sprite.rect = Rect(pospos([box.get_position()[0],box.get_position()[1],10,10]))
 
 
 box2 = pal.body.StaticBox((15,10,0,1,1,1))
@@ -103,6 +116,7 @@ while running:
     b1sprite.rect.center = pospos([box1.get_position()[0],box1.get_position()[1]])
     b2sprite.rect.center = pospos([box2.get_position()[0],box2.get_position()[1]])
     b3sprite.rect.center = pospos([box3.get_position()[0],box3.get_position()[1]])
+    b4sprite.rect.center = pospos([box4.get_position()[0],box4.get_position()[1]])
     tsprite.rect.center = pospos([terain.get_position()[0],terain.get_position()[1]])
     ssprite.rect.center = pospos([sphere.get_position()[0],sphere.get_position()[1]])
 
@@ -113,13 +127,14 @@ while running:
     #                                             box1.get_position()[0], 
     #                                             box1.get_position()[1], 
     #                                             box1.get_position()[2])
-    print sphere.is_active()
+
 
 print pal._pal.all_objects
 box.delete()
 box1.delete()
 box2.delete()
 box3.delete()
+box4.delete()
 sphere.delete()
 terain.delete()
 revolute.delete()

@@ -1,4 +1,4 @@
-class GeometryBase:
+class GeometryBase(object):
     
     """The base class for the bodyless geometies."""
     def get_location():

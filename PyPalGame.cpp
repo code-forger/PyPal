@@ -144,6 +144,13 @@ extern "C"
         return pc;
     }
 
+    palCompoundBody * create_compound(Float x, Float y, Float z)
+    {
+        palCompoundBody *pcb = PF->CreateCompoundBody(); //create a box
+	    pcb->Init(x, y, z);
+        return pcb;
+    }
+
     palSphere * create_sphere(Float x, Float y, Float z, Float radius, Float mass)
     {
         palSphere *ps = PF->CreateSphere(); //create a box
@@ -190,10 +197,24 @@ extern "C"
 
     palDCMotor * create_dcmotor(palRevoluteLink *revolute_link, Float torque, Float EMF, Float resistance)
     {
-        std::cout << "run\n";
         palDCMotor *pm= dynamic_cast<palDCMotor*>(PF->CreateObject("palDCMotor"));
         pm->Init(revolute_link,torque,EMF,resistance); //initialize it, set its location to 0,0,0 and minimum size to 50
 	    return pm;
+    }
+
+    palBoxGeometry * create_geometry_box(Float x, Float y, Float z, Float width, Float height, Float depth, Float mass)
+    {
+        std::cout << "hello\n";
+        palBoxGeometry *bg= PF->CreateBoxGeometry ();
+
+        std::cout << "hello1\n";
+        palMatrix4x4 pos;
+        std::cout << "hello2\n";
+        mat_set_translation(&pos, x, y, z);
+        std::cout << "hello3\n";
+        bg->Init (pos, width, height, depth, mass);
+        std::cout << "hello4\n";
+        return bg;
     }
 }
 /*********************************************************
@@ -350,6 +371,75 @@ extern "C"
 
 /*********************************************************
  *                                                       *
+ *               the compound functions                  *
+ *                                                       *
+ *********************************************************/
+extern "C" 
+{
+    void compound_remove(palCompoundBody*s)
+    {
+        delete s;
+        s = NULL;
+    }
+
+    void compound_set_position(palCompoundBody*s,float x,float y,float z)
+    {
+        s->SetPosition(x,y,z);
+    }
+
+    void compound_apply_impulse(palCompoundBody*s,float ix, float iy, float iz)
+    {
+        s->ApplyImpulse(ix,iy,iz);
+    }
+
+    void compound_set_active(palCompoundBody*s,bool active)
+    {
+        s->SetActive(active);
+    }
+
+    bool compound_is_active(palCompoundBody*s)
+    {
+        return s->IsActive();
+    }
+
+    void compound_add_box(palCompoundBody*c, Float x, Float y, Float z, Float width, Float height, Float depth, Float mass)
+    {
+        palBoxGeometry*pbg = c->AddBox();
+
+        palMatrix4x4 pos;
+        mat_set_translation(&pos, x, y, z);
+        mat_set_rotation(&pos, 0,0,0);
+        pbg->Init (pos, width, height, depth, mass);
+    }
+    
+    void compound_add_sphere(palCompoundBody*c, Float x, Float y, Float z, Float radius, Float mass)
+    {
+        palSphereGeometry*psg = c->AddSphere();
+
+        palMatrix4x4 pos;
+        mat_set_translation(&pos, x, y, z);
+        mat_set_rotation(&pos, 0,0,0);
+        psg->Init (pos, radius, mass);
+    }
+    
+    void compound_add_capsule(palCompoundBody*c, Float x, Float y, Float z, Float radius, Float height, Float mass)
+    {
+        palCapsuleGeometry*pcg = c->AddCapsule();
+
+        palMatrix4x4 pos;
+        mat_set_translation(&pos, x, y, z);
+        mat_set_rotation(&pos, 0,0,0);
+        pcg->Init (pos, radius, height, mass);
+    }
+
+    void compound_finalize(palCompoundBody*c)
+    {
+        c->Finalize();
+    }
+}
+
+/*********************************************************
+ *                                                       *
  *               the Sphere functions                    *
  *                                                       *
  *********************************************************/
@@ -477,4 +567,3 @@ extern "C"
         m->SetVoltage(voltage);
     }
 }
-
