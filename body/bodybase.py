@@ -50,10 +50,6 @@ class BodyBase(object):
         """Applies an angular impulse to the object for a single step."""
         pass
 
-    def get_velocity():
-        """Returns the linear velocity of the body."""
-        pass
-
     def set_velocity():
         """Sets the linear velocity of the body."""
         pass
@@ -72,9 +68,9 @@ class BodyBase(object):
         """informs the body that it can at any time have its current collision points requested"""
         lib.collision_notify(self.obj,enabled)
         if enabled:
-            notified_objects.append(weakref.proxy(self.obj))
+            notified_objects.append(weakref.proxy(self))
         elif self.obj in notified_objects:
-            notified_objects.remove(self.obj)
+            notified_objects.remove(self)
 
     def get_contacts(self):
         """returns the bodies that this body is currently in contact with."""
@@ -82,12 +78,26 @@ class BodyBase(object):
         ret = []
         lib.contacts_get_distance.restype = c.c_float
         for x in range(lib.contacts_get_size(contacts)):
-            ret.append(weakref.proxy([all_objects[str(lib.body_get_data(lib.contacts_get_body_one(contacts,x)))],
-                      all_objects[str(lib.body_get_data(lib.contacts_get_body_two(contacts,x)))],
-                      lib.contacts_get_distance(contacts,x)]))
+            ret.append([weakref.proxy(all_objects[str(lib.body_base_get_data(lib.contacts_get_body_one(contacts,x)))]),
+                      weakref.proxy(all_objects[str(lib.body_base_get_data(lib.contacts_get_body_two(contacts,x)))])])
         lib.remove_contact(contacts)
         return ret
         
+    def get_unique_contacts(self):
+        """returns the bodies that this body is currently in contact with."""
+        contacts = lib.get_contacts(self.obj)
+        ret = []
+        lib.contacts_get_distance.restype = c.c_float
+        for x in range(lib.contacts_get_size(contacts)):
+            a = weakref.proxy(all_objects[str(lib.body_base_get_data(lib.contacts_get_body_one(contacts,x)))])
+            b = weakref.proxy(all_objects[str(lib.body_base_get_data(lib.contacts_get_body_two(contacts,x)))])
+            if [a,b] not in ret:
+                ret.append([a,b])
+        lib.remove_contact(contacts)
+        try:
+            print ret[0] == ret[1]
+        except: pass
+        return ret
             
 
     @property

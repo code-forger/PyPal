@@ -14,18 +14,11 @@ def draw_box(b):
     location = b.get_location()
     print location
 
-def posz(pos):
+def pospos(pos):
     pos[0] *= 10
     pos[1] *= -10
     pos[0]+=250
     pos[1]+=490
-    return pos
-
-def posy(pos):
-    pos[0] *= 10
-    pos[1] *= -10
-    pos[0]+=500+250
-    pos[1]+=250
     return pos
 
 pygame.init()
@@ -81,9 +74,15 @@ ssprite.rect = Rect(pospos([sphere.get_position()[0],sphere.get_position()[1],20
 
 prismatic = pal.link.Prismatic(box,box3,box.get_position(),(1,0,0),False)
 prismatic.set_limits(3,20)
-revolute = pal.link.Revolute(box3,box1,box3.get_position(),(0,0,1),False)
+#revolute = pal.link.Revolute(box3,box1,box3.get_position(),(0,0,1),False)
 
 rigid = pal.link.Rigid(box2,sphere,False)
+
+box1.notify_collision(True)
+
+box2.set_group(2)
+box1.set_group(1)
+terain.set_group(1)
 
 motorbool = False
 cl = pygame.time.Clock()
@@ -127,7 +126,8 @@ while running:
     #                                             box1.get_position()[0], 
     #                                             box1.get_position()[1], 
     #                                             box1.get_position()[2])
-
+    print "here"
+    print box1.get_velocity()
 
 print pal._pal.all_objects
 box.delete()
@@ -137,7 +137,7 @@ box3.delete()
 box4.delete()
 sphere.delete()
 terain.delete()
-revolute.delete()
+#revolute.delete()
 prismatic.delete()
 rigid.delete()
 print pal._pal.all_objects

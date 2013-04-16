@@ -11,7 +11,7 @@ class TestBoxFunctions(unittest.TestCase):
 
     def test_box_create(self):
         pal.body.Box((0,0,0,1,1,1,1),mass=1)
-        self.assertEqual(len(pal._pal.all_objects),1)
+        self.assertEqual(len(pal._pal.all_objects),10)
 
     def test_box_delete(self):
         box = pal.body.Box((0,0,0,1,1,1,1),mass=1)

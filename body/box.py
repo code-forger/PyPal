@@ -57,6 +57,14 @@ class Box(BodyBase):
         """Sets the body to active or not."""
         pal.lib.box_set_active(self.obj,c.c_bool(active))
 
+    def get_velocity(self):
+        """Returns the linear velocity of the body."""
+        pal.lib.box_get_velocity_x.restype = c.c_float
+        pal.lib.box_get_velocity_y.restype = c.c_float
+        pal.lib.box_get_velocity_z.restype = c.c_float
+        return [pal.lib.box_get_velocity_x(self.obj),pal.lib.box_get_velocity_y(self.obj),pal.lib.box_get_velocity_z(self.obj)]
+
+
     def delete(self):
         x = pal.lib.body_get_data(self.obj)
         pal.lib.box_remove(self.obj)

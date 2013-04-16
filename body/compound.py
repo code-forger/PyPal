@@ -65,6 +65,14 @@ class Compound(BodyBase):
     def finalize(self):
         pal.lib.compound_finalize(self.obj)
 
+    def get_velocity(self):
+        """Returns the linear velocity of the body."""
+        pal.lib.compound_get_velocity_x.restype = c.c_float
+        pal.lib.compound_get_velocity_y.restype = c.c_float
+        pal.lib.compound_get_velocity_z.restype = c.c_float
+        return [pal.lib.compound_get_velocity_x(self.obj),pal.lib.compound_get_velocity_y(self.obj),pal.lib.compound_get_velocity_z(self.obj)]
+
+
     def delete(self):
         x = pal.lib.body_get_data(self.obj)
         pal.lib.body_clear_data(self.obj)

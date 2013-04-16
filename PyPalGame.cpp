@@ -81,7 +81,6 @@ extern "C"
     {   
         palBodyBase *body = dynamic_cast<palBodyBase*>(b);
         pcd->NotifyCollision(body,true);
-        std::cout << "notify" << enable;
     }
 
     palContact* get_contacts(palBody*b)
@@ -98,7 +97,8 @@ extern "C"
 
     palBodyBase* contacts_get_body_one(palContact*c,int pos)
     {
-        return c->m_ContactPoints[pos].m_pBody1;
+        palBodyBase* p = c->m_ContactPoints[pos].m_pBody1;
+        return p;
     }
 
     palBodyBase* contacts_get_body_two(palContact*c,int pos)
@@ -204,17 +204,19 @@ extern "C"
 
     palBoxGeometry * create_geometry_box(Float x, Float y, Float z, Float width, Float height, Float depth, Float mass)
     {
-        std::cout << "hello\n";
         palBoxGeometry *bg= PF->CreateBoxGeometry ();
 
-        std::cout << "hello1\n";
         palMatrix4x4 pos;
-        std::cout << "hello2\n";
         mat_set_translation(&pos, x, y, z);
-        std::cout << "hello3\n";
         bg->Init (pos, width, height, depth, mass);
-        std::cout << "hello4\n";
         return bg;
+    }
+
+    palVelocimeterSensor * create_velocimeter(palBody *b, Float x, Float y, Float z)
+    {
+        palVelocimeterSensor *pvs= PF->CreateVelocimeterSensor();
+        pvs->Init(b,x,y,z); //initialize it, set its location to 0,0,0 and minimum size to 50
+	    return pvs;
     }
 }
 /*********************************************************
@@ -257,7 +259,14 @@ extern "C"
 
     int body_get_data(palBody*b)
     {
-        return *((int*)b->GetUserData());
+        int i = *((int*)b->GetUserData());
+        return i;
+    }
+
+    int body_base_get_data(palBodyBase*b)
+    {
+        int i = *((int*)b->GetUserData());
+        return i;
     }
 
     int body_clear_data(palBody*b)
@@ -315,6 +324,27 @@ extern "C"
     {
         return b->IsActive();
     }
+
+    Float box_get_velocity_x(palBox*b)
+    {
+        palVector3 p;
+        b->GetLinearVelocity(p);
+        return p[0];
+    }
+
+    Float box_get_velocity_y(palBox*b)
+    {
+        palVector3 p;
+        b->GetLinearVelocity(p);
+        return p[1];
+    }
+
+    Float box_get_velocity_z(palBox*b)
+    {
+        palVector3 p;
+        b->GetLinearVelocity(p);
+        return p[2];
+    }
 }
 
 /*********************************************************
@@ -366,6 +396,27 @@ extern "C"
     bool capsule_is_active(palCapsule*c)
     {
         return c->IsActive();
+    }
+
+    Float capsule_get_velocity_x(palBox*b)
+    {
+        palVector3 p;
+        b->GetLinearVelocity(p);
+        return p[0];
+    }
+
+    Float capsule_get_velocity_y(palBox*b)
+    {
+        palVector3 p;
+        b->GetLinearVelocity(p);
+        return p[1];
+    }
+
+    Float capsule_get_velocity_z(palBox*b)
+    {
+        palVector3 p;
+        b->GetLinearVelocity(p);
+        return p[2];
     }
 }
 
@@ -436,6 +487,27 @@ extern "C"
     {
         c->Finalize();
     }
+
+    Float compound_get_velocity_x(palBox*b)
+    {
+        palVector3 p;
+        b->GetLinearVelocity(p);
+        return p[0];
+    }
+
+    Float compound_get_velocity_y(palBox*b)
+    {
+        palVector3 p;
+        b->GetLinearVelocity(p);
+        return p[1];
+    }
+
+    Float compound_get_velocity_z(palBox*b)
+    {
+        palVector3 p;
+        b->GetLinearVelocity(p);
+        return p[2];
+    }
 }
 
 /*********************************************************
@@ -467,6 +539,27 @@ extern "C"
     bool sphere_is_active(palSphere*s)
     {
         return s->IsActive();
+    }
+
+    Float sphere_get_velocity_x(palBox*b)
+    {
+        palVector3 p;
+        b->GetLinearVelocity(p);
+        return p[0];
+    }
+
+    Float sphere_get_velocity_y(palBox*b)
+    {
+        palVector3 p;
+        b->GetLinearVelocity(p);
+        return p[1];
+    }
+
+    Float sphere_get_velocity_z(palBox*b)
+    {
+        palVector3 p;
+        b->GetLinearVelocity(p);
+        return p[2];
     }
 }
 
@@ -565,5 +658,22 @@ extern "C"
 
     void dcmotor_set_voltage(palDCMotor*m,float voltage){
         m->SetVoltage(voltage);
+    }
+}
+
+/*********************************************************
+ *                                                       *
+ *               the velocimeter functions               *
+ *                                                       *
+ *********************************************************/
+extern "C" 
+{
+    void velocimeter_remove(palVelocimeterSensor*vs){
+        delete vs;
+        vs = NULL;
+    }
+
+    float velocimeter_get_velocity(palVelocimeterSensor*vs){
+        return vs->GetVelocity();
     }
 }

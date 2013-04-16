@@ -59,6 +59,14 @@ class Capsule(BodyBase):
         """Sets the body to active or not."""
         pal.lib.capsule_set_active(self.obj,c.c_bool(active))
 
+    def get_velocity(self):
+        """Returns the linear velocity of the body."""
+        pal.lib.capsule_get_velocity_x.restype = c.c_float
+        pal.lib.capsule_get_velocity_y.restype = c.c_float
+        pal.lib.capsule_get_velocity_z.restype = c.c_float
+        return [pal.lib.capsule_get_velocity_x(self.obj),pal.lib.capsule_get_velocity_y(self.obj),pal.lib.capsule_get_velocity_z(self.obj)]
+
+
     def delete(self):
         x = pal.lib.body_get_data(self.obj)
         pal.lib.body_clear_data(self.obj)
