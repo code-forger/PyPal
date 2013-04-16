@@ -212,6 +212,20 @@ extern "C"
         return bg;
     }
 
+    palTransponderReciever* create_transponder_reciever(palBody *b)
+    {
+        palTransponderReciever *pts= (palTransponderReciever*)PF->CreateObject("palTransponderReciever");
+        pts->Init(b); //initialize it, set its location to 0,0,0 and minimum size to 50
+	    return pts;
+    }
+
+    palTransponderSender* create_transponder_sender(palBody *b, Float max_distance)
+    {
+        palTransponderSender *pts= (palTransponderSender*)PF->CreateObject("palTransponderSender");
+        pts->Init(b,max_distance); //initialize it, set its location to 0,0,0 and minimum size to 50
+	    return pts;
+    }
+
     palVelocimeterSensor * create_velocimeter(palBody *b, Float x, Float y, Float z)
     {
         palVelocimeterSensor *pvs= PF->CreateVelocimeterSensor();
@@ -658,6 +672,44 @@ extern "C"
 
     void dcmotor_set_voltage(palDCMotor*m,float voltage){
         m->SetVoltage(voltage);
+    }
+}
+
+/*********************************************************
+ *                                                       *
+ *               the transponder reciever functions      *
+ *                                                       *
+ *********************************************************/
+extern "C" 
+{
+    void transponder_reciever_remove(palTransponderReciever*tr){
+        delete tr;
+        tr = NULL;
+    }
+
+    int transponder_reciever_get_num_of_senders(palTransponderReciever *t)
+    {
+        std::cout << t->GetNumTransponders() << "\n";
+        return t->GetNumTransponders();
+    }
+
+    float transponder_reciever_distance(palTransponderReciever *t,int id)
+    {
+        return t->GetDistance(id);
+    }
+
+}
+
+/*********************************************************
+ *                                                       *
+ *               the transponder sender functions        *
+ *                                                       *
+ *********************************************************/
+extern "C" 
+{
+    void transponder_sender_remove(palTransponderSender*ts){
+        delete ts;
+        ts = NULL;
     }
 }
 
