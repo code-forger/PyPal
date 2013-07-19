@@ -30,14 +30,6 @@ class BodyBase(object):
         """Puts the body in the provided collision group."""
         lib.body_set_group(self.obj,group)
 
-    def set_user_data(self,data):#TESTED
-        """Sets user data to be stored in the body."""
-        userdata[lib.body_get_data(self.obj)] = data
-
-    def get_user_data(self):#TESTED
-        """Returns user data currently stored in the body."""
-        return userdata[lib.body_get_data(self.obj)]
-
     def set_orientation(rot):
         """Sets the position of the object and/or its orientation."""
         pass
@@ -78,8 +70,8 @@ class BodyBase(object):
         ret = []
         lib.contacts_get_distance.restype = c.c_float
         for x in range(lib.contacts_get_size(contacts)):
-            ret.append([weakref.proxy(all_objects[str(lib.body_base_get_data(lib.contacts_get_body_one(contacts,x)))]),
-                      weakref.proxy(all_objects[str(lib.body_base_get_data(lib.contacts_get_body_two(contacts,x)))])])
+            ret.append([weakref.proxy(all_objects[str(lib.contacts_get_body_one(contacts,x))]),
+                      weakref.proxy(all_objects[str(lib.contacts_get_body_two(contacts,x))])])
         lib.remove_contact(contacts)
         return ret
         
@@ -88,9 +80,10 @@ class BodyBase(object):
         contacts = lib.get_contacts(self.obj)
         ret = []
         lib.contacts_get_distance.restype = c.c_float
+        print all_objects
         for x in range(lib.contacts_get_size(contacts)):
-            a = weakref.proxy(all_objects[str(lib.body_base_get_data(lib.contacts_get_body_one(contacts,x)))])
-            b = weakref.proxy(all_objects[str(lib.body_base_get_data(lib.contacts_get_body_two(contacts,x)))])
+            a = weakref.proxy(all_objects[str(lib.contacts_get_body_one(contacts,x))])
+            b = weakref.proxy(all_objects[str(lib.contacts_get_body_two(contacts,x))])
             if [a,b] not in ret:
                 ret.append([a,b])
         lib.remove_contact(contacts)

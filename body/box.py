@@ -15,23 +15,11 @@ class Box(BodyBase):
         """
         box = super(Box,cls).__new__(cls)
         box._create(rect,mass,density)
-        pal.all_objects[str(pal.all_next)] = box
-        pal.lib.body_set_data(box.obj,pal.all_next)
-        pal.all_next += 1
+        pal.all_objects[str(box.obj)] = box
         return weakref.proxy(box)
 
 
     def _create(self,rect,mass = None, density = None):#TESTED
-        """
-        THIS METHOD IS PRIVATE: to create a box use the create class method
-        constructs a box and adds it to the world
-        
-        rect: a 6 part tuple with x,y,z,width,height,depth.
-        mass: the mass of the object, if mass is specified it will be used.
-        density: if no mass is specified and a density is, the mass will be 
-        calculated from the density and the volumne.
-        static: used to create this object static, if static is true, mass will be ignored
-        """
         self.obj = pal.lib.create_box(c.c_float(rect[0]),c.c_float(rect[1]),c.c_float(rect[2]),c.c_float(rect[3]),c.c_float(rect[4]),c.c_float(rect[5]),c.c_float(mass))
 
     def get_size(self):
@@ -66,9 +54,8 @@ class Box(BodyBase):
 
 
     def delete(self):
-        x = pal.lib.body_get_data(self.obj)
         pal.lib.box_remove(self.obj)
-        del pal.all_objects[str(x)]
+        del pal.all_objects[str(self.obj)]
 
 
 class StaticBox(BodyBase):
@@ -84,22 +71,10 @@ class StaticBox(BodyBase):
         """
         box = super(StaticBox,cls).__new__(cls)
         box._create(rect)
-        pal.all_objects[str(pal.all_next)] = box
-        pal.lib.body_set_data(box.obj,pal.all_next)
-        pal.all_next += 1
+        pal.all_objects[str(box.obj)] = box
         return weakref.proxy(box)
 
     def _create(self,rect):#TESTED
-        """
-        THIS METHOD IS PRIVATE: to create a box use the create class method
-        constructs a box and adds it to the world
-        
-        rect: a 6 part tuple with x,y,z,width,height,depth.
-        mass: the mass of the object, if mass is specified it will be used.
-        density: if no mass is specified and a density is, the mass will be 
-        calculated from the density and the volumne.
-        static: used to create this object static, if static is true, mass will be ignored
-        """
         self.obj = pal.lib.create_static_box(c.c_float(rect[0]),c.c_float(rect[1]),c.c_float(rect[2]),c.c_float(rect[3]),c.c_float(rect[4]),c.c_float(rect[5]))
 
     def get_size(self):
@@ -109,7 +84,5 @@ class StaticBox(BodyBase):
         return [p.value for p in size]
 
     def delete(self):
-        x = pal.lib.body_get_data(self.obj)
-        pal.lib.body_clear_data(self.obj)
         pal.lib.static_box_remove(self.obj)
-        del pal.all_objects[str(x)]
+        del pal.all_objects[str(self.obj)]

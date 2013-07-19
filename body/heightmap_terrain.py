@@ -11,16 +11,10 @@ class HeightMapTerrain(BodyBase):
         """
         terrain = super(HeightMapTerrain,cls).__new__(cls)
         terrain._create(pos,size,chunks,height_map)
-        pal.all_objects[str(pal.all_next)] = terrain
-        pal.lib.body_set_data(terrain.obj,pal.all_next)
-        pal.all_next += 1
+        pal.all_objects[str(terrain.obj)] = terrain
         return weakref.proxy(terrain)
 
     def _create(self,pos,size,chunks,height_map):#TESTED
-        """
-        pos: position of the plane
-        min_size: the minimumsize of the plane
-        """
         points = c.c_float * (chunks[0] * chunks[1])
         points = points()
         for x in range(chunks[0]):
@@ -32,7 +26,5 @@ class HeightMapTerrain(BodyBase):
                                                     c.pointer(points))
 
     def delete(self):
-        x = pal.lib.body_get_data(self.obj)
-        pal.lib.body_clear_data(self.obj)
         pal.lib.terrain_heightmap_remove(self.obj)
-        del pal.all_objects[str(x)]
+        del pal.all_objects[str(self.obj)]

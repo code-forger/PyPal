@@ -14,20 +14,10 @@ class DCMotor(object):
         """
         motor = super(DCMotor,cls).__new__(cls)
         motor._create(link,torque,emf,resistance)
-        pal.all_objects[str(pal.all_next)] = motor
-        motor.index = pal.all_next
-        pal.all_next += 1
+        pal.all_objects[str(motor.obj)] = motor
         return weakref.proxy(motor)
 
     def _create(self,link,torque,emf,resistance):
-        """
-        applies a torque to a revolute link
-        
-        link: the link to apply the torque to
-        torque: the torque to be multiplied by the voltage
-        emf: the back emf of the motor
-        friction: the resistance of the armature 
-        """
         self.obj = pal.lib.create_dcmotor(link.obj,c.c_float(torque),c.c_float(emf),c.c_float(resistance))
 
     def set_voltage(self,voltage):
@@ -39,6 +29,5 @@ class DCMotor(object):
         pal.lib.dcmotor_run(self.obj)
 
     def delete(self):
-        x = self.index
         pal.lib.dcmotor_remove(self.obj)
-        del pal.all_objects[str(x)]
+        del pal.all_objects[str(obj)]

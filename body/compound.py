@@ -15,22 +15,10 @@ class Compound(BodyBase):
         """
         compound = super(Compound,cls).__new__(cls)
         compound._create(pos)
-        pal.all_objects[str(pal.all_next)] = compound
-        pal.lib.body_set_data(compound.obj,pal.all_next)
-        pal.all_next += 1
+        pal.all_objects[str(compound.obj)] = compound
         return weakref.proxy(compound)
 
     def _create(self,pos):
-        """
-        THIS METHOD IS PRIVATE: to create a sphere use the create class method
-        constructs a sphere and adds it to the world
-        
-        rect: a 4 part tuple with x,y,z,radius.
-        mass: the mass of the object, if mass is specified it will be used.
-        density: if no mass is specified and a density is, the mass will be 
-        calculated from the density and the volumne.
-        static: used to create this object static, if static is true, mass will be ignored
-        """
         self.obj = pal.lib.create_compound(c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]))
 
     def set_position(self,pos):
@@ -74,7 +62,5 @@ class Compound(BodyBase):
 
 
     def delete(self):
-        x = pal.lib.body_get_data(self.obj)
-        pal.lib.body_clear_data(self.obj)
         pal.lib.compound_remove(self.obj)
-        del pal.all_objects[str(x)]
+        del pal.all_objects[str(self.obj)]

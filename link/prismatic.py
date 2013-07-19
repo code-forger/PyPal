@@ -15,20 +15,10 @@ class Prismatic(object):
         """
         link = super(Prismatic,cls).__new__(cls)
         link._create(parent,child,pos,direction,collide)
-        pal.all_objects[str(pal.all_next)] = link
-        link.index = pal.all_next
-        pal.all_next += 1
+        pal.all_objects[str(link.obj)] = link
         return weakref.proxy(link)
 
     def _create(self,parent,child,pos,direction,collide):
-        """
-        connects two objects together
-
-        parent: the parent body
-        child: the child body
-        pos: a 3 part tuple for the position of the link
-        direction: a 3 part unit vector of the driection of the link
-        """
         self.obj = pal.lib.create_prismatic(parent.obj,child.obj,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]),c.c_float(direction[0]),c.c_float(direction[1]),c.c_float(direction[2]),c.c_bool(collide))
 
     def set_limits(self, min_limit, max_limit):
@@ -41,6 +31,5 @@ class Prismatic(object):
         pal.lib.prismatic_link_set_limits(self.obj, c.c_float(min_limit), c.c_float(max_limit))
 
     def delete(self):
-        x = self.index
         pal.lib.prismatic_link_remove(self.obj)
-        del pal.all_objects[str(x)]
+        del pal.all_objects[str(self.obj)]

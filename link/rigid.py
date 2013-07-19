@@ -15,24 +15,13 @@ class Rigid(object):
         """
         link = super(Rigid,cls).__new__(cls)
         link._create(parent,child,collide)
-        pal.all_objects[str(pal.all_next)] = link
-        link.index = pal.all_next
-        pal.all_next += 1
+        pal.all_objects[str(link.obj)] = link
         return weakref.proxy(link)
 
     def _create(self,parent,child,collide):
-        """
-        connects two objects together
-
-        parent: the parent body
-        child: the child body
-        pos: a 3 part tuple for the position of the link
-        direction: a 3 part unit vector of the driection of the link
-        """
         self.obj = pal.lib.create_rigid(parent.obj,child.obj,c.c_bool(collide))
 
 
     def delete(self):
-        x = self.index
         pal.lib.rigid_link_remove(self.obj)
-        del pal.all_objects[str(x)]
+        del pal.all_objects[str(self.obj)]

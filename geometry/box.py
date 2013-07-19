@@ -15,28 +15,13 @@ class Box(GeometryBase):
         """
         box = super(Box,cls).__new__(cls)
         box._create(rect,mass,density)
-        pal.all_objects[str(pal.all_next)] = box
-        pal.lib.body_set_data(box.obj,pal.all_next)
-        pal.all_next += 1
+        pal.all_objects[box.obj] = box
         return weakref.proxy(box)
 
-
-    def _create(self,rect,mass = None, density = None):#TESTED
-        """
-        THIS METHOD IS PRIVATE: to create a box use the create class method
-        constructs a box and adds it to the world
-        
-        rect: a 6 part tuple with x,y,z,width,height,depth.
-        mass: the mass of the object, if mass is specified it will be used.
-        density: if no mass is specified and a density is, the mass will be 
-        calculated from the density and the volumne.
-        static: used to create this object static, if static is true, mass will be ignored
-        """
+    def _create(self,rect,mass = None, density = None):
         self.obj = pal.lib.create_geometry_box(c.c_float(rect[0]),c.c_float(rect[1]),c.c_float(rect[2]),c.c_float(rect[3]),c.c_float(rect[4]),c.c_float(rect[5]),c.c_float(mass))
 
-
     def delete(self):
-        x = pal.lib.body_get_data(self.obj)
         pal.lib.box_remove(self.obj)
-        del pal.all_objects[str(x)]
+        del pal.all_objects[self.obj]
 

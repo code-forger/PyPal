@@ -17,6 +17,50 @@
  *
  */
 
+void* castup_bodybase(palBodyBase* in)
+{
+    if (palBox* obj = dynamic_cast<palBox*>(in))
+    {
+        return obj;
+    }
+    else if (palSphere* obj = dynamic_cast<palSphere*>(in))
+    {
+        return obj;
+    }
+    else if (palCapsule* obj = dynamic_cast<palCapsule*>(in))
+    {
+        return obj;
+    }
+    else if (palCompoundBody* obj = dynamic_cast<palCompoundBody*>(in))
+    {
+        return obj;
+    }
+    else if (palConvex* obj = dynamic_cast<palConvex*>(in))
+    {
+        return obj;
+    }
+    else if (palGenericBody* obj = dynamic_cast<palGenericBody*>(in))
+    {
+        return obj;
+    }
+    else if (palTerrainPlane* obj = dynamic_cast<palTerrainPlane*>(in))
+    {
+        return obj;
+    }
+    else if (palTerrainHeightmap* obj = dynamic_cast<palTerrainHeightmap*>(in))
+    {
+        return obj;
+    }
+    else if (palTerrainMesh* obj = dynamic_cast<palTerrainMesh*>(in))
+    {
+        return obj;
+    }
+    else if (palOrientatedTerrainPlane* obj = dynamic_cast<palOrientatedTerrainPlane*>(in))
+    {
+        return obj;
+    }
+}
+
 /*********************************************************
  *                                                       *
  *               the pal functions                       *
@@ -95,15 +139,14 @@ extern "C"
         return c->m_ContactPoints.size();
     }
 
-    palBodyBase* contacts_get_body_one(palContact*c,int pos)
+    void* contacts_get_body_one(palContact*c,int pos)
     {
-        palBodyBase* p = c->m_ContactPoints[pos].m_pBody1;
-        return p;
+        return castup_bodybase(c->m_ContactPoints[pos].m_pBody1);
     }
 
-    palBodyBase* contacts_get_body_two(palContact*c,int pos)
+    void* contacts_get_body_two(palContact*c,int pos)
     {
-        return c->m_ContactPoints[pos].m_pBody2;
+        return castup_bodybase(c->m_ContactPoints[pos].m_pBody2);
     }
 
     float contacts_get_distance(palContact*c,int pos)
@@ -263,7 +306,7 @@ extern "C"
     {
         b->SetGroup(group);
     }
-
+    /*
     void body_set_data(palBody*b,int data)
     {
         int* i = new int;
@@ -277,12 +320,12 @@ extern "C"
         return i;
     }
 
-    int body_base_get_data(palBodyBase*b)
+    int body_base_get_data(palBodyBase*b)//XXX
     {
         int i = *((int*)b->GetUserData());
         return i;
     }
-
+    */
     int body_clear_data(palBody*b)
     {
         int*i = (int*)b->GetUserData();
@@ -306,7 +349,7 @@ extern "C"
  *               the box functions                       *
  *                                                       *
  *********************************************************/
-extern "C" 
+extern "C"
 {
     void box_remove(palBox*b){
         delete b;
@@ -374,7 +417,7 @@ extern "C"
     }
 
     void static_box_get_size(palStaticBox*b,float&width,float&height,float&depth)
-    {
+    {//TODO
         width = b->GetWidth();
         height = b->GetHeight();
         depth = b->GetDepth();
@@ -393,7 +436,7 @@ extern "C"
         b = NULL;
     }
 
-    void capsule_set_position(palSphere*b,float x,float y,float z)
+    void capsule_set_position(palCapsule*c,float x,float y,float z)
     {
         b->SetPosition(x,y,z);
     }
@@ -412,24 +455,24 @@ extern "C"
         return c->IsActive();
     }
 
-    Float capsule_get_velocity_x(palBox*b)
+    Float capsule_get_velocity_x(palCapsule*c)
     {
         palVector3 p;
-        b->GetLinearVelocity(p);
+        c->GetLinearVelocity(p);
         return p[0];
     }
 
-    Float capsule_get_velocity_y(palBox*b)
+    Float capsule_get_velocity_y(palCapsule*c)
     {
         palVector3 p;
-        b->GetLinearVelocity(p);
+        c->GetLinearVelocity(p);
         return p[1];
     }
 
-    Float capsule_get_velocity_z(palBox*b)
+    Float capsule_get_velocity_z(palCapsule*c)
     {
         palVector3 p;
-        b->GetLinearVelocity(p);
+        c->GetLinearVelocity(p);
         return p[2];
     }
 }
@@ -502,24 +545,24 @@ extern "C"
         c->Finalize();
     }
 
-    Float compound_get_velocity_x(palBox*b)
+    Float compound_get_velocity_x(palCompoundBody*c)
     {
         palVector3 p;
-        b->GetLinearVelocity(p);
+        c->GetLinearVelocity(p);
         return p[0];
     }
 
-    Float compound_get_velocity_y(palBox*b)
+    Float compound_get_velocity_y(palCompoundBody*c)
     {
         palVector3 p;
-        b->GetLinearVelocity(p);
+        c->GetLinearVelocity(p);
         return p[1];
     }
 
-    Float compound_get_velocity_z(palBox*b)
+    Float compound_get_velocity_z(palCompoundBody*c)
     {
         palVector3 p;
-        b->GetLinearVelocity(p);
+        c->GetLinearVelocity(p);
         return p[2];
     }
 }
@@ -555,24 +598,24 @@ extern "C"
         return s->IsActive();
     }
 
-    Float sphere_get_velocity_x(palBox*b)
+    Float sphere_get_velocity_x(palSphere*s)
     {
         palVector3 p;
-        b->GetLinearVelocity(p);
+        s->GetLinearVelocity(p);
         return p[0];
     }
 
-    Float sphere_get_velocity_y(palBox*b)
+    Float sphere_get_velocity_y(palSphere*s)
     {
         palVector3 p;
-        b->GetLinearVelocity(p);
+        s->GetLinearVelocity(p);
         return p[1];
     }
 
-    Float sphere_get_velocity_z(palBox*b)
+    Float sphere_get_velocity_z(palSphere*s)
     {
         palVector3 p;
-        b->GetLinearVelocity(p);
+        s->GetLinearVelocity(p);
         return p[2];
     }
 }
@@ -679,7 +722,7 @@ extern "C"
  *                                                       *
  *               the transponder reciever functions      *
  *                                                       *
- *********************************************************/
+ *********************************************************
 extern "C" 
 {
     void transponder_reciever_remove(palTransponderReciever*tr){
@@ -704,7 +747,7 @@ extern "C"
  *                                                       *
  *               the transponder sender functions        *
  *                                                       *
- *********************************************************/
+ *********************************************************
 extern "C" 
 {
     void transponder_sender_remove(palTransponderSender*ts){
@@ -717,7 +760,7 @@ extern "C"
  *                                                       *
  *               the velocimeter functions               *
  *                                                       *
- *********************************************************/
+ *********************************************************
 extern "C" 
 {
     void velocimeter_remove(palVelocimeterSensor*vs){

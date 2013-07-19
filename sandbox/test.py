@@ -33,6 +33,7 @@ tsprite = pygame.sprite.Sprite(drawable)
 tsprite.image = pygame.Surface((500,10))
 tsprite.image.fill((255,0,0))
 tsprite.rect = Rect(pospos([terain.get_position()[0],terain.get_position()[1],500,10]))
+terain1 =  pal.body.Terrain((10,-10,0),60)
 
 box = pal.body.StaticBox((0,10,0,1,1,1))
 bsprite = pygame.sprite.Sprite(drawable)
@@ -128,7 +129,7 @@ while running:
     #                                             box1.get_position()[0], 
     #                                             box1.get_position()[1], 
     #                                             box1.get_position()[2])
-    print trans_rec.get_distance(0)
+    print box1.is_active()
 
 print pal._pal.all_objects, pal._pal.sensor_objects
 box.delete()
