@@ -3,24 +3,9 @@ import ctypes as c
 import weakref
 from bodybase import BodyBase
 class Sphere(BodyBase):
-    def __new__(cls,rect,mass = None, density = None):
-        """
-        constructs a sphere and adds it to the world
-        
-        rect: a 6 part tuple with x,y,z,width,height,depth.
-        mass: the mass of the object, if mass is specified it will be used.
-        density: if no mass is specified and a density is, the mass will be 
-        calculated from the density and the volumne.
-        static: used to create this object static, if static is true, mass will be ignored
-        """
-        sphere = super(Sphere,cls).__new__(cls)
-        sphere._create(rect,mass,density)
-        pal.all_objects[str(sphere.obj)] = sphere
-        sphere.size = rect[3]
-        return weakref.proxy(sphere)
-
     def _create(self,rect,mass = None, density = None):
         self.obj = pal.lib.create_sphere(c.c_float(rect[0]),c.c_float(rect[1]),c.c_float(rect[2]),c.c_float(rect[3]),c.c_float(mass))
+        self.size = rect[3]
 
     def get_size(self):
         """returns the radius of the sphere"""

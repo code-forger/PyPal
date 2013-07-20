@@ -3,26 +3,27 @@ import ctypes as c
 import weakref
 from bodybase import BodyBase
 class Capsule(BodyBase):
-    def __new__(cls,rect,mass = None, density = None, static = False):
-        """
-        constructs a box and adds it to the world
-        
-        rect: a 5 part tuple with x,y,z,radius,length.
-        Note: if a 6 part rect is passed in, the width will be taken as the
-        radius and the height as the length, the depth will be ignored.
-        mass: the mass of the object, if mass is specified it will be used.
-        density: if no mass is specified and a density is, the mass will be 
-        calculated from the density and the volumne.
-        static: used to create this object static, if static is true, mass will be ignored
-        """
-        capsule = super(Capsule,cls).__new__(cls)
-        capsule._create(rect,mass,density,static)
-        pal.all_objects[str(capsule.obj)] = capsule
-        capsule.size = rect[3:5]
-        return weakref.proxy(capsule)
+#    def __new__(cls,rect,mass = None, density = None, static = False):
+#        """
+#        constructs a box and adds it to the world
+#        
+#        rect: a 5 part tuple with x,y,z,radius,length.
+#        Note: if a 6 part rect is passed in, the width will be taken as the
+#        radius and the height as the length, the depth will be ignored.
+#        mass: the mass of the object, if mass is specified it will be used.
+#        density: if no mass is specified and a density is, the mass will be 
+#        calculated from the density and the volumne.
+#        static: used to create this object static, if static is true, mass will be ignored
+#        """
+#        capsule = super(Capsule,cls).__new__(cls)
+#        capsule._create(rect,mass,density,static)
+#        pal.all_objects[str(capsule.obj)] = capsule
+#        capsule.size = rect[3:5]
+#        return weakref.proxy(capsule)
 
     def _create(self,rect,mass = None, density = None, static = False):
         self.obj = pal.lib.create_capsule(c.c_float(rect[0]),c.c_float(rect[1]),c.c_float(rect[2]),c.c_float(rect[3]),c.c_float(rect[4]),c.c_float(mass))
+        self.size = rect[3:]
 
     def get_size(self):
         """returns the size of the object in a 2 part tuple"""

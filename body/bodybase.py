@@ -1,6 +1,6 @@
 from private_globals import *
 
-class BodyBase(object):
+class BodyBase(PalObject):
 
     """The Base of any body in the world
 

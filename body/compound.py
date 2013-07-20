@@ -3,20 +3,20 @@ import ctypes as c
 import weakref
 from bodybase import BodyBase
 class Compound(BodyBase):
-    def __new__(cls,pos):
-        """
-        constructs a sphere and adds it to the world
-        
-        rect: a 6 part tuple with x,y,z,width,height,depth.
-        mass: the mass of the object, if mass is specified it will be used.
-        density: if no mass is specified and a density is, the mass will be 
-        calculated from the density and the volumne.
-        static: used to create this object static, if static is true, mass will be ignored
-        """
-        compound = super(Compound,cls).__new__(cls)
-        compound._create(pos)
-        pal.all_objects[str(compound.obj)] = compound
-        return weakref.proxy(compound)
+#    def __new__(cls,pos):
+#        """
+#        constructs a sphere and adds it to the world
+#        
+#        rect: a 6 part tuple with x,y,z,width,height,depth.
+#        mass: the mass of the object, if mass is specified it will be used.
+#        density: if no mass is specified and a density is, the mass will be 
+#        calculated from the density and the volumne.
+#        static: used to create this object static, if static is true, mass will be ignored
+#        """
+#        compound = super(Compound,cls).__new__(cls)
+#        compound._create(pos)
+#        pal.all_objects[str(compound.obj)] = compound
+#        return weakref.proxy(compound)
 
     def _create(self,pos):
         self.obj = pal.lib.create_compound(c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]))
