@@ -12,10 +12,7 @@ all_next = 0
 
 class PalObject(object):
     def __new__(cls, *args, **kwargs):
-        if len(args) == 1 and isinstance(args[0], int):
-            return all_objects[str(args[0])]
-        else:
-            o = super(PalObject,cls).__new__(cls)
-            o._create(*args, **kwargs)
-            all_objects[str(o.obj)] = o
-            return weakref.proxy(o)
+        o = super(PalObject,cls).__new__(cls)
+        o._create(*args, **kwargs)
+        all_objects[str(o.obj)] = o
+        return weakref.proxy(o)
