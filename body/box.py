@@ -48,12 +48,35 @@ class Box(BodyBase):
         pal.lib.box_get_velocity_z.restype = c.c_float
         return [pal.lib.box_get_velocity_x(self.obj),pal.lib.box_get_velocity_y(self.obj),pal.lib.box_get_velocity_z(self.obj)]
 
-    def apply_force(self, force,pos=(0,0,0)):
-        """Applies a force to the object for a single step at an optional offset in world coordinates."""
-        pal.lib.box_apply_force(self.obj,c.c_float(force[0]),c.c_float(force[1]),c.c_float(force[2]))
+    def get_angular_velocity(self):
+        """Returns the linear velocity of the body."""
+        pal.lib.box_get_angular_velocity_x.restype = c.c_float
+        pal.lib.box_get_angular_velocity_y.restype = c.c_float
+        pal.lib.box_get_angular_velocity_z.restype = c.c_float
+        return [pal.lib.box_get_angular_velocity_x(self.obj),pal.lib.box_get_angular_velocity_y(self.obj),pal.lib.box_get_angular_velocity_z(self.obj)]
 
-    def apply_torque(self, force, pos=(0,0,0)):
-        """Applies a torque to the object for a single step at an optional offset in world coordinates."""
+    def apply_impulse(self, impulse,pos=None):
+        """Applies an impulse to the object for a single step at an optional offset in world coordinates."""
+        if pos:
+            pal.lib.box_apply_impulse_at_pos(self.obj,c.c_float(impulse[0]),c.c_float(impulse[1]),c.c_float(impulse[2])
+                                                   ,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]))
+        else:
+            pal.lib.box_apply_impulse(self.obj,c.c_float(force[0]),c.c_float(force[1]),c.c_float(force[2]))
+
+    def apply_angular_impulse(self, impulse):
+        """Applies an angular impulse to the object for a single step at an optional offset in world coordinates."""
+        pal.lib.box_apply_angular_impulse(self.obj,c.c_float(impulse[0]),c.c_float(impulse[1]),c.c_float(impulse[2]))
+
+    def apply_force(self, force,pos=None):
+        """Applies a force to the object for a single step at an optional offset in world coordinates."""
+        if pos:
+            pal.lib.box_apply_force_at_pos(self.obj,c.c_float(force[0]),c.c_float(force[1]),c.c_float(force[2])
+                                                   ,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]))
+        else:
+            pal.lib.box_apply_force(self.obj,c.c_float(force[0]),c.c_float(force[1]),c.c_float(force[2]))
+
+    def apply_torque(self, force):
+        """Applies a torque to the object for a single step."""
         pal.lib.box_apply_torque(self.obj,c.c_float(force[0]),c.c_float(force[1]),c.c_float(force[2]))
 
 

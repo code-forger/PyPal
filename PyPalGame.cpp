@@ -362,9 +362,25 @@ extern "C"
         b->ApplyImpulse(ix,iy,iz);
     }
 
+    void box_apply_impulse_at_pos(palBox*b,float x,float y,float z
+                                 ,float px,float py,float pz)
+    {
+        b->ApplyImpulseAtPosition(x,y,z,pz,py,pz);
+    }
+
+    void box_apply_angular_impulse(palBox*b,float ix, float iy, float iz){
+        b->ApplyAngularImpulse(ix,iy,iz);
+    }
+
     void box_apply_force(palBox*b,float x,float y,float z)
     {
         b->ApplyForce(x,y,z);
+    }
+
+    void box_apply_force_at_pos(palBox*b,float x,float y,float z
+                                 ,float px,float py,float pz)
+    {
+        b->ApplyForceAtPosition(x,y,z,pz,py,pz);
     }
 
     void box_apply_torque(palBox*b,float x,float y,float z)
@@ -402,6 +418,27 @@ extern "C"
         b->GetLinearVelocity(p);
         return p[2];
     }
+
+    Float box_get_angular_velocity_x(palBox*b)
+    {
+        palVector3 p;
+        b->GetAngularVelocity(p);
+        return p[0];
+    }
+
+    Float box_get_angular_velocity_y(palBox*b)
+    {
+        palVector3 p;
+        b->GetAngularVelocity(p);
+        return p[1];
+    }
+
+    Float box_get_angular_velocity_z(palBox*b)
+    {
+        palVector3 p;
+        b->GetAngularVelocity(p);
+        return p[2];
+    }
 }
 
 /*********************************************************
@@ -436,8 +473,14 @@ extern "C"
         b = NULL;
     }
 
-    void capsule_apply_impulse(palCapsule*c,float ix, float iy, float iz){
-        c->ApplyImpulse(ix,iy,iz);
+    void capsule_apply_impulse_at_pos(palCapsule*c,float x,float y,float z
+                                 ,float px,float py,float pz)
+    {
+        c->ApplyImpulseAtPosition(x,y,z,pz,py,pz);
+    }
+
+    void capsule_apply_angular_impulse(palCapsule*c,float ix, float iy, float iz){
+        c->ApplyAngularImpulse(ix,iy,iz);
     }
 
     void capsule_set_active(palCapsule*c,bool active)
@@ -448,6 +491,12 @@ extern "C"
     void capsule_apply_force(palCapsule*c,float x,float y,float z)
     {
         c->ApplyForce(x,y,z);
+    }
+
+    void capsule_apply_force_at_pos(palCapsule*c,float x,float y,float z
+                                 ,float px,float py,float pz)
+    {
+        c->ApplyForceAtPosition(x,y,z,pz,py,pz);
     }
 
     void capsule_apply_torque(palCapsule*c,float x,float y,float z)
@@ -478,6 +527,27 @@ extern "C"
     {
         palVector3 p;
         c->GetLinearVelocity(p);
+        return p[2];
+    }
+
+    Float capsule_get_angular_velocity_x(palCapsule*c)
+    {
+        palVector3 p;
+        c->GetAngularVelocity(p);
+        return p[0];
+    }
+
+    Float capsule_get_angular_velocity_y(palCapsule*c)
+    {
+        palVector3 p;
+        c->GetAngularVelocity(p);
+        return p[1];
+    }
+
+    Float capsule_get_angular_velocity_z(palCapsule*c)
+    {
+        palVector3 p;
+        c->GetAngularVelocity(p);
         return p[2];
     }
 }
@@ -583,9 +653,25 @@ extern "C"
         s->ApplyImpulse(ix,iy,iz);
     }
 
+    void sphere_apply_impulse_at_pos(palSphere*s,float x,float y,float z
+                                 ,float px,float py,float pz)
+    {
+        s->ApplyImpulseAtPosition(x,y,z,pz,py,pz);
+    }
+
+    void sphere_apply_angular_impulse(palSphere*s,float ix, float iy, float iz){
+        s->ApplyAngularImpulse(ix,iy,iz);
+    }
+
     void sphere_apply_force(palSphere*s,float x,float y,float z)
     {
         s->ApplyForce(x,y,z);
+    }
+
+    void sphere_apply_force_at_pos(palSphere*s,float x,float y,float z
+                                 ,float px,float py,float pz)
+    {
+        s->ApplyForceAtPosition(x,y,z,pz,py,pz);
     }
 
     void sphere_apply_torque(palSphere*s,float x,float y,float z)
@@ -621,6 +707,27 @@ extern "C"
     {
         palVector3 p;
         s->GetLinearVelocity(p);
+        return p[2];
+    }
+
+    Float sphere_get_angular_velocity_x(palSphere*s)
+    {
+        palVector3 p;
+        s->GetAngularVelocity(p);
+        return p[0];
+    }
+
+    Float sphere_get_angular_velocity_y(palSphere*s)
+    {
+        palVector3 p;
+        s->GetAngularVelocity(p);
+        return p[1];
+    }
+
+    Float sphere_get_angular_velocity_z(palSphere*s)
+    {
+        palVector3 p;
+        s->GetAngularVelocity(p);
         return p[2];
     }
 }

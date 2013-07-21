@@ -42,6 +42,13 @@ class Capsule(BodyBase):
         """Sets the body to active or not."""
         pal.lib.capsule_set_active(self.obj,c.c_bool(active))
 
+    def get_angular_velocity(self):
+        """Returns the angular velocity of the body."""
+        pal.lib.capsule_get_angular_velocity_x.restype = c.c_float
+        pal.lib.capsule_get_angular_velocity_y.restype = c.c_float
+        pal.lib.capsule_get_angular_velocity_z.restype = c.c_float
+        return [pal.lib.capsule_get_angular_velocity_x(self.obj),pal.lib.capsule_get_angular_velocity_y(self.obj),pal.lib.capsule_get_angular_velocity_z(self.obj)]
+
     def get_velocity(self):
         """Returns the linear velocity of the body."""
         pal.lib.capsule_get_velocity_x.restype = c.c_float
@@ -49,14 +56,29 @@ class Capsule(BodyBase):
         pal.lib.capsule_get_velocity_z.restype = c.c_float
         return [pal.lib.capsule_get_velocity_x(self.obj),pal.lib.capsule_get_velocity_y(self.obj),pal.lib.capsule_get_velocity_z(self.obj)]
 
-    def apply_force(self, force,pos=(0,0,0)):
+    def apply_impulse(self, impulse,pos=None):
+        """Applies a impulse to the object for a single step at an optional offset in world coordinates."""
+        if pos:
+            pal.lib.capsule_apply_impulse_at_pos(self.obj,c.c_float(impulse[0]),c.c_float(impulse[1]),c.c_float(impulse[2])
+                                                   ,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]))
+        else:
+            pal.lib.capsule_apply_impulse(self.obj,c.c_float(force[0]),c.c_float(force[1]),c.c_float(force[2]))
+
+    def apply_angular_impulse(self, impulse, pos=(0,0,0)):
+        """Applies a torque to the object for a single step at an optional offset in world coordinates."""
+        pal.lib.capsule_apply_angular_impulse(self.obj,c.c_float(impulse[0]),c.c_float(impulse[1]),c.c_float(impulse[2]))
+
+    def apply_force(self, force,pos=None):
         """Applies a force to the object for a single step at an optional offset in world coordinates."""
-        pal.lib.capsule_apply_force(self.obj,c.c_float(force[0]),c.c_float(force[1]),c.c_float(force[2]))
+        if pos:
+            pal.lib.capsule_apply_force_at_pos(self.obj,c.c_float(force[0]),c.c_float(force[1]),c.c_float(force[2])
+                                                   ,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]))
+        else:
+            pal.lib.capsule_apply_force(self.obj,c.c_float(force[0]),c.c_float(force[1]),c.c_float(force[2]))
 
     def apply_torque(self, force, pos=(0,0,0)):
         """Applies a torque to the object for a single step at an optional offset in world coordinates."""
         pal.lib.capsule_apply_torque(self.obj,c.c_float(force[0]),c.c_float(force[1]),c.c_float(force[2]))
-
 
     def delete(self):
         pal.lib.capsule_remove(self.obj)
