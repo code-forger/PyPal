@@ -335,7 +335,7 @@ extern "C"
         x = v[0];
         y = v[1];
         z = v[2];
-        //mat_get_rotation((palMatrix4x4*)m,&x1,&y1,&z1);
+        //mat_get_rotation((palMatrix4x4*)m,&x1,&y1,&z1);TODO
     }
 }
 
@@ -471,6 +471,10 @@ extern "C"
     void capsule_remove(palCapsule*b){
         delete b;
         b = NULL;
+    }
+
+    void capsule_apply_impulse(palCapsule*c,float ix, float iy, float iz){
+        c->ApplyImpulse(ix,iy,iz);
     }
 
     void capsule_apply_impulse_at_pos(palCapsule*c,float x,float y,float z

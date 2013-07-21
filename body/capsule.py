@@ -23,7 +23,7 @@ class Capsule(BodyBase):
 
     def _create(self,rect,mass = None, density = None, static = False):
         self.obj = pal.lib.create_capsule(c.c_float(rect[0]),c.c_float(rect[1]),c.c_float(rect[2]),c.c_float(rect[3]),c.c_float(rect[4]),c.c_float(mass))
-        self.size = rect[3:]
+        self.size = list(rect[3:])
 
     def get_size(self):
         """returns the size of the object in a 2 part tuple"""
@@ -62,7 +62,7 @@ class Capsule(BodyBase):
             pal.lib.capsule_apply_impulse_at_pos(self.obj,c.c_float(impulse[0]),c.c_float(impulse[1]),c.c_float(impulse[2])
                                                    ,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]))
         else:
-            pal.lib.capsule_apply_impulse(self.obj,c.c_float(force[0]),c.c_float(force[1]),c.c_float(force[2]))
+            pal.lib.capsule_apply_impulse(self.obj,c.c_float(impulse[0]),c.c_float(impulse[1]),c.c_float(impulse[2]))
 
     def apply_angular_impulse(self, impulse, pos=(0,0,0)):
         """Applies a torque to the object for a single step at an optional offset in world coordinates."""

@@ -44,7 +44,7 @@ class Sphere(BodyBase):
             pal.lib.sphere_apply_impulse_at_pos(self.obj,c.c_float(impulse[0]),c.c_float(impulse[1]),c.c_float(impulse[2])
                                                    ,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]))
         else:
-            pal.lib.sphere_apply_impulse(self.obj,c.c_float(force[0]),c.c_float(force[1]),c.c_float(force[2]))
+            pal.lib.sphere_apply_impulse(self.obj,c.c_float(impulse[0]),c.c_float(impulse[1]),c.c_float(impulse[2]))
 
     def apply_angular_impulse(self, impulse, pos=(0,0,0)):
         """Applies a impulse to the object for a single step at an optional offset in world coordinates."""

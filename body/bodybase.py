@@ -46,23 +46,6 @@ class BodyBase(PalObject):
     def set_orientation(self, rot):
         """Sets the position of the object and/or its orientation."""
         lib.body_set_orientation(self.obj,c.c_float(rot[0]),c.c_float(rot[1]),c.c_float(rot[2]))
-
-    def apply_angular_impulse(impulse):
-        """Applies an angular impulse to the object for a single step."""
-        pass
-
-    def set_velocity():
-        """Sets the linear velocity of the body."""
-        pass
-
-    def get_angular_velocity():
-        """Returns the angular velocity of the body."""
-        pass
-
-    def set_angular_velocity():
-        """Sets the angular velocity of the body."""
-        pass
-
     #collision detection functions
 
     def notify_collision(self,enabled):

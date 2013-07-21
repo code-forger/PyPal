@@ -28,10 +28,6 @@ class Box(BodyBase):
         pal.lib.box_get_size(self.obj,c.byref(size[0]),c.byref(size[1]),c.byref(size[2]))
         return [p.value for p in size]
 
-    def apply_impulse(self,impulse):
-        """Applies an impulse to the object for a single step at an optional offset in world coordinates."""
-        pal.lib.box_apply_impulse(self.obj,c.c_float(impulse[0]),c.c_float(impulse[1]),c.c_float(impulse[2]))
-
     def is_active(self):
         """Returns true if the body is not asleep."""
         pal.lib.box_is_active.restype = c.c_bool
@@ -40,6 +36,10 @@ class Box(BodyBase):
     def set_active(self,active):
         """Sets the body to active or not."""
         pal.lib.box_set_active(self.obj,c.c_bool(active))
+
+    def apply_impulse(self,impulse):
+        """Applies an impulse to the object for a single step at an optional offset in world coordinates."""
+        pal.lib.box_apply_impulse(self.obj,c.c_float(impulse[0]),c.c_float(impulse[1]),c.c_float(impulse[2]))
 
     def get_velocity(self):
         """Returns the linear velocity of the body."""
@@ -61,7 +61,7 @@ class Box(BodyBase):
             pal.lib.box_apply_impulse_at_pos(self.obj,c.c_float(impulse[0]),c.c_float(impulse[1]),c.c_float(impulse[2])
                                                    ,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]))
         else:
-            pal.lib.box_apply_impulse(self.obj,c.c_float(force[0]),c.c_float(force[1]),c.c_float(force[2]))
+            pal.lib.box_apply_impulse(self.obj,c.c_float(impulse[0]),c.c_float(impulse[1]),c.c_float(impulse[2]))
 
     def apply_angular_impulse(self, impulse):
         """Applies an angular impulse to the object for a single step at an optional offset in world coordinates."""
