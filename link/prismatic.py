@@ -1,23 +1,8 @@
 import private_globals as pal
 import ctypes as c
 import weakref
-class Prismatic(object):
+class Prismatic(pal.PalObject):
     """a link that connects two objects telescopically"""
-    def __new__(cls,parent,child,pos,direction,collide):
-        """
-        constructs a revolate link and adds it to the world
-        
-        rect: a 6 part tuple with x,y,z,width,height,depth.
-        mass: the mass of the object, if mass is specified it will be used.
-        density: if no mass is specified and a density is, the mass will be 
-        calculated from the density and the volumne.
-        static: used to create this object static, if static is true, mass will be ignored
-        """
-        link = super(Prismatic,cls).__new__(cls)
-        link._create(parent,child,pos,direction,collide)
-        pal.all_objects[str(link.obj)] = link
-        return weakref.proxy(link)
-
     def _create(self,parent,child,pos,direction,collide):
         self.obj = pal.lib.create_prismatic(parent.obj,child.obj,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]),c.c_float(direction[0]),c.c_float(direction[1]),c.c_float(direction[2]),c.c_bool(collide))
 

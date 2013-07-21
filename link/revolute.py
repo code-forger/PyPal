@@ -1,23 +1,8 @@
 import private_globals as pal
 import ctypes as c
 import weakref
-class Revolute(object):
+class Revolute(pal.PalObject):
     """a link that connects two objects rotationally"""
-    def __new__(cls,parent,child,pos,direction,collide):
-        """
-        constructs a revolate link and adds it to the world
-        
-        rect: a 6 part tuple with x,y,z,width,height,depth.
-        mass: the mass of the object, if mass is specified it will be used.
-        density: if no mass is specified and a density is, the mass will be 
-        calculated from the density and the volumne.
-        static: used to create this object static, if static is true, mass will be ignored
-        """
-        link = super(Revolute,cls).__new__(cls)
-        link._create(parent,child,pos,direction,collide)
-        pal.all_objects[str(link.obj)] = link
-        return weakref.proxy(link)
-
     def _create(self,parent,child,pos,direction,collide):
         self.obj = pal.lib.create_revolute(parent.obj,child.obj,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]),c.c_float(direction[0]),c.c_float(direction[1]),c.c_float(direction[2]),c.c_bool(collide))
 
@@ -27,38 +12,52 @@ class Revolute(object):
         lower: the minimum angle
         upper: the maximum angle
         """
-        pal.lib.revolute_set_limits(self.obj,c.c_float(lower),c.c_float(upper))
+        pal.lib.revolute_link_set_limits(self.obj,c.c_float(lower),c.c_float(upper))
 
-    def get_position():
+    def get_position(self):
         """
         returns the position of the link
         """
+        pos = [c.c_float() for x in range(3)]
+        pal.lib.revolute_link_get_position(self.obj,c.byref(pos[0]),c.byref(pos[1]),c.byref(pos[2]))
+        return [p.value for p in pos]
 
-    def get_angle():
+    def get_angle(self):
         """
         returns the angle of the link
         """
-        pass
+        pal.lib.revolute_link_get_angle.restype = c.c_float
+        return pal.lib.revolute_link_get_angle(self.obj)
+        
 
-    def get_angular_velocity():
+    def get_angular_velocity(self):
         """
         returns the angular velocity of the link
         """
-        pass
+        pal.lib.revolute_link_get_angular_velocity.restype = c.c_float
+        return pal.lib.revolute_link_get_angular_velocity(self.obj)
 
-    def apple_torque(torque):
+    def apple_torque(self,torque):
         """
         applies a torque to the childabout the link
         torque: a floating point value
         """
-        pass
+        pal.lib.revolute_link_apply_torque(self.obj, c.c_float(torque))
 
-    def apply_angular_impulse(torque):
+    def apply_angular_impulse(self,torque):
         """
         applies a torque to the childabout the link
         torque: a floating point value
         """
-        pass
+        pal.lib.revolute_link_apply_angular_velocity(self.obj, c.c_float(torque))
+
+    def get_axis(self):
+        """
+        returns the position of the link
+        """
+        pos = [c.c_float() for x in range(3)]
+        pal.lib.revolute_link_get_axis(self.obj,c.byref(pos[0]),c.byref(pos[1]),c.byref(pos[2]))
+        return [p.value for p in pos]
 
     def delete(self):
         pal.lib.revolute_link_remove(self.obj)

@@ -355,8 +355,8 @@ class TestCapsuleFunctions(unittest.TestCase):
         capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
         capsule.apply_torque((1,1,1))
 
-unittest.main()
-
-
-
-
+suite = [unittest.TestLoader().loadTestsFromTestCase(TestBoxFunctions),
+        unittest.TestLoader().loadTestsFromTestCase(TestSphereFunctions),
+        unittest.TestLoader().loadTestsFromTestCase(TestCapsuleFunctions)]
+suite = unittest.TestSuite(suite)
+unittest.TextTestRunner(verbosity=3).run(suite)

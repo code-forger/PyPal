@@ -791,12 +791,42 @@ extern "C"
         rl = NULL;
     }
 
+    void revolute_link_set_limits(palRevoluteLink*rl,float max, float min){
+        rl->SetLimits(max,min);
+    }
+
+    void revolute_link_get_position(palRevoluteLink*rl,float&x,float&y,float&z)
+    {
+        palVector3 pos;
+        rl->GetPosition(pos);
+        x = pos[0];
+        y = pos[1];
+        z = pos[2];
+    }
+
     float revolute_link_get_angle(palRevoluteLink*rl){
         return rl->GetAngle();
     }
 
-    void revolute_set_limits(palRevoluteLink*rl,float max, float min){
-        rl->SetLimits(max,min);
+    float revolute_link_get_angular_velocity(palRevoluteLink*rl){
+        return rl->GetAngularVelocity();
+    }
+
+    void revolute_link_apply_torque(palRevoluteLink*rl, Float torque){
+        rl->ApplyTorque(torque);
+    }
+
+    void revolute_link_apply_angular_impulse(palRevoluteLink*rl, Float impulse){
+        rl->ApplyAngularImpulse(impulse);
+    }
+
+    void revolute_link_get_axis(palRevoluteLink*rl,float&x,float&y,float&z)
+    {
+        palVector3 pos;
+        pos = rl->GetAxis();
+        x = pos[0];
+        y = pos[1];
+        z = pos[2];
     }
 }
 

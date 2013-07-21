@@ -85,8 +85,6 @@ box2.set_group(2)
 box1.set_group(1)
 terain.set_group(1)
 
-trans_rec = pal.sensor.Transponder_Reciever(box1)
-trans_sen = pal.sensor.Transponder_Sender(box3,10000.)
 motorbool = False
 cl = pygame.time.Clock()
 running = True
@@ -140,8 +138,6 @@ box4.delete()
 sphere.delete()
 terain.delete()
 #revolute.delete()
-trans_rec.delete()
-trans_sen.delete()
 prismatic.delete()
 rigid.delete()
 print pal._pal.all_objects, pal._pal.sensor_objects
