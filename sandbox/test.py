@@ -129,7 +129,7 @@ while running:
     #                                             box1.get_position()[0], 
     #                                             box1.get_position()[1], 
     #                                             box1.get_position()[2])
-    print box1.get_size(), sphere.get_size()
+    print "set", box1.set_skin_width(5), "get", box1.get_skin_width()
 
 print pal._pal.all_objects, pal._pal.sensor_objects
 box.delete()

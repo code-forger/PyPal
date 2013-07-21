@@ -30,6 +30,15 @@ class BodyBase(PalObject):
         """Puts the body in the provided collision group."""
         lib.body_set_group(self.obj,group)
 
+    def get_skin_width(self):
+        """Returns the skin width"""
+        lib.body_get_skin_width.restype = c.c_float
+        return lib.body_get_skin_width(self.obj)
+
+    def set_skin_width(self, width):
+        """Sets the skin width"""
+        return lib.body_set_skin_width(self.obj, width)
+
     def set_orientation(rot):
         """Sets the position of the object and/or its orientation."""
         pass

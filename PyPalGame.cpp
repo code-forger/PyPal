@@ -302,34 +302,19 @@ extern "C"
         return b->GetGroup();
     }
 
-    void body_set_group(palBody*b,int group)
+    void body_set_group(palBody*b, int group)
     {
         b->SetGroup(group);
     }
-    /*
-    void body_set_data(palBody*b,int data)
+
+    Float body_get_skin_width(palBody*b)
     {
-        int* i = new int;
-        *i = data;
-        b->SetUserData(i);
+        return b->GetSkinWidth();
     }
 
-    int body_get_data(palBody*b)
+    bool body_set_skin_width(palBody*b, Float width)
     {
-        int i = *((int*)b->GetUserData());
-        return i;
-    }
-
-    int body_base_get_data(palBodyBase*b)//XXX
-    {
-        int i = *((int*)b->GetUserData());
-        return i;
-    }
-    */
-    int body_clear_data(palBody*b)
-    {
-        int*i = (int*)b->GetUserData();
-        delete i;
+        b->SetSkinWidth(width);
     }
 
     void body_get_primative_location(palBody*b,float&x,float&y,float&z,float&x1,float&y1,float&z1)
@@ -438,7 +423,7 @@ extern "C"
 
     void capsule_set_position(palCapsule*c,float x,float y,float z)
     {
-        b->SetPosition(x,y,z);
+        c->SetPosition(x,y,z);
     }
 
     void capsule_apply_impulse(palCapsule*c,float ix, float iy, float iz){
@@ -771,4 +756,4 @@ extern "C"
     float velocimeter_get_velocity(palVelocimeterSensor*vs){
         return vs->GetVelocity();
     }
-}
+}*/
