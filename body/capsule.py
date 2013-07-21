@@ -29,10 +29,6 @@ class Capsule(BodyBase):
         """returns the size of the object in a 2 part tuple"""
         return self.size
 
-    def set_position(self,pos):
-        """Sets the position of the object and/or its orientation."""
-        pal.lib.capsule_set_position(self.obj,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]))
-
     def apply_impulse(self,impulse):
         """Applies an impulse to the object for a single step at an optional offset in world coordinates."""
         pal.lib.capsule_apply_impulse(self.obj,c.c_float(impulse[0]),c.c_float(impulse[1]),c.c_float(impulse[2]))
@@ -52,6 +48,14 @@ class Capsule(BodyBase):
         pal.lib.capsule_get_velocity_y.restype = c.c_float
         pal.lib.capsule_get_velocity_z.restype = c.c_float
         return [pal.lib.capsule_get_velocity_x(self.obj),pal.lib.capsule_get_velocity_y(self.obj),pal.lib.capsule_get_velocity_z(self.obj)]
+
+    def apply_force(self, force,pos=(0,0,0)):
+        """Applies a force to the object for a single step at an optional offset in world coordinates."""
+        pal.lib.capsule_apply_force(self.obj,c.c_float(force[0]),c.c_float(force[1]),c.c_float(force[2]))
+
+    def apply_torque(self, force, pos=(0,0,0)):
+        """Applies a torque to the object for a single step at an optional offset in world coordinates."""
+        pal.lib.capsule_apply_torque(self.obj,c.c_float(force[0]),c.c_float(force[1]),c.c_float(force[2]))
 
 
     def delete(self):

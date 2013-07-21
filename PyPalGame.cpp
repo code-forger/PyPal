@@ -292,6 +292,16 @@ extern "C"
         z = pos[2];
     }
 
+    void body_set_position(palBody*b,float x,float y,float z)
+    {
+        b->SetPosition(x,y,z);
+    }
+
+    void body_set_orientation(palBody*b,float x,float y,float z)
+    {
+        b->SetOrientation(x,y,z);
+    }
+
     void body_set_material(palBody*b,palMaterial *material)
     {
         b->SetMaterial(material);
@@ -348,13 +358,18 @@ extern "C"
         depth = b->GetDepth();
     }
 
-    void box_set_position(palBox*b,float x,float y,float z)
-    {
-        b->SetPosition(x,y,z);
-    }
-
     void box_apply_impulse(palBox*b,float ix, float iy, float iz){
         b->ApplyImpulse(ix,iy,iz);
+    }
+
+    void box_apply_force(palBox*b,float x,float y,float z)
+    {
+        b->ApplyForce(x,y,z);
+    }
+
+    void box_apply_torque(palBox*b,float x,float y,float z)
+    {
+        b->ApplyTorque(x,y,z);
     }
 
     void box_set_active(palBox*b,bool active)
@@ -421,11 +436,6 @@ extern "C"
         b = NULL;
     }
 
-    void capsule_set_position(palCapsule*c,float x,float y,float z)
-    {
-        c->SetPosition(x,y,z);
-    }
-
     void capsule_apply_impulse(palCapsule*c,float ix, float iy, float iz){
         c->ApplyImpulse(ix,iy,iz);
     }
@@ -433,6 +443,16 @@ extern "C"
     void capsule_set_active(palCapsule*c,bool active)
     {
         c->SetActive(active);
+    }
+
+    void capsule_apply_force(palCapsule*c,float x,float y,float z)
+    {
+        c->ApplyForce(x,y,z);
+    }
+
+    void capsule_apply_torque(palCapsule*c,float x,float y,float z)
+    {
+        c->ApplyTorque(x,y,z);
     }
 
     bool capsule_is_active(palCapsule*c)
@@ -473,11 +493,6 @@ extern "C"
     {
         delete s;
         s = NULL;
-    }
-
-    void compound_set_position(palCompoundBody*s,float x,float y,float z)
-    {
-        s->SetPosition(x,y,z);
     }
 
     void compound_apply_impulse(palCompoundBody*s,float ix, float iy, float iz)
@@ -564,13 +579,18 @@ extern "C"
         s = NULL;
     }
 
-    void sphere_set_position(palSphere*s,float x,float y,float z)
-    {
-        s->SetPosition(x,y,z);
-    }
-
     void sphere_apply_impulse(palSphere*s,float ix, float iy, float iz){
         s->ApplyImpulse(ix,iy,iz);
+    }
+
+    void sphere_apply_force(palSphere*s,float x,float y,float z)
+    {
+        s->ApplyForce(x,y,z);
+    }
+
+    void sphere_apply_torque(palSphere*s,float x,float y,float z)
+    {
+        s->ApplyTorque(x,y,z);
     }
 
     void sphere_set_active(palSphere*s,bool active)

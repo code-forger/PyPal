@@ -39,13 +39,13 @@ class BodyBase(PalObject):
         """Sets the skin width"""
         return lib.body_set_skin_width(self.obj, width)
 
-    def set_orientation(rot):
+    def set_position(self,pos):
         """Sets the position of the object and/or its orientation."""
-        pass
+        lib.body_set_position(self.obj,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]))
 
-    def apply_force(force,pos=(0,0,0)):
-        """Applies a force to the object for a single step at an optional offset in world coordinates."""
-        pass
+    def set_orientation(self, rot):
+        """Sets the position of the object and/or its orientation."""
+        lib.body_set_orientation(self.obj,c.c_float(rot[0]),c.c_float(rot[1]),c.c_float(rot[2]))
 
     def apply_angular_impulse(impulse):
         """Applies an angular impulse to the object for a single step."""

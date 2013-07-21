@@ -21,10 +21,6 @@ class Compound(BodyBase):
     def _create(self,pos):
         self.obj = pal.lib.create_compound(c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]))
 
-    def set_position(self,pos):
-        """Sets the position of the object and/or its orientation."""
-        pal.lib.compound_set_position(self.obj,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]))
-
     def apply_impulse(self,impulse):
         """Applies an impulse to the object for a single step at an optional offset in world coordinates."""
         pal.lib.compound_apply_impulse(self.obj,c.c_float(impulse[0]),c.c_float(impulse[1]),c.c_float(impulse[2]))
