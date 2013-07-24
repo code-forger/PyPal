@@ -43,6 +43,7 @@ def cleanup():
     _pal.all_objects = {}
     _pal.lib.pal_cleanup()
 
+
 def get_time():
     """Returns age of the simulation."""
     _pal.lib.pal_get_time.restype = c.c_float

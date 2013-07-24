@@ -37,7 +37,7 @@ class Revolute(pal.PalObject):
         pal.lib.revolute_link_get_angular_velocity.restype = c.c_float
         return pal.lib.revolute_link_get_angular_velocity(self.obj)
 
-    def apple_torque(self,torque):
+    def apply_torque(self,torque):
         """
         applies a torque to the childabout the link
         torque: a floating point value
@@ -49,7 +49,7 @@ class Revolute(pal.PalObject):
         applies a torque to the childabout the link
         torque: a floating point value
         """
-        pal.lib.revolute_link_apply_angular_velocity(self.obj, c.c_float(torque))
+        pal.lib.revolute_link_apply_angular_impulse(self.obj, c.c_float(torque))
 
     def get_axis(self):
         """
