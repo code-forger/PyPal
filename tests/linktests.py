@@ -105,4 +105,10 @@ class TestRevoluteFunctions(unittest.TestCase):
         link = pal.link.Revolute(self.box1, self.box2, self.box1.get_position(),(1,0,0), True)
         link.apply_angular_impulse(1)
 
-unittest.main()
+suite = [unittest.TestLoader().loadTestsFromTestCase(TestRigidFunctions),
+        unittest.TestLoader().loadTestsFromTestCase(TestPrismaticFunctions),
+        unittest.TestLoader().loadTestsFromTestCase(TestRevoluteFunctions)]
+
+if __name__ == "__main__":
+    suite = unittest.TestSuite(suite)
+    unittest.TextTestRunner(verbosity=3).run(suite)

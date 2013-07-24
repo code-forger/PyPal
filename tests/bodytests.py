@@ -358,5 +358,7 @@ class TestCapsuleFunctions(unittest.TestCase):
 suite = [unittest.TestLoader().loadTestsFromTestCase(TestBoxFunctions),
         unittest.TestLoader().loadTestsFromTestCase(TestSphereFunctions),
         unittest.TestLoader().loadTestsFromTestCase(TestCapsuleFunctions)]
-suite = unittest.TestSuite(suite)
-unittest.TextTestRunner(verbosity=3).run(suite)
+
+if __name__ == "__main__":
+    suite = unittest.TestSuite(suite)
+    unittest.TextTestRunner(verbosity=3).run(suite)
