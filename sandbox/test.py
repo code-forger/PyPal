@@ -88,6 +88,9 @@ terain.set_group(1)
 motorbool = False
 cl = pygame.time.Clock()
 running = True
+
+ghost = pal.body.Ghost([0,0,0,5,5,5], parent=box2)
+
 while running:
     time = cl.tick(50)
     for event in pygame.event.get():
@@ -127,7 +130,7 @@ while running:
     #                                             box1.get_position()[0], 
     #                                             box1.get_position()[1], 
     #                                             box1.get_position()[2])
-    print box1.set_position((3,3,3))
+    print ghost.collide(box1)
 
 print pal._pal.all_objects, pal._pal.sensor_objects
 box.delete()
