@@ -37,7 +37,7 @@ def update(time_step):
     """
     _pal.lib.physics_update(c.c_float(time_step))
     for action in _pal.actions.values():
-        action[1](action[0],*action[2],**action[3])
+        action.responce = action.function(action.name,*action.args,**action.kwargs)
 
 def cleanup():
     """Ends the simulation."""

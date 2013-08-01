@@ -25,7 +25,6 @@ class Ghost(pal.PalObject):
                                 self.move_to, parent)
             a.run()
             self.actions.append(a)
-            
 
     def _collide_sphere(self, target):
         tar_pos = target.get_position()
