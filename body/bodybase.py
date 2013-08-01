@@ -27,11 +27,6 @@ class BodyBase(PalObject):
         lib.body_get_primative_location(self.obj,c.byref(pos[0]),c.byref(pos[1]),c.byref(pos[2]),c.byref(pos[3]),c.byref(pos[4]),c.byref(pos[5]))
         return [p.value for p in pos]
 
-    def get_bearing(self, offset=0): #TODO
-        r = self.get_location()[3:-1]
-        angle = math.asin(r[0])
-        return angle
-
     def set_material(self,material):
         """Sets the material of the body. DO NOT USE"""
         lib.body_set_material(self.obj,c.c_void_p(None))
