@@ -1,4 +1,5 @@
 from private_globals import *
+import math
 
 class BodyBase(PalObject):
 
@@ -11,6 +12,14 @@ class BodyBase(PalObject):
         pos = [c.c_float() for x in range(3)]
         lib.body_get_position(self.obj,c.byref(pos[0]),c.byref(pos[1]),c.byref(pos[2]))
         return [p.value for p in pos]
+
+    def get_distance_to(self, target):
+        tar_pos = target.get_position()
+        this_pos = self.get_position()
+        normalrect = [this_pos[x]-tar_pos[x] for x in range(3)]
+        distance = sum([normalrect[x]**2 for x in range(3)])
+        distance = math.sqrt(distance)
+        return distance
 
     def get_location(self):#TESTED
         """Returns position as a 3 part tuple:(x,y,z)."""

@@ -130,7 +130,7 @@ while running:
     #                                             box1.get_position()[0], 
     #                                             box1.get_position()[1], 
     #                                             box1.get_position()[2])
-    print ghost.collide(box1)
+    print box1.get_velocity()
 
 print pal._pal.all_objects, pal._pal.sensor_objects
 box.delete()

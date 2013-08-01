@@ -26,6 +26,11 @@ class TestBoxFunctions(unittest.TestCase):
         box = pal.body.Box((0,0,0,1,1,1),mass=1)
         self.assertEqual(box.get_position(), [0,0,0])
 
+    def test_box_get_distance_to(self):
+        box = pal.body.Box((0,0,0,1,1,1),mass=1)
+        box1 = pal.body.Box((10,0,0,1,1,1),mass=1)
+        self.assertEqual(box.get_distance_to(box1), 10)
+
     def test_box_get_location(self):
         box = pal.body.Box((0,0,0,1,1,1),mass=1)
         self.assertEqual(box.get_location(), [0,0,0,0,0,0])
