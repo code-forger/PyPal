@@ -17,7 +17,7 @@ class Ghost(pal.PalObject):
         elif len(rect) == 6:
             self.collide = self._collide_box
         else:
-            pass #TODO
+            raise ValueError("Rect parameter for a Ghost must be of length 4 or 6.")
 
         self.actions = []
         if parent:
