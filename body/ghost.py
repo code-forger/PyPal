@@ -57,3 +57,11 @@ class Ghost(pal.PalObject):
             if self.collide(target):
                 ret.append(target)
         return ret
+
+    def get_position(self):
+        return rect[:3]
+
+    def set_position(self, pos):
+        self.rect[0] = pos[0]
+        self.rect[1] = pos[1]
+        self.rect[2] = pos[2]
