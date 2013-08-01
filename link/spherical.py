@@ -1,19 +1,21 @@
-class Spherical():
-    """a link that connects two objects spherically"""
-    def __init__(parent,child,pos):
-        """
-        connects two objects together
+import private_globals as pal
+import ctypes as c
+import weakref
+class Spherical(pal.PalObject):
+    """a link that connects two objects rotationally"""
+    def _create(self,parent,child,pos,collide):
+        self.obj = pal.lib.create_spherical(parent.obj,child.obj,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]),c.c_bool(collide))
 
-        parent: the parent body
-        child: the child body
-        pos: a 3 part tuple for the position of the link
-        """
-        pass
 
-    def set_limits(cone,twist):
+    def set_limits(self,cone,twist):
         """
         sets the movement limits of the link
         
         cone: limits the rotational movement to a cone specified in radiens
         twist: limits the twisting of the link specified in radiens
         """
+        pal.lib.spherical_link_set_limits(self.obj,c.c_float(cone),c.c_float(twist))
+
+    def delete(self):
+        pal.lib.spherical_link_remove(self.obj)
+        del pal.all_objects[str(self.obj)]

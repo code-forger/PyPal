@@ -238,6 +238,14 @@ extern "C"
 	    return prl;
     }
 
+    palSphericalLink * create_spherical(palBody *parent,palBody *child,Float x,Float y,
+                                      Float z, bool collide)
+    {
+        palSphericalLink *prl= PF->CreateSphericalLink();
+        prl->Init(parent,child,x,y,z,collide); //initialize it, set its location to 0,0,0 and minimum size to 50
+	    return prl;
+    }
+
     palDCMotor * create_dcmotor(palRevoluteLink *revolute_link, Float torque, Float EMF, Float resistance)
     {
         palDCMotor *pm= dynamic_cast<palDCMotor*>(PF->CreateObject("palDCMotor"));
@@ -776,6 +784,23 @@ extern "C"
 
     void prismatic_link_set_limits(palPrismaticLink*pl,float min,float max){
         pl->SetLimits(min, max);
+    }
+}
+
+/*********************************************************
+ *                                                       *
+ *               the spherical link functions            *
+ *                                                       *
+ *********************************************************/
+extern "C" 
+{
+    void spherical_link_remove(palSphericalLink*sl){
+        delete sl;
+        sl = NULL;
+    }
+
+    void spherical_link_set_limits(palSphericalLink*sl,float cone,float twist){
+        sl->SetLimits(cone, twist);
     }
 }
 

@@ -74,7 +74,8 @@ ssprite.rect = Rect(pospos([sphere.get_position()[0],sphere.get_position()[1],20
 
 prismatic = pal.link.Prismatic(box,box3,box.get_position(),(1,0,0),False)
 prismatic.set_limits(3,20)
-revolute = pal.link.Revolute(box3,box1,box3.get_position(),(0,0,1),False)
+
+spherical = pal.link.Spherical(box3,box1,box3.get_position(),False)
 
 rigid = pal.link.Rigid(box2,sphere,False)
 
