@@ -263,7 +263,30 @@ extern "C"
         return bg;
     }
 
-    palTransponderReciever* create_transponder_reciever(palBody *b)
+    palCompassSensor* create_compass(palBody*b, Float x, Float y, Float z)
+    {
+        palCompassSensor *c= PF->CreateCompassSensor();
+        c->Init(b,x,y,z);
+        return c;
+    }
+
+    palGPSSensor* create_gps(palBody*b, int sec, Float lat, Float lon)
+    {
+        palGPSSensor *gps= PF->CreateGPSSensor();
+        gps->Init(b,sec,lat,lon);
+        return gps;
+    }
+
+    palInclinometerSensor* create_inclinometer(palBody*b, Float ax, Float ay, Float az
+                                                   , Float ux, Float uy, Float uz
+                                                   , Float gx, Float gy, Float gz)
+    {
+        palInclinometerSensor *i= PF->CreateInclinometerSensor();
+        i->Init(b,ax,ay,az,ux,uy,uz,gx,gy,gz);
+        return i;
+    }
+
+/*    palTransponderReciever* create_transponder_reciever(palBody *b)
     {
         palTransponderReciever *pts= (palTransponderReciever*)PF->CreateObject("palTransponderReciever");
         pts->Init(b); //initialize it, set its location to 0,0,0 and minimum size to 50
@@ -282,7 +305,7 @@ extern "C"
         palVelocimeterSensor *pvs= PF->CreateVelocimeterSensor();
         pvs->Init(b,x,y,z); //initialize it, set its location to 0,0,0 and minimum size to 50
 	    return pvs;
-    }
+    }*/
 }
 /*********************************************************
  *                                                       *
@@ -886,6 +909,55 @@ extern "C"
 
     void dcmotor_set_voltage(palDCMotor*m,float voltage){
         m->SetVoltage(voltage);
+    }
+}
+
+/*********************************************************
+ *                                                       *
+ *               the compass reciever functions          *
+ *                                                       *
+ *********************************************************/
+extern "C" 
+{
+    Float compass_get_angle(palCompassSensor* c)
+    {
+        return c->GetAngle();
+    }
+}
+
+/*********************************************************
+ *                                                       *
+ *               the gps reciever functions              *
+ *                                                       *
+ *********************************************************/
+extern "C" 
+{
+    void gps_get_string(palGPSSensor* gps, char*str)
+    {
+        std::cout << "pre" << str << std::endl;
+        //gps->GetGPSString(str);
+       
+        int i = 0;
+        std::cout << "printing  ";
+        while(str[i])
+        {
+            std::cout << str[i];
+            i++;
+        }
+        std::cout << std::endl;
+    }
+}
+
+/*********************************************************
+ *                                                       *
+ *               the inclinometer reciever functions     *
+ *                                                       *
+ *********************************************************/
+extern "C" 
+{
+    Float inclinometer_get_angle(palInclinometerSensor* i)
+    {
+        return i->GetAngle();
     }
 }
 
