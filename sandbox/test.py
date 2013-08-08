@@ -91,7 +91,7 @@ running = True
 
 ghost = pal.body.Ghost([0,0,0,5,5,5], parent=box2)
 
-compass = pal.sensor.Inclinometer(box1,[1,0,0],[0,0,1],[0,0,-1])
+psd = pal.sensor.PSD(box1,box1.get_position(),[0,0,1])
 
 while running:
     time = cl.tick(50)
@@ -132,7 +132,7 @@ while running:
     #                                             box1.get_position()[0], 
     #                                             box1.get_position()[1], 
     #                                             box1.get_position()[2])
-    print "HERE",  compass.get_angle()
+    print "HERE",  psd.get_distance()
 
 print pal._pal.all_objects, pal._pal.sensor_objects
 box.delete()

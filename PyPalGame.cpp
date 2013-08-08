@@ -286,26 +286,14 @@ extern "C"
         return i;
     }
 
-/*    palTransponderReciever* create_transponder_reciever(palBody *b)
+    palPSDSensor* create_psd(palBody*b, Float x, Float y, Float a
+                                               , Float ax, Float ay, Float az)
     {
-        palTransponderReciever *pts= (palTransponderReciever*)PF->CreateObject("palTransponderReciever");
-        pts->Init(b); //initialize it, set its location to 0,0,0 and minimum size to 50
-	    return pts;
+        palPSDSensor *p= PF->CreatePSDSensor();
+        p->Init(b,x,y,z,ax,ay,az);
+        return p;
     }
 
-    palTransponderSender* create_transponder_sender(palBody *b, Float max_distance)
-    {
-        palTransponderSender *pts= (palTransponderSender*)PF->CreateObject("palTransponderSender");
-        pts->Init(b,max_distance); //initialize it, set its location to 0,0,0 and minimum size to 50
-	    return pts;
-    }
-
-    palVelocimeterSensor * create_velocimeter(palBody *b, Float x, Float y, Float z)
-    {
-        palVelocimeterSensor *pvs= PF->CreateVelocimeterSensor();
-        pvs->Init(b,x,y,z); //initialize it, set its location to 0,0,0 and minimum size to 50
-	    return pvs;
-    }*/
 }
 /*********************************************************
  *                                                       *
@@ -914,7 +902,7 @@ extern "C"
 
 /*********************************************************
  *                                                       *
- *               the compass reciever functions          *
+ *               the compass functions                   *
  *                                                       *
  *********************************************************/
 extern "C" 
@@ -927,7 +915,7 @@ extern "C"
 
 /*********************************************************
  *                                                       *
- *               the gps reciever functions              *
+ *               the gps functions                       *
  *                                                       *
  *********************************************************/
 extern "C" 
@@ -950,7 +938,7 @@ extern "C"
 
 /*********************************************************
  *                                                       *
- *               the inclinometer reciever functions     *
+ *               the inclinometer functions              *
  *                                                       *
  *********************************************************/
 extern "C" 
@@ -963,55 +951,14 @@ extern "C"
 
 /*********************************************************
  *                                                       *
- *               the transponder reciever functions      *
+ *               the PSD functions                       *
  *                                                       *
- *********************************************************
+ *********************************************************/
 extern "C" 
 {
-    void transponder_reciever_remove(palTransponderReciever*tr){
-        delete tr;
-        tr = NULL;
-    }
-
-    int transponder_reciever_get_num_of_senders(palTransponderReciever *t)
+    Float psd_get_distance(palPSDSensor* p)
     {
-        std::cout << t->GetNumTransponders() << "\n";
-        return t->GetNumTransponders();
-    }
-
-    float transponder_reciever_distance(palTransponderReciever *t,int id)
-    {
-        return t->GetDistance(id);
-    }
-
-}
-
-/*********************************************************
- *                                                       *
- *               the transponder sender functions        *
- *                                                       *
- *********************************************************
-extern "C" 
-{
-    void transponder_sender_remove(palTransponderSender*ts){
-        delete ts;
-        ts = NULL;
+        return p->GetAngle();
     }
 }
 
-/*********************************************************
- *                                                       *
- *               the velocimeter functions               *
- *                                                       *
- *********************************************************
-extern "C" 
-{
-    void velocimeter_remove(palVelocimeterSensor*vs){
-        delete vs;
-        vs = NULL;
-    }
-
-    float velocimeter_get_velocity(palVelocimeterSensor*vs){
-        return vs->GetVelocity();
-    }
-}*/
