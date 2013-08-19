@@ -83,3 +83,17 @@ class Capsule(BodyBase):
     def delete(self):
         pal.lib.capsule_remove(self.obj)
         del pal.all_objects[str(self.obj)]
+
+
+class StaticCapsule(BodyBase):
+    def _create(self,rect):#TESTED
+        self.obj = pal.lib.create_static_capsule(c.c_float(rect[0]),c.c_float(rect[1]),c.c_float(rect[2]),c.c_float(rect[3]),c.c_float(rect[4]))
+        self.size = rect[3:]
+
+    def get_size(self):
+        """returns the size of the object in a 3 part tuple"""
+        return self.size
+
+    def delete(self):
+        pal.lib.static_capsule_remove(self.obj)
+        del pal.all_objects[str(self.obj)]

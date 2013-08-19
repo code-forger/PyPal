@@ -47,7 +47,7 @@ b1sprite.image = pygame.Surface((10,10))
 b1sprite.image.fill((0,255,0))
 b1sprite.rect = Rect(pospos([box.get_position()[0],box.get_position()[1],10,10]))
 
-box3 = pal.body.Box((-10,10,0,1,1,1),mass=10)
+box3 = pal.body.StaticSphere((-10,10,0,1))
 b3sprite = pygame.sprite.Sprite(drawable)
 b3sprite.image = pygame.Surface((10,10))
 b3sprite.image.fill((0,255,0))
@@ -60,7 +60,7 @@ b4sprite.image.fill((0,255,0))
 b4sprite.rect = Rect(pospos([box.get_position()[0],box.get_position()[1],10,10]))
 
 
-box2 = pal.body.StaticBox((15,10,0,1,1,1))
+box2 = pal.body.StaticCapsule((15,10,0,1,1))
 b2sprite = pygame.sprite.Sprite(drawable)
 b2sprite.image = pygame.Surface((10,10))
 b2sprite.image.fill((0,255,0))

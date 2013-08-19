@@ -182,8 +182,15 @@ extern "C"
 
     palCapsule * create_capsule(Float x, Float y, Float z, Float radius, Float length, Float mass)
     {
-        palCapsule *pc = PF->CreateCapsule(); //create a box
+        palCapsule *pc = PF->CreateCapsule();
 	    pc->Init(x, y, z, radius, length, mass);
+        return pc;
+    }
+
+    palStaticCapsule * create_static_capsule(Float x, Float y, Float z, Float radius, Float length)
+    {
+        palStaticCapsule *pc = dynamic_cast<palStaticCapsule*>(PF->CreateObject("palStaticCapsule"));
+	    pc->Init(x, y, z, radius, length);
         return pc;
     }
 
@@ -198,6 +205,13 @@ extern "C"
     {
         palSphere *ps = PF->CreateSphere(); //create a box
 	    ps->Init(x, y, z, radius, mass);
+        return ps;
+    }
+
+    palStaticSphere * create_static_sphere(Float x, Float y, Float z, Float radius)
+    {
+        palStaticSphere *ps = dynamic_cast<palStaticSphere*>(PF->CreateObject("palStaticSphere"));
+	    ps->Init(x, y, z, radius);
         return ps;
     }
 
@@ -286,11 +300,12 @@ extern "C"
         return i;
     }
 
-    palPSDSensor* create_psd(palBody*b, Float x, Float y, Float a
-                                               , Float ax, Float ay, Float az)
+    palPSDSensor* create_psd(palBody*b, Float x, Float y, Float z
+                                      , Float ax, Float ay, Float az
+                                      , Float range)
     {
         palPSDSensor *p= PF->CreatePSDSensor();
-        p->Init(b,x,y,z,ax,ay,az);
+        p->Init(b,x,y,z,ax,ay,az,range);
         return p;
     }
 
@@ -471,13 +486,6 @@ extern "C"
         delete b;
         b = NULL;
     }
-
-    void static_box_get_size(palStaticBox*b,float&width,float&height,float&depth)
-    {//TODO
-        width = b->GetWidth();
-        height = b->GetHeight();
-        depth = b->GetDepth();
-    }
 }
 
 /*********************************************************
@@ -577,6 +585,19 @@ extern "C"
 
 /*********************************************************
  *                                                       *
+ *               the static capsule functions            *
+ *                                                       *
+ *********************************************************/
+extern "C" 
+{
+    void static_capsule_remove(palStaticCapsule*c){
+        delete c;
+        c = NULL;
+    }
+}
+
+/*********************************************************
+ *                                                       *
  *               the compound functions                  *
  *                                                       *
  *********************************************************/
@@ -603,33 +624,38 @@ extern "C"
         return s->IsActive();
     }
 
-    void compound_add_box(palCompoundBody*c, Float x, Float y, Float z, Float width, Float height, Float depth, Float mass)
+    void compound_add_box(palCompoundBody*c, Float x, Float y, Float z,
+                                             Float rx, Float ry, Float rz,
+                                             Float width, Float height,
+                                             Float depth, Float mass)
     {
         palBoxGeometry*pbg = c->AddBox();
 
         palMatrix4x4 pos;
         mat_set_translation(&pos, x, y, z);
-        mat_set_rotation(&pos, 0,0,0);
+        mat_set_rotation(&pos, rx, ry, yz);
         pbg->Init (pos, width, height, depth, mass);
     }
     
-    void compound_add_sphere(palCompoundBody*c, Float x, Float y, Float z, Float radius, Float mass)
+    void compound_add_sphere(palCompoundBody*c, Float x, Float y, Float z,
+                                             Float rx, Float ry, Float rz, Float radius, Float mass)
     {
         palSphereGeometry*psg = c->AddSphere();
 
         palMatrix4x4 pos;
         mat_set_translation(&pos, x, y, z);
-        mat_set_rotation(&pos, 0,0,0);
+        mat_set_rotation(&pos, rx, ry, yz);
         psg->Init (pos, radius, mass);
     }
     
-    void compound_add_capsule(palCompoundBody*c, Float x, Float y, Float z, Float radius, Float height, Float mass)
+    void compound_add_capsule(palCompoundBody*c, Float x, Float y, Float z
+                                             Float rx, Float ry, Float rz,, Float radius, Float height, Float mass)
     {
         palCapsuleGeometry*pcg = c->AddCapsule();
 
         palMatrix4x4 pos;
         mat_set_translation(&pos, x, y, z);
-        mat_set_rotation(&pos, 0,0,0);
+        mat_set_rotation(&pos, rx, ry, yz);
         pcg->Init (pos, radius, height, mass);
     }
 
@@ -752,6 +778,19 @@ extern "C"
         palVector3 p;
         s->GetAngularVelocity(p);
         return p[2];
+    }
+}
+
+/*********************************************************
+ *                                                       *
+ *               the static capsule functions            *
+ *                                                       *
+ *********************************************************/
+extern "C" 
+{
+    void static_sphere_remove(palStaticSphere*s){
+        delete s;
+        s = NULL;
     }
 }
 
@@ -958,7 +997,7 @@ extern "C"
 {
     Float psd_get_distance(palPSDSensor* p)
     {
-        return p->GetAngle();
+        return p->GetDistance();
     }
 }
 
