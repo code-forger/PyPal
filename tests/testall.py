@@ -6,9 +6,10 @@ import weakref
 # import all tests.
 import linktests
 import bodytests
+import staticbodytests
 
 # grab tests from each module
-suite = [] + linktests.suite + bodytests.suite
+suite = [] + linktests.suite + bodytests.suite + staticbodytests.suite
 
 if __name__ == "__main__":
     suite = unittest.TestSuite(suite)
