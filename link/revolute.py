@@ -3,7 +3,7 @@ import ctypes as c
 import weakref
 class Revolute(pal.PalObject):
     """a link that connects two objects rotationally"""
-    def _create(self,parent,child,pos,direction,collide):
+    def __init__(self,parent,child,pos,direction,collide):
         self.obj = pal.lib.create_revolute(parent.obj,child.obj,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]),c.c_float(direction[0]),c.c_float(direction[1]),c.c_float(direction[2]),c.c_bool(collide))
 
     def set_limits(self,lower,upper):

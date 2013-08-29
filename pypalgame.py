@@ -14,6 +14,7 @@ import link
 import sensor
 import vehicle
 import ctypes as c
+import weakref
 
 import private_globals as _pal
 
@@ -38,6 +39,20 @@ def update(time_step):
     _pal.lib.physics_update(c.c_float(time_step))
     for action in _pal.actions.values():
         action.responce = action.function(action.name,*action.args,**action.kwargs)
+
+def get_objects():
+    """ Returns all physics objects"""
+    objects = []
+    for o in _pal.all_objects.values():
+        objects.append(weakref.proxy(o))
+    return objects
+
+def get_actions():
+    """ Returns all pal actions"""
+    actions = []
+    for o in _pal.actions.values():
+        objects.append(weakref.proxy(o))
+    return actions
 
 def cleanup():
     """Ends the simulation."""

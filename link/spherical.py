@@ -3,7 +3,7 @@ import ctypes as c
 import weakref
 class Spherical(pal.PalObject):
     """a link that connects two objects rotationally"""
-    def _create(self,parent,child,pos,collide):
+    def __init__(self,parent,child,pos,collide):
         self.obj = pal.lib.create_spherical(parent.obj,child.obj,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]),c.c_bool(collide))
 
 

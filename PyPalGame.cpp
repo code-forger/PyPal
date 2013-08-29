@@ -633,7 +633,7 @@ extern "C"
 
         palMatrix4x4 pos;
         mat_set_translation(&pos, x, y, z);
-        mat_set_rotation(&pos, rx, ry, yz);
+        mat_set_rotation(&pos, rx, ry, rz);
         pbg->Init (pos, width, height, depth, mass);
     }
     
@@ -644,18 +644,18 @@ extern "C"
 
         palMatrix4x4 pos;
         mat_set_translation(&pos, x, y, z);
-        mat_set_rotation(&pos, rx, ry, yz);
+        mat_set_rotation(&pos, rx, ry, rz);
         psg->Init (pos, radius, mass);
     }
     
-    void compound_add_capsule(palCompoundBody*c, Float x, Float y, Float z
-                                             Float rx, Float ry, Float rz,, Float radius, Float height, Float mass)
+    void compound_add_capsule(palCompoundBody*c, Float x, Float y, Float z,
+                                             Float rx, Float ry, Float rz, Float radius, Float height, Float mass)
     {
         palCapsuleGeometry*pcg = c->AddCapsule();
 
         palMatrix4x4 pos;
         mat_set_translation(&pos, x, y, z);
-        mat_set_rotation(&pos, rx, ry, yz);
+        mat_set_rotation(&pos, rx, ry, rz);
         pcg->Init (pos, radius, height, mass);
     }
 

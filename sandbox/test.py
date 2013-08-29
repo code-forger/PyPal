@@ -29,11 +29,8 @@ pal.init()
 drawable = pygame.sprite.Group()
 
 terain =  pal.body.Terrain((0,0,0),60)
-tsprite = pygame.sprite.Sprite(drawable)
-tsprite.image = pygame.Surface((500,10))
-tsprite.image.fill((255,0,0))
-tsprite.rect = Rect(pospos([terain.get_position()[0],terain.get_position()[1],500,10]))
-terain1 =  pal.body.Terrain((10,-10,0),60)
+
+terain.delete()
 
 box = pal.body.StaticBox((0,10,0,1,1,1))
 bsprite = pygame.sprite.Sprite(drawable)
@@ -83,7 +80,6 @@ box1.notify_collision(True)
 
 box2.set_group(2)
 box1.set_group(1)
-terain.set_group(1)
 
 motorbool = False
 cl = pygame.time.Clock()
@@ -122,7 +118,6 @@ while running:
     b2sprite.rect.center = pospos([box2.get_position()[0],box2.get_position()[1]])
     b3sprite.rect.center = pospos([box3.get_position()[0],box3.get_position()[1]])
     b4sprite.rect.center = pospos([box4.get_position()[0],box4.get_position()[1]])
-    tsprite.rect.center = pospos([terain.get_position()[0],terain.get_position()[1]])
     ssprite.rect.center = pospos([sphere.get_position()[0],sphere.get_position()[1]])
 
     window.fill((0,0,0))
@@ -141,7 +136,6 @@ box2.delete()
 box3.delete()
 box4.delete()
 sphere.delete()
-terain.delete()
 #revolute.delete()
 prismatic.delete()
 rigid.delete()

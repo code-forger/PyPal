@@ -3,23 +3,16 @@ import ctypes as c
 import weakref
 from bodybase import BodyBase
 class Box(BodyBase):
-    #def __new__(cls,rect,mass=None, density = None):
-    #    """
-    #    constructs a box and adds it to the world
-    #    
-    #    rect: a 6 part tuple with x,y,z,width,height,depth.
-    #    mass: the mass of the object, if mass is specified it will be used.
-    #    density: if no mass is specified and a density is, the mass will be 
-    #    calculated from the density and the volumne.
-    #    static: used to create this object static, if static is true, mass will be ignored
-    #    """
-    #    box = super(Box,cls).__new__(cls)
-    #    box._create(rect,mass,density)
-    #    pal.all_objects[str(box.obj)] = box
-    #    return weakref.proxy(box)
-
-
-    def _create(self,rect,mass = None, density = None):#TESTED
+    def __init__(self,rect,mass = None, density = None):
+        """
+        constructs a box and adds it to the world
+        
+        rect: a 6 part tuple with x,y,z,width,height,depth.
+        mass: the mass of the object, if mass is specified it will be used.
+        density: if no mass is specified and a density is, the mass will be 
+        calculated from the density and the volumne.
+        static: used to create this object static, if static is true, mass will be ignored
+        """
         self.obj = pal.lib.create_box(c.c_float(rect[0]),c.c_float(rect[1]),c.c_float(rect[2]),c.c_float(rect[3]),c.c_float(rect[4]),c.c_float(rect[5]),c.c_float(mass))
 
     def get_size(self):
@@ -86,7 +79,7 @@ class Box(BodyBase):
 
 
 class StaticBox(BodyBase):
-    def _create(self,rect):#TESTED
+    def __init__(self,rect):#TESTED
         self.obj = pal.lib.create_static_box(c.c_float(rect[0]),c.c_float(rect[1]),c.c_float(rect[2]),c.c_float(rect[3]),c.c_float(rect[4]),c.c_float(rect[5]))
         self.size = rect[3:]
 
@@ -95,5 +88,6 @@ class StaticBox(BodyBase):
         return self.size
 
     def delete(self):
+        print "delete"
         pal.lib.static_box_remove(self.obj)
         del pal.all_objects[str(self.obj)]

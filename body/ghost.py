@@ -6,7 +6,7 @@ import math
 from bodybase import BodyBase
 class Ghost(pal.PalObject):
     count = 0
-    def _create(self,rect,parent=None):#TESTED
+    def __init__(self,rect,parent=None):#TESTED
         Ghost.count -=1 
         self.obj = str(Ghost.count)
         self.rect = rect
@@ -65,3 +65,6 @@ class Ghost(pal.PalObject):
         self.rect[0] = pos[0]
         self.rect[1] = pos[1]
         self.rect[2] = pos[2]
+
+    def delete(self):
+        del pal.all_objects[str(self.obj)]
