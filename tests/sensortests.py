@@ -35,9 +35,43 @@ class TestInclinometerFunctions(unittest.TestCase):
         inclinometer = pal.sensor.Inclinometer(self.box,[0,1,0],[0,1,0],[0,1,0])
         self.assertEqual(inclinometer.get_angle(),0)
 
+class TestPSDFunctions(unittest.TestCase):
+    def setUp(self):
+        pal.init()
+        self.box = pal.body.Box((0,0,0,1,1,1),mass=1)
+
+    def tearDown(self):
+        pal.cleanup()
+
+    def test_psd_create(self):
+        psd = pal.sensor.PSD(self.box,[0,1,0],[0,1,0])
+        self.assertEqual(len(pal._pal.all_objects),2)
+
+    def test_psd_get_angle(self):
+        psd = pal.sensor.PSD(self.box,[0,1,0],[0,1,0])
+        self.assertEqual(psd.get_distance(),1)
+
+class TestGPSFunctions(unittest.TestCase):
+    def setUp(self):
+        pal.init()
+        self.box = pal.body.Box((0,0,0,1,1,1),mass=1)
+
+    def tearDown(self):
+        pal.cleanup()
+
+    def test_gps_create(self):
+        gps = pal.sensor.GPS(self.box,100,10,10)
+        self.assertEqual(len(pal._pal.all_objects),2)
+
+    def test_gps_get_angle(self):
+        gps = pal.sensor.GPS(self.box,100,10,10)
+        self.assertEqual(gps.get_string().split(",")[2],'A')
+
 
 suite = [unittest.TestLoader().loadTestsFromTestCase(TestCompassFunctions),
-         unittest.TestLoader().loadTestsFromTestCase(TestInclinometerFunctions)]
+         unittest.TestLoader().loadTestsFromTestCase(TestInclinometerFunctions),
+         unittest.TestLoader().loadTestsFromTestCase(TestGPSFunctions),
+         unittest.TestLoader().loadTestsFromTestCase(TestPSDFunctions)]
 
 if __name__ == "__main__":
     suite = unittest.TestSuite(suite)
