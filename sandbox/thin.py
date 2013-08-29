@@ -2,15 +2,12 @@ import pypalgame as pal
 
 pal.init()
 
-box = pal.body.Box((0,5,0,1,1,1),mass = 1)
-
-print box.set_user_data("hello")
-print box.set_user_data("World")
+box = pal.body.Box((0,0,0,1,1,1),mass=1)
+gps = pal.sensor.GPS(box,100,10,10)
 
 for x in range(25):
     pal.update(0.02)
-    print box.get_position()
+    print "answer",gps.get_string()
 
-print pal.get_objects()
 
 pal.cleanup()

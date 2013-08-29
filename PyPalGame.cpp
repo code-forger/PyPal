@@ -10,12 +10,19 @@
  *
  *
  *
- *
- *
- *
- *
- *
  */
+
+#define CASTUP(in) (reinterpret_cast<palBox*>(in)!=NULL)                    ? reinterpret_cast<palBox*>(in):\
+                   (reinterpret_cast<palSphere*>(in)!=NULL)                 ? reinterpret_cast<palSphere*>(in):\
+                   (reinterpret_cast<palCapsule*>(in)!=NULL)                ? reinterpret_cast<palCapsule*>(in):\
+                   (reinterpret_cast<palCompoundBody*>(in)!=NULL)           ? reinterpret_cast<palCompoundBody*>(in):\
+                   (reinterpret_cast<palConvex*>(in)!=NULL)                 ? reinterpret_cast<palConvex*>(in):\
+                   (reinterpret_cast<palGenericBody*>(in)!=NULL)            ? reinterpret_cast<palGenericBody*>(in):in
+                   //(dynamic_cast<palTerrainPlane*>(in))           ? dynamic_cast<palTerrainPlane*>(in):\
+                   //(dynamic_cast<palTerrainHeightmap*>(in))       ? dynamic_cast<palTerrainHeightmap*>(in):\
+                   //(dynamic_cast<palTerrainMesh*>(in))            ? dynamic_cast<palTerrainMesh*>(in):\
+                   //(dynamic_cast<palOrientatedTerrainPlane*>(in)) ? dynamic_cast<palOrientatedTerrainPlane*>(in):in
+
 
 void* castup_bodybase(palBodyBase* in)
 {
@@ -286,8 +293,9 @@ extern "C"
 
     palGPSSensor* create_gps(palBody*b, int sec, Float lat, Float lon)
     {
+        //palSphere * p = CASTUP(        palBox* pb = 
         palGPSSensor *gps= PF->CreateGPSSensor();
-        gps->Init(b,sec,lat,lon);
+        gps->Init(CASTUP(b),sec,lat,lon);
         return gps;
     }
 
@@ -959,19 +967,14 @@ extern "C"
  *********************************************************/
 extern "C" 
 {
-    void gps_get_string(palGPSSensor* gps, char*str)
+    void gps_get_string(palGPSSensor* gps, char * str)
     {
-        std::cout << "pre" << str << std::endl;
-        //gps->GetGPSString(str);
-       
-        int i = 0;
-        std::cout << "printing  ";
-        while(str[i])
-        {
-            std::cout << str[i];
-            i++;
-        }
-        std::cout << std::endl;
+        gps->GetGPSString(str);
+    }
+
+    char* gps_create_string()
+    {
+        char* string = new char[100];
     }
 }
 
