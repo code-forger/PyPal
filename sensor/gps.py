@@ -2,7 +2,7 @@ import private_globals as pal
 import ctypes as c
 import weakref
 class GPS(pal.PalObject):
-    def _create(self, body, time, latitude, longitude):
+    def __init__(self, body, time, latitude, longitude):
         """
         adds a gps to the world
         

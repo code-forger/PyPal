@@ -2,7 +2,7 @@ import private_globals as pal
 import ctypes as c
 import weakref
 class Inclinometer(pal.PalObject):
-    def _create(self, body, axis, up, gravity):
+    def __init__(self, body, axis, up, gravity):
         """
         adds a Inclinometer to the world
         

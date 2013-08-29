@@ -2,7 +2,7 @@ import private_globals as pal
 import ctypes as c
 import weakref
 class PSD(pal.PalObject):
-    def _create(self, body, pos, axis):
+    def __init__(self, body, pos, axis):
         """
         adds a PSD to the world
         

@@ -73,7 +73,7 @@ extern "C"
 {
     palPhysics* pal_init(char[])
     {
-        PF->LoadPALfromDLL("/home/m/Python/PyPalGame/libs/");
+        PF->LoadPALfromDLL("/home/m/Python/pypalgame/libs/");
         PF->SelectEngine("Bullet");
         pp = PF->CreatePhysics();
         if (pp == NULL) 

@@ -2,7 +2,7 @@ import private_globals as pal
 import ctypes as c
 import weakref
 class Compass(pal.PalObject):
-    def _create(self, body, north):
+    def __init__(self, body, north):
         """
         adds a compass to the world
         
