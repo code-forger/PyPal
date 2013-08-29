@@ -47,7 +47,7 @@ class TestPSDFunctions(unittest.TestCase):
         psd = pal.sensor.PSD(self.box,[0,1,0],[0,1,0])
         self.assertEqual(len(pal._pal.all_objects),2)
 
-    def test_psd_get_angle(self):
+    def test_psd_get_angle(self):p
         psd = pal.sensor.PSD(self.box,[0,1,0],[0,1,0])
         self.assertEqual(psd.get_distance(),1)
 
