@@ -1,4 +1,4 @@
-import private_globals as pal
+from pypalgame import private_globals as pal
 import ctypes as c
 import weakref
 class Inclinometer(pal.PalObject):

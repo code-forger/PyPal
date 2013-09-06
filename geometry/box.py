@@ -1,27 +1,11 @@
-import private_globals as pal
+from pypalgame import private_globals as pal
 import ctypes as c
 import weakref
 from geometry_base import GeometryBase
 class Box(GeometryBase):
-    def __new__(cls,rect,mass=None, density = None):
-        """
-        constructs a box and adds it to the world
-        
-        rect: a 6 part tuple with x,y,z,width,height,depth.
-        mass: the mass of the object, if mass is specified it will be used.
-        density: if no mass is specified and a density is, the mass will be 
-        calculated from the density and the volumne.
-        static: used to create this object static, if static is true, mass will be ignored
-        """
-        box = super(Box,cls).__new__(cls)
-        box._create(rect,mass,density)
-        pal.all_objects[box.obj] = box
-        return weakref.proxy(box)
-
-    def _create(self,rect,mass = None, density = None):
-        self.obj = pal.lib.create_geometry_box(c.c_float(rect[0]),c.c_float(rect[1]),c.c_float(rect[2]),c.c_float(rect[3]),c.c_float(rect[4]),c.c_float(rect[5]),c.c_float(mass))
+    def __init__(self,rect, rotation = [0,0,0],mass = 1):
+        self.obj = pal.lib.create_geometry_box(c.c_float(rect[0]),c.c_float(rect[1]),c.c_float(rect[2]),c.c_float(rotation[0]),c.c_float(rotation[1]),c.c_float(rotation[2]),c.c_float(rect[3]),c.c_float(rect[4]),c.c_float(rect[5]),c.c_float(mass))
 
     def delete(self):
-        pal.lib.box_remove(self.obj)
-        del pal.all_objects[self.obj]
-
+        pal.lib.box_geometry_remove(self.obj)
+        del pal.all_objects[str(self.obj)]

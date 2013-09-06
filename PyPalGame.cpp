@@ -3,6 +3,7 @@
 #include <stdio.h> //for our old friend, the printf function
 #include "pal/palFactory.h"
 #include "pal/palCollision.h"
+#include <typeinfo>
 /* This is the c++ -> c bindings:
  * the pal_ prefix relates to any function that uses PF excluding all the create functions
  * the create_ prefix relates to any function that creats and adds an object to the world
@@ -12,12 +13,12 @@
  *
  */
 
-#define CASTUP(in) (reinterpret_cast<palBox*>(in)!=NULL)                    ? reinterpret_cast<palBox*>(in):\
-                   (reinterpret_cast<palSphere*>(in)!=NULL)                 ? reinterpret_cast<palSphere*>(in):\
-                   (reinterpret_cast<palCapsule*>(in)!=NULL)                ? reinterpret_cast<palCapsule*>(in):\
-                   (reinterpret_cast<palCompoundBody*>(in)!=NULL)           ? reinterpret_cast<palCompoundBody*>(in):\
-                   (reinterpret_cast<palConvex*>(in)!=NULL)                 ? reinterpret_cast<palConvex*>(in):\
-                   (reinterpret_cast<palGenericBody*>(in)!=NULL)            ? reinterpret_cast<palGenericBody*>(in):in
+#define CASTUP(in) (dynamic_cast<palBox*>(in)!=NULL)                    ? reinterpret_cast<palBox*>(in):\
+                   (dynamic_cast<palSphere*>(in)!=NULL)                 ? reinterpret_cast<palSphere*>(in):\
+                   (dynamic_cast<palCapsule*>(in)!=NULL)                ? reinterpret_cast<palCapsule*>(in):\
+                   (dynamic_cast<palCompoundBody*>(in)!=NULL)           ? reinterpret_cast<palCompoundBody*>(in):\
+                   (dynamic_cast<palConvex*>(in)!=NULL)                 ? reinterpret_cast<palConvex*>(in):\
+                   (dynamic_cast<palGenericBody*>(in)!=NULL)            ? reinterpret_cast<palGenericBody*>(in):in
                    //(dynamic_cast<palTerrainPlane*>(in))           ? dynamic_cast<palTerrainPlane*>(in):\
                    //(dynamic_cast<palTerrainHeightmap*>(in))       ? dynamic_cast<palTerrainHeightmap*>(in):\
                    //(dynamic_cast<palTerrainMesh*>(in))            ? dynamic_cast<palTerrainMesh*>(in):\
@@ -274,14 +275,34 @@ extern "C"
 	    return pm;
     }
 
-    palBoxGeometry * create_geometry_box(Float x, Float y, Float z, Float width, Float height, Float depth, Float mass)
+    palBoxGeometry * create_geometry_box(Float x, Float y, Float z,Float rx, Float ry, Float rz, Float width, Float height, Float depth, Float mass)
     {
         palBoxGeometry *bg= PF->CreateBoxGeometry ();
-
         palMatrix4x4 pos;
         mat_set_translation(&pos, x, y, z);
+        mat_set_rotation(&pos, rx, ry, rz);
         bg->Init (pos, width, height, depth, mass);
         return bg;
+    }
+
+    palCapsuleGeometry * create_geometry_capsule(Float x, Float y, Float z,Float rx, Float ry, Float rz, Float radius, Float height, Float mass)
+    {
+        palCapsuleGeometry *cg= PF->CreateCapsuleGeometry ();
+        palMatrix4x4 pos;
+        mat_set_translation(&pos, x, y, z);
+        mat_set_rotation(&pos, rx, ry, rz);
+        cg->Init (pos, radius, height, mass);
+        return cg;
+    }
+
+    palSphereGeometry * create_geometry_sphere(Float x, Float y, Float z,Float rx, Float ry, Float rz, Float radius, Float mass)
+    {
+        palSphereGeometry *sg= PF->CreateSphereGeometry ();
+        palMatrix4x4 pos;
+        mat_set_translation(&pos, x, y, z);
+        mat_set_rotation(&pos, rx, ry, rz);
+        sg->Init (pos, radius, mass);
+        return sg;
     }
 
     palCompassSensor* create_compass(palBody*b, Float x, Float y, Float z)
@@ -293,7 +314,6 @@ extern "C"
 
     palGPSSensor* create_gps(palBody*b, int sec, Float lat, Float lon)
     {
-        //palSphere * p = CASTUP(        palBox* pb = 
         palGPSSensor *gps= PF->CreateGPSSensor();
         gps->Init(CASTUP(b),sec,lat,lon);
         return gps;
@@ -377,7 +397,7 @@ extern "C"
         x = v[0];
         y = v[1];
         z = v[2];
-        //mat_get_rotation((palMatrix4x4*)m,&x1,&y1,&z1);TODO
+        mat_get_rotation((palMatrix4x4*)m,&x1,&y1,&z1);
     }
 }
 
@@ -804,6 +824,45 @@ extern "C"
 
 /*********************************************************
  *                                                       *
+ *               the box geometry functio                *
+ *                                                       *
+ *********************************************************/
+extern "C"
+{
+    void box_geometry_remove(palBoxGeometry*b){
+        delete b;
+        b = NULL;
+    }
+}
+
+/*********************************************************
+ *                                                       *
+ *               the sphere geometry functio             *
+ *                                                       *
+ *********************************************************/
+extern "C"
+{
+    void sphere_geometry_remove(palSphereGeometry*b){
+        delete b;
+        b = NULL;
+    }
+}
+
+/*********************************************************
+ *                                                       *
+ *               the capsule geometry functio            *
+ *                                                       *
+ *********************************************************/
+extern "C"
+{
+    void capsule_geometry_remove(palCapsuleGeometry*b){
+        delete b;
+        b = NULL;
+    }
+}
+
+/*********************************************************
+ *                                                       *
  *               the terrain functions                   *
  *                                                       *
  *********************************************************/
@@ -969,7 +1028,7 @@ extern "C"
 {
     void gps_get_string(palGPSSensor* gps, char * str)
     {
-        gps->GetGPSString(str);
+        gps->GetGPSString(str); //TODO
     }
 
     char* gps_create_string()

@@ -1,4 +1,7 @@
-class GeometryBase(object):
+from pypalgame import private_globals as pal
+import ctypes as c
+import weakref
+class GeometryBase(pal.PalObject):
     
     """The base class for the bodyless geometies."""
     def get_location():

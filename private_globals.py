@@ -1,7 +1,7 @@
 import ctypes as c
 import weakref
 lib = c.cdll.LoadLibrary('/home/m/Python/pypalgame/libs/libPyPalGame.so')
-
+import sys
 user_data = {}
 
 all_objects = {} # this dictionarry holds the ONLY strong reference to the objects in this library, never give a strong reference to ANYONE
@@ -11,6 +11,7 @@ notified_objects = []
 
 class PalObject(object):
     def __new__(cls, *args, **kwargs):
+        print "here"
         o = super(PalObject,cls).__new__(cls)
         o.__init__(*args, **kwargs)
         all_objects[str(o.obj)] = o

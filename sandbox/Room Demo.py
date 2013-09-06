@@ -8,6 +8,7 @@ from OpenGL.GLU import gluPerspective, gluLookAt
 import glhelp as glh
 
 import pypalgame as pal
+pal.init()
 
 pygame.init()
 pygame.display.set_mode(
@@ -15,7 +16,7 @@ pygame.display.set_mode(
 
 glEnable(GL_DEPTH_TEST)
 gluPerspective(60.0, 640.0 / 480.0, 0.5, 1000.0)
-glTranslate(0, -15, -60)
+glTranslate(0, -5, -5)
 
 objects = []
 area_bodies = []
@@ -23,8 +24,9 @@ room2offset = 20
 room3offset = 40
 
 
-player = pal.body.Sphere((0,1,0,1),mass=10)
-objects.append(glh.Ball(player, (255, 255, 0)))
+player = pal.body.Box((0,1,0,1,1,1),mass=10)
+objects.append(glh.Box(player, (255, 255, 0)))
+
 
 
 def wipe_area_bodies():
@@ -34,7 +36,7 @@ def wipe_area_bodies():
         b.delete()
     area_bodies = []
     objects = []
-    objects.append(glh.Ball(player, (255, 255, 0)))
+    objects.append(glh.Box(player, (255, 255, 0)))
 
 def load_area_one():
 
@@ -82,10 +84,9 @@ def load_area_one():
 
     trigger = pal.body.Ghost((0-(room3offset/2)-5,0,-room2offset,5,5,5))
 
-
     def switch_on_trigger(name,trigger):
         if trigger.collide(player):
-            pal.actions[name].pause()
+            pal.get_actions()[name].pause()
             load_area_two()
 
     switcher = pal.actuator.Action("switcher", switch_on_trigger,trigger)
@@ -94,6 +95,7 @@ def load_area_one():
     area_bodies.extend([terrain1,sbox11,sbox12,sbox13,sbox14,sbox15,
                        terrain2,sbox21,sbox22,sbox23,sbox24,sbox25,sbox26,
                        bridge_floor,sboxbridge1,sboxbridge2,trigger])
+
 
 def load_area_two():
 
@@ -144,7 +146,7 @@ def load_area_two():
 
     def switch_on_trigger(name,trigger):
         if trigger.collide(player):
-            pal.actions[name].pause()
+            pal.get_actions()[name].pause()
             load_area_one()
 
     switcher = pal.actuator.Action("switcher", switch_on_trigger,trigger)
@@ -169,11 +171,14 @@ load_area_one()
 control = player
 
 running = True
+gluLookAt(5,5,5,0,0,0,0,1,0)
 while running:
-    gluLookAt(5,5,5,0,0,0,0,1,0)
     pal.update(1./50.)
+    #player.set_position([0,2,0])
     glh.render(objects)
     events = pygame.event.get()
+    print "%1.3f,%1.3f,%1.3f,%1.3f,%1.3f,%1.3f"%(player.get_location()[3],player.get_location()[4],player.get_location()[5],
+                                     player.get_angular_velocity()[0],player.get_angular_velocity()[1],player.get_angular_velocity()[2])
     for event in events:
         if event.type == QUIT:
             running = not running
@@ -182,16 +187,17 @@ while running:
                 pass
             elif event.key == K_RIGHT:
                 control.set_active(True)
-                control.apply_impulse((75,0,0))
+                control.apply_angular_impulse((-1,0,0))
             elif event.key == K_LEFT:
                 control.set_active(True)
-                control.apply_impulse((-75,0,0))
+                control.apply_angular_impulse((1,0,0))
             elif event.key == K_UP:
                 control.set_active(True)
-                control.apply_impulse((0,75,0))
+                control.apply_angular_impulse((0,1,0))
             elif event.key == K_DOWN:
                 control.set_active(True)
-                control.apply_impulse((0,-75,0))
+                control.apply_angular_impulse((0,-1,0))
+
             elif event.key == K_d:
                 control.set_active(True)
                 control.apply_impulse((75,0,0))

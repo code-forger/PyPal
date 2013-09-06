@@ -37,6 +37,7 @@ def update(time_step):
     timestep: time since last step
     """
     _pal.lib.physics_update(c.c_float(time_step))
+    #print _pal.actions
     for action in _pal.actions.values():
         action.responce = action.function(action.name,*action.args,**action.kwargs)
 
@@ -49,9 +50,9 @@ def get_objects():
 
 def get_actions():
     """ Returns all pal actions"""
-    actions = []
-    for o in _pal.actions.values():
-        objects.append(weakref.proxy(o))
+    actions = {}
+    for o in _pal.actions:
+        actions[o] = weakref.proxy(_pal.actions[o])
     return actions
 
 def cleanup():

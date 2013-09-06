@@ -1,9 +1,13 @@
-import private_globals as pal
+from pypalgame import private_globals as pal
 import ctypes as c
 import weakref
 class GPS(pal.PalObject):
     def __init__(self, body, time, latitude, longitude):
         """
+
+        GPS CURRENTLY ONLY WORKS WITH pal.body.Box() DO NOT ADD ANY OTHER BODIES TO IT
+        A fix for this is coming soon.
+
         adds a gps to the world
         
         body: The body to connect the gps to

@@ -2,12 +2,12 @@ import pypalgame as pal
 
 pal.init()
 
-box = pal.body.Box((0,0,0,1,1,1),mass=1)
-gps = pal.sensor.GPS(box,100,10,10)
+sphere = pal.geometry.Box((0,0,0,1,1,1))
 
-for x in range(25):
+print pal._pal.all_objects
+
+for x in range(1000):
     pal.update(0.02)
-    print "answer",gps.get_string()
 
-
+sphere.delete()
 pal.cleanup()

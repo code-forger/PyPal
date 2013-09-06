@@ -33,7 +33,7 @@ class TestBoxFunctions(unittest.TestCase):
 
     def test_box_get_location(self):
         box = pal.body.Box((0,0,0,1,1,1),mass=1)
-        self.assertEqual(box.get_location(), [0,0,0,0,0,0])
+        self.assertEqual(box.get_location(), [0,0,0,0.0,0.0,0.0])
 
     def test_box_get_group(self):
         box = pal.body.Box((0,0,0,1,1,1),mass=1)
@@ -62,7 +62,7 @@ class TestBoxFunctions(unittest.TestCase):
     def test_box_set_orientation(self):
         box = pal.body.Box((0,0,0,1,1,1),mass=1)
         box.set_orientation((10,10,10))
-        self.assertEqual(box.get_location(), [0,0,0,0,0,0])#TODO
+        self.assertEqual(box.get_location(), [0,0,0,0.5752220749855042, 5.707963466644287, 0.5752220749855042])#TODO
 
     def test_box_get_size(self):
         box = pal.body.Box((0,0,0,1,1,1),mass=1)
@@ -151,7 +151,7 @@ class TestSphereFunctions(unittest.TestCase):
 
     def test_sphere_get_location(self):
         sphere = pal.body.Sphere((0,0,0,1,1),mass=1)
-        self.assertEqual(sphere.get_location(), [0,0,0,0,0,0])
+        self.assertEqual(sphere.get_location(), [0,0,0,0.0,0.0,0.0])
 
     def test_sphere_get_group(self):
         sphere = pal.body.Sphere((0,0,0,1,1),mass=1)
@@ -180,7 +180,7 @@ class TestSphereFunctions(unittest.TestCase):
     def test_sphere_set_orientation(self):
         sphere = pal.body.Sphere((0,0,0,1,1),mass=1)
         sphere.set_orientation((10,10,10))
-        self.assertEqual(sphere.get_location(), [0,0,0,0,0,0])#TODO
+        self.assertEqual(sphere.get_location(), [0,0,0,0.5752220749855042, 5.707963466644287, 0.5752220749855042])#TODO
 
     def test_sphere_get_size(self):
         sphere = pal.body.Sphere((0,0,0,1,1),mass=1)
@@ -269,7 +269,7 @@ class TestCapsuleFunctions(unittest.TestCase):
 
     def test_capsule_get_location(self):
         capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
-        self.assertEqual(capsule.get_location(), [0,0,0,0,0,0])
+        self.assertEqual(capsule.get_location(), [0,0,0,0.0,0.0,0.0])
 
     def test_capsule_get_group(self):
         capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
@@ -298,7 +298,7 @@ class TestCapsuleFunctions(unittest.TestCase):
     def test_capsule_set_orientation(self):
         capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
         capsule.set_orientation((10,10,10))
-        self.assertEqual(capsule.get_location(), [0,0,0,0,0,0])#TODO
+        self.assertEqual(capsule.get_location(), [0,0,0,0.5752220749855042, 5.707963466644287, 0.5752220749855042])#TODO
 
     def test_capsule_get_size(self):
         capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
