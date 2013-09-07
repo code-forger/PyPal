@@ -74,11 +74,10 @@ class Box:
         self.color = color
 
     def render(self):
-        x, y, z = map(lambda x: x/2,self.body.get_size())
+        x, y, z = map(lambda x: x/2.,self.body.get_size())
         o = self.body.get_location()
         glColor(*self.color)
         glTranslate(o[0], o[1], o[2])
-        
         glRotate(o[5]/math.pi*180,0,0,1)
         glRotate(o[4]/math.pi*180,0,1,0)
         glRotate(o[3]/math.pi*180,1,0,0)
@@ -88,8 +87,7 @@ class Ball:
     def __init__(self, body, color):
         self.body = body
         self.quad = gluNewQuadric()
-        self.color = colorw
-
+        self.color = color
 
     def render(self):
         o = self.body.get_location()

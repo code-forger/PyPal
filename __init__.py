@@ -19,7 +19,7 @@ import weakref
 import private_globals as _pal
 
 
-def init(gravity = (0,-9.8,0),pygame = None):
+def init(gravity = (0,-9.8,0)):
     """Initializes the module.
 
     This function must be called before any other function from this library is called
@@ -39,7 +39,7 @@ def update(time_step):
     _pal.lib.physics_update(c.c_float(time_step))
     #print _pal.actions
     for action in _pal.actions.values():
-        action.responce = action.function(action.name,*action.args,**action.kwargs)
+        action.responce = action.function(*action.args,**action.kwargs)
 
 def get_objects():
     """ Returns all physics objects"""
@@ -86,15 +86,6 @@ def get_gravity():
 
 def get_up_axis():
     """Return the index, i.e. x (0), y (1), or z(2), to use for up."""
-    pass
-
-def get_events():
-    """
-    returns all collision events for this step if ygame was not passed into
-    __init__.
-    if pygame was specifies in __init__ this function will post pygame mesages
-    instead.
-    """
     pass
 
 #collision detection functions

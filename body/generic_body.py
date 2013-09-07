@@ -1,5 +1,6 @@
 from bodybase import BodyBase
 class GenericBody(BodyBase):
+    typechar = 'g'
     def __init__(pos,mass = None, density = None):
         """
         constructs a box and adds it to the world

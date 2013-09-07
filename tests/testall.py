@@ -4,6 +4,7 @@ import unittest
 import weakref
 
 # import all tests.
+import actuatortests
 import bodytests
 import geometrytests
 import linktests
@@ -12,6 +13,7 @@ import staticbodytests
 
 # grab tests from each module
 suite = [] +\
+        actuatortests.suite +\
         bodytests.suite +\
         geometrytests.suite +\
         linktests.suite +\

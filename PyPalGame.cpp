@@ -13,16 +13,19 @@
  *
  */
 
-#define CASTUP(in) (dynamic_cast<palBox*>(in)!=NULL)                    ? reinterpret_cast<palBox*>(in):\
-                   (dynamic_cast<palSphere*>(in)!=NULL)                 ? reinterpret_cast<palSphere*>(in):\
-                   (dynamic_cast<palCapsule*>(in)!=NULL)                ? reinterpret_cast<palCapsule*>(in):\
-                   (dynamic_cast<palCompoundBody*>(in)!=NULL)           ? reinterpret_cast<palCompoundBody*>(in):\
-                   (dynamic_cast<palConvex*>(in)!=NULL)                 ? reinterpret_cast<palConvex*>(in):\
-                   (dynamic_cast<palGenericBody*>(in)!=NULL)            ? reinterpret_cast<palGenericBody*>(in):in
-                   //(dynamic_cast<palTerrainPlane*>(in))           ? dynamic_cast<palTerrainPlane*>(in):\
-                   //(dynamic_cast<palTerrainHeightmap*>(in))       ? dynamic_cast<palTerrainHeightmap*>(in):\
-                   //(dynamic_cast<palTerrainMesh*>(in))            ? dynamic_cast<palTerrainMesh*>(in):\
-                   //(dynamic_cast<palOrientatedTerrainPlane*>(in)) ? dynamic_cast<palOrientatedTerrainPlane*>(in):in
+#define CASTUP(char,in) (int)char >91?(char=='b') ? reinterpret_cast<palBox*>(in):\
+                        (char=='s') ? reinterpret_cast<palSphere*>(in):\
+                        (char=='c') ? reinterpret_cast<palCapsule*>(in):\
+                        (char=='o') ? reinterpret_cast<palCompoundBody*>(in):\
+                        (char=='x') ? reinterpret_cast<palConvex*>(in):\
+                        (char=='g') ? reinterpret_cast<palGenericBody*>(in):in:in
+                        //(char=='B') ? dynamic_cast<palStaticBox*>(static_cast<palBodyBase*>(in)):\
+                        //(char=='S') ? dynamic_cast<palStaticSphere*>(static_cast<palBodyBase*>(in)):\
+                        //(char=='S') ? dynamic_cast<palStaticCapsule*>(static_cast<palBodyBase*>(in)):reinterpret_cast<palStatic*>(in)
+                        //(dynamic_cast<palTerrainPlane*>(in))           ? dynamic_cast<palTerrainPlane*>(in):\
+                        //(dynamic_cast<palTerrainHeightmap*>(in))       ? dynamic_cast<palTerrainHeightmap*>(in):\
+                        //(dynamic_cast<palTerrainMesh*>(in))            ? dynamic_cast<palTerrainMesh*>(in):\
+                        //(dynamic_cast<palOrientatedTerrainPlane*>(in)) ? dynamic_cast<palOrientatedTerrainPlane*>(in):in
 
 
 void* castup_bodybase(palBodyBase* in)
@@ -275,6 +278,34 @@ extern "C"
 	    return pm;
     }
 
+    palImpulseActuator * create_impulse(palBody* pb, char pbtc, Float px, Float py, Float pz, Float ax, Float ay, Float az)
+    {
+        palImpulseActuator *pi= dynamic_cast<palImpulseActuator*>(PF->CreateObject("palImpulseActuator"));
+        pi->Init(CASTUP(pbtc,pb),px,py,pz,ax,ay,az); //initialize it, set its location to 0,0,0 and minimum size to 50
+	    return pi;
+    }
+
+    palForceActuator * create_force(palBody* pb, char pbtc, Float px, Float py, Float pz, Float ax, Float ay, Float az)
+    {
+        palForceActuator *pf= dynamic_cast<palForceActuator*>(PF->CreateObject("palForceActuator"));
+        pf->Init(CASTUP(pbtc,pb),px,py,pz,ax,ay,az); //initialize it, set its location to 0,0,0 and minimum size to 50
+	    return pf;
+    }
+
+    palFakeBuoyancy * create_fake_buoyancy(palBody* pb, char pbtc, Float density)
+    {
+        palFakeBuoyancy *pf= dynamic_cast<palFakeBuoyancy*>(PF->CreateObject("palFakeBuoyancy"));
+        pf->Init(CASTUP(pbtc,pb),density); //initialize it, set its location to 0,0,0 and minimum size to 50
+	    return pf;
+    }
+
+    palSpring * create_spring(palBody* pb1, char pbtc1, palBody* pb2, char pbtc2, Float rest, Float ks, Float kd)
+    {
+        palSpring *ps= dynamic_cast<palSpring*>(PF->CreateObject("palSpring"));
+        ps->Init(CASTUP(pbtc1,pb1),CASTUP(pbtc2,pb2),rest,ks,kd); //initialize it, set its location to 0,0,0 and minimum size to 50
+	    return ps;
+    }
+
     palBoxGeometry * create_geometry_box(Float x, Float y, Float z,Float rx, Float ry, Float rz, Float width, Float height, Float depth, Float mass)
     {
         palBoxGeometry *bg= PF->CreateBoxGeometry ();
@@ -312,10 +343,10 @@ extern "C"
         return c;
     }
 
-    palGPSSensor* create_gps(palBody*b, int sec, Float lat, Float lon)
+    palGPSSensor* create_gps(palBody*b,char btc, int sec, Float lat, Float lon)
     {
         palGPSSensor *gps= PF->CreateGPSSensor();
-        gps->Init(CASTUP(b),sec,lat,lon);
+        gps->Init(CASTUP(btc,b),sec,lat,lon);
         return gps;
     }
 
@@ -1003,6 +1034,87 @@ extern "C"
 
     void dcmotor_set_voltage(palDCMotor*m,float voltage){
         m->SetVoltage(voltage);
+    }
+
+    palRevoluteLink * dcmotor_get_link(palDCMotor*m)
+    {
+        return m->GetLink();
+    }
+}
+
+/*********************************************************
+ *                                                       *
+ *               the Impulse functions                   *
+ *                                                       *
+ *********************************************************/
+extern "C" 
+{
+    void impulse_remove(palImpulseActuator*i){
+        delete i;
+        i = NULL;
+    }
+
+    void impulse_set_impulse(palImpulseActuator*i,float impulse){
+        i->SetImpulse(impulse);
+    }
+
+    void impulse_run(palImpulseActuator*a){
+        a->Apply();
+    }
+}
+
+/*********************************************************
+ *                                                       *
+ *               the Force functions                     *
+ *                                                       *
+ *********************************************************/
+extern "C" 
+{
+    void force_remove(palForceActuator*f){
+        delete f;
+        f = NULL;
+    }
+
+    void force_set_force(palForceActuator*f,float force){
+        f->SetForce(force);
+    }
+
+    void force_run(palForceActuator*a){
+        a->Apply();
+    }
+}
+
+/*********************************************************
+ *                                                       *
+ *               the FakeBuoyancy functions                     *
+ *                                                       *
+ *********************************************************/
+extern "C" 
+{
+    void fake_buoyancy_remove(palFakeBuoyancy*f){
+        delete f;
+        f = NULL;
+    }
+
+    void fake_buoyancy_run(palFakeBuoyancy*a){
+        a->Apply();
+    }
+}
+
+/*********************************************************
+ *                                                       *
+ *               the Spring functions                   *
+ *                                                       *
+ *********************************************************/
+extern "C" 
+{
+    void spring_remove(palSpring*s){
+        delete s;
+        s = NULL;
+    }
+
+    void spring_run(palSpring*a){
+        a->Apply();
     }
 }
 

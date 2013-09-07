@@ -3,6 +3,7 @@ import ctypes as c
 import weakref
 from bodybase import BodyBase
 class Compound(BodyBase):
+    typechar = 'o'
     def __init__(self,pos):
         self.obj = pal.lib.create_compound(c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]))
 

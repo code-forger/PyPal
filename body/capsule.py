@@ -3,6 +3,7 @@ import ctypes as c
 import weakref
 from bodybase import BodyBase
 class Capsule(BodyBase):
+    typechar = 'c'
     def __init__(self,rect,mass = None, density = None, static = False):
         """
         constructs a box and adds it to the world
@@ -78,6 +79,7 @@ class Capsule(BodyBase):
 
 
 class StaticCapsule(BodyBase):
+    typechar = 'C'
     def __init__(self,rect):#TESTED
         self.obj = pal.lib.create_static_capsule(c.c_float(rect[0]),c.c_float(rect[1]),c.c_float(rect[2]),c.c_float(rect[3]),c.c_float(rect[4]))
         self.size = rect[3:]

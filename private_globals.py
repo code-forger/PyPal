@@ -11,7 +11,6 @@ notified_objects = []
 
 class PalObject(object):
     def __new__(cls, *args, **kwargs):
-        print "here"
         o = super(PalObject,cls).__new__(cls)
         o.__init__(*args, **kwargs)
         all_objects[str(o.obj)] = o

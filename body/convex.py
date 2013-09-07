@@ -1,5 +1,6 @@
 from bodybase import BodyBase
 class Convex(BodyBase):
+    typechar = 'x'
     def __init__(pos,points,mass = None, density = None):
         """
         constructs a box and adds it to the world

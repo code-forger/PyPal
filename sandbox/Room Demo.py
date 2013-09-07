@@ -16,7 +16,7 @@ pygame.display.set_mode(
 
 glEnable(GL_DEPTH_TEST)
 gluPerspective(60.0, 640.0 / 480.0, 0.5, 1000.0)
-glTranslate(0, -5, -5)
+glTranslate(0, -5, -15)
 
 objects = []
 area_bodies = []
@@ -89,7 +89,7 @@ def load_area_one():
             pal.get_actions()[name].pause()
             load_area_two()
 
-    switcher = pal.actuator.Action("switcher", switch_on_trigger,trigger)
+    switcher = pal.actuator.Action("switcher", switch_on_trigger,"switcher",trigger)
     switcher.run()
 
     area_bodies.extend([terrain1,sbox11,sbox12,sbox13,sbox14,sbox15,
@@ -149,7 +149,7 @@ def load_area_two():
             pal.get_actions()[name].pause()
             load_area_one()
 
-    switcher = pal.actuator.Action("switcher", switch_on_trigger,trigger)
+    switcher = pal.actuator.Action("switcher", switch_on_trigger,"switcher",trigger)
     switcher.run()
 
     area_bodies.extend([terrain3,sbox31,sbox32,sbox33,sbox34,sbox35,

@@ -3,6 +3,7 @@ import ctypes as c
 import weakref
 from bodybase import BodyBase
 class Box(BodyBase):
+    typechar = 'b'
     def __init__(self,rect,mass = None, density = None):
         """
         constructs a box and adds it to the world
@@ -79,6 +80,7 @@ class Box(BodyBase):
 
 
 class StaticBox(BodyBase):
+    typechar = 'B'
     def __init__(self,rect):#TESTED
         self.obj = pal.lib.create_static_box(c.c_float(rect[0]),c.c_float(rect[1]),c.c_float(rect[2]),c.c_float(rect[3]),c.c_float(rect[4]),c.c_float(rect[5]))
         self.size = rect[3:]
