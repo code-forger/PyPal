@@ -28,8 +28,8 @@ class BodyBase(PalObject):
         return [p.value for p in pos]
 
     def set_material(self,material):
-        """Sets the material of the body. DO NOT USE"""
-        lib.body_set_material(self.obj,c.c_void_p(None))
+        """Sets the material of the body."""
+        lib.body_set_material(self.obj,material.obj)
 
     def get_group(self):#TESTED
         """Returns the collisions group of the body."""

@@ -104,4 +104,3 @@ def raycast(pos,direction,max_range):
     max_range: the max range of the cast
     """
     pass
-

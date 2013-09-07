@@ -77,15 +77,18 @@ void* castup_bodybase(palBodyBase* in)
  *               the pal functions                       *
  *                                                       *
  *********************************************************/
-
+palMaterials *PM = NULL;
 palPhysics *pp = NULL;
 palCollisionDetection *pcd = NULL;
+int material_index;
 extern "C" 
 {
     palPhysics* pal_init(char[])
     {
         PF->LoadPALfromDLL("/home/m/Python/pypalgame/libs/");
         PF->SelectEngine("Bullet");
+        PM = new palMaterials();
+        material_index = 0;
         pp = PF->CreatePhysics();
         if (pp == NULL) 
         {
@@ -123,6 +126,33 @@ extern "C"
     void physics_update(float step)
     {
 	    pp->Update(step);
+    }
+}
+/*********************************************************
+ *                                                       *
+ *               the material functions                  *
+ *                                                       *
+ *********************************************************/
+extern "C" 
+{
+    palMaterialUnique * add_material(float staticfric, float kineticfric, float restitution)
+    {
+        char str[8];
+	    palMaterialDesc desc;
+        desc.m_fStatic = staticfric;
+        desc.m_fKinetic = kineticfric;
+        desc.m_fRestitution = restitution;
+
+        str[0] = (char)material_index%10;
+        str[1] = (char)(material_index/10)%10;
+        str[2] = (char)(material_index/100)%10;
+        str[3] = (char)(material_index/1000)%10;
+        str[4] = (char)(material_index/10000)%10;
+        str[5] = (char)(material_index/100000)%10;
+        str[6] = (char)(material_index/1000000)%10;
+        str[7] = '\0';
+        material_index++;
+        return PM->NewMaterial(std::string(str),desc);
     }
 }
 /*********************************************************
@@ -395,7 +425,7 @@ extern "C"
         b->SetOrientation(x,y,z);
     }
 
-    void body_set_material(palBody*b,palMaterial *material)
+    void body_set_material(palBody*b,palMaterialUnique * material)
     {
         b->SetMaterial(material);
     }
@@ -1034,11 +1064,6 @@ extern "C"
 
     void dcmotor_set_voltage(palDCMotor*m,float voltage){
         m->SetVoltage(voltage);
-    }
-
-    palRevoluteLink * dcmotor_get_link(palDCMotor*m)
-    {
-        return m->GetLink();
     }
 }
 
