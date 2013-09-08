@@ -1,0 +1,5 @@
+from pypalgame import private_globals as pal
+import ctypes as c
+import weakref
+class Material(pal.PalObject):
+
