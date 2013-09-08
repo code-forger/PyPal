@@ -141,6 +141,22 @@ class TestPropellerFunctions(unittest.TestCase):
         propeller = pal.actuator.Propeller(self.sphere,self.sphere.get_position(),(0,0,0),1)
         propeller.set_voltage(10)
 
+class TestLiquidDragFunctions(unittest.TestCase):
+    def setUp(self):
+        pal.init()
+        self.sphere = pal.body.Sphere((0,0,0,1),mass=1)
+
+    def tearDown(self):
+        pal.cleanup()
+
+    def test_drag_create(self):
+        drag = pal.actuator.LiquidDrag(self.sphere,1,1,1)
+        self.assertEqual(len(pal._pal.all_objects),2)
+
+    def test_drag_run(self):
+        drag = pal.actuator.LiquidDrag(self.sphere,1,1,1)
+        drag.run()
+
 
 suite = [unittest.TestLoader().loadTestsFromTestCase(TestDCMotorFunctions),
          unittest.TestLoader().loadTestsFromTestCase(TestSpringFunctions),
@@ -148,7 +164,8 @@ suite = [unittest.TestLoader().loadTestsFromTestCase(TestDCMotorFunctions),
          unittest.TestLoader().loadTestsFromTestCase(TestForceFunctions),
          unittest.TestLoader().loadTestsFromTestCase(TestFakeBuoyancyFunctions),
          unittest.TestLoader().loadTestsFromTestCase(TestHydrofoilFunctions),
-         unittest.TestLoader().loadTestsFromTestCase(TestPropellerFunctions)]
+         unittest.TestLoader().loadTestsFromTestCase(TestPropellerFunctions),
+         unittest.TestLoader().loadTestsFromTestCase(TestLiquidDragFunctions)]
 
 if __name__ == "__main__":
     suite = unittest.TestSuite(suite)

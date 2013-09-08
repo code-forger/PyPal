@@ -1,5 +1,9 @@
-class LiquidDrag():
-    def __init__(body,area,drag,density):
+from pypalgame import private_globals as pal
+import ctypes as c
+import weakref
+from actuatorbase import ActuatorBase
+class LiquidDrag(ActuatorBase):
+    def __init__(self,body,area,drag,density):
         """
         applies a torque to a revolute link
         
@@ -8,8 +12,10 @@ class LiquidDrag():
     	drag: The drag coefficient
     	density: The fluid density 
         """
-        pass
+        self.obj = pal.lib.create_liqid_drag(body.obj,c.c_char(body.typechar),
+                                             c.c_float(area), c.c_float(drag),
+                                             c.c_float(density))
 
-    def run():
+    def run(self):
         """ensures the actuator will be running for this step."""
-        pass
+        pal.lib.liquid_drag_run(self.obj)

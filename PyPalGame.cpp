@@ -329,6 +329,13 @@ extern "C"
 	    return pf;
     }
 
+    palLiquidDrag * create_liqid_drag(palBody* pb, char pbtc, Float area, Float CD, Float density)
+    {
+        palLiquidDrag *pl= dynamic_cast<palLiquidDrag*>(PF->CreateObject("palLiquidDrag"));
+        pl->Init(CASTUP(pbtc,pb),area,CD,density); //initialize it, set its location to 0,0,0 and minimum size to 50
+	    return pl;
+    }
+
     palHydrofoil * create_hydrofoil(palBody* pb, char pbtc, Float px, Float py, Float pz,
                                                             Float ax, Float ay, Float az,
                                                             Float lx, Float ly, Float lz,
@@ -1097,6 +1104,23 @@ extern "C"
 
 /*********************************************************
  *                                                       *
+ *               the liquid drag functions               *
+ *                                                       *
+ *********************************************************/
+extern "C" 
+{
+    void liquid_drag_remove(palLiquidDrag*m){
+        delete m;
+        m = NULL;
+    }
+
+    void liquid_drag_run(palLiquidDrag*a){
+        a->Apply();
+    }
+}
+
+/*********************************************************
+ *                                                       *
  *               the Impulse functions                   *
  *                                                       *
  *********************************************************/
@@ -1181,7 +1205,7 @@ extern "C"
 
 /*********************************************************
  *                                                       *
- *               the FakeBuoyancy functions                     *
+ *               the FakeBuoyancy functions              *
  *                                                       *
  *********************************************************/
 extern "C" 
