@@ -8,6 +8,7 @@ import actuatortests
 import bodytests
 import geometrytests
 import linktests
+import materialtests
 import sensortests
 import staticbodytests
 
@@ -17,6 +18,7 @@ suite = [] +\
         bodytests.suite +\
         geometrytests.suite +\
         linktests.suite +\
+        materialtests.suite +\
         sensortests.suite +\
         staticbodytests.suite
 

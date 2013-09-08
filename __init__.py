@@ -11,6 +11,7 @@ import body
 import fluid
 import geometry
 import link
+import material
 import sensor
 import vehicle
 import ctypes as c
