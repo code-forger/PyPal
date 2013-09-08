@@ -28,22 +28,3 @@ class Impulse(ActuatorBase):
     def run(self):
         """ensures the actuator will be running for this step."""
         pal.lib.impulse_run(self.obj)
-
-class Propeller(Impulse):
-    def __init__(body,pos,direction,lumped):
-        """
-        applies an propeller to a body
-        
-    	body: The body to connect the actuator to
-	    pos: The x position of the actuator's center
-	    direction: The unit vector which supplies the orientation of the actuator.
-	    lumped: The lumped parameter 
-        """
-        pass
-
-    def set_voltage(voltage):
-        """sets the voltage of the actuator"""
-
-    def run():
-        """ensures the actuator will be running for this step."""
-        pass

@@ -121,13 +121,34 @@ class TestHydrofoilFunctions(unittest.TestCase):
         hydrofoil = pal.actuator.Hydrofoil(self.sphere,self.sphere.get_position(),(0,0,0),(0,1,0),10,1,1,1,1)
         hydrofoil.set_angle(10)
 
+class TestPropellerFunctions(unittest.TestCase):
+    def setUp(self):
+        pal.init()
+        self.sphere = pal.body.Sphere((0,0,0,1),mass=1)
+
+    def tearDown(self):
+        pal.cleanup()
+
+    def test_propeller_create(self):
+        propeller = pal.actuator.Propeller(self.sphere,self.sphere.get_position(),(0,0,0),1)
+        self.assertEqual(len(pal._pal.all_objects),2)
+
+    def test_propeller_run(self):
+        propeller = pal.actuator.Propeller(self.sphere,self.sphere.get_position(),(0,0,0),1)
+        propeller.run()
+
+    def test_propeller_set_voltage(self):
+        propeller = pal.actuator.Propeller(self.sphere,self.sphere.get_position(),(0,0,0),1)
+        propeller.set_voltage(10)
+
 
 suite = [unittest.TestLoader().loadTestsFromTestCase(TestDCMotorFunctions),
          unittest.TestLoader().loadTestsFromTestCase(TestSpringFunctions),
          unittest.TestLoader().loadTestsFromTestCase(TestImpulseFunctions),
          unittest.TestLoader().loadTestsFromTestCase(TestForceFunctions),
          unittest.TestLoader().loadTestsFromTestCase(TestFakeBuoyancyFunctions),
-         unittest.TestLoader().loadTestsFromTestCase(TestHydrofoilFunctions)]
+         unittest.TestLoader().loadTestsFromTestCase(TestHydrofoilFunctions),
+         unittest.TestLoader().loadTestsFromTestCase(TestPropellerFunctions)]
 
 if __name__ == "__main__":
     suite = unittest.TestSuite(suite)

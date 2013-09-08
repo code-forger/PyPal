@@ -346,6 +346,17 @@ extern "C"
 	    return ph;
     }
 
+    palPropeller * create_propeller(palBody* pb, char pbtc, Float px, Float py, Float pz,
+                                                            Float ax, Float ay, Float az,
+                                                            Float l)
+    {
+        palPropeller *ph= dynamic_cast<palPropeller*>(PF->CreateObject("palPropeller"));
+        ph->Init(CASTUP(pbtc,pb), px, pz, px,
+                                  ax, az, ax,
+                                  l);
+	    return ph;
+    }
+
     palSpring * create_spring(palBody* pb1, char pbtc1, palBody* pb2, char pbtc2, Float rest, Float ks, Float kd)
     {
         palSpring *ps= dynamic_cast<palSpring*>(PF->CreateObject("palSpring"));
@@ -1143,6 +1154,27 @@ extern "C"
     }
 
     void hydrofoil_run(palHydrofoil*a){
+        a->Apply();
+    }
+}
+
+/*********************************************************
+ *                                                       *
+ *               the propeller functions                 *
+ *                                                       *
+ *********************************************************/
+extern "C" 
+{
+    void propeller_remove(palPropeller*f){
+        delete f;
+        f = NULL;
+    }
+
+    void propeller_set_voltage(palPropeller*f,float voltage){
+        f->SetVoltage(voltage);
+    }
+
+    void propeller_run(palPropeller*a){
         a->Apply();
     }
 }
