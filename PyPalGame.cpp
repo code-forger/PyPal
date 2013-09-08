@@ -329,6 +329,23 @@ extern "C"
 	    return pf;
     }
 
+    palHydrofoil * create_hydrofoil(palBody* pb, char pbtc, Float px, Float py, Float pz,
+                                                            Float ax, Float ay, Float az,
+                                                            Float lx, Float ly, Float lz,
+                                                            Float af,
+                                                            Float a, Float b, Float c,
+                                                            Float density)
+    {
+        palHydrofoil *ph= dynamic_cast<palHydrofoil*>(PF->CreateObject("palHydrofoil"));
+        ph->Init(CASTUP(pbtc,pb), px, pz, px,
+                                  ax, az, ax,
+                                  lx, lz, lx,
+                                  af,
+                                  a, b,  c,
+                                  density);
+	    return ph;
+    }
+
     palSpring * create_spring(palBody* pb1, char pbtc1, palBody* pb2, char pbtc2, Float rest, Float ks, Float kd)
     {
         palSpring *ps= dynamic_cast<palSpring*>(PF->CreateObject("palSpring"));
@@ -1105,6 +1122,27 @@ extern "C"
     }
 
     void force_run(palForceActuator*a){
+        a->Apply();
+    }
+}
+
+/*********************************************************
+ *                                                       *
+ *               the hydrofoil functions                 *
+ *                                                       *
+ *********************************************************/
+extern "C" 
+{
+    void hydrofoil_remove(palHydrofoil*f){
+        delete f;
+        f = NULL;
+    }
+
+    void hydrofoil_set_angle(palHydrofoil*f,float angle){
+        f->SetAngle(angle);
+    }
+
+    void hydrofoil_run(palHydrofoil*a){
         a->Apply();
     }
 }

@@ -101,12 +101,33 @@ class TestFakeBuoyancyFunctions(unittest.TestCase):
         fake_buoyancy = pal.actuator.FakeBuoyancy(self.sphere)
         fake_buoyancy.run()
 
+class TestHydrofoilFunctions(unittest.TestCase):
+    def setUp(self):
+        pal.init()
+        self.sphere = pal.body.Sphere((0,0,0,1),mass=1)
+
+    def tearDown(self):
+        pal.cleanup()
+
+    def test_hydrofoil_create(self):
+        hydrofoil = pal.actuator.Hydrofoil(self.sphere,self.sphere.get_position(),(0,0,0),(0,1,0),10,1,1,1,1)
+        self.assertEqual(len(pal._pal.all_objects),2)
+
+    def test_hydrofoil_run(self):
+        hydrofoil = pal.actuator.Hydrofoil(self.sphere,self.sphere.get_position(),(0,0,0),(0,1,0),10,1,1,1,1)
+        hydrofoil.run()
+
+    def test_hydrofoil_set_angle(self):
+        hydrofoil = pal.actuator.Hydrofoil(self.sphere,self.sphere.get_position(),(0,0,0),(0,1,0),10,1,1,1,1)
+        hydrofoil.set_angle(10)
+
 
 suite = [unittest.TestLoader().loadTestsFromTestCase(TestDCMotorFunctions),
          unittest.TestLoader().loadTestsFromTestCase(TestSpringFunctions),
          unittest.TestLoader().loadTestsFromTestCase(TestImpulseFunctions),
          unittest.TestLoader().loadTestsFromTestCase(TestForceFunctions),
-         unittest.TestLoader().loadTestsFromTestCase(TestFakeBuoyancyFunctions)]
+         unittest.TestLoader().loadTestsFromTestCase(TestFakeBuoyancyFunctions),
+         unittest.TestLoader().loadTestsFromTestCase(TestHydrofoilFunctions)]
 
 if __name__ == "__main__":
     suite = unittest.TestSuite(suite)
