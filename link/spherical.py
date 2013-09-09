@@ -15,7 +15,3 @@ class Spherical(pal.PalObject):
         twist: limits the twisting of the link specified in radiens
         """
         pal.lib.spherical_link_set_limits(self.obj,c.c_float(cone),c.c_float(twist))
-
-    def delete(self):
-        pal.lib.spherical_link_remove(self.obj)
-        del pal.all_objects[str(self.obj)]

@@ -24,8 +24,3 @@ class Convex(GeometryBase):
         self.obj = pal.lib.create_geometry_box(c.c_float(rect[0]),c.c_float(rect[1]),c.c_float(rect[2]),c.c_float(rotation[0]),c.c_float(rotation[1]),c.c_float(rotation[2]),
                                                c.pointer(cpoints),len(points)*3,c.c_float(mass))
 
-
-
-    def delete(self):
-        pal.lib.box_geometry_remove(self.obj)
-        del pal.all_objects[str(self.obj)]

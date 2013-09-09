@@ -92,7 +92,6 @@ class BodyBase(PalObject):
             print ret[0] == ret[1]
         except: pass
         return ret
-            
 
     @property
     def mass():

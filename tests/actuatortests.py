@@ -19,6 +19,11 @@ class TestDCMotorFunctions(unittest.TestCase):
         dcmotor = pal.actuator.DCMotor(self.link,100,1,1)
         self.assertEqual(len(pal._pal.all_objects),4)
 
+    def test_dcmotor_remove(self):
+        dcmotor = pal.actuator.DCMotor(self.link,100,1,1)
+        dcmotor.delete()
+        self.assertEqual(len(pal._pal.all_objects),3)
+
     def test_dcmotor_turn_on(self):
         dcmotor = pal.actuator.DCMotor(self.link,100,1,1)
         dcmotor.turn_on()

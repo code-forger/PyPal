@@ -24,7 +24,3 @@ class HeightMapTerrain(BodyBase):
                                                     c.c_float(size[0]),c.c_float(size[1]),
                                                     c.c_int(chunks[0]),c.c_int(chunks[1]),
                                                     c.pointer(points))
-
-    def delete(self):
-        pal.lib.terrain_heightmap_remove(self.obj)
-        del pal.all_objects[str(self.obj)]

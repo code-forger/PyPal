@@ -58,7 +58,3 @@ class Revolute(pal.PalObject):
         pos = [c.c_float() for x in range(3)]
         pal.lib.revolute_link_get_axis(self.obj,c.byref(pos[0]),c.byref(pos[1]),c.byref(pos[2]))
         return [p.value for p in pos]
-
-    def delete(self):
-        pal.lib.revolute_link_remove(self.obj)
-        del pal.all_objects[str(self.obj)]

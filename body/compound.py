@@ -39,7 +39,7 @@ class Compound(BodyBase):
         for i in xrange(len(points)):
             for j in xrange(3):
                 cpoints[(i*3)+j] = points[i][j]
-        pal.lib.compound_add_convex(self.obj, c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2]), c.c_float(rotation[0]), c.c_float(rotation[1]), c.c_float(rotation[2]), c.pointer(cpoints),len(points)*3,c.c_float(mass)))
+        pal.lib.compound_add_convex(self.obj, c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2]), c.c_float(rotation[0]), c.c_float(rotation[1]), c.c_float(rotation[2]), c.pointer(cpoints),len(points)*3,c.c_float(mass))
 
     def finalize(self):
         pal.lib.compound_finalize(self.obj)
@@ -50,8 +50,3 @@ class Compound(BodyBase):
         pal.lib.compound_get_velocity_y.restype = c.c_float
         pal.lib.compound_get_velocity_z.restype = c.c_float
         return [pal.lib.compound_get_velocity_x(self.obj),pal.lib.compound_get_velocity_y(self.obj),pal.lib.compound_get_velocity_z(self.obj)]
-
-
-    def delete(self):
-        pal.lib.compound_remove(self.obj)
-        del pal.all_objects[str(self.obj)]

@@ -21,10 +21,6 @@ class Force(ActuatorBase):
         """sets the force of the actuator"""
         pal.lib.force_set_force(self.obj,c.c_float(force))
 
-    def delete(self):
-        pal.lib.force_remove(self.obj)
-        del pal.all_objects[str(obj)]
-
     def run(self):
         """ensures the actuator will be running for this step."""
         pal.lib.force_run(self.obj)

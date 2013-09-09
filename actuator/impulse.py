@@ -21,10 +21,6 @@ class Impulse(ActuatorBase):
         """sets the impulse of the actuator"""
         pal.lib.impulse_set_impulse(self.obj,c.c_float(impulse))
 
-    def delete(self):
-        pal.lib.impulse_remove(self.obj)
-        del pal.all_objects[str(obj)]
-
     def run(self):
         """ensures the actuator will be running for this step."""
         pal.lib.impulse_run(self.obj)

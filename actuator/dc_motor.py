@@ -13,7 +13,3 @@ class DCMotor(ActuatorBase):
     def run(self):
         """ensures the actuator will be running for this step."""
         pal.lib.dcmotor_run(self.obj)
-
-    def delete(self):
-        pal.lib.dcmotor_remove(self.obj)
-        del pal.all_objects[str(obj)]

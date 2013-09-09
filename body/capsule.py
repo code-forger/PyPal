@@ -73,10 +73,6 @@ class Capsule(BodyBase):
         """Applies a torque to the object for a single step at an optional offset in world coordinates."""
         pal.lib.capsule_apply_torque(self.obj,c.c_float(force[0]),c.c_float(force[1]),c.c_float(force[2]))
 
-    def delete(self):
-        pal.lib.capsule_remove(self.obj)
-        del pal.all_objects[str(self.obj)]
-
 
 class StaticCapsule(BodyBase):
     typechar = 'C'
@@ -87,7 +83,3 @@ class StaticCapsule(BodyBase):
     def get_size(self):
         """returns the size of the object in a 3 part tuple"""
         return self.size
-
-    def delete(self):
-        pal.lib.static_capsule_remove(self.obj)
-        del pal.all_objects[str(self.obj)]

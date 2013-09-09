@@ -249,6 +249,13 @@ extern "C"
         return pc;
     }
 
+    palStaticConvex* create_static_convex(Float x, Float y, Float z, const Float *pVertices, int nVertices)
+    {
+        palStaticConvex *pc = dynamic_cast<palStaticConvex*>(PF->CreateObject("palStaticConvex")); //create a box
+	    pc->Init(x, y, z, pVertices, nVertices);
+        return pc;
+    }
+
     palSphere * create_sphere(Float x, Float y, Float z, Float radius, Float mass)
     {
         palSphere *ps = PF->CreateSphere(); //create a box
@@ -458,6 +465,10 @@ extern "C"
  *********************************************************/
 extern "C" 
 {
+    void remove_object(palFactoryObject*o){
+        delete o;
+        o = NULL;
+    }
     void body_get_position(palBody*b,float&x,float&y,float&z)
     {
         palVector3 pos;
@@ -521,11 +532,6 @@ extern "C"
  *********************************************************/
 extern "C"
 {
-    void box_remove(palBox*b){
-        delete b;
-        b = NULL;
-    }
-
     void box_get_size(palBox*b,float&width,float&height,float&depth)
     {
         width = b->GetWidth();
@@ -618,29 +624,11 @@ extern "C"
 
 /*********************************************************
  *                                                       *
- *               the static box functions                *
- *                                                       *
- *********************************************************/
-extern "C" 
-{
-    void static_box_remove(palStaticBox*b){
-        delete b;
-        b = NULL;
-    }
-}
-
-/*********************************************************
- *                                                       *
  *               the Capsule functions                   *
  *                                                       *
  *********************************************************/
 extern "C" 
 {
-    void capsule_remove(palCapsule*b){
-        delete b;
-        b = NULL;
-    }
-
     void capsule_apply_impulse(palCapsule*c,float ix, float iy, float iz){
         c->ApplyImpulse(ix,iy,iz);
     }
@@ -726,30 +714,11 @@ extern "C"
 
 /*********************************************************
  *                                                       *
- *               the static capsule functions            *
- *                                                       *
- *********************************************************/
-extern "C" 
-{
-    void static_capsule_remove(palStaticCapsule*c){
-        delete c;
-        c = NULL;
-    }
-}
-
-/*********************************************************
- *                                                       *
  *               the compound functions                  *
  *                                                       *
  *********************************************************/
 extern "C" 
 {
-    void compound_remove(palCompoundBody*s)
-    {
-        delete s;
-        s = NULL;
-    }
-
     void compound_apply_impulse(palCompoundBody*s,float ix, float iy, float iz)
     {
         s->ApplyImpulse(ix,iy,iz);
@@ -845,11 +814,6 @@ extern "C"
  *********************************************************/
 extern "C" 
 {
-    void sphere_remove(palSphere*s){
-        delete s;
-        s = NULL;
-    }
-
     void sphere_apply_impulse(palSphere*s,float ix, float iy, float iz){
         s->ApplyImpulse(ix,iy,iz);
     }
@@ -948,92 +912,14 @@ extern "C"
 
 /*********************************************************
  *                                                       *
- *               the static capsule functions            *
+ *               the static convex functions             *
  *                                                       *
  *********************************************************/
 extern "C" 
 {
-    void static_sphere_remove(palStaticSphere*s){
-        delete s;
-        s = NULL;
-    }
-}
-
-/*********************************************************
- *                                                       *
- *               the box geometry functio                *
- *                                                       *
- *********************************************************/
-extern "C"
-{
-    void box_geometry_remove(palBoxGeometry*b){
-        delete b;
-        b = NULL;
-    }
-}
-
-/*********************************************************
- *                                                       *
- *               the sphere geometry functio             *
- *                                                       *
- *********************************************************/
-extern "C"
-{
-    void sphere_geometry_remove(palSphereGeometry*b){
-        delete b;
-        b = NULL;
-    }
-}
-
-/*********************************************************
- *                                                       *
- *               the capsule geometry functio            *
- *                                                       *
- *********************************************************/
-extern "C"
-{
-    void capsule_geometry_remove(palCapsuleGeometry*b){
-        delete b;
-        b = NULL;
-    }
-}
-
-/*********************************************************
- *                                                       *
- *               the convex geometry functio             *
- *                                                       *
- *********************************************************/
-extern "C"
-{
-    void convex_geometry_remove(palConvexGeometry*b){
-        delete b;
-        b = NULL;
-    }
-}
-
-/*********************************************************
- *                                                       *
- *               the terrain functions                   *
- *                                                       *
- *********************************************************/
-extern "C" 
-{
-    void terrain_remove(palTerrainPlane*b){
-        delete b;
-        b = NULL;
-    }
-}
-
-/*********************************************************
- *                                                       *
- *               the terrain heightmap functions         *
- *                                                       *
- *********************************************************/
-extern "C" 
-{
-    void terrain_heightmap_remove(palTerrainHeightmap*b){
-        delete b;
-        b = NULL;
+    void static_convex_remove(palStaticConvex*c){
+        delete c;
+        c = NULL;
     }
 }
 
@@ -1044,11 +930,6 @@ extern "C"
  *********************************************************/
 extern "C" 
 {
-    void prismatic_link_remove(palPrismaticLink*pl){
-        delete pl;
-        pl = NULL;
-    }
-
     void prismatic_link_set_limits(palPrismaticLink*pl,float min,float max){
         pl->SetLimits(min, max);
     }
@@ -1061,11 +942,6 @@ extern "C"
  *********************************************************/
 extern "C" 
 {
-    void spherical_link_remove(palSphericalLink*sl){
-        delete sl;
-        sl = NULL;
-    }
-
     void spherical_link_set_limits(palSphericalLink*sl,float cone,float twist){
         sl->SetLimits(cone, twist);
     }
@@ -1078,11 +954,6 @@ extern "C"
  *********************************************************/
 extern "C" 
 {
-    void revolute_link_remove(palRevoluteLink*rl){
-        delete rl;
-        rl = NULL;
-    }
-
     void revolute_link_set_limits(palRevoluteLink*rl,float max, float min){
         rl->SetLimits(max,min);
     }
@@ -1124,29 +995,11 @@ extern "C"
 
 /*********************************************************
  *                                                       *
- *               the rigid link functions                *
- *                                                       *
- *********************************************************/
-extern "C" 
-{
-    void rigid_link_remove(palRigidLink*pl){
-        delete pl;
-        pl = NULL;
-    }
-}
-
-/*********************************************************
- *                                                       *
  *               the DCMotor functions                   *
  *                                                       *
  *********************************************************/
 extern "C" 
 {
-    void dcmotor_remove(palDCMotor*m){
-        delete m;
-        m = NULL;
-    }
-
     void dcmotor_run(palDCMotor*a){
         a->Apply();
     }
@@ -1163,11 +1016,6 @@ extern "C"
  *********************************************************/
 extern "C" 
 {
-    void liquid_drag_remove(palLiquidDrag*m){
-        delete m;
-        m = NULL;
-    }
-
     void liquid_drag_run(palLiquidDrag*a){
         a->Apply();
     }
@@ -1180,11 +1028,6 @@ extern "C"
  *********************************************************/
 extern "C" 
 {
-    void impulse_remove(palImpulseActuator*i){
-        delete i;
-        i = NULL;
-    }
-
     void impulse_set_impulse(palImpulseActuator*i,float impulse){
         i->SetImpulse(impulse);
     }
@@ -1201,11 +1044,6 @@ extern "C"
  *********************************************************/
 extern "C" 
 {
-    void force_remove(palForceActuator*f){
-        delete f;
-        f = NULL;
-    }
-
     void force_set_force(palForceActuator*f,float force){
         f->SetForce(force);
     }
@@ -1222,11 +1060,6 @@ extern "C"
  *********************************************************/
 extern "C" 
 {
-    void hydrofoil_remove(palHydrofoil*f){
-        delete f;
-        f = NULL;
-    }
-
     void hydrofoil_set_angle(palHydrofoil*f,float angle){
         f->SetAngle(angle);
     }
@@ -1243,11 +1076,6 @@ extern "C"
  *********************************************************/
 extern "C" 
 {
-    void propeller_remove(palPropeller*f){
-        delete f;
-        f = NULL;
-    }
-
     void propeller_set_voltage(palPropeller*f,float voltage){
         f->SetVoltage(voltage);
     }
@@ -1264,11 +1092,6 @@ extern "C"
  *********************************************************/
 extern "C" 
 {
-    void fake_buoyancy_remove(palFakeBuoyancy*f){
-        delete f;
-        f = NULL;
-    }
-
     void fake_buoyancy_run(palFakeBuoyancy*a){
         a->Apply();
     }
@@ -1281,11 +1104,6 @@ extern "C"
  *********************************************************/
 extern "C" 
 {
-    void spring_remove(palSpring*s){
-        delete s;
-        s = NULL;
-    }
-
     void spring_run(palSpring*a){
         a->Apply();
     }

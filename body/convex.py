@@ -30,5 +30,23 @@ class Convex(BodyBase):
         return points
 
     def delete(self):
-        pal.lib.convex_remove(self.obj)
+        pal.lib.convex_remove(self.obj,self.typechar)
+        del pal.all_objects[str(self.obj)]
+
+
+class StaticConvex(BodyBase):
+    typechar = 'X'
+    def __init__(self,pos,points):#TESTED
+
+        CPoints = c.c_float * (len(points) * 3)
+        cpoints = CPoints()
+        for i in xrange(len(points)):
+            for j in xrange(3):
+                cpoints[(i*3)+j] = points[i][j]
+
+        self.obj = pal.lib.create_static_convex(c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2]),
+                              c.pointer(cpoints),len(points)*3)
+
+    def delete(self):
+        pal.lib.static_convex_remove(self.obj,self.typechar)
         del pal.all_objects[str(self.obj)]

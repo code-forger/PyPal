@@ -21,7 +21,3 @@ class Terrain(BodyBase):
     def get_size(self):
         """returns the size of the object in a 3 part tuple"""
         return self.size
-
-    def delete(self):
-        pal.lib.terrain_remove(self.obj)
-        del pal.all_objects[str(self.obj)]

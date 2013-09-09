@@ -18,7 +18,3 @@ class Spring(ActuatorBase):
     def run(self):
         """ensures the actuator will be running for this step."""
         pal.lib.spring_run(self.obj)
-
-    def delete(self):
-        pal.lib.spring_remove(self.obj)
-        del pal.all_objects[str(obj)]

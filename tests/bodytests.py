@@ -360,7 +360,6 @@ class TestCapsuleFunctions(unittest.TestCase):
         capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
         capsule.apply_torque((1,1,1))
 
-
 class TestConvexFunctions(unittest.TestCase):
     def setUp(self):
         self.points = ((1,1,1),

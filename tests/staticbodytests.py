@@ -231,9 +231,34 @@ class TestStaticCapsuleFunctions(unittest.TestCase):
         capsule = pal.body.StaticCapsule((0,0,0,1,1))
         self.assertEqual(capsule.get_size(), (1,1))
 
+class TestStaticConvexFunctions(unittest.TestCase):
+    def setUp(self):
+        self.points = ((1,1,1),
+                       (0,1,1),
+                       (1,0,1),
+                       (1,1,0),
+                       (0,0,1),
+                       (0,1,0),
+                       (1,0,0),
+                       (0,0,0))
+        pal.init()
+
+    def tearDown(self):
+        pal.cleanup()
+
+    def test_convex_create(self):
+        pal.body.StaticConvex((0,0,0),self.points)
+        self.assertEqual(len(pal._pal.all_objects),1)
+
+    def test_convex_delete(self):
+        convex = pal.body.StaticConvex((0,0,0),self.points)
+        convex.delete()
+        self.assertEqual(len(pal._pal.all_objects),0)
+
 suite = [unittest.TestLoader().loadTestsFromTestCase(TestStaticBoxFunctions),
         unittest.TestLoader().loadTestsFromTestCase(TestStaticSphereFunctions),
-        unittest.TestLoader().loadTestsFromTestCase(TestStaticCapsuleFunctions)]
+        unittest.TestLoader().loadTestsFromTestCase(TestStaticCapsuleFunctions),
+        unittest.TestLoader().loadTestsFromTestCase(TestStaticConvexFunctions)]
 
 if __name__ == "__main__":
     suite = unittest.TestSuite(suite)

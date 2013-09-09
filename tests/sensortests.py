@@ -15,6 +15,11 @@ class TestCompassFunctions(unittest.TestCase):
         compass = pal.sensor.Compass(self.sphere,[0,1,0])
         self.assertEqual(len(pal._pal.all_objects),2)
 
+    def test_compass_delete(self):
+        compass = pal.sensor.Compass(self.sphere,[0,1,0])
+        compass.delete()
+        self.assertEqual(len(pal._pal.all_objects),1)
+
     def test_compass_get_angle(self):
         compass = pal.sensor.Compass(self.sphere,[0,1,0])
         self.assertEqual(compass.get_angle(),0)

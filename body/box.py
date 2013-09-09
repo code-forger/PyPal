@@ -74,11 +74,6 @@ class Box(BodyBase):
         pal.lib.box_apply_torque(self.obj,c.c_float(force[0]),c.c_float(force[1]),c.c_float(force[2]))
 
 
-    def delete(self):
-        pal.lib.box_remove(self.obj)
-        del pal.all_objects[str(self.obj)]
-
-
 class StaticBox(BodyBase):
     typechar = 'B'
     def __init__(self,rect):#TESTED
@@ -88,8 +83,3 @@ class StaticBox(BodyBase):
     def get_size(self):
         """returns the size of the object in a 3 part tuple"""
         return self.size
-
-    def delete(self):
-        print "delete"
-        pal.lib.static_box_remove(self.obj)
-        del pal.all_objects[str(self.obj)]

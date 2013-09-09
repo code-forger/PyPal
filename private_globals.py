@@ -27,3 +27,7 @@ class PalObject(object):
 
     def get_user_data(self):
         return user_data[self.obj]
+
+    def delete(self):
+        lib.remove_object(self.obj)
+        del all_objects[str(self.obj)]

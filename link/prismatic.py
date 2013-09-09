@@ -14,7 +14,3 @@ class Prismatic(pal.PalObject):
         min_limit: the minimum distance the child body can be from the link
         """
         pal.lib.prismatic_link_set_limits(self.obj, c.c_float(min_limit), c.c_float(max_limit))
-
-    def delete(self):
-        pal.lib.prismatic_link_remove(self.obj)
-        del pal.all_objects[str(self.obj)]
