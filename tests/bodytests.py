@@ -360,9 +360,36 @@ class TestCapsuleFunctions(unittest.TestCase):
         capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
         capsule.apply_torque((1,1,1))
 
+
+class TestConvexFunctions(unittest.TestCase):
+    def setUp(self):
+        self.points = ((1,1,1),
+                       (0,1,1),
+                       (1,0,1),
+                       (1,1,0),
+                       (0,0,1),
+                       (0,1,0),
+                       (1,0,0),
+                       (0,0,0))
+        pal.init()
+
+    def tearDown(self):
+        pal.cleanup()
+
+    def test_convex_create(self):
+        pal.body.Convex((0,0,0),self.points,mass=1)
+        self.assertEqual(len(pal._pal.all_objects),1)
+
+    def test_convex_delete(self):
+        convex = pal.body.Convex((0,0,0),self.points,mass=1)
+        convex.delete()
+        self.assertEqual(len(pal._pal.all_objects),0)
+
+
 suite = [unittest.TestLoader().loadTestsFromTestCase(TestBoxFunctions),
         unittest.TestLoader().loadTestsFromTestCase(TestSphereFunctions),
-        unittest.TestLoader().loadTestsFromTestCase(TestCapsuleFunctions)]
+        unittest.TestLoader().loadTestsFromTestCase(TestCapsuleFunctions),
+        unittest.TestLoader().loadTestsFromTestCase(TestConvexFunctions)]
 
 if __name__ == "__main__":
     suite = unittest.TestSuite(suite)

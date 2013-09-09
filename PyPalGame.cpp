@@ -242,6 +242,14 @@ extern "C"
         return pcb;
     }
 
+    palConvex* create_convex(Float x, Float y, Float z, const Float *pVertices, int nVertices, Float mass)
+    {
+        std::cout << std::endl;
+        palConvex *pc = dynamic_cast<palConvex*>(PF->CreateObject("palConvex")); //create a box
+	    pc->Init(x, y, z, pVertices, nVertices, mass);
+        return pc;
+    }
+
     palSphere * create_sphere(Float x, Float y, Float z, Float radius, Float mass)
     {
         palSphere *ps = PF->CreateSphere(); //create a box
@@ -902,6 +910,19 @@ extern "C"
         palVector3 p;
         s->GetAngularVelocity(p);
         return p[2];
+    }
+}
+
+/*********************************************************
+ *                                                       *
+ *               the convex functions                    *
+ *                                                       *
+ *********************************************************/
+extern "C" 
+{
+    void convex_remove(palConvex*s){
+        delete s;
+        s = NULL;
     }
 }
 

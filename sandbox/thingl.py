@@ -25,15 +25,6 @@ objects = []
 sbox = pal.body.StaticBox((0,0,0,50,1,50))
 objects.append(glh.Box(sbox, (255, 0, 0)))
 
-ball = pal.body.Sphere((0,5,0,1),mass = 75)
-objects.append(glh.Ball(ball, (255, 0, 0)))
-
-material = pal.material.Material("bounce",0,0,1)
-material1 = pal.material.Material("ground",0,0,1)
-
-ball.set_material(material)
-sbox.set_material(material1)
-
 
 ## TAIL START ##
 running = True
