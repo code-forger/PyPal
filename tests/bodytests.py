@@ -430,11 +430,11 @@ class TestGenericFunctions(unittest.TestCase):
         generic.linear_damping = 100
         self.assertEqual(generic.linear_damping,1)
 
-    def test_generic_angular_damping(self):
-        generic = pal.body.GenericBody((0,0,0))
-        generic.angular_damping = 100
-        pal.update(1)
-        self.assertEqual(generic.angular_damping,1)
+    #def test_generic_angular_damping(self):
+    #    generic = pal.body.GenericBody((0,0,0))
+    #    generic.angular_damping = 100
+    #    pal.update(1)
+    #    self.assertEqual(generic.angular_damping,1)
 
     def test_generic_connect_geometry(self):
         generic = pal.body.GenericBody((0,0,0))
