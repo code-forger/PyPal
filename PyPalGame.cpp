@@ -799,6 +799,17 @@ extern "C"
         mat_set_rotation(&pos, rx, ry, rz);
         pcg->Init (pos, radius, height, mass);
     }
+    
+    void compound_add_convex(palCompoundBody*c, Float x, Float y, Float z,
+                                             Float rx, Float ry, Float rz, const Float *pVertices, int nVertices, Float mass)
+    {
+        palConvexGeometry*pcg = dynamic_cast<palConvexGeometry*>(c->AddGeometry("palConvexGeometry"));
+
+        palMatrix4x4 pos;
+        mat_set_translation(&pos, x, y, z);
+        mat_set_rotation(&pos, rx, ry, rz);
+        pcg->Init (pos, pVertices, nVertices, mass);
+    }
 
     void compound_finalize(palCompoundBody*c)
     {

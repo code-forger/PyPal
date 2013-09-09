@@ -32,6 +32,15 @@ class Compound(BodyBase):
         """adds a sphere geometry to the compound body"""
         pal.lib.compound_add_capsule(self.obj, c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2]), c.c_float(rotation[0]), c.c_float(rotation[1]), c.c_float(rotation[2]), c.c_float(pos[3]), c.c_float(pos[4]),c.c_float(mass))
 
+    def add_convex(self,pos,points,mass,rotation=(0,0,0)):
+        """adds a sphere geometry to the compound body"""
+        CPoints = c.c_float * (len(points) * 3)
+        cpoints = CPoints()
+        for i in xrange(len(points)):
+            for j in xrange(3):
+                cpoints[(i*3)+j] = points[i][j]
+        pal.lib.compound_add_convex(self.obj, c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2]), c.c_float(rotation[0]), c.c_float(rotation[1]), c.c_float(rotation[2]), c.pointer(cpoints),len(points)*3,c.c_float(mass)))
+
     def finalize(self):
         pal.lib.compound_finalize(self.obj)
 
