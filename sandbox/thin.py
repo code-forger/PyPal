@@ -2,13 +2,17 @@ import pypalgame as pal
 
 pal.init()
 
-box = pal.body.Box((0,0,0,1,1,1),1)
-box1 = pal.body.Box((0,0,0,1,1,1),1)
-box1.delete()
+box = pal.body.StaticBox((0,0,0,50,1,50))
+body = pal.body.GenericBody((0,10,0))
+boxgeom = pal.geometry.Box((0,10,0,1,1,1))
+body.connect_geometry(boxgeom)
 
-for x in range(1000):
+body.dynamics_type = "dynamic"
+body.mass = 1
+body.gravity_enabled = False
+
+for x in range(10):
     pal.update(0.02)
+    print body.get_position(), body.get_location()
 
-box.delete()
-pal.update(0.02)
 pal.cleanup()

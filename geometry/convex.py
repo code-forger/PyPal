@@ -3,6 +3,7 @@ import ctypes as c
 import weakref
 from geometry_base import GeometryBase
 class Convex(GeometryBase):
+    typechar = 'x'
     """a geometry that represents a convex shape"""
     def __init__(self, rect, rotation = [0,0,0],points=((0,0,0)),mass=1):
         """

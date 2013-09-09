@@ -384,11 +384,81 @@ class TestConvexFunctions(unittest.TestCase):
         convex.delete()
         self.assertEqual(len(pal._pal.all_objects),0)
 
+class TestGenericFunctions(unittest.TestCase):
+    def setUp(self):
+        pal.init()
+
+    def tearDown(self):
+        pal.cleanup()
+
+    def test_generic_create(self):
+        pal.body.GenericBody((0,0,0))
+        self.assertEqual(len(pal._pal.all_objects),1)
+
+    def test_generic_delete(self):
+        generic = pal.body.GenericBody((0,0,0))
+        generic.delete()
+        self.assertEqual(len(pal._pal.all_objects),0)
+
+    def test_generic_dynamics_type(self):
+        generic = pal.body.GenericBody((0,0,0))
+        generic.dynamics_type = "static"
+        self.assertEqual(generic.dynamics_type,"static")
+
+    def test_generic_gravity(self):
+        generic = pal.body.GenericBody((0,0,0))
+        generic.gravity_enabled = False
+        self.assertEqual(generic.gravity_enabled,False)
+
+    def test_generic_collision(self):
+        generic = pal.body.GenericBody((0,0,0))
+        generic.collision_response = False
+        self.assertEqual(generic.collision_response,False)
+
+    def test_generic_mass(self):
+        generic = pal.body.GenericBody((0,0,0))
+        generic.mass = 100
+        self.assertEqual(generic.mass,100)
+
+    def test_generic_inertia(self):
+        generic = pal.body.GenericBody((0,0,0))
+        generic.inertia = (100,100,100)
+        self.assertEqual(generic.inertia,[100,100,100])
+
+    def test_generic_linear_damping(self):
+        generic = pal.body.GenericBody((0,0,0))
+        generic.linear_damping = 100
+        self.assertEqual(generic.linear_damping,100)
+
+    def test_generic_angular_damping(self):
+        generic = pal.body.GenericBody((0,0,0))
+        generic.angular_damping = 100
+        pal.update(1)
+        self.assertEqual(generic.angular_damping,100)
+
+    def test_generic_connect_geometry(self):
+        generic = pal.body.GenericBody((0,0,0))
+        geometry = pal.geometry.Box((0,0,0,1,1,1))  
+        generic.connect_geometry(geometry)
+
+    def test_generic_remove_geometry(self):
+        generic = pal.body.GenericBody((0,0,0))
+        geometry = pal.geometry.Box((0,0,0,1,1,1)) 
+        generic.connect_geometry(geometry)  
+        generic.remove_geometry(geometry)
+
+    def test_generic_get_geometry(self):
+        generic = pal.body.GenericBody((0,0,0))
+        geometry = pal.geometry.Box((0,0,0,1,1,1))  
+        generic.connect_geometry(geometry)
+        self.assertEqual(generic.get_geometries(),[geometry])
+
 
 suite = [unittest.TestLoader().loadTestsFromTestCase(TestBoxFunctions),
         unittest.TestLoader().loadTestsFromTestCase(TestSphereFunctions),
         unittest.TestLoader().loadTestsFromTestCase(TestCapsuleFunctions),
-        unittest.TestLoader().loadTestsFromTestCase(TestConvexFunctions)]
+        unittest.TestLoader().loadTestsFromTestCase(TestConvexFunctions),
+        unittest.TestLoader().loadTestsFromTestCase(TestGenericFunctions)]
 
 if __name__ == "__main__":
     suite = unittest.TestSuite(suite)

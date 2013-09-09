@@ -3,6 +3,7 @@ import ctypes as c
 import weakref
 from geometry_base import GeometryBase
 class Sphere(GeometryBase):
+    typechar = 's'
     def __init__(self,rect, rotation = [0,0,0],mass = 1):
         """
         constructs a Sphere
