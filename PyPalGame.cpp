@@ -244,7 +244,6 @@ extern "C"
 
     palConvex* create_convex(Float x, Float y, Float z, const Float *pVertices, int nVertices, Float mass)
     {
-        std::cout << std::endl;
         palConvex *pc = dynamic_cast<palConvex*>(PF->CreateObject("palConvex")); //create a box
 	    pc->Init(x, y, z, pVertices, nVertices, mass);
         return pc;
@@ -407,6 +406,16 @@ extern "C"
         mat_set_rotation(&pos, rx, ry, rz);
         sg->Init (pos, radius, mass);
         return sg;
+    }
+
+    palConvexGeometry* create_geometry_convex(Float x, Float y, Float z,Float rx, Float ry, Float rz, const Float *pVertices, int nVertices, Float mass)
+    {
+        palConvexGeometry *pcg= dynamic_cast<palConvexGeometry*>(PF->CreateObject("palConvexGeometry"));
+        palMatrix4x4 pos;
+        mat_set_translation(&pos, x, y, z);
+        mat_set_rotation(&pos, rx, ry, rz);
+        pcg->Init(pos, pVertices, nVertices, mass);
+        return pcg;
     }
 
     palCompassSensor* create_compass(palBody*b, Float x, Float y, Float z)
@@ -973,6 +982,19 @@ extern "C"
 extern "C"
 {
     void capsule_geometry_remove(palCapsuleGeometry*b){
+        delete b;
+        b = NULL;
+    }
+}
+
+/*********************************************************
+ *                                                       *
+ *               the convex geometry functio             *
+ *                                                       *
+ *********************************************************/
+extern "C"
+{
+    void convex_geometry_remove(palConvexGeometry*b){
         delete b;
         b = NULL;
     }
