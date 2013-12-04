@@ -4,7 +4,7 @@ from pygame.locals import *
 import sgc
 from sgc.locals import *
 
-import pypalgame as pal
+import pypal as pal
 
 import engine
 

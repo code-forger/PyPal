@@ -1,4 +1,4 @@
-from pypalgame import private_globals as pal
+from pypal import private_globals as pal
 import ctypes as c
 import weakref
 class Revolute(pal.PalObject):

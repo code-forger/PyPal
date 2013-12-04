@@ -1,6 +1,6 @@
 #this example is equivelent to the C++ basic pal example as seen on <http://www.adrianboeing.com/pal/current/pal/pal/documentation/html/index.html>
 
-import pypalgame as pal
+import pypal as pal
 
 pal.init()
 

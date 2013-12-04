@@ -15,7 +15,7 @@ from OpenGL.GL import (
 from OpenGL.GLU import gluNewQuadric, gluSphere, gluLookAt
 
 
-import pypalgame as pal
+import pypal as pal
 
 
 

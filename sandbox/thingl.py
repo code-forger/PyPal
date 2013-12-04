@@ -7,7 +7,7 @@ from OpenGL.GLU import gluPerspective, gluLookAt
 
 import glhelp as glh
 import random
-import pypalgame as pal
+import pypal as pal
 
 pal.init()
 

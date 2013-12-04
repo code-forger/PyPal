@@ -14,7 +14,7 @@ from OpenGL.GLU import gluPerspective, gluLookAt
 import glhelp as glh
 
 # import and initialize pypal
-import pypalgame as pal
+import pypal as pal
 pal.init()
 
 # set up our screen to show a nice view

@@ -7,7 +7,7 @@ from OpenGL.GLU import gluPerspective, gluLookAt
 
 import glhelp as glh
 
-import pypalgame as pal
+import pypal as pal
 
 pygame.init()
 pygame.display.set_mode(

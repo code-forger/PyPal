@@ -1,4 +1,4 @@
-import pypalgame as pal
+import pypal as pal
 
 pal.init()
 

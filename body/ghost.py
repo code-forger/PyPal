@@ -1,5 +1,5 @@
-import pypalgame as pypal
-from pypalgame import private_globals as pal
+import pypal as pypal
+from pypal import private_globals as pal
 import ctypes as c
 import weakref
 import math
