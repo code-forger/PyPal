@@ -22,16 +22,43 @@ glTranslate(-0, -5, -20)
 objects = []
 ## HEAD END ##
 
-sbox = pal.body.StaticBox((0,0,0,50,1,50))
-objects.append(glh.Box(sbox, (255, 0, 0)))
+
+
+
+
+pal.init()
+
+box2 = pal.body.StaticBox((0,-5,0,50,1,50))
+objects.append(glh.Box(box2, (255,255, 0)))
+
+body = pal.body.GenericBody((0,0,0))
+
+
+
+body.dynamics_type = "dynamic"
+body.mass = 10
+body.gravity_enabled = True #XXX
+body.collision_response = True
+
+boxgeom = pal.geometry.Box((0,0,0,2,2,2))
+body.connect_geometry(boxgeom)
+objects.append(glh.Generic(body, (0,0,255)))
+
+
+box = pal.body.Box((0,20,0,2,2,2), mass=10)
+objects.append(glh.Box(box, (0,255,0)))
+
 
 
 ## TAIL START ##
 running = True
-gluLookAt(5,5,5,0,0,0,0,1,0)
+gluLookAt(10,10,10,0,0,0,0,1,0)
 while running:
     pal.update(1./50.)
     #player.set_position([0,2,0])
+    ## DO THINGS PER LOOP ##
+    #print body.get_geometries()[0].get_location()
+    
     glh.render(objects)
     for event in pygame.event.get():
         if event.type == QUIT:

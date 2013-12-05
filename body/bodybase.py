@@ -10,7 +10,7 @@ class BodyBase(PalObject):
     def get_position(self):#TESTED
         """Returns position as a 3 part tuple:(x,y,z)."""
         pos = [c.c_float() for x in range(3)]
-        lib.body_get_position(self.obj,c.byref(pos[0]),c.byref(pos[1]),c.byref(pos[2]))
+        lib.body_get_position(self.obj,c.c_char(self.typechar),c.byref(pos[0]),c.byref(pos[1]),c.byref(pos[2]))
         return [p.value for p in pos]
 
     def get_distance_to(self, target):
@@ -50,7 +50,7 @@ class BodyBase(PalObject):
 
     def set_position(self,pos):
         """Sets the position of the object and/or its orientation."""
-        lib.body_set_position(self.obj,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]))
+        lib.body_set_position(self.obj,c.c_char(self.typechar),c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]))
 
     def set_orientation(self, rot):
         """Sets the position of the object and/or its orientation."""

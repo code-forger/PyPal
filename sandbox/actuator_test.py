@@ -46,9 +46,9 @@ objects.append(glh.Box(box1, (255, 0, 0)))
 
 for x in xrange(-9,9,2):
     for y in xrange(-9,9,2):
-        for z in xrange(3,15,2): pass
-            #sphere = pal.body.Sphere((x,z,y,.8),1)
-            #objects.append(glh.Ball(sphere, (random.randint(0,1), random.randint(0,1), random.randint(0,1))))
+        for z in xrange(3,15,2):
+            sphere = pal.body.Sphere((x,z,y,.8),1)
+            objects.append(glh.Ball(sphere, (random.randint(0,1), random.randint(0,1), random.randint(0,1))))
 p = list(sbox2.get_position())
 revolute = pal.link.Revolute(sbox2, box,p ,[0,1,0],True)
 

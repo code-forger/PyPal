@@ -266,6 +266,7 @@ extern "C"
         palMatrix4x4 pos;
         mat_set_translation(&pos, x, y, z);
         mat_set_rotation(&pos, rx, ry, rz);
+        std::cout << pos << std::endl;
         bg->Init (pos, width, height, depth, mass);
         return bg;
     }
@@ -276,6 +277,7 @@ extern "C"
 	    palMatrix4x4 pos;
         mat_set_translation(&pos, x, y, z);
         mat_set_rotation(&pos, rx, ry, rz);
+        std::cout << pos << std::endl;
         gb->Init (pos);
         return gb;
     }
@@ -483,18 +485,18 @@ extern "C"
         delete o;
         o = NULL;
     }
-    void body_get_position(palBody*b,float&x,float&y,float&z)
+    void body_get_position(palBody*b,char typechar,float&x,float&y,float&z)
     {
         palVector3 pos;
-        b->GetPosition(pos);
+        (CASTUP(typechar,b))->GetPosition(pos);
         x = pos[0];
         y = pos[1];
         z = pos[2];
     }
 
-    void body_set_position(palBody*b,float x,float y,float z)
+    void body_set_position(palBody*b,char typechar,float x,float y,float z)
     {
-        b->SetPosition(x,y,z);
+        (CASTUP(typechar,b))->SetPosition(x,y,z);
     }
 
     void body_set_orientation(palBody*b,float x,float y,float z)
@@ -530,6 +532,73 @@ extern "C"
     void body_get_primative_location(palBody*b,char typechar,float&x,float&y,float&z,float&x1,float&y1,float&z1)
     {
         palMatrix4x4 const *m = &(CASTUP(typechar,b))->m_Geometries.front()->GetLocationMatrix();//->GetBaseBody();
+        palVector3 v;
+        mat_get_translation(m, &v);
+        x = v[0];
+        y = v[1];
+        z = v[2];
+        mat_get_rotation((palMatrix4x4*)m,&x1,&y1,&z1);
+    }
+}
+
+/*********************************************************
+ *                                                       *
+ *               the geometry_base functions             *
+ *                                                       *
+ *********************************************************/
+extern "C" 
+{
+    /*void remove_object(palFactoryObject*o){
+        delete o;
+        o = NULL;
+    }
+    void body_get_position(palBody*b,char typechar,float&x,float&y,float&z)
+    {
+        palVector3 pos;
+        (CASTUP(typechar,b))->GetPosition(pos);
+        x = pos[0];
+        y = pos[1];
+        z = pos[2];
+    }
+
+    void body_set_position(palBody*b,char typechar,float x,float y,float z)
+    {
+        (CASTUP(typechar,b))->SetPosition(x,y,z);
+    }
+
+    void body_set_orientation(palBody*b,float x,float y,float z)
+    {
+        b->SetOrientation(x,y,z);
+    }
+
+    void body_set_material(palBody*b,palMaterialUnique * material)
+    {
+        b->SetMaterial(material);
+    }
+
+    int body_get_group(palBody*b)
+    {
+        return b->GetGroup();
+    }
+
+    void body_set_group(palBody*b, int group)
+    {
+        b->SetGroup(group);
+    }
+
+    Float body_get_skin_width(palBody*b)
+    {
+        return b->GetSkinWidth();
+    }
+
+    bool body_set_skin_width(palBody*b, Float width)
+    {
+        b->SetSkinWidth(width);
+    }*/
+
+    void geometry_get_primative_location(palGeometry*b,char typechar,float&x,float&y,float&z,float&x1,float&y1,float&z1)
+    {
+        palMatrix4x4 const *m = &(GEOMCASTUP(typechar,b))->GetLocationMatrix();//->GetBaseBody();
         palVector3 v;
         mat_get_translation(m, &v);
         x = v[0];
@@ -939,6 +1008,7 @@ extern "C"
 
     void generic_set_gravity_enabled(palGenericBody* g, bool e)
     {
+        std::cout << "internal gravity" << e << std::endl;
         g->SetGravityEnabled(g);
     }
 

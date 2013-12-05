@@ -19,7 +19,7 @@ import pypal as pal
 
 
 
-def render_cube(x,y,z):
+def render_cube(x,y,z, color):
         glBegin(GL_POLYGON)
         glColor((0,255,0))
         glVertex( -x, -y, -z)
@@ -53,7 +53,7 @@ def render_cube(x,y,z):
         glEnd()
          
         glBegin(GL_POLYGON)
-        glColor((0,255,255))
+        glColor(*color)
         glVertex(  x,  y,  z )
         glVertex(  x,  y, -z )
         glVertex( -x,  y, -z )
@@ -81,7 +81,23 @@ class Box:
         glRotate(o[5]/math.pi*180,0,0,1)
         glRotate(o[4]/math.pi*180,0,1,0)
         glRotate(o[3]/math.pi*180,1,0,0)
-        render_cube(x,y,z)
+        render_cube(x,y,z,self.color)
+        
+class Generic:
+    def __init__(self,body,color):
+        self.body = body
+        self.color = color
+
+    def render(self):
+        x, y, z = 1,1,1
+        o = self.body.get_location()
+        o[0], o[1], o[2] =  self.body.get_position()
+        glColor(*self.color)
+        glTranslate(o[0], o[1], o[2])
+        glRotate(o[5]/math.pi*180,0,0,1)
+        glRotate(o[4]/math.pi*180,0,1,0)
+        glRotate(o[3]/math.pi*180,1,0,0)
+        render_cube(x,y,z,self.color)
 
 class Ball:
     def __init__(self, body, color):
