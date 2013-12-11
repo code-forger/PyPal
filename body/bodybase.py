@@ -70,10 +70,13 @@ class BodyBase(PalObject):
         contacts = lib.get_contacts(self.obj)
         ret = []
         lib.contacts_get_distance.restype = c.c_float
-        for x in range(lib.contacts_get_size(contacts)):
-            ret.append([weakref.proxy(all_objects[str(lib.contacts_get_body_one(contacts,x))]),
-                      weakref.proxy(all_objects[str(lib.contacts_get_body_two(contacts,x))])])
-        lib.remove_contact(contacts)
+        try:
+            for x in range(lib.contacts_get_size(contacts)):
+                ret.append([weakref.proxy(all_objects[str(lib.contacts_get_body_one(contacts,x))]),
+                          weakref.proxy(all_objects[str(lib.contacts_get_body_two(contacts,x))])])
+            lib.remove_contact(contacts)
+        except KeyError:
+            pass
         return ret
         
     def get_unique_contacts(self):
@@ -81,13 +84,15 @@ class BodyBase(PalObject):
         contacts = lib.get_contacts(self.obj)
         ret = []
         lib.contacts_get_distance.restype = c.c_float
-        print all_objects
-        for x in range(lib.contacts_get_size(contacts)):
-            a = weakref.proxy(all_objects[str(lib.contacts_get_body_one(contacts,x))])
-            b = weakref.proxy(all_objects[str(lib.contacts_get_body_two(contacts,x))])
-            if [a,b] not in ret:
-                ret.append([a,b])
-        lib.remove_contact(contacts)
+        try:
+            for x in range(lib.contacts_get_size(contacts)):
+                a = weakref.proxy(all_objects[str(lib.contacts_get_body_one(contacts,x))])
+                b = weakref.proxy(all_objects[str(lib.contacts_get_body_two(contacts,x))])
+                if [a,b] not in ret:
+                    ret.append([a,b])
+            lib.remove_contact(contacts)
+        except KeyError:
+            pass
         try:
             print ret[0] == ret[1]
         except: pass

@@ -74,6 +74,7 @@ void* castup_bodybase(palBodyBase* in)
     {
         return obj;
     }
+    return in;
 }
 
 /*********************************************************
@@ -266,7 +267,6 @@ extern "C"
         palMatrix4x4 pos;
         mat_set_translation(&pos, x, y, z);
         mat_set_rotation(&pos, rx, ry, rz);
-        std::cout << pos << std::endl;
         bg->Init (pos, width, height, depth, mass);
         return bg;
     }
@@ -277,7 +277,6 @@ extern "C"
 	    palMatrix4x4 pos;
         mat_set_translation(&pos, x, y, z);
         mat_set_rotation(&pos, rx, ry, rz);
-        std::cout << pos << std::endl;
         gb->Init (pos);
         return gb;
     }

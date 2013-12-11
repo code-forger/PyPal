@@ -33,13 +33,14 @@ objects.append(glh.Box(box2, (255,255, 0)))
 #floorend
 
 #genericbody
-body = pal.body.GenericBody((0,0,0))
+body = pal.body.Ghost((0,0,0))
 objects.append(glh.Generic(body, (0,0,255)))
 
-body.dynamics_type = "dynamic"
+body.dynamics_type = "static"
 body.mass = 10
 body.gravity_enabled = False #XXX
-body.collision_response = True
+body.collision_response = False
+body.notify_collision(True)
 
 boxgeom = pal.geometry.Box((0,0,0,2,2,2))
 body.connect_geometry(boxgeom)
@@ -62,7 +63,7 @@ while running:
     #player.set_position([0,2,0])
     ## DO THINGS PER LOOP ##
     #print body.get_geometries()[0].get_location()
-    
+    print body.contains_object(box)
     glh.render(objects)
     for event in pygame.event.get():
         if event.type == QUIT:

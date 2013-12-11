@@ -44,7 +44,6 @@ class GenericBody(BodyBase):
         enabled: True, False
         """
         if enabled in [True, False]:
-            print enabled
             pal.lib.generic_set_gravity_enabled(self.obj, c.c_bool(enabled))
             self._gravity_enabled = enabled
 
