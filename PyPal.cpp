@@ -1008,13 +1008,12 @@ extern "C"
 
     void generic_set_gravity_enabled(palGenericBody* g, bool e)
     {
-        std::cout << "internal gravity" << e << std::endl;
-        g->SetGravityEnabled(g);
+        g->SetGravityEnabled(e);
     }
 
     void generic_set_collision_response_enabled(palGenericBody* g, bool e)
     {
-        g->SetCollisionResponseEnabled(g);
+        g->SetCollisionResponseEnabled(e);
     }
 
     void generic_set_mass(palGenericBody* g, Float mass)

@@ -27,26 +27,30 @@ objects = []
 
 
 pal.init()
-
+#floor
 box2 = pal.body.StaticBox((0,-5,0,50,1,50))
 objects.append(glh.Box(box2, (255,255, 0)))
+#floorend
 
+#genericbody
 body = pal.body.GenericBody((0,0,0))
-
-
+objects.append(glh.Generic(body, (0,0,255)))
 
 body.dynamics_type = "dynamic"
 body.mass = 10
-body.gravity_enabled = True #XXX
+body.gravity_enabled = False #XXX
 body.collision_response = True
 
 boxgeom = pal.geometry.Box((0,0,0,2,2,2))
 body.connect_geometry(boxgeom)
-objects.append(glh.Generic(body, (0,0,255)))
+#objects.append(glh.Geometry(boxgeom, (255,255,0)))
 
+#genericbodyend
 
-box = pal.body.Box((0,20,0,2,2,2), mass=10)
+#box
+box = pal.body.Box((0,20,1.1,2,2,2), mass=1)
 objects.append(glh.Box(box, (0,255,0)))
+#boxend
 
 
 

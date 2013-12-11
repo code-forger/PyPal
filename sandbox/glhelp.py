@@ -98,6 +98,22 @@ class Generic:
         glRotate(o[4]/math.pi*180,0,1,0)
         glRotate(o[3]/math.pi*180,1,0,0)
         render_cube(x,y,z,self.color)
+        #glPopMatrix()
+        #for geom in self.body.get_geometries():
+        #    glPushMatrix()
+        #    self.renderGeom(geom)
+        #    glPopMatrix()
+        #glPushMatrix()
+
+    def renderGeom(self, geom):
+        x, y, z = 1,1,1
+        o = geom.get_location()
+        glColor(*self.color)
+        glTranslate(o[0], o[1], o[2])
+        glRotate(o[5]/math.pi*180,0,0,1)
+        glRotate(o[4]/math.pi*180,0,1,0)
+        glRotate(o[3]/math.pi*180,1,0,0)
+        render_cube(x,y,z,self.color)
 
 class Ball:
     def __init__(self, body, color):
