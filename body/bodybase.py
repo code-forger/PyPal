@@ -27,6 +27,15 @@ class BodyBase(PalObject):
         lib.body_get_primative_location(self.obj,c.c_char(self.typechar),c.byref(pos[0]),c.byref(pos[1]),c.byref(pos[2]),c.byref(pos[3]),c.byref(pos[4]),c.byref(pos[5]))
         return [p.value for p in pos]
 
+    def get_location_matrix(self):#TESTED
+        """Returns position as a 6 part tuple:(x,y,z,rx,ry,rz)."""
+        mat = [c.c_float() for x in range(16)]
+        lib.body_get_matrix_location(self.obj,c.c_char(self.typechar),c.byref(mat[0]),c.byref(mat[1]),c.byref(mat[2]),c.byref(mat[3]),
+                                                                         c.byref(mat[4]),c.byref(mat[5]),c.byref(mat[6]),c.byref(mat[7]),
+                                                                         c.byref(mat[8]),c.byref(mat[9]),c.byref(mat[10]),c.byref(mat[11]),
+                                                                         c.byref(mat[12]),c.byref(mat[13]),c.byref(mat[14]),c.byref(mat[15]))
+        return [m.value for m in mat]
+
     def set_material(self,material):
         """Sets the material of the body."""
         lib.body_set_material(self.obj,material.obj)

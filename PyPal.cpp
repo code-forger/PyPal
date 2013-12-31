@@ -538,6 +538,30 @@ extern "C"
         z = v[2];
         mat_get_rotation((palMatrix4x4*)m,&x1,&y1,&z1);
     }
+
+    void body_get_matrix_location(palBody*b,char typechar,float&m1, float&m2, float&m3, float&m4,
+                                                          float&m5, float&m6, float&m7, float&m8,
+                                                          float&m9, float&m10,float&m11,float&m12,
+                                                          float&m13,float&m14,float&m15,float&m16)
+    {
+        palMatrix4x4 const *m = &(CASTUP(typechar,b))->m_Geometries.front()->GetLocationMatrix();//->GetBaseBody();
+        m1 = m->_11;
+        m2 = m->_12;
+        m3 = m->_13;
+        m4 = m->_14;
+        m5 = m->_21;
+        m6 = m->_22;
+        m7 = m->_23;
+        m8 = m->_24;
+        m9 = m->_31;
+        m10 = m->_32;
+        m11 = m->_33;
+        m12 = m->_34;
+        m13 = m->_41;
+        m14 = m->_42;
+        m15 = m->_43;
+        m16 = m->_44;
+    }
 }
 
 /*********************************************************

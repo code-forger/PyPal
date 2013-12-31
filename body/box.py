@@ -4,7 +4,7 @@ import weakref
 from bodybase import BodyBase
 class Box(BodyBase):
     typechar = 'b'
-    def __init__(self,rect,mass = None, density = None):
+    def __init__(self,rect,mass = 1., density = None):
         """
         constructs a box and adds it to the world
         
