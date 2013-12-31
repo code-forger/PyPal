@@ -90,7 +90,7 @@ extern "C"
 {
     palPhysics* pal_init(char[])
     {
-        PF->LoadPALfromDLL("/home/m/Python/pypal/libs/");
+        PF->LoadPALfromDLL("/home/m/Python/pypal/pypal/libs/");
         PF->SelectEngine("Bullet");
         PM = new palMaterials();
         material_index = 0;
