@@ -1,6 +1,6 @@
 CXX           = g++
 CXXFLAGS      = -fpermissive -c -fPIC
-INCPATH       = -I /home/m/BuildEnv/pal-code/build -I /home/m/BuildEnv/pal-code
+INCPATH       = -I /usr/local/include/pal
 
 
 LIBCXXFLAGS      = -shared -Wl,-soname,libPyPal.so
