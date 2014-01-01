@@ -91,26 +91,7 @@ extern "C"
 {
     palPhysics* pal_init(char[])
     {
-        std::string fullFileName = "";
-        std::string path = "";
-        pid_t pid = getpid();
-        char buf[20] = {0};
-        sprintf(buf,"%d",pid);
-        std::string _link = "/proc/";
-        _link.append( buf );
-        _link.append( "/exe");
-        char proc[512];
-        int ch = readlink(_link.c_str(),proc,512);
-        if (ch != -1) {
-            proc[ch] = 0;
-            path = proc;
-            std::string::size_type t = path.find_last_of("/");
-            path = path.substr(0,t);
-        }
-        fullFileName = path + std::string("/");
-        //chdir(fullFileName.c_str());
-        std::cout << fullFileName << std::endl;
-        PF->LoadPALfromDLL("libs/");
+        PF->LoadPALfromDLL("/usr/local/lib/");
         PF->SelectEngine("Bullet");
         PM = new palMaterials();
         material_index = 0;
