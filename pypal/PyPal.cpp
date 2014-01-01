@@ -91,7 +91,7 @@ extern "C"
 {
     palPhysics* pal_init(char[])
     {
-        PF->LoadPALfromDLL("/usr/local/lib/");
+        PF->LoadPALfromDLL("/usr/local/lib64/x86_64-linux-gnu/");
         PF->SelectEngine("Bullet");
         PM = new palMaterials();
         material_index = 0;
