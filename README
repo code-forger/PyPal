@@ -1,0 +1,14 @@
+To compile and test this library (assuming you are compiling for bullet):
+
+put this directory in a location accessable from PYTHONPATH.
+
+cd to pypal/pypal then run:
+
+$ make
+$ sudo make install
+
+then cd to pypal/tests and run:
+
+$ python testall.py
+
+This will run the unit tests.
