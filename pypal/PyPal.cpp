@@ -4,6 +4,7 @@
 #include "pal/palFactory.h"
 #include "pal/palCollision.h"
 #include <typeinfo>
+#include <unistd.h>
 /* This is the c++ -> c bindings:
  * the pal_ prefix relates to any function that uses PF excluding all the create functions
  * the create_ prefix relates to any function that creats and adds an object to the world
@@ -90,7 +91,26 @@ extern "C"
 {
     palPhysics* pal_init(char[])
     {
-        PF->LoadPALfromDLL("/home/m/Python/pypal/pypal/libs/");
+        std::string fullFileName = "";
+        std::string path = "";
+        pid_t pid = getpid();
+        char buf[20] = {0};
+        sprintf(buf,"%d",pid);
+        std::string _link = "/proc/";
+        _link.append( buf );
+        _link.append( "/exe");
+        char proc[512];
+        int ch = readlink(_link.c_str(),proc,512);
+        if (ch != -1) {
+            proc[ch] = 0;
+            path = proc;
+            std::string::size_type t = path.find_last_of("/");
+            path = path.substr(0,t);
+        }
+        fullFileName = path + std::string("/");
+        //chdir(fullFileName.c_str());
+        std::cout << fullFileName << std::endl;
+        PF->LoadPALfromDLL("libs/");
         PF->SelectEngine("Bullet");
         PM = new palMaterials();
         material_index = 0;
