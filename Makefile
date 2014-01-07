@@ -13,8 +13,8 @@ all: libPyPal.so
 libPyPal.so: PyPal.o
 	g++ $(LIBCXXFLAGS) -o libPyPal.so PyPal.o  $(LIBLIBS)
 
-PyPal.o: PyPal.cpp
-	g++ $(CXXFLAGS) $(INCPATH) PyPal.cpp
+PyPal.o: src/PyPal.cpp
+	g++ $(CXXFLAGS) $(INCPATH) src/PyPal.cpp
 
 install: all
 	install -m 0755 libPyPal.so /usr/local/lib
