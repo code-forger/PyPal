@@ -282,7 +282,7 @@ extern "C"
         vec[0] = x;
         vec[1] = y;
         vec[2] = z;
-        pcc->Move(vec);
+        pcc->Warp(vec);
         return pcc;
     }
 
