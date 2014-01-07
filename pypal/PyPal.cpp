@@ -278,6 +278,11 @@ extern "C"
         desc.m_pShape = pcg;
         desc.m_Group = 1;
         pcc->Init(desc);
+        palVector3 vec;
+        vec[0] = x;
+        vec[1] = y;
+        vec[2] = z;
+        pcc->Move(vec);
         return pcc;
     }
 
