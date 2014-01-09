@@ -123,4 +123,4 @@ def raycast(pos,direction,max_range):
     pos = [c.c_float() for x in range(3)]
     _pal.lib.get_last_hit_location(c.byref(pos[0]),c.byref(pos[1]),c.byref(pos[2]))
     pos = [p.value for p in pos]
-    return [pos,0,0,body,0]
+    return {'pos':pos, 'body': body}
