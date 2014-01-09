@@ -18,7 +18,6 @@ PyPal.o: src/PyPal.cpp
 
 install: all
 	install -m 0755 libPyPal.so /usr/local/lib
-	rm libPyPal.so
 
 
 .PHONY: install
