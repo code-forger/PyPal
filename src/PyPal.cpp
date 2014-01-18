@@ -88,6 +88,7 @@ palMaterials *PM = NULL;
 palPhysics *pp = NULL;
 palCollisionDetection *pcd = NULL;
 int material_index;
+palRayHit last_hit;
 extern "C" 
 {
     palPhysics* pal_init(char[])
@@ -104,6 +105,39 @@ extern "C"
         }
 	    pcd = dynamic_cast<palCollisionDetection *>(pp);
         return pp;
+    }
+
+    bool pal_ray_hit(Float x, Float y, Float z, Float dx, Float dy, Float dz, Float range)
+    {
+        last_hit.m_pBody = 0;
+        pcd->RayCast( x, y, z,dx, dy, dz, range, last_hit);
+        if (last_hit.m_pBody)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    void* get_last_hit_body()
+    {
+        if (last_hit.m_pBody)
+            return last_hit.m_pBody;
+        else
+            return NULL;
+    }
+
+    void get_last_hit_location(float &x, float &y, float &z)
+    {
+        if (last_hit.m_pBody)
+        {
+            palVector3 vec = last_hit.m_vHitPosition;
+            x = vec[0];
+            y = vec[1];
+            z = vec[2];
+        }
     }
 
     void pal_cleanup(){
@@ -314,6 +348,11 @@ extern "C"
         desc.m_pShape = pcg;
         desc.m_Group = 1;
         pcc->Init(desc);
+        palVector3 vec;
+        vec[0] = x;
+        vec[1] = y;
+        vec[2] = z;
+        pcc->Warp(vec);
         return pcc;
     }
 
@@ -717,6 +756,17 @@ extern "C"
         m14 = m->_42;
         m15 = m->_43;
         m16 = m->_44;
+    }
+
+    void character_get_primative_location(palCharacterController*b,float&x,float&y,float&z,float&x1,float&y1,float&z1)
+    {
+        palMatrix4x4 const *m = &(b)->m_Geometries.front()->GetLocationMatrix();//->GetBaseBody();
+        palVector3 v;
+        mat_get_translation(m, &v);
+        x = v[0];
+        y = v[1];
+        z = v[2];
+        mat_get_rotation((palMatrix4x4*)m,&x1,&y1,&z1);
     }
 
     void character_walk(palCharacterController*pcc,float x,float y,float z, float duration)

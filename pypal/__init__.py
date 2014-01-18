@@ -105,7 +105,26 @@ def raycast(pos,direction,max_range):
     dirction: the direction the cast will take
     max_range: the max range of the cast
     """
-    pass
+    _pal.lib.pal_ray_hit(c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]),
+                         c.c_float(direction[0]),c.c_float(direction[1]),c.c_float(direction[2]),
+                         c.c_float(max_range))
+    try:
+        body = weakref.proxy(_pal.all_objects[str(_pal.lib.get_last_hit_body())])
+    except KeyError:
+        difference = 1000000000000000000 #XXX HACK
+        key = None
+        body = _pal.lib.get_last_hit_body()
+        if body == 0:
+            return None
+        for k in _pal.all_objects.keys():
+            if abs(int(k) - body) < difference:
+                key = k
+                difference = abs(int(k) - body)
+        body = weakref.proxy(_pal.all_objects[key])
+    pos = [c.c_float() for x in range(3)]
+    _pal.lib.get_last_hit_location(c.byref(pos[0]),c.byref(pos[1]),c.byref(pos[2]))
+    pos = [p.value for p in pos]
+    return {'pos':pos, 'body': body}
 
 def load_vertices_from_collada_file(f_name):
     mesh = collada.Collada(f_name)
@@ -115,4 +134,3 @@ def load_vertices_from_collada_file(f_name):
         objects.append(mesh.geometries[i].primitives[0].vertex.tolist())
         matricies.append(mesh.geometries[i].collada.scene.nodes[i].matrix[2][:3])
     return objects, matricies
-
