@@ -28,7 +28,7 @@ objects = []
 
 pal.init()
 #floor
-box2 = pal.body.StaticBox((0,-5,0,50,1,50))
+box2 = pal.body.StaticBox((0,-20,0,50,10,50))
 objects.append(glh.Box(box2, (255,255, 0)))
 #floorend
 
@@ -37,19 +37,21 @@ body = pal.body.Ghost((0,0,0))
 objects.append(glh.Generic(body, (0,0,255)))
 
 body.dynamics_type = "static"
-body.mass = 10
-body.gravity_enabled = False #XXX
-body.collision_response = False
+body.mass = 0
+body.gravity_enabled = True #XXX
+body.collision_response = True
 body.notify_collision(True)
+geom = pal.geometry.Convex((0,0,0), points=((10,10,10),(10,10,-10),(10,-10,10),(10,-10,-10),
+                                     (-10,10,10),(-10,10,-10),(-10,-10,10),(-10,-10,-10)))
+objects.append(glh.Generic(body, (0,0,255)))
+body.connect_geometry(geom)
 
-boxgeom = pal.geometry.Box((0,0,0,2,2,2))
-body.connect_geometry(boxgeom)
 #objects.append(glh.Geometry(boxgeom, (255,255,0)))
 
 #genericbodyend
 
 #box
-box = pal.body.Box((0,20,1.1,2,2,2), mass=1)
+box = pal.body.Box((0,25,0,2,2,2), mass=1)
 objects.append(glh.Box(box, (0,255,0)))
 #boxend
 
@@ -63,7 +65,6 @@ while running:
     #player.set_position([0,2,0])
     ## DO THINGS PER LOOP ##
     #print body.get_geometries()[0].get_location()
-    print body.contains_object(box)
     glh.render(objects)
     for event in pygame.event.get():
         if event.type == QUIT:

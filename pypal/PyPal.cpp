@@ -249,17 +249,53 @@ extern "C"
         return pcb;
     }
 
-    palConvex* create_convex(Float x, Float y, Float z, const Float *pVertices, int nVertices, Float mass)
+    palConvex* create_convex_no_triangles(Float x, Float y, Float z, const Float *pVertices, int nVertices, Float mass)
     {
         palConvex *pc = dynamic_cast<palConvex*>(PF->CreateObject("palConvex")); //create a box
 	    pc->Init(x, y, z, pVertices, nVertices, mass);
         return pc;
     }
 
-    palStaticConvex* create_static_convex(Float x, Float y, Float z, const Float *pVertices, int nVertices)
+    palConvex* create_convex_triangles(Float x, Float y, Float z, const Float *pVertices, int nVertices, const int *pIndices, int nIndices, Float mass)
+    {
+
+        palConvex *pc = dynamic_cast<palConvex*>(PF->CreateObject("palConvex")); //create a box
+	    pc->Init(x,y,z, pVertices, nVertices, pIndices, nIndices, mass);
+        return pc;
+    }
+
+    palStaticConvex* create_static_convex_no_triangles(Float x, Float y, Float z, const Float *pVertices, int nVertices)
     {
         palStaticConvex *pc = dynamic_cast<palStaticConvex*>(PF->CreateObject("palStaticConvex")); //create a box
 	    pc->Init(x, y, z, pVertices, nVertices);
+        return pc;
+    }
+
+    palStaticConvex* create_static_convex_triangles(float m1, float m2, float m3, float m4,
+                                                    float m5, float m6, float m7, float m8,
+                                                    float m9, float m10,float m11,float m12,
+                                                    float m13,float m14,float m15,float m16, const Float *pVertices, int nVertices, const int *pIndices, int nIndices)
+    {
+        palMatrix4x4 m;
+        m._11 = m1;
+        m._12 = m2;
+        m._13 = m3;
+        m._14 = m4;
+        m._21 = m5;
+        m._22 = m6;
+        m._23 = m7;
+        m._24 = m8;
+        m._31 = m9;
+        m._32 = m10;
+        m._33 = m11;
+        m._34 = m12;
+        m._41 = m13;
+        m._42 = m14;
+        m._43 = m15;
+        m._44 = m16;
+
+        palStaticConvex *pc = dynamic_cast<palStaticConvex*>(PF->CreateObject("palStaticConvex")); //create a box
+	    pc->Init(m, pVertices, nVertices, pIndices, nIndices);
         return pc;
     }
 
@@ -450,13 +486,13 @@ extern "C"
         return sg;
     }
 
-    palConvexGeometry* create_geometry_convex(Float x, Float y, Float z,Float rx, Float ry, Float rz, const Float *pVertices, int nVertices, Float mass)
+    palConvexGeometry* create_geometry_convex(Float x, Float y, Float z,Float rx, Float ry, Float rz, const Float *pVertices, int nVertices, const int *pIndices, int nIndices, Float mass)
     {
         palConvexGeometry *pcg= dynamic_cast<palConvexGeometry*>(PF->CreateObject("palConvexGeometry"));
         palMatrix4x4 pos;
         mat_set_translation(&pos, x, y, z);
         mat_set_rotation(&pos, rx, ry, rz);
-        pcg->Init(pos, pVertices, nVertices, mass);
+        pcg->Init(pos, pVertices, nVertices, pIndices, nIndices, mass);
         return pcg;
     }
 
@@ -564,7 +600,7 @@ extern "C"
                                                           float&m9, float&m10,float&m11,float&m12,
                                                           float&m13,float&m14,float&m15,float&m16)
     {
-        palMatrix4x4 const *m = &(CASTUP(typechar,b))->m_Geometries.front()->GetLocationMatrix();//->GetBaseBody();
+        palMatrix4x4 const *m = &(CASTUP(typechar,b))->GetLocationMatrix();//->GetBaseBody();
         m1 = m->_11;
         m2 = m->_12;
         m3 = m->_13;
@@ -1163,9 +1199,9 @@ extern "C"
  *********************************************************/
 extern "C" 
 {
-    void convex_remove(palConvex*s){
-        delete s;
-        s = NULL;
+    void convex_remove(palConvex*c){
+        delete c;
+        c = NULL;
     }
 }
 

@@ -6,6 +6,8 @@ Module functions:
 
 """
 
+import collada
+
 import actuator
 import body
 import fluid
@@ -38,7 +40,6 @@ def update(time_step):
     timestep: time since last step
     """
     _pal.lib.physics_update(c.c_float(time_step))
-    #print _pal.actions
     for action in _pal.actions.values():
         action.responce = action.function(*action.args,**action.kwargs)
 
@@ -105,3 +106,13 @@ def raycast(pos,direction,max_range):
     max_range: the max range of the cast
     """
     pass
+
+def load_vertices_from_collada_file(f_name):
+    mesh = collada.Collada(f_name)
+    objects = []
+    matricies = []
+    for i in range(len(mesh.geometries)):
+        objects.append(mesh.geometries[i].primitives[0].vertex.tolist())
+        matricies.append(mesh.geometries[i].collada.scene.nodes[i].matrix[2][:3])
+    return objects, matricies
+
