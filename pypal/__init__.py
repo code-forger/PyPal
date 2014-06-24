@@ -6,6 +6,8 @@ Module functions:
 
 """
 
+print "DEBUG PYPAL VERSION SELECTED!"
+
 import collada
 
 import actuator

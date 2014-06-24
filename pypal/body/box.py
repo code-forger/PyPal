@@ -1,80 +1,97 @@
-from pypal import private_globals as pal
+from pypal import private_globals as _pal
 import ctypes as c
 import weakref
-from bodybase import BodyBase
-class Box(BodyBase):
-    typechar = 'b'
-    def __init__(self,rect,mass = 1., density = None):
+class Box(_pal.PalObject):
+    def __init__(self, pos, size, mass = 1.):
         """
         constructs a box and adds it to the world
         
-        rect: a 6 part tuple with x,y,z,width,height,depth.
+        pos: a 3 part tuple with x,y,z.
+        size: a 3 part tuple with width, height, depth
         mass: the mass of the object, if mass is specified it will be used.
-        density: if no mass is specified and a density is, the mass will be 
-        calculated from the density and the volumne.
-        static: used to create this object static, if static is true, mass will be ignored
         """
-        self.obj = pal.lib.create_box(c.c_float(rect[0]),c.c_float(rect[1]),c.c_float(rect[2]),c.c_float(rect[3]),c.c_float(rect[4]),c.c_float(rect[5]),c.c_float(mass))
+        self._size = size
+        self.obj = _pal.lib.body_box_create(c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]),c.c_float(size[0]),c.c_float(size[1]),c.c_float(size[2]),c.c_float(mass))
 
-    def get_size(self):
-        """returns the size of the object in a 3 part tuple"""
-        size = [c.c_float() for x in range(3)]
-        pal.lib.box_get_size(self.obj,c.byref(size[0]),c.byref(size[1]),c.byref(size[2]))
-        return [p.value for p in size]
+    def get_location(self):
+        ret = _pal.Mat4x4()
+        _pal.lib.body_box_get_location(self.obj, ret)
+        return [x for x in ret]
 
-    def is_active(self):
-        """Returns true if the body is not asleep."""
-        pal.lib.box_is_active.restype = c.c_bool
-        return pal.lib.box_is_active(self.obj)
+    def get_position(self):
+        ret = _pal.Vec3()
+        _pal.lib.body_box_get_position(self.obj, ret)
+        return [x for x in ret]
 
-    def set_active(self,active):
-        """Sets the body to active or not."""
-        pal.lib.box_set_active(self.obj,c.c_bool(active))
+    def get_group(self):
+        return _pal.lib.body_box_get_group(self.obj)
 
-    def apply_impulse(self,impulse):
-        """Applies an impulse to the object for a single step at an optional offset in world coordinates."""
-        pal.lib.box_apply_impulse(self.obj,c.c_float(impulse[0]),c.c_float(impulse[1]),c.c_float(impulse[2]))
+    def set_group(self, group):
+        return _pal.lib.body_box_set_group(self.obj, c.c_int(group))
 
-    def get_velocity(self):
-        """Returns the linear velocity of the body."""
-        pal.lib.box_get_velocity_x.restype = c.c_float
-        pal.lib.box_get_velocity_y.restype = c.c_float
-        pal.lib.box_get_velocity_z.restype = c.c_float
-        return [pal.lib.box_get_velocity_x(self.obj),pal.lib.box_get_velocity_y(self.obj),pal.lib.box_get_velocity_z(self.obj)]
+    def __str__(self):
+        x, y, z = self.get_position()
+        return "A Box at : %.2f, %.2f, %.2f" % (x, y, z)
 
-    def get_angular_velocity(self):
-        """Returns the linear velocity of the body."""
-        pal.lib.box_get_angular_velocity_x.restype = c.c_float
-        pal.lib.box_get_angular_velocity_y.restype = c.c_float
-        pal.lib.box_get_angular_velocity_z.restype = c.c_float
-        return [pal.lib.box_get_angular_velocity_x(self.obj),pal.lib.box_get_angular_velocity_y(self.obj),pal.lib.box_get_angular_velocity_z(self.obj)]
+    def set_position(self, pos, rot=(0, 0, 0)):
+        """Sets the position of the object and its orientation."""
+        _pal.lib.body_box_set_position(self.obj, c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2]), c.c_float(rot[0]), c.c_float(rot[1]), c.c_float(rot[2]))
+
+    def set_orientation(self, rot):
+        """Sets the position of the object and/or its orientation."""
+        _pal.lib.body_box_set_orientation(self.obj, c.c_float(rot[0]), c.c_float(rot[1]), c.c_float(rot[2]))
+
+    def apply_force(self, force, pos=None):
+        """Applies a force to the object for a single step at an optional offset in world coordinates."""
+        if pos:
+            _pal.lib.body_box_apply_force_at_position(self.obj, c.c_float(force[0]), c.c_float(force[1]), c.c_float(force[2]),
+                                                          c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2]))
+        else:
+            _pal.lib.body_box_apply_force(self.obj, c.c_float(force[0]), c.c_float(force[1]), c.c_float(force[2]))
+
+    def apply_torque(self, force):
+        """Applies a torque to the object for a single step."""
+        _pal.lib.body_box_apply_torque(self.obj, c.c_float(force[0]), c.c_float(force[1]), c.c_float(force[2]))
 
     def apply_impulse(self, impulse,pos=None):
         """Applies an impulse to the object for a single step at an optional offset in world coordinates."""
         if pos:
-            pal.lib.box_apply_impulse_at_pos(self.obj,c.c_float(impulse[0]),c.c_float(impulse[1]),c.c_float(impulse[2])
-                                                   ,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]))
+            _pal.lib.body_box_apply_impulse_at_position(self.obj, c.c_float(impulse[0]), c.c_float(impulse[1]), c.c_float(impulse[2]),
+                                                                 c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2]))
         else:
-            pal.lib.box_apply_impulse(self.obj,c.c_float(impulse[0]),c.c_float(impulse[1]),c.c_float(impulse[2]))
+            _pal.lib.body_box_apply_impulse(self.obj, c.c_float(impulse[0]), c.c_float(impulse[1]), c.c_float(impulse[2]))
 
     def apply_angular_impulse(self, impulse):
         """Applies an angular impulse to the object for a single step at an optional offset in world coordinates."""
-        pal.lib.box_apply_angular_impulse(self.obj,c.c_float(impulse[0]),c.c_float(impulse[1]),c.c_float(impulse[2]))
-
-    def apply_force(self, force,pos=None):
-        """Applies a force to the object for a single step at an optional offset in world coordinates."""
-        if pos:
-            pal.lib.box_apply_force_at_pos(self.obj,c.c_float(force[0]),c.c_float(force[1]),c.c_float(force[2])
-                                                   ,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]))
-        else:
-            pal.lib.box_apply_force(self.obj,c.c_float(force[0]),c.c_float(force[1]),c.c_float(force[2]))
-
-    def apply_torque(self, force):
-        """Applies a torque to the object for a single step."""
-        pal.lib.box_apply_torque(self.obj,c.c_float(force[0]),c.c_float(force[1]),c.c_float(force[2]))
+        _pal.lib.body_box_apply_angular_impulse(self.obj, c.c_float(impulse[0]), c.c_float(impulse[1]), c.c_float(impulse[2]))
 
 
-class StaticBox(BodyBase):
+    def get_linear_velocity(self):
+        """Returns the linear velocity of the body."""
+        ret = _pal.Vec3()
+        _pal.lib.body_box_get_linear_velocity(self.obj, ret)
+        return [x for x in ret]
+
+    def get_angular_velocity(self):
+        """Returns the linear velocity of the body."""
+        ret = _pal.Vec3()
+        _pal.lib.body_box_get_angular_velocity(self.obj, ret)
+        return [x for x in ret]
+        
+    def is_active(self):
+        """Returns true if the body is not asleep."""
+        _pal.lib.body_box_is_active.restype = c.c_bool
+        return _pal.lib.body_box_is_active(self.obj)
+
+    def set_active(self,active):
+        """Sets the body to active or not."""
+        _pal.lib.body_box_set_active(self.obj, c.c_bool(active))
+
+    def get_size(self):
+        """returns the size of the object in a 3 part tuple"""
+        return self._size
+
+class StaticBox():
     typechar = 'B'
     def __init__(self,rect):#TESTED
         self.obj = pal.lib.create_static_box(c.c_float(rect[0]),c.c_float(rect[1]),c.c_float(rect[2]),c.c_float(rect[3]),c.c_float(rect[4]),c.c_float(rect[5]))

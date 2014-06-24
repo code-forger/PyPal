@@ -1,11 +1,4 @@
-#include <typeinfo>
-#include <iostream>
-#include <stdio.h> //for our old friend, the printf function
-#include "pal/palFactory.h"
-#include "pal/palCollision.h"
-#include "pal/palCharacter.h"
-#include <typeinfo>
-#include <unistd.h>
+#include "globals.h"
 /* This is the c++ -> c bindings:
  * the pal_ prefix relates to any function that uses PF excluding all the create functions
  * the create_ prefix relates to any function that creats and adds an object to the world
@@ -84,6 +77,7 @@ void* castup_bodybase(palBodyBase* in)
  *               the pal functions                       *
  *                                                       *
  *********************************************************/
+
 palMaterials *PM = NULL;
 palPhysics *pp = NULL;
 palCollisionDetection *pcd = NULL;
@@ -93,6 +87,7 @@ extern "C"
 {
     palPhysics* pal_init(char[])
     {
+        std::cout << "PAL INTERNAL DEBUG MODE SELECTED\n";
         PF->LoadPALfromDLL("/usr/local/lib64/x86_64-linux-gnu/");
         PF->SelectEngine("Bullet");
         PM = new palMaterials();
@@ -248,13 +243,6 @@ extern "C"
  *********************************************************/
 extern "C" 
 {
-    palBox * create_box(Float x, Float y, Float z, Float width, Float height, Float depth, Float mass)
-    {
-        palBox *pb = PF->CreateBox(); //create a box
-	    pb->Init(x,y,z,width,height,depth,mass);
-        return pb;
-    }
-
     palStaticBox * create_static_box(Float x, Float y, Float z, Float width, Float height, Float depth)
     {
         palStaticBox *pb = dynamic_cast<palStaticBox *>(PF->CreateObject("palStaticBox")); //create a box
@@ -331,6 +319,30 @@ extern "C"
         palStaticConvex *pc = dynamic_cast<palStaticConvex*>(PF->CreateObject("palStaticConvex")); //create a box
 	    pc->Init(m, pVertices, nVertices, pIndices, nIndices);
         return pc;
+    }
+
+    palMatrix4x4 GETMATRIX()
+    {
+        palMatrix4x4 m;
+        m._11 = 1;
+        m._12 = 2;
+        m._13 = 3;
+        m._14 = 4;
+        m._21 = 5;
+        m._22 = 6;
+        m._23 = 7;
+        m._24 = 8;
+        m._31 = 9;
+        m._32 = 10;
+        m._33 = 11;
+        m._34 = 12;
+        m._41 = 13;
+        m._42 = 14;
+        m._43 = 15;
+        m._44 = 16;
+
+        return m;
+
     }
 
 
@@ -793,97 +805,7 @@ extern "C"
  *               the box functions                       *
  *                                                       *
  *********************************************************/
-extern "C"
-{
-    void box_get_size(palBox*b,float&width,float&height,float&depth)
-    {
-        width = b->GetWidth();
-        height = b->GetHeight();
-        depth = b->GetDepth();
-    }
 
-    void box_apply_impulse(palBox*b,float ix, float iy, float iz){
-        b->ApplyImpulse(ix,iy,iz);
-    }
-
-    void box_apply_impulse_at_pos(palBox*b,float x,float y,float z
-                                 ,float px,float py,float pz)
-    {
-        b->ApplyImpulseAtPosition(x,y,z,pz,py,pz);
-    }
-
-    void box_apply_angular_impulse(palBox*b,float ix, float iy, float iz){
-        b->ApplyAngularImpulse(ix,iy,iz);
-    }
-
-    void box_apply_force(palBox*b,float x,float y,float z)
-    {
-        b->ApplyForce(x,y,z);
-    }
-
-    void box_apply_force_at_pos(palBox*b,float x,float y,float z
-                                 ,float px,float py,float pz)
-    {
-        b->ApplyForceAtPosition(x,y,z,pz,py,pz);
-    }
-
-    void box_apply_torque(palBox*b,float x,float y,float z)
-    {
-        b->ApplyTorque(x,y,z);
-    }
-
-    void box_set_active(palBox*b,bool active)
-    {
-        b->SetActive(active);
-    }
-
-    bool box_is_active(palBox*b)
-    {
-        return b->IsActive();
-    }
-
-    Float box_get_velocity_x(palBox*b)
-    {
-        palVector3 p;
-        b->GetLinearVelocity(p);
-        return p[0];
-    }
-
-    Float box_get_velocity_y(palBox*b)
-    {
-        palVector3 p;
-        b->GetLinearVelocity(p);
-        return p[1];
-    }
-
-    Float box_get_velocity_z(palBox*b)
-    {
-        palVector3 p;
-        b->GetLinearVelocity(p);
-        return p[2];
-    }
-
-    Float box_get_angular_velocity_x(palBox*b)
-    {
-        palVector3 p;
-        b->GetAngularVelocity(p);
-        return p[0];
-    }
-
-    Float box_get_angular_velocity_y(palBox*b)
-    {
-        palVector3 p;
-        b->GetAngularVelocity(p);
-        return p[1];
-    }
-
-    Float box_get_angular_velocity_z(palBox*b)
-    {
-        palVector3 p;
-        b->GetAngularVelocity(p);
-        return p[2];
-    }
-}
 
 /*********************************************************
  *                                                       *
