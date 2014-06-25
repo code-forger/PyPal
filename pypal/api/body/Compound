@@ -1,0 +1,110 @@
+#palMatrix4x4 & palBodyBase::GetLocationMatrix ()
+#palMatrix body_compound_get_location(palCompound*)
+#float(16) get_location()
+
+#void palBodyBase::GetPosition (palVector3 &pos)
+#palVector3 body_compound_get_position(palCompound*)
+#float(3) get_position()
+
+#void palBodyBase::SetMaterial (palMaterial *material)
+#void body_compound_set_material(palCompound*, palMaterial*)
+#set_material(Material)
+
+#palGroup palBodyBase::GetGroup ()
+#int body_compound_get_group(palCompound*)
+#int get_group()
+
+#void palBodyBase::SetGroup (palGroup group)
+#void body_compound_set_group(palCompound*, int)
+#get_group(int)
+
+#Float palBodyBase::GetSkinWidth ()
+#float body_compound_get_skin_width(palCompound*)
+#float get_skin_width()
+
+#bool palBodyBase::SetSkinWidth (Float skinWidth)
+#bool body_compound_set_skin_width(palCompound*, float)
+#bool set_skin_width(float)
+
+#std::string palBodyBase::toString ()
+#__str__()
+
+#void palBody::SetPosition (Float x, Float y, Float z, Float roll, Float pitch, Float yaw)
+#void body_compound_set_position(palCompound*, float, float, float, float, float, float)
+#set_position(float(3), float(3))
+
+#void palBody::SetOrientation (Float roll, Float pitch, Float yaw)
+#void body_compound_set_orientation(palCompound*, float, float, float)
+#set_orientation(float(3))
+
+#void palBody::ApplyForce (Float fx, Float fy, Float fz)
+#void body_compound_apply_force(palCompound*, float, float, float)
+#apply_force(float(3))
+
+#void palBody::ApplyTorque (Float tx, Float ty, Float tz)
+#void body_compound_apply_torque(palCompound*, float, float, float)
+#apply_torque(float(3))
+
+#void palBody::ApplyForceAtPosition (Float px, Float py, Float pz, Float fx, Float fy, Float fz)
+#void body_compound_apply_force_at_position(palCompound*, float, float, float, float, float, float)
+#apply_force(float(3), float(3))
+
+#void palBody::ApplyImpulse (Float ix, Float iy, Float iz)
+#void body_compound_apply_impulse(palCompound*, float, float, float)
+#apply_impulse(float(3))
+
+#void palBody::ApplyAngularImpulse (Float ix, Float iy, Float iz)
+#void body_compound_apply_angular_impulse(palCompound*, float, float, float)
+#apply_angular_impulse(float(3))
+
+#void palBody::ApplyImpulseAtPosition (Float px, Float py, Float pz, Float ix, Float iy, Float iz)
+#void body_compound_apply_impulse_at_position(palCompound*, float, float, float, float, float, float)
+#apply_impulse(float(3), float(3))
+
+#void palBody::GetLinearVelocity (palVector3 &velocity)
+#palVector3 body_compound_get_linear_velocity(palCompound*)
+#float(3) get_linear_velocity()
+
+#void palBody::GetAngularVelocity (palVector3 &velocity_rad)
+#palVector3 body_compound_get_angular_velocity(palCompound*)
+#float(3) get_angular_velocity()
+
+#void palBody::SetLinearVelocity (const palVector3 &velocity)
+#void body_compound_set_linear_velocity(palCompound*, Vector3)
+#set_linear_velocity(float(3))
+
+#void palBody::SetAngularVelocity (const palVector3 &velocity_rad)
+#void body_compound_set_angular_velocity(palCompound*, Vector3)
+#set_angular_velocity(float(3))
+
+#bool palBody::IsActive ()
+#bool body_compound_is_active(palCompound*)
+#bool is_active()
+
+#void palBody::SetActive (bool active)
+#void body_compound_is_active(palCompound*, bool)
+#set_active(bool)
+
+#void palCompoundBody::Init (Float x, Float y, Float z)
+#palCompoudBody* body_compound_create(float, float, float)
+#CompoundBody(float(3))
+
+#palSphereGeometry* AddSphere()
+#palSphereGeometry* body_compound_add_sphere(palCompound*)
+#add_sphere()
+
+#palBoxGeometry* AddBox()
+#palBoxGeometry* body_compound_add_box(palCompound*)
+#add_box()
+
+#palCapsuleGeometry* AddCapsule()
+#palCapsuleGeometry* body_compound_add_capsule(palCompound*)
+#add_capsule()
+
+#palConvexGeometry* AddConvex()
+#palConvexGeometry* body_compound_add_convex(palCompound*)
+#add_convex()
+
+#void palCompoundBody::Finalize()
+#void body_compound_finalize(palCompound*)
+#finalize()

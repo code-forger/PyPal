@@ -1,0 +1,92 @@
+palMatrix4x4 & palBodyBase::GetLocationMatrix ()
+palMatrix body_sphere_get_location(palSphere*)
+float(4)(4) get_location()
+
+void palBodyBase::GetPosition (palVector3 &pos)
+palVector3 body_sphere_get_position(palSphere*)
+float(3) get_position()
+
+void palBodyBase::SetMaterial (palMaterial *material)
+void body_sphere_set_material(palSphere*, palMaterial*)
+set_material(Material)
+
+palGroup palBodyBase::GetGroup ()
+int body_sphere_get_group(palSphere*)
+int get_group()
+
+void palBodyBase::SetGroup (palGroup group)
+void body_sphere_set_group(palSphere*, int)
+get_group(int)
+
+Float palBodyBase::GetSkinWidth ()
+float body_sphere_get_skin_width(palSphere*)
+float get_skin_width()
+
+bool palBodyBase::SetSkinWidth (Float skinWidth)
+bool body_sphere_set_skin_width(palSphere*, float)
+bool set_skin_width(float)
+
+#std::string palBodyBase::toString ()
+#to_string()
+
+void palBody::SetPosition (Float x, Float y, Float z, Float roll, Float pitch, Float yaw)
+void body_sphere_set_position(palSphere*, float, float, float, float, float, float)
+set_position(float(3), float(3))
+
+void palBody::SetOrientation (Float roll, Float pitch, Float yaw)
+void body_sphere_set_orientation(palSphere*, float, float, float)
+set_orientation(float(3))
+
+void palBody::ApplyForce (Float fx, Float fy, Float fz)
+void body_sphere_apply_force(palSphere*, float, float, float)
+apply_force(float(3))
+
+void palBody::ApplyTorque (Float tx, Float ty, Float tz)
+void body_sphere_apply_torque(palSphere*, float, float, float)
+apply_torque(float(3))
+
+void palBody::ApplyForceAtPosition (Float px, Float py, Float pz, Float fx, Float fy, Float fz)
+void body_sphere_apply_force_at_position(palSphere*, float, float, float, float, float, float)
+apply_force_at_position(float(3), float(3))
+
+void palBody::ApplyImpulse (Float ix, Float iy, Float iz)
+void body_sphere_apply_impulse(palSphere*, float, float, float)
+apply_impulse(float(3))
+
+void palBody::ApplyAngularImpulse (Float ix, Float iy, Float iz)
+void body_sphere_apply_angular_impulse(palSphere*, float, float, float)
+apply_angular_impulse(float(3))
+
+void palBody::ApplyImpulseAtPosition (Float px, Float py, Float pz, Float ix, Float iy, Float iz)
+void body_sphere_apply_impulse_at_position(palSphere*, float, float, float, float, float, float)
+apply_impulse_at_position(float(3), float(3))
+
+void palBody::GetLinearVelocity (palVector3 &velocity)
+Vector3 body_sphere_get_linear_velocity(palSphere*)
+float(3) get_linear_velocity()
+
+void palBody::GetAngularVelocity (palVector3 &velocity_rad)
+Vector3 body_sphere_get_angular_velocity(palSphere*)
+float(3) get_angular_velocity()
+
+void palBody::SetLinearVelocity (const palVector3 &velocity)
+void body_sphere_set_linear_velocity(palSphere*, Vector3)
+set_linear_velocity(float(3))
+
+void palBody::SetAngularVelocity (const palVector3 &velocity_rad)
+void body_sphere_set_angular_velocity(palSphere*, Vector3)
+set_angular_velocity(float(3))
+
+bool palBody::IsActive ()
+bool body_sphere_is_active(palSphere*)
+bool is_active()
+
+void palBody::SetActive (bool active)
+void body_sphere_is_active(palSphere*, bool)
+set_active(bool)
+
+float get_size()
+
+void palSphere::Init (Float x, Float y, Float z, Float radius, Float mass)
+palSphere* body_sphere_create(float, float, float, float, float)
+Sphere(float(3), float, float)

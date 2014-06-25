@@ -1,0 +1,686 @@
+palActuator
+{
+    Apply()
+}
+     palAngularMotor
+     {
+        virtual void    Init (palRevoluteLink *pLink, Float Max)
+
+        virtual void    Update (Float targetVelocity)=0
+         
+        palRevoluteLink *   GetLink ()
+         
+        virtual std::string     toString () const 
+     }
+     palDCMotor
+     {
+        virtual void    Init (palRevoluteLink *revolute_link, Float torque_constant, Float back_EMF_constant, Float armature_resistance)
+
+        virtual void    SetVoltage (Float voltage)
+         
+        virtual void    Apply ()
+     }
+     palDMDCMotor
+     {
+        void    Init (palRevoluteLink *prl, Float torque_constant, Float back_EMF_constant, Float armature_resistance, Float rotor_inertia, Float coulomb_friction_constant, Float viscous_friction_constant, Float max_brush_drop, Float half_drop_value)
+
+        void    SetVoltage (Float voltage)
+         
+        void    Apply ()
+         
+        Float   computeTau (Float source_voltage, Float external_torque, Float joint_vel)
+     }
+     palFakeBuoyancy
+     {
+        virtual void   Init (palBody *pbody, Float density=998.29f)
+
+        virtual void    Apply ()
+     }
+     palForceActuator
+     {
+        virtual void    Init (palBody *pbody, Float px, Float py, Float pz, Float axis_x, Float axis_y, Float axis_z)
+
+        virtual void    SetForce (Float force)
+         
+        virtual void    Apply ()
+         
+     }
+     palGenericLinkSpring
+     {
+        virtual void    Init (palGenericLink *link)
+
+        virtual void    SetLinearSpring (palAxis axis, const palSpringDesc &spring)
+         
+        virtual void    GetLinearSpring (palAxis axis, palSpringDesc &out) const
+         
+        virtual void    SetAngularSpring (palAxis axis, const palSpringDesc &spring)
+         
+        virtual void    GetAngularSpring (palAxis axis, palSpringDesc &out) const
+         
+        virtual void    Apply ()
+            applies the spring. This may do nothing for some implementations as the physics engine may do the work internally.
+         
+        palGenericLink *    GetLink ()
+     }
+    palImpulseActuator
+    {
+        virtual void    Init (palBody *pbody, Float px, Float py, Float pz, Float axis_x, Float axis_y, Float axis_z)
+
+        virtual void    SetImpulse (Float impulse)
+         
+        virtual void    Apply ()
+    }
+         palHydrofoil
+         {
+            virtual void    Init (palBody *pbody, Float px, Float py, Float pz, Float o_axis_x, Float o_axis_y, Float o_axis_z, Float lift_axis_x, Float lift_axis_y, Float lift_axis_z, Float Af, Float a, Float b, Float c, Float density=0.99829)
+
+            virtual void    SetAngle (Float alpha)
+             
+            virtual void    Apply ()
+         }
+         palPropeller
+         {
+            virtual void    Init (palBody *pbody, Float px, Float py, Float pz, Float axis_x, Float axis_y, Float axis_z, Float a_l)
+
+            virtual void    SetVoltage (Float voltage)
+             
+            virtual void    Apply ()
+         }
+     palLiquidDrag
+     {
+        virtual void    Init (palBody *pbody, Float area, Float CD, Float density=0.99829f)
+
+        virtual void    Apply ()
+     }
+     palSpring
+     {
+        void    Init (palBody *pb1, palBody *pb2, const palSpringDesc &desc)
+
+        void    Init (palBody *pb1, palBody *pb2, Float restLength, Float ks, Float kd)
+         
+        void    Apply ()
+     }
+palBodyBase
+{
+    virtual const palMatrix4x4 &    GetLocationMatrix () const =0
+     
+    virtual void    GetPosition (palVector3 &pos) const
+     
+    virtual void    SetMaterial (palMaterial *material)
+     
+    virtual palGroup    GetGroup () const
+     
+    virtual void    SetGroup (palGroup group)
+     
+    virtual Float   GetSkinWidth () const
+     
+    virtual bool    SetSkinWidth (Float skinWidth)
+     
+    void    SetUserData (void *dataPtr)
+     
+    void *  GetUserData () const
+     
+    virtual std::string     toString () const 
+}
+    palBody
+    {
+        virtual void    SetPosition (Float x, Float y, Float z, Float roll, Float pitch, Float yaw)
+
+        void    SetOrientation (Float roll, Float pitch, Float yaw)
+         
+        virtual void    ApplyForce (Float fx, Float fy, Float fz)
+         
+        virtual void    ApplyTorque (Float tx, Float ty, Float tz)
+         
+        virtual void    ApplyForceAtPosition (Float px, Float py, Float pz, Float fx, Float fy, Float fz)
+         
+        virtual void    ApplyImpulse (Float ix, Float iy, Float iz)
+         
+        virtual void    ApplyAngularImpulse (Float ix, Float iy, Float iz)
+         
+        virtual void    ApplyImpulseAtPosition (Float px, Float py, Float pz, Float ix, Float iy, Float iz)
+         
+        virtual void    GetLinearVelocity (palVector3 &velocity) const =0
+         
+        virtual void    GetAngularVelocity (palVector3 &velocity_rad) const =0
+         
+        virtual void    SetLinearVelocity (const palVector3 &velocity)=0
+         
+        virtual void    SetAngularVelocity (const palVector3 &velocity_rad)=0
+         
+        virtual bool    IsActive () const =0
+         
+        virtual void    SetActive (bool active)=0
+    }
+         palConvex
+         {
+            virtual void    Init (Float x, Float y, Float z, const Float *pVertices, int nVertices, Float mass)
+
+            virtual void    Init (Float x, Float y, Float z, const Float *pVertices, int nVertices, const int *pIndices, int nIndices, Float mass)
+         }
+         palGenericBody
+         {
+            virtual void    Init (const palMatrix4x4 &pos)
+
+            virtual void    SetDynamicsType (palDynamicsType dynType)
+             
+            virtual void    SetGravityEnabled (bool enabled)=0
+             
+            virtual bool    IsGravityEnabled () const =0
+             
+            virtual void    SetCollisionResponseEnabled (bool enabled)=0
+             
+            virtual bool    IsCollisionResponseEnabled () const =0
+             
+            virtual void    SetMass (Float mass)
+             
+            virtual void    SetInertia (Float Ixx, Float Iyy, Float Izz)
+             
+            virtual void    GetInertia (Float &Ixx, Float &Iyy, Float &Izz)
+             
+            virtual void    SetLinearDamping (Float)
+             
+            virtual Float   GetLinearDamping () const
+             
+            virtual void    SetAngularDamping (Float)
+             
+            virtual Float   GetAngularDamping () const
+             
+            virtual void    SetMaxAngularVelocity (Float maxAngVel)
+                Artificial maximum magnitude of angular velocity.
+             
+            virtual Float   GetMaxAngularVelocity () const
+             
+            virtual void    ConnectGeometry (palGeometry *pGeom)
+             
+            virtual const PAL_VECTOR
+            < palGeometry * > &     GetGeometries ()
+             
+            virtual unsigned int    GetNumGeometries ()
+             
+            virtual void    RemoveGeometry (palGeometry *pGeom)
+             
+            virtual bool    IsDynamic () const
+             
+            virtual bool    IsKinematic () const
+             
+            virtual bool    IsStatic () const
+             
+            palDynamicsType     GetDynamicsType () const 
+         }
+        palSoftBody
+        {
+            virtual int     GetNumParticles () const =0
+
+            virtual palVector3 *    GetParticlePositions ()=0
+        }
+             palPatchSoftBody
+             {
+                virtual void    Init (const Float *pParticles, const Float *pMass, const int nParticles, const int *pIndices, const int nIndices)=0
+
+                virtual void    SetIterations (const int nIterations)=0
+             }
+             palTetrahedralSoftBody
+             {
+                virtual void    Init (const Float *pParticles, const Float *pMass, const int nParticles, const int *pIndices, const int nIndices)=0
+             }
+    palBoxBase
+    {
+        virtual Float   GetWidth ()
+         
+        virtual Float   GetHeight ()
+         
+        virtual Float   GetDepth ()
+    }
+         palStaticBox
+         {
+            virtual void    Init (Float x, Float y, Float z, Float width, Float height, Float depth)
+
+            virtual void    Init (const palMatrix4x4 &pos, Float width, Float height, Float depth)
+         }
+    palCapsuleBase
+    {
+        virtual void   Init (const palMatrix4x4 &pos, Float radius, Float length, Float mass)
+    }
+         palStaticCapsule
+         {
+            virtual void    Init (Float x, Float y, Float z, Float radius, Float length)
+
+            virtual void    Init (const palMatrix4x4 &pos, Float radius, Float length)
+         }
+     palCharacterController
+     {
+        virtual bool    Init (const palCharacterControllerDesc &desc)=0
+
+        virtual void    Move (const palVector3 &displacement)=0
+            Moves with a given displacement vector.
+         
+        virtual void    Walk (const palVector3 &walkVelocity, Float timeInterval)=0
+            Starts motion along the walkVelocity vector for the specified item interval.
+         
+        virtual void    WalkClear ()=0
+            Clears a walk call early.
+         
+        virtual void    Warp (const palVector3 &worldPos)=0
+            Sets an upward velocity for causing a character to jump. More...
+     }
+    palCompoundBodyBase
+    {
+        virtual palSphereGeometry *     AddSphere ()
+
+        virtual palBoxGeometry *    AddBox ()
+         
+        virtual palCapsuleGeometry *    AddCapsule ()
+         
+        virtual palConvexGeometry *     AddConvex ()
+         
+        virtual palGeometry *   AddGeometry (PAL_STRING type)
+         
+        virtual void    Finalize ()=0
+    }
+         palStaticCompoundBody
+         {
+            virtual void    Init (Float x, Float y, Float z)
+
+            virtual void    Init (const palMatrix4x4 &pos)
+             
+            virtual const palMatrix4x4 &    GetLocationMatrix () const
+             
+            virtual void    Finalize ()
+         }
+    palConvexBase
+    {
+        virtual void    Init (const palMatrix4x4 &pos, const Float *pVertices, int nVertices, Float mass)
+
+        virtual void    Init (const palMatrix4x4 &pos, const Float *pVertices, int nVertices, const int *pIndices, int nIndices, Float mass)
+    }
+         palConvex
+         {
+            virtual void    Init (Float x, Float y, Float z, const Float *pVertices, int nVertices, Float mass)
+             
+            virtual void    Init (Float x, Float y, Float z, const Float *pVertices, int nVertices, const int *pIndices, int nIndices, Float mass)
+         }
+         palStaticConvex
+         {
+            virtual void    Init (Float x, Float y, Float z, const Float *pVertices, int nVertices)
+
+            virtual void    Init (const palMatrix4x4 &pos, const Float *pVertices, int nVertices)
+             
+            virtual void    Init (const palMatrix4x4 &pos, const Float *pVertices, int nVertices, const int *pIndices, int nIndices)
+         }
+    palSphereBase
+    {
+        virtual void    Init (const palMatrix4x4 &pos, Float radius, Float mass)
+    }
+         palStaticSphere
+         {
+            virtual void    Init (Float x, Float y, Float z, Float radius)
+
+            virtual void    Init (const palMatrix4x4 &pos, Float radius)
+         }
+    palStatic
+    {
+        palStatic (const palStatic &obj)
+    }
+         palStaticBox
+         {
+            virtual void    Init (Float x, Float y, Float z, Float width, Float height, Float depth)
+
+            virtual void    Init (const palMatrix4x4 &pos, Float width, Float height, Float depth)
+         }
+         palStaticCapsule
+         {
+            virtual void   Init (Float x, Float y, Float z, Float radius, Float length)
+
+            virtual void    Init (const palMatrix4x4 &pos, Float radius, Float length)
+         }
+         palStaticCompoundBody
+         {
+            virtual void    Init (Float x, Float y, Float z)
+
+            virtual void    Init (const palMatrix4x4 &pos)
+             
+            virtual const palMatrix4x4 &    GetLocationMatrix () const
+             
+            virtual void    Finalize ()
+         }
+         palStaticConvex
+         {
+            virtual void    Init (Float x, Float y, Float z, const Float *pVertices, int nVertices)
+
+            virtual void    Init (const palMatrix4x4 &pos, const Float *pVertices, int nVertices)
+             
+            virtual void    Init (const palMatrix4x4 &pos, const Float *pVertices, int nVertices, const int *pIndices, int nIndices)
+         }
+         palStaticSphere
+         {
+            virtual void    Init (Float x, Float y, Float z, Float radius)
+
+            virtual void    Init (const palMatrix4x4 &pos, Float radius)
+         }
+        palTerrain
+        {
+            palTerrainType  GetType () const 
+        }
+             palOrientatedTerrainPlane
+             {
+                virtual void    Init (Float x, Float y, Float z, Float nx, Float ny, Float nz, Float min_size)
+
+                virtual void    Init (Float nx, Float ny, Float nz, Float d, Float min_size)
+                 
+                virtual const palMatrix4x4 &    GetLocationMatrix () const
+                 
+                Float   GetMinimumSize () const 
+             }
+             palTerrainHeightmap
+             {
+                virtual void    Init (Float x, Float y, Float z, Float width, Float depth, int terrain_data_width, int terrain_data_depth, const Float *pHeightmap)
+
+                const Float *   GetHeightMap () const
+                 
+                Float   GetWidth () const
+                 
+                Float   GetDepth () const
+                 
+                int     GetDataWidth () const
+                 
+                int     GetDataDepth () const 
+             }
+             palTerrainMesh
+             {
+                virtual void    Init (Float x, Float y, Float z, const Float *pVertices, int nVertices, const int *pIndices, int nIndices)
+             }
+             palTerrainPlane
+             {
+                virtual void   Init (Float x, Float y, Float z, Float min_size)
+
+                Float   GetMinimumSize () const 
+             }
+palGeometry
+{
+    virtual void    GetPosition (palVector3 &pos) const
+
+    virtual const palMatrix4x4 &    GetLocationMatrix () const
+     
+    virtual const palMatrix4x4 &    GetOffsetMatrix () const
+     
+    virtual void    GenericInit (const palMatrix4x4 &location, const void *param_array)=0
+     
+    virtual Float *     GenerateMesh_Vertices ()
+     
+    virtual int *   GenerateMesh_Indices ()
+     
+    virtual int     GetNumberOfVertices () const
+     
+    virtual int     GetNumberOfIndices () const
+     
+    virtual void    SetMass (Float mass)
+     
+    Float   GetMass () const
+     
+    palBodyBase *   GetBaseBody () const
+     
+    virtual void    CalculateInertia ()=0
+     
+    virtual Float   GetMargin () const
+     
+    virtual bool    SetMargin (Float margin)
+}
+     palBoxGeometry
+     {
+        virtual void    Init (const palMatrix4x4 &pos, Float width, Float height, Float depth, Float mass)
+
+        virtual void    CalculateInertia ()
+         
+        virtual void    GenericInit (const palMatrix4x4 &location, const void *param_array)
+         
+        palVector3  GetXYZDimensions () const
+            Depending on when axis is up, x,y, and z maps differently to width depth, and height. 
+     }
+     palCapsuleGeometry
+     {
+        virtual void    Init (const palMatrix4x4 &pos, Float radius, Float length, Float mass)
+
+        virtual void    CalculateInertia ()
+         
+        virtual void    GenericInit (const palMatrix4x4 &location, const void *param_array)
+     }
+     palConcaveGeometry
+     {
+        virtual void    Init (const palMatrix4x4 &pos, const Float *pVertices, int nVertices, const int *pIndices, int nIndices, Float mass)
+     }
+     palConvexGeometry
+     {
+        virtual void    Init (const palMatrix4x4 &pos, const Float *pVertices, int nVertices, Float mass)
+
+        virtual void    Init (const palMatrix4x4 &pos, const Float *pVertices, int nVertices, const int *pIndices, int nIndices, Float mass)
+         
+        virtual void    SetIndices (const int *pIndices, int nIndices)
+     }
+     palSphereGeometry
+     {
+        virtual void    Init (const palMatrix4x4 &pos, Float radius, Float mass)
+
+        virtual void    CalculateInertia ()
+         
+        virtual void    GenericInit (const palMatrix4x4 &location, const void *param_array)
+     }
+palGridFluid
+{
+    virtual void    Update ()=0
+}
+     palDampendShallowFluid
+     {
+        void    Init (int dimX=128, int dimY=128, Float cellSize=0.08, Float density=1000, Float dampingFluid=0.01, Float dampingBody_linear=0.02, Float dampingBody_angular=0.04)
+
+        void    Update ()
+         
+        int     Get_DimensionsX ()
+         
+        int     Get_DimensionsY ()
+         
+        Float   GetCellSize ()
+         
+        Float *     GetFluidHeights ()
+         
+        palVector3 *    GetFluidVertices ()
+         
+        int     GetNumVertices ()
+     }
+palLink
+{
+    virtual void    Init (palBodyBase *parent, palBodyBase *child, bool disableCollisionsBetweenLinkedBodies)
+
+    virtual void    Init (palBodyBase *parent, palBodyBase *child, Float x, Float y, Float z, bool disableCollisionsBetweenLinkedBodies)
+     
+    virtual std::string     toString () const
+     
+    virtual palLinkFeedback *   GetFeedback () const throw (palIllegalStateException)
+     
+    virtual     ~palLink ()
+        It has a virtual destructor, so there is no reason not be able to delete one. 
+}
+     palGenericLink
+     {
+        void    Init (palBodyBase *parent, palBodyBase *child, const palVector3 &pivotLocation, const palVector3 &linearLowerLimits, const palVector3 &linearUpperLimits, const palVector3 &angularLowerLimits, const palVector3 &angularUpperLimits, bool disableCollisionsBetweenLinkedBodies)
+
+        virtual void    Init (palBodyBase *parent, palBodyBase *child, const palMatrix4x4 &parentFrame, const palMatrix4x4 &childFrame, const palVector3 &linearLowerLimits, const palVector3 &linearUpperLimits, const palVector3 &angularLowerLimits, const palVector3 &angularUpperLimits, bool disableCollisionsBetweenLinkedBodies)
+     }
+     palPrismaticLink
+     {
+        virtual void    Init (palBodyBase *parent, palBodyBase *child, Float x, Float y, Float z, Float axis_x, Float axis_y, Float axis_z, bool disableCollisionsBetweenLinkedBodies)
+
+        virtual void    SetLimits (Float lower_limit, Float upper_limit)
+     }
+    palRevoluteLink
+    {
+        virtual void    Init (palBodyBase *parent, palBodyBase *child, Float x, Float y, Float z, Float axis_x, Float axis_y, Float axis_z, bool disableCollisionsBetweenLinkedBodies)
+
+        virtual void    SetLimits (Float lower_limit_rad, Float upper_limit_rad)
+         
+        virtual void    GetPosition (palVector3 &pos) const
+         
+        virtual Float   GetAngle () const
+         
+        virtual Float   GetAngularVelocity () const
+         
+        virtual void    ApplyTorque (Float torque)
+         
+        virtual void    ApplyAngularImpulse (Float torque)
+         
+        virtual palVector3  GetAxis () const
+         
+        virtual std::string     toString () const 
+    }
+         palRevoluteSpringLink
+         {
+            virtual void    SetSpring (const palSpringDesc &springDesc)=0
+
+            virtual void    GetSpring (palSpringDesc &springDescOut) const =0
+         }
+     palRigidLink
+     {
+        virtual void    Init (palBodyBase *parent, palBodyBase *child, bool disableCollisionsBetweenLinkedBodies)
+     }
+     palSphericalLink
+     {
+        virtual void    SetLimits (Float cone_limit_rad, Float twist_limit_rad)
+     }
+palMaterial
+{
+        palMaterial (const palMaterial &m)
+
+        virtual void    SetParameters (const palMaterialDesc &matDesc)
+}
+     palMaterialInteraction
+     {
+            palMaterialInteraction (const palMaterialInteraction &pmi)
+
+            virtual void    Init (palMaterialUnique *pM1, palMaterialUnique *pM2, const palMaterialDesc &matDesc)
+             
+            virtual palMaterialInteraction &    operator= (const palMaterialInteraction &pmi)
+     }
+     palMaterialUnique
+     {
+        virtual void    Init (PAL_STRING name, const palMaterialDesc &desc)
+     }
+ palMaterials
+ {
+    virtual palMaterialUnique *     NewMaterial (PAL_STRING name, const palMaterialDesc &matDesc)
+
+    virtual void    SetMaterialInteraction (PAL_STRING name1, PAL_STRING name2, const palMaterialDesc &matDesc)
+     
+    virtual palMaterialUnique *     GetMaterial (PAL_STRING name)
+     
+    virtual palMaterialInteraction *    GetMaterialInteraction (PAL_STRING name1, PAL_STRING name2)
+ }
+palParticleFluid
+{
+    virtual void    AddParticle (Float x, Float y, Float z, Float vx, Float vy, Float vz)=0
+
+    virtual int     GetNumParticles () const =0
+     
+    virtual palVector3 *    GetParticlePositions () const =0
+     
+    virtual void    Finalize ()=0
+}
+     palSPHFluid
+     {
+        virtual void    Init ()=0
+     }
+ palPhysics
+ {
+    virtual void    Init (const palPhysicsDesc &desc)
+
+    virtual void    Update (Float timestep)
+     
+    virtual const char *    GetPALVersion () const =0
+     
+    virtual const char *    GetVersion () const =0
+     
+    virtual Float   GetTime () const
+     
+    virtual Float   GetLastTimestep () const
+     
+    virtual void    SetGroupCollision (palGroup a, palGroup b, bool enabled)
+     
+    virtual void    GetGravity (palVector3 &g) const
+     
+    virtual void    SetFactoryInstance (palFactory *pfInstance=0)
+     
+    palAxis     GetUpAxis () const
+        Return the index, i.e. x (0), y (1), or z(2), to use for up.
+     
+    virtual void    AddAction (palAction *action)
+     
+    virtual void    RemoveAction (palAction *action)
+        Removes an action from the physics system.
+     
+    virtual void    SetDebugDraw (palDebugDraw *debugDraw)
+        Assigns the debug draw instance.
+     
+    virtual palDebugDraw *  GetDebugDraw ()
+     
+    virtual palCollisionDetection *     asCollisionDetection ()
+ }
+palSensor
+     palCompassSensor
+     {
+        virtual void    Init (palBody *body, Float north_x, Float north_y, Float north_z)
+
+        virtual Float   GetAngle () const
+     }
+     palContactSensor
+     {
+        virtual void    Init (palBody *body)
+
+        virtual void    GetContactPosition (palVector3 &contact) const =0
+     }
+     palGPSSensor
+     {
+        virtual void    Init (palBody *body, int UTCseconds, float latitude, float longitude)
+
+        virtual void    GetGPSString (char *string)
+     }
+     palGyroscopeSensor
+     {
+        virtual void    Init (palBody *body, Float axis_x, Float axis_y, Float axis_z)
+
+        virtual Float   GetAngle () const
+         
+            FACTORY_CLASS (palGyroscopeSensor, palGyroscopeSensor,*, 1)
+     }
+     palInclinometerSensor
+     {
+        virtual void    Init (palBody *body, Float axis_x, Float axis_y, Float axis_z, Float up_x, Float up_y, Float up_z, Float g_x, Float g_y, Float g_z)
+
+        virtual Float   GetAngle () const
+         
+            FACTORY_CLASS (palInclinometerSensor, palInclinometerSensor,*, 1)
+     }
+     palPSDSensor
+     {
+        virtual void    Init (palBody *body, Float x, Float y, Float z, Float axis_x, Float axis_y, Float axis_z, Float range)
+
+        virtual Float   GetDistance () const =0
+     }
+     palTransponderReciever
+     {
+        virtual void    Init (palBody *body)
+
+        virtual Float   GetDistance (int transponder) const
+         
+        virtual int     GetNumTransponders (void) const 
+     }
+     palTransponderSender
+     {
+        virtual void    Init (palBody *body, Float range)
+     }
+     palVelocimeterSensor
+     {
+        virtual void    Init (palBody *body, Float axis_x, Float axis_y, Float axis_z)
+
+        virtual Float   GetVelocity () const
+     }
+ palSettings
+ palVehicle
