@@ -238,6 +238,16 @@ class TestSphereFunctions(unittest.TestCase):
         sphere = pal.body.Sphere((0,0,0),(1,1,1),mass=1)
         self.assertEqual(sphere.get_size(),(1.,1.,1.))
 
+#  ______    ______   _______    ______   __    __  __        ________        ________  ________   ______  ________   ______  
+# /      \  /      \ |       \  /      \ |  \  |  \|  \      |        \      |        \|        \ /      \|        \ /      \ 
+#|  $$$$$$\|  $$$$$$\| $$$$$$$\|  $$$$$$\| $$  | $$| $$      | $$$$$$$$       \$$$$$$$$| $$$$$$$$|  $$$$$$\\$$$$$$$$|  $$$$$$\
+#| $$   \$$| $$__| $$| $$__/ $$| $$___\$$| $$  | $$| $$      | $$__             | $$   | $$__    | $$___\$$  | $$   | $$___\$$
+#| $$      | $$    $$| $$    $$ \$$    \ | $$  | $$| $$      | $$  \            | $$   | $$  \    \$$    \   | $$    \$$    \ 
+#| $$   __ | $$$$$$$$| $$$$$$$  _\$$$$$$\| $$  | $$| $$      | $$$$$            | $$   | $$$$$    _\$$$$$$\  | $$    _\$$$$$$\
+#| $$__/  \| $$  | $$| $$      |  \__| $$| $$__/ $$| $$_____ | $$_____          | $$   | $$_____ |  \__| $$  | $$   |  \__| $$
+# \$$    $$| $$  | $$| $$       \$$    $$ \$$    $$| $$     \| $$     \         | $$   | $$     \ \$$    $$  | $$    \$$    $$
+#  \$$$$$$  \$$   \$$ \$$        \$$$$$$   \$$$$$$  \$$$$$$$$ \$$$$$$$$          \$$    \$$$$$$$$  \$$$$$$    \$$     \$$$$$$ 
+                                                                                                                             
 
 class TestCapsuleFunctions(unittest.TestCase):
     def setUp(self):
@@ -247,114 +257,246 @@ class TestCapsuleFunctions(unittest.TestCase):
         pal.cleanup()
 
     def test_capsule_create(self):
-        pal.body.Capsule((0,0,0,1,1),mass=1)
+        pal.body.Capsule((0,0,0),(1,1,1),mass=1)
         self.assertEqual(len(pal._pal.all_objects),1)
 
     def test_capsule_delete(self):
-        capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
+        capsule = pal.body.Capsule((0,0,0),(1,1,1),mass=1)
         capsule.delete()
         self.assertEqual(len(pal._pal.all_objects),0)
 
     def test_capsule_weakref(self):
-        capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
+        capsule = pal.body.Capsule((0,0,0),(1,1,1),mass=1)
         self.assertTrue(isinstance(capsule,weakref.ProxyType))
 
+    def test_capsule_get_location(self):
+        capsule = pal.body.Capsule((0,0,0),(1,1,1),mass=1)
+        print "responce: ",[x for x in capsule.get_location()]
+        self.assertEqual(capsule.get_location(), [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1])
+
     def test_capsule_get_position(self):
-        capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
+        capsule = pal.body.Capsule((0,0,0),(1,1,1),mass=1)
         self.assertEqual(capsule.get_position(), [0,0,0])
 
-    def test_capsule_get_location(self):
-        capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
-        self.assertEqual(capsule.get_location(), [0,0,0,0.0,0.0,0.0])
-
     def test_capsule_get_group(self):
-        capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
+        capsule = pal.body.Capsule((0,0,0),(1,1,1),mass=1)
         self.assertEqual(capsule.get_group(), 0)
 
     def test_capsule_set_group(self):
-        capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
+        capsule = pal.body.Capsule((0,0,0),(1,1,1),mass=1)
         capsule.set_group(10)
         self.assertEqual(capsule.get_group(), 10)
 
-    # NOT SUPPORTED WITH BULLET!
-    #def test_capsule_get_skin_width(self):
-    #    capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
-    #    self.assertEqual(capsule.get_skin_width(), 10)
-
-    #def test_capsule_set_skin_width(self):
-    #    capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
-    #    capsule.set_skin_width(10)
-    #    self.assertEqual(capsule.get_skin_width(), 10)
+    def test_capsule_to_string(self):
+        capsule = pal.body.Capsule((0,0,0),(1,1,1),mass=1)
+        self.assertEqual(capsule.__str__(), "A Capsule at : 0.00, 0.00, 0.00")
 
     def test_capsule_set_position(self):
-        capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
+        capsule = pal.body.Capsule((0,0,0),(1,1,1),mass=1)
         capsule.set_position((10,10,10))
         self.assertEqual(capsule.get_position(), [10,10,10])
 
     def test_capsule_set_orientation(self):
-        capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
+        capsule = pal.body.Capsule((0,0,0),(1,1,1),mass=1)
         capsule.set_orientation((10,10,10))
-        self.assertEqual(capsule.get_location(), [0,0,0,0.5752220749855042, 5.707963466644287, 0.5752220749855042])#TODO
+        self.assertEqual(capsule.get_location(), [0.7040410041809082, 0.45647263526916504, 0.5440211296081543, 0.0, -0.7048034071922302, 0.5430330634117126, 0.45647263526916504, 0.0, -0.08705419301986694, -0.7048034071922302, 0.7040410041809082, 0.0, 0.0, 0.0, 0.0, 1.,])#TODO
 
-    def test_capsule_get_size(self):
-        capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
-        self.assertEqual(capsule.get_size(),[1.,1.,1.])
+    def test_capsule_apply_force(self):
+        capsule = pal.body.Capsule((0,0,0),(1,1,1),mass=1)
+        capsule.apply_force((1,1,1))
 
-    def test_capsule_set_position(self):
-        capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
-        capsule.set_position((10,10,10))
-        self.assertEqual(capsule.get_position(),[10,10,10])
+    def test_capsule_apply_torque(self):
+        capsule = pal.body.Capsule((0,0,0),(1,1,1),mass=1)
+        capsule.apply_torque((1,1,1))
 
-    #def apply_impulse(self,impulse):
-    #    """Applies an impulse to the object for a single step at an optional offset in world coordinates."""
-    #    pal.lib.capsule_apply_impulse(self.obj,c.c_float(impulse[0]),c.c_float(impulse[1]),c.c_float(impulse[2]))
+    def test_capsule_apply_force_pos(self):
+        capsule = pal.body.Capsule((0,0,0),(1,1,1),mass=1)
+        capsule.apply_force((1,1,1),pos=(1,1,1))
 
-    def test_capsule_get_size(self):
-        capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
-        self.assertEqual(capsule.get_size(), [1,1])
+    def test_capsule_apply_impulse(self):
+        capsule = pal.body.Capsule((0,0,0),(1,1,1),mass=1)
+        capsule.apply_impulse((1,1,1))
+
+    def test_capsule_apply_angular_impulse(self):
+        capsule = pal.body.Capsule((0,0,0),(1,1,1),mass=1)
+        capsule.apply_angular_impulse((1,1,1))
+
+    def test_capsule_apply_impulse_pos(self):
+        capsule = pal.body.Capsule((0,0,0),(1,1,1),mass=1)
+        capsule.apply_impulse((1,1,1),pos=(1,1,1))
+
+    def test_capsule_get_velocity(self):
+        capsule = pal.body.Capsule((0,0,0),(1,1,1),mass=1)
+        self.assertEqual(capsule.get_linear_velocity(), [0,0,0])
+
+    def test_capsule_get_angular_velocity(self):
+        capsule = pal.body.Capsule((0,0,0),(1,1,1),mass=1)
+        self.assertEqual(capsule.get_angular_velocity(), [0,0,0])
+
+    def test_capsule_set_velocity(self):
+        capsule = pal.body.Capsule((0,0,0),(1,1,1),mass=1)
+        capsule.set_linear_velocity(10,10,10)
+        self.assertEqual(capsule.get_linear_velocity(), [10,10,10])
+
+    def test_capsule_get_angular_velocity(self):
+        capsule = pal.body.Capsule((0,0,0),(1,1,1),mass=1)
+        capsule.set_angular_velocity(10,10,10)
+        self.assertEqual(capsule.get_angular_velocity(), [10,10,10])
 
     def test_capsule_is_active(self):
-        capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
+        capsule = pal.body.Capsule((0,0,0),(1,1,1),mass=1)
         self.assertTrue(capsule.is_active())
 
     def test_capsule_set_active(self):
-        capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
+        capsule = pal.body.Capsule((0,0,0),(1,1,1),mass=1)
         capsule.set_active(False)
         self.assertTrue(not capsule.is_active())
 
-    #####These functions are hard to test their output;
-    #####So I simply test that the call to the function works
-    def test_capsule_get_velocity(self):
-        capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
-        capsule.get_velocity()
+    def test_capsule_get_size(self):
+        capsule = pal.body.Capsule((0,0,0),(1,1,1),mass=1)
+        self.assertEqual(capsule.get_size(),(1.,1.,1.))
 
-    def test_capsule_get_angular_velocity(self):
-        capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
-        capsule.get_angular_velocity()
+#  ______    ______   __       __  _______    ______   __    __  __    __  _______         ________  ________   ______  ________   ______  
+# /      \  /      \ |  \     /  \|       \  /      \ |  \  |  \|  \  |  \|       \       |        \|        \ /      \|        \ /      \ 
+#|  $$$$$$\|  $$$$$$\| $$\   /  $$| $$$$$$$\|  $$$$$$\| $$  | $$| $$\ | $$| $$$$$$$\       \$$$$$$$$| $$$$$$$$|  $$$$$$\\$$$$$$$$|  $$$$$$\
+#| $$   \$$| $$  | $$| $$$\ /  $$$| $$__/ $$| $$  | $$| $$  | $$| $$$\| $$| $$  | $$         | $$   | $$__    | $$___\$$  | $$   | $$___\$$
+#| $$      | $$  | $$| $$$$\  $$$$| $$    $$| $$  | $$| $$  | $$| $$$$\ $$| $$  | $$         | $$   | $$  \    \$$    \   | $$    \$$    \ 
+#| $$   __ | $$  | $$| $$\$$ $$ $$| $$$$$$$ | $$  | $$| $$  | $$| $$\$$ $$| $$  | $$         | $$   | $$$$$    _\$$$$$$\  | $$    _\$$$$$$\
+#| $$__/  \| $$__/ $$| $$ \$$$| $$| $$      | $$__/ $$| $$__/ $$| $$ \$$$$| $$__/ $$         | $$   | $$_____ |  \__| $$  | $$   |  \__| $$
+# \$$    $$ \$$    $$| $$  \$ | $$| $$       \$$    $$ \$$    $$| $$  \$$$| $$    $$         | $$   | $$     \ \$$    $$  | $$    \$$    $$
+#  \$$$$$$   \$$$$$$  \$$      \$$ \$$        \$$$$$$   \$$$$$$  \$$   \$$ \$$$$$$$           \$$    \$$$$$$$$  \$$$$$$    \$$     \$$$$$$ 
 
-    def test_capsule_apply_impulse(self):
-        capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
-        capsule.apply_impulse((1,1,1))
+class TestCompoundFunctions(unittest.TestCase):
+    def setUp(self):
+        pal.init()
 
-    def test_capsule_apply_impulse_pos(self):
-        capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
-        capsule.apply_impulse((1,1,1),pos=(1,1,1))
+    def tearDown(self):
+        pal.cleanup()
 
-    def test_capsule_apply_angular_impulse_pos(self):
-        capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
-        capsule.apply_angular_impulse((1,1,1))
+    def test_compound_create(self):
+        pal.body.Compound((0,0,0))
+        self.assertEqual(len(pal._pal.all_objects),1)
 
-    def test_capsule_apply_force(self):
-        capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
-        capsule.apply_force((1,1,1))
+    def test_compound_delete(self):
+        compound = pal.body.Compound((0,0,0))
+        compound.delete()
+        self.assertEqual(len(pal._pal.all_objects),0)
 
-    def test_capsule_apply_force_pos(self):
-        capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
-        capsule.apply_force((1,1,1),pos=(1,1,1))
+    def test_compound_weakref(self):
+        compound = pal.body.Compound((0,0,0))
+        self.assertTrue(isinstance(compound,weakref.ProxyType))
 
-    def test_capsule_apply_torque(self):
-        capsule = pal.body.Capsule((0,0,0,1,1),mass=1)
-        capsule.apply_torque((1,1,1))
+    def test_compound_get_location(self):
+        compound = pal.body.Compound((0,0,0))
+        print "responce: ",[x for x in compound.get_location()]
+        self.assertEqual(compound.get_location(), [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1])
+
+    def test_compound_get_position(self):
+        compound = pal.body.Compound((0,0,0))
+        self.assertEqual(compound.get_position(), [0,0,0])
+
+    def test_compound_get_group(self):
+        compound = pal.body.Compound((0,0,0))
+        self.assertEqual(compound.get_group(), 0)
+
+    def test_compound_set_group(self):
+        compound = pal.body.Compound((0,0,0))
+        compound.set_group(10)
+        self.assertEqual(compound.get_group(), 10)
+
+    def test_compound_to_string(self):
+        compound = pal.body.Compound((0,0,0))
+        self.assertEqual(compound.__str__(), "A CompoundBody at : 0.00, 0.00, 0.00")
+
+    def test_compound_set_position(self):
+        compound = pal.body.Compound((0,0,0))
+        compound.set_position((10,10,10))
+        self.assertEqual(compound.get_position(), [10,10,10])
+
+    def test_compound_set_orientation(self):
+        compound = pal.body.Compound((0,0,0))
+        compound.set_orientation((10,10,10))
+        self.assertEqual(compound.get_location(), [0.7040410041809082, 0.45647263526916504, 0.5440211296081543, 0.0, -0.7048034071922302, 0.5430330634117126, 0.45647263526916504, 0.0, -0.08705419301986694, -0.7048034071922302, 0.7040410041809082, 0.0, 0.0, 0.0, 0.0, 1.,])#TODO
+
+    def test_compound_apply_force(self):
+        compound = pal.body.Compound((0,0,0))
+        compound.add_box((0,0,0,1,1,1), 1)
+        compound.finalize()
+        compound.apply_force((1,1,1))
+
+    def test_compound_apply_torque(self):
+        compound = pal.body.Compound((0,0,0))
+        compound.add_box((0,0,0,1,1,1), 1)
+        compound.finalize()
+        compound.apply_torque((1,1,1))
+
+    def test_compound_apply_force_pos(self):
+        compound = pal.body.Compound((0,0,0))
+        compound.add_box((0,0,0,1,1,1), 1)
+        compound.finalize()
+        compound.apply_force((1,1,1),pos=(1,1,1))
+
+    def test_compound_apply_impulse(self):
+        compound = pal.body.Compound((0,0,0))
+        compound.add_box((0,0,0,1,1,1), 1)
+        compound.finalize()
+        compound.apply_impulse((1,1,1))
+
+    def test_compound_apply_angular_impulse(self):
+        compound = pal.body.Compound((0,0,0))
+        compound.add_box((0,0,0,1,1,1), 1)
+        compound.finalize()
+        compound.apply_angular_impulse((1,1,1))
+
+    def test_compound_apply_impulse_pos(self):
+        compound = pal.body.Compound((0,0,0))
+        compound.add_box((0,0,0,1,1,1), 1)
+        compound.finalize()
+        compound.apply_impulse((1,1,1),pos=(1,1,1))
+
+    def test_compound_get_velocity(self):
+        compound = pal.body.Compound((0,0,0))
+        compound.add_box((0,0,0,1,1,1), 1)
+        compound.finalize()
+        self.assertEqual(compound.get_linear_velocity(), [0,0,0])
+
+    def test_compound_get_angular_velocity(self):
+        compound = pal.body.Compound((0,0,0))
+        compound.add_box((0,0,0,1,1,1), 1)
+        compound.finalize()
+        self.assertEqual(compound.get_angular_velocity(), [0,0,0])
+
+    def test_compound_set_velocity(self):
+        compound = pal.body.Compound((0,0,0))
+        compound.add_box((0,0,0,1,1,1), 1)
+        compound.finalize()
+        compound.set_linear_velocity(10,10,10)
+        self.assertEqual(compound.get_linear_velocity(), [10,10,10])
+
+    def test_compound_get_angular_velocity(self):
+        compound = pal.body.Compound((0,0,0))
+        compound.add_box((0,0,0,1,1,1), 1)
+        compound.finalize()
+        compound.set_angular_velocity(10,10,10)
+        self.assertEqual(compound.get_angular_velocity(), [10,10,10])
+
+    def test_compound_is_active(self):
+        compound = pal.body.Compound((0,0,0))
+        compound.add_box((0,0,0,1,1,1), 1)
+        compound.finalize()
+        self.assertTrue(compound.is_active())
+
+    def test_compound_set_active(self):
+        compound = pal.body.Compound((0,0,0))
+        compound.add_box((0,0,0,1,1,1), 1)
+        compound.finalize()
+        compound.set_active(False)
+        self.assertTrue(not compound.is_active())
+
+
+
+
+
 
 class TestConvexFunctions(unittest.TestCase):
     def setUp(self):
@@ -451,8 +593,9 @@ class TestGenericFunctions(unittest.TestCase):
 
 
 suite = [unittest.TestLoader().loadTestsFromTestCase(TestBoxFunctions),
-        unittest.TestLoader().loadTestsFromTestCase(TestSphereFunctions)]
-        #unittest.TestLoader().loadTestsFromTestCase(TestCapsuleFunctions),
+        unittest.TestLoader().loadTestsFromTestCase(TestSphereFunctions),
+        unittest.TestLoader().loadTestsFromTestCase(TestCapsuleFunctions),
+        unittest.TestLoader().loadTestsFromTestCase(TestCompoundFunctions)]
         #unittest.TestLoader().loadTestsFromTestCase(TestConvexFunctions),
         #unittest.TestLoader().loadTestsFromTestCase(TestGenericFunctions)]
 
