@@ -494,7 +494,15 @@ class TestCompoundFunctions(unittest.TestCase):
         self.assertTrue(not compound.is_active())
 
 
-
+#  ______    ______   __    __  __     __  ________  __    __        ________  ________   ______  ________   ______  
+# /      \  /      \ |  \  |  \|  \   |  \|        \|  \  |  \      |        \|        \ /      \|        \ /      \ 
+#|  $$$$$$\|  $$$$$$\| $$\ | $$| $$   | $$| $$$$$$$$| $$  | $$       \$$$$$$$$| $$$$$$$$|  $$$$$$\\$$$$$$$$|  $$$$$$\
+#| $$   \$$| $$  | $$| $$$\| $$| $$   | $$| $$__     \$$\/  $$         | $$   | $$__    | $$___\$$  | $$   | $$___\$$
+#| $$      | $$  | $$| $$$$\ $$ \$$\ /  $$| $$  \     >$$  $$          | $$   | $$  \    \$$    \   | $$    \$$    \ 
+#| $$   __ | $$  | $$| $$\$$ $$  \$$\  $$ | $$$$$    /  $$$$\          | $$   | $$$$$    _\$$$$$$\  | $$    _\$$$$$$\
+#| $$__/  \| $$__/ $$| $$ \$$$$   \$$ $$  | $$_____ |  $$ \$$\         | $$   | $$_____ |  \__| $$  | $$   |  \__| $$
+# \$$    $$ \$$    $$| $$  \$$$    \$$$   | $$     \| $$  | $$         | $$   | $$     \ \$$    $$  | $$    \$$    $$
+#  \$$$$$$   \$$$$$$  \$$   \$$     \$     \$$$$$$$$ \$$   \$$          \$$    \$$$$$$$$  \$$$$$$    \$$     \$$$$$$ 
 
 
 
@@ -508,19 +516,114 @@ class TestConvexFunctions(unittest.TestCase):
                        (0,1,0),
                        (1,0,0),
                        (0,0,0))
+        self.triangles = ((0,1,2),
+                          (2,3,4),
+                          (4,5,6))
         pal.init()
 
     def tearDown(self):
         pal.cleanup()
 
-    def test_convex_create(self):
+    def test_convex_create_no_triangles(self):
         pal.body.Convex((0,0,0),self.points,mass=1)
         self.assertEqual(len(pal._pal.all_objects),1)
 
-    def test_convex_delete(self):
+    def test_convex_create_triangles(self):
+        pal.body.Convex((0,0,0),self.points,self.triangles,mass=1)
+        self.assertEqual(len(pal._pal.all_objects),1)
+
+    #def test_convex_delete(self):
+    #    convex = pal.body.Convex((0,0,0),self.points,mass=1)
+    #    convex.delete()
+    #    self.assertEqual(len(pal._pal.all_objects),0)
+
+    def test_convex_weakref(self):
         convex = pal.body.Convex((0,0,0),self.points,mass=1)
-        convex.delete()
-        self.assertEqual(len(pal._pal.all_objects),0)
+        self.assertTrue(isinstance(convex,weakref.ProxyType))
+
+    def test_convex_get_location(self):
+        convex = pal.body.Convex((0,0,0),self.points,mass=1)
+        print "responce: ",[x for x in convex.get_location()]
+        self.assertEqual(convex.get_location(), [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1])
+
+    def test_convex_get_position(self):
+        convex = pal.body.Convex((0,0,0),self.points,mass=1)
+        self.assertEqual(convex.get_position(), [0,0,0])
+
+    def test_convex_get_group(self):
+        convex = pal.body.Convex((0,0,0),self.points,mass=1)
+        self.assertEqual(convex.get_group(), 0)
+
+    def test_convex_set_group(self):
+        convex = pal.body.Convex((0,0,0),self.points,mass=1)
+        convex.set_group(10)
+        self.assertEqual(convex.get_group(), 10)
+
+    def test_convex_to_string(self):
+        convex = pal.body.Convex((0,0,0),self.points,mass=1)
+        self.assertEqual(convex.__str__(), "A ConvexBody at : 0.00, 0.00, 0.00")
+
+    def test_convex_set_position(self):
+        convex = pal.body.Convex((0,0,0),self.points,mass=1)
+        convex.set_position((10,10,10))
+        self.assertEqual(convex.get_position(), [10,10,10])
+
+    def test_convex_set_orientation(self):
+        convex = pal.body.Convex((0,0,0),self.points,mass=1)
+        convex.set_orientation((10,10,10))
+        self.assertEqual(convex.get_location(), [0.7040410041809082, 0.45647263526916504, 0.5440211296081543, 0.0, -0.7048034071922302, 0.5430330634117126, 0.45647263526916504, 0.0, -0.08705419301986694, -0.7048034071922302, 0.7040410041809082, 0.0, 0.0, 0.0, 0.0, 1.,])#TODO
+
+    def test_convex_apply_force(self):
+        convex = pal.body.Convex((0,0,0),self.points,mass=1)
+        convex.apply_force((1,1,1))
+
+    def test_convex_apply_torque(self):
+        convex = pal.body.Convex((0,0,0),self.points,mass=1)
+        convex.apply_torque((1,1,1))
+
+    def test_convex_apply_force_pos(self):
+        convex = pal.body.Convex((0,0,0),self.points,mass=1)
+        convex.apply_force((1,1,1),pos=(1,1,1))
+
+    def test_convex_apply_impulse(self):
+        convex = pal.body.Convex((0,0,0),self.points,mass=1)
+        print "DEBUG APPLYING IMPULSE" 
+        convex.apply_impulse((1,1,1))
+
+    def test_convex_apply_angular_impulse(self):
+        convex = pal.body.Convex((0,0,0),self.points,mass=1)
+        convex.apply_angular_impulse((1,1,1))
+
+    def test_convex_apply_impulse_pos(self):
+        convex = pal.body.Convex((0,0,0),self.points,mass=1)
+        convex.apply_impulse((1,1,1),pos=(1,1,1))
+
+    def test_convex_get_velocity(self):
+        convex = pal.body.Convex((0,0,0),self.points,mass=1)
+        self.assertEqual(convex.get_linear_velocity(), [0,0,0])
+
+    def test_convex_get_angular_velocity(self):
+        convex = pal.body.Convex((0,0,0),self.points,mass=1)
+        self.assertEqual(convex.get_angular_velocity(), [0,0,0])
+
+    def test_convex_set_velocity(self):
+        convex = pal.body.Convex((0,0,0),self.points,mass=1)
+        convex.set_linear_velocity(10,10,10)
+        self.assertEqual(convex.get_linear_velocity(), [10,10,10])
+
+    def test_convex_get_angular_velocity(self):
+        convex = pal.body.Convex((0,0,0),self.points,mass=1)
+        convex.set_angular_velocity(10,10,10)
+        self.assertEqual(convex.get_angular_velocity(), [10,10,10])
+
+    def test_convex_is_active(self):
+        convex = pal.body.Convex((0,0,0),self.points,mass=1)
+        self.assertTrue(convex.is_active())
+
+    def test_convex_set_active(self):
+        convex = pal.body.Convex((0,0,0),self.points,mass=1)
+        convex.set_active(False)
+        self.assertTrue(not convex.is_active())
 
 class TestGenericFunctions(unittest.TestCase):
     def setUp(self):
@@ -595,8 +698,8 @@ class TestGenericFunctions(unittest.TestCase):
 suite = [unittest.TestLoader().loadTestsFromTestCase(TestBoxFunctions),
         unittest.TestLoader().loadTestsFromTestCase(TestSphereFunctions),
         unittest.TestLoader().loadTestsFromTestCase(TestCapsuleFunctions),
-        unittest.TestLoader().loadTestsFromTestCase(TestCompoundFunctions)]
-        #unittest.TestLoader().loadTestsFromTestCase(TestConvexFunctions),
+        unittest.TestLoader().loadTestsFromTestCase(TestCompoundFunctions),
+        unittest.TestLoader().loadTestsFromTestCase(TestConvexFunctions)]
         #unittest.TestLoader().loadTestsFromTestCase(TestGenericFunctions)]
 
 if __name__ == "__main__":

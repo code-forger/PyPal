@@ -10,7 +10,8 @@ REQUIREDOBJECTS = build/PyPal.o\
 				  build/body/box.o\
 				  build/body/sphere.o\
 				  build/body/capsule.o\
-				  build/body/compound.o
+				  build/body/compound.o\
+				  build/body/convex.o
 
 all: libPyPal.so
 
@@ -31,6 +32,9 @@ build/body/capsule.o: src/body/capsule.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
 
 build/body/compound.o: src/body/compound.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+
+build/body/convex.o: src/body/convex.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
 
 

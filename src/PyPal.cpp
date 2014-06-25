@@ -264,21 +264,6 @@ extern "C"
         return pcb;
     }
 
-    palConvex* create_convex_no_triangles(Float x, Float y, Float z, const Float *pVertices, int nVertices, Float mass)
-    {
-        palConvex *pc = dynamic_cast<palConvex*>(PF->CreateObject("palConvex")); //create a box
-	    pc->Init(x, y, z, pVertices, nVertices, mass);
-        return pc;
-    }
-
-    palConvex* create_convex_triangles(Float x, Float y, Float z, const Float *pVertices, int nVertices, const int *pIndices, int nIndices, Float mass)
-    {
-
-        palConvex *pc = dynamic_cast<palConvex*>(PF->CreateObject("palConvex")); //create a box
-	    pc->Init(x,y,z, pVertices, nVertices, pIndices, nIndices, mass);
-        return pc;
-    }
-
     palStaticConvex* create_static_convex_no_triangles(Float x, Float y, Float z, const Float *pVertices, int nVertices)
     {
         palStaticConvex *pc = dynamic_cast<palStaticConvex*>(PF->CreateObject("palStaticConvex")); //create a box
@@ -839,19 +824,6 @@ extern "C"
     void generic_remove_geometry(palGenericBody* g,palGeometry*geom, char typechar)
     {
         g->RemoveGeometry(GEOMCASTUP(typechar,geom));
-    }
-}
-
-/*********************************************************
- *                                                       *
- *               the convex functions                    *
- *                                                       *
- *********************************************************/
-extern "C" 
-{
-    void convex_remove(palConvex*c){
-        delete c;
-        c = NULL;
     }
 }
 

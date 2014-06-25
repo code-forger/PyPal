@@ -152,12 +152,6 @@ palBodyBase
          
         virtual void    SetActive (bool active)=0
     }
-         palConvex
-         {
-            virtual void    Init (Float x, Float y, Float z, const Float *pVertices, int nVertices, Float mass)
-
-            virtual void    Init (Float x, Float y, Float z, const Float *pVertices, int nVertices, const int *pIndices, int nIndices, Float mass)
-         }
          palGenericBody
          {
             virtual void    Init (const palMatrix4x4 &pos)
@@ -294,12 +288,6 @@ palBodyBase
 
         virtual void    Init (const palMatrix4x4 &pos, const Float *pVertices, int nVertices, const int *pIndices, int nIndices, Float mass)
     }
-         palConvex
-         {
-            virtual void    Init (Float x, Float y, Float z, const Float *pVertices, int nVertices, Float mass)
-             
-            virtual void    Init (Float x, Float y, Float z, const Float *pVertices, int nVertices, const int *pIndices, int nIndices, Float mass)
-         }
          palStaticConvex
          {
             virtual void    Init (Float x, Float y, Float z, const Float *pVertices, int nVertices)
