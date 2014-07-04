@@ -226,15 +226,37 @@ class TestStaticConvexFunctions(unittest.TestCase):
         pal.body.StaticConvex((0,0,0),self.points)
         self.assertEqual(len(pal._pal.all_objects),1)
 
-    def test_convex_delete(self):
-        convex = pal.body.StaticConvex((0,0,0),self.points)
-        convex.delete()
-        self.assertEqual(len(pal._pal.all_objects),0)
+    #def test_convex_delete(self):
+    #    convex = pal.body.StaticConvex((0,0,0),self.points)
+    #    convex.delete()
+    #    self.assertEqual(len(pal._pal.all_objects),0)
 
-suite = [unittest.TestLoader().loadTestsFromTestCase(TestStaticBoxFunctions)]
+    #def test_convex_get_location(self):
+    #    convex = pal.body.StaticConvex((0,0,0),self.points)
+    #    self.assertEqual(convex.get_location(), [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1])
+
+    def test_convex_get_position(self):
+        convex = pal.body.StaticConvex((0,0,0),self.points)
+        self.assertEqual(convex.get_position(), [0,0,0])
+
+    def test_convex_get_group(self):
+        convex = pal.body.StaticConvex((0,0,0),self.points)
+        self.assertEqual(convex.get_group(), 0)
+
+    def test_convex_set_group(self):
+        convex = pal.body.StaticConvex((0,0,0),self.points)
+        convex.set_group(10)
+        self.assertEqual(convex.get_group(), 10)
+
+    def test_convex_to_string(self):
+        convex = pal.body.StaticConvex((0,0,0),self.points)
+        self.assertEqual(convex.__str__(), "A Static Convex at : 0.00, 0.00, 0.00")
+
+
+suite = [unittest.TestLoader().loadTestsFromTestCase(TestStaticBoxFunctions),
+         unittest.TestLoader().loadTestsFromTestCase(TestStaticConvexFunctions)]
         #unittest.TestLoader().loadTestsFromTestCase(TestStaticSphereFunctions),
         #unittest.TestLoader().loadTestsFromTestCase(TestStaticCapsuleFunctions),
-        #unittest.TestLoader().loadTestsFromTestCase(TestStaticConvexFunctions)]
 
 if __name__ == "__main__":
     suite = unittest.TestSuite(suite)

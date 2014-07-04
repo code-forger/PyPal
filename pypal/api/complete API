@@ -122,52 +122,6 @@ palBodyBase
      
     virtual std::string     toString () const 
 }
-    palBody
-    {
-        virtual void    SetPosition (Float x, Float y, Float z, Float roll, Float pitch, Float yaw)
-
-        void    SetOrientation (Float roll, Float pitch, Float yaw)
-         
-        virtual void    ApplyForce (Float fx, Float fy, Float fz)
-         
-        virtual void    ApplyTorque (Float tx, Float ty, Float tz)
-         
-        virtual void    ApplyForceAtPosition (Float px, Float py, Float pz, Float fx, Float fy, Float fz)
-         
-        virtual void    ApplyImpulse (Float ix, Float iy, Float iz)
-         
-        virtual void    ApplyAngularImpulse (Float ix, Float iy, Float iz)
-         
-        virtual void    ApplyImpulseAtPosition (Float px, Float py, Float pz, Float ix, Float iy, Float iz)
-         
-        virtual void    GetLinearVelocity (palVector3 &velocity) const =0
-         
-        virtual void    GetAngularVelocity (palVector3 &velocity_rad) const =0
-         
-        virtual void    SetLinearVelocity (const palVector3 &velocity)=0
-         
-        virtual void    SetAngularVelocity (const palVector3 &velocity_rad)=0
-         
-        virtual bool    IsActive () const =0
-         
-        virtual void    SetActive (bool active)=0
-    }
-        palSoftBody
-        {
-            virtual int     GetNumParticles () const =0
-
-            virtual palVector3 *    GetParticlePositions ()=0
-        }
-             palPatchSoftBody
-             {
-                virtual void    Init (const Float *pParticles, const Float *pMass, const int nParticles, const int *pIndices, const int nIndices)=0
-
-                virtual void    SetIterations (const int nIterations)=0
-             }
-             palTetrahedralSoftBody
-             {
-                virtual void    Init (const Float *pParticles, const Float *pMass, const int nParticles, const int *pIndices, const int nIndices)=0
-             }
     palCapsuleBase
     {
         virtual void   Init (const palMatrix4x4 &pos, Float radius, Float length, Float mass)
@@ -217,20 +171,6 @@ palBodyBase
             virtual const palMatrix4x4 &    GetLocationMatrix () const
              
             virtual void    Finalize ()
-         }
-    palConvexBase
-    {
-        virtual void    Init (const palMatrix4x4 &pos, const Float *pVertices, int nVertices, Float mass)
-
-        virtual void    Init (const palMatrix4x4 &pos, const Float *pVertices, int nVertices, const int *pIndices, int nIndices, Float mass)
-    }
-         palStaticConvex
-         {
-            virtual void    Init (Float x, Float y, Float z, const Float *pVertices, int nVertices)
-
-            virtual void    Init (const palMatrix4x4 &pos, const Float *pVertices, int nVertices)
-             
-            virtual void    Init (const palMatrix4x4 &pos, const Float *pVertices, int nVertices, const int *pIndices, int nIndices)
          }
     palSphereBase
     {

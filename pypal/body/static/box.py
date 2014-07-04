@@ -2,7 +2,7 @@ from pypal import private_globals as _pal
 import ctypes as c
 import weakref
 class StaticBox(_pal.PalObject):
-    def __init__(self, pos, size, mass = 1.):
+    def __init__(self, pos, size):
         """
         constructs a static box and adds it to the world
         
