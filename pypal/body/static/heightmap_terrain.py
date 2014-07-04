@@ -1,8 +1,7 @@
 from pypal import private_globals as pal
 import ctypes as c
 import weakref
-from bodybase import BodyBase
-class HeightMapTerrain(BodyBase):
+class HeightMapTerrain():
     """ an height map terrain object """
     def __new__(cls,pos,size,chunks,height_map):
         """

@@ -1,8 +1,7 @@
 from pypal import private_globals as pal
 import ctypes as c
 import weakref
-from bodybase import BodyBase
-class Terrain(BodyBase):
+class Terrain():
     """ a simple terrain object """
 #    def __new__(cls,pos,min_size):
 #        """

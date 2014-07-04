@@ -77,6 +77,20 @@ class Box(_pal.PalObject):
         ret = _pal.Vec3()
         _pal.lib.body_box_get_angular_velocity(self.obj, ret)
         return [x for x in ret]
+
+    def set_linear_velocity(self, velocity):
+        """sets the linear velocity og the object"""
+        vec = _pal.Vec3()
+        for i in range(3):
+            vec[i] = velocity[i]
+        _pal.lib.body_box_set_linear_velocity(self.obj, vec)
+
+    def set_angular_velocity(self, velocity):
+        """sets the angular velocity og the object"""
+        vec = _pal.Vec3()
+        for i in range(3):
+            vec[i] = velocity[i]
+        _pal.lib.body_box_set_angular_velocity(self.obj, vec)
         
     def is_active(self):
         """Returns true if the body is not asleep."""
@@ -90,13 +104,3 @@ class Box(_pal.PalObject):
     def get_size(self):
         """returns the size of the object in a 3 part tuple"""
         return self._size
-
-class StaticBox():
-    typechar = 'B'
-    def __init__(self,rect):#TESTED
-        self.obj = pal.lib.create_static_box(c.c_float(rect[0]),c.c_float(rect[1]),c.c_float(rect[2]),c.c_float(rect[3]),c.c_float(rect[4]),c.c_float(rect[5]))
-        self.size = rect[3:]
-
-    def get_size(self):
-        """returns the size of the object in a 3 part tuple"""
-        return self.size

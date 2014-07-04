@@ -1,21 +1,108 @@
-from pypal import private_globals as pal
+from pypal import private_globals as _pal
 import ctypes as c
 import weakref
-from bodybase import BodyBase
-class GenericBody(BodyBase):
+class GenericBody(_pal.PalObject):
     typechar = 'g'
     def __init__(self, pos, rotation=[0,0,0]):
         """
-        constructs a box and adds it to the world
+        constructs a generic and adds it to the world
         
         rect: a 3 part tuple with x,y,z.
         mass: the mass of the object, if mass is specified it will be used.
         density: if no mass is specified and a density is, the mass will be 
         calculated from the density and the volumne.
         """
-        self.obj = pal.lib.create_generic(c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2]),
+        self.obj = _pal.lib.body_create_generic(c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2]),
                                           c.c_float(rotation[0]), c.c_float(rotation[1]), c.c_float(rotation[2]))
         self._geometries = []
+
+    def get_location(self):
+        ret = _pal.Mat4x4()
+        _pal.lib.body_generic_get_location(self.obj, ret)
+        return [x for x in ret]
+
+    def get_position(self):
+        ret = _pal.Vec3()
+        _pal.lib.body_generic_get_position(self.obj, ret)
+        return [x for x in ret]
+
+    def get_group(self):
+        return _pal.lib.body_generic_get_group(self.obj)
+
+    def set_group(self, group):
+        return _pal.lib.body_generic_set_group(self.obj, c.c_int(group))
+
+    def __str__(self):
+        x, y, z = self.get_position()
+        return "A Generic at : %.2f, %.2f, %.2f" % (x, y, z)
+
+    def set_position(self, pos, rot=(0, 0, 0)):
+        """Sets the position of the object and its orientation."""
+        _pal.lib.body_generic_set_position(self.obj, c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2]), c.c_float(rot[0]), c.c_float(rot[1]), c.c_float(rot[2]))
+
+    def set_orientation(self, rot):
+        """Sets the position of the object and/or its orientation."""
+        _pal.lib.body_generic_set_orientation(self.obj, c.c_float(rot[0]), c.c_float(rot[1]), c.c_float(rot[2]))
+
+    def apply_force(self, force, pos=None):
+        """Applies a force to the object for a single step at an optional offset in world coordinates."""
+        if pos:
+            _pal.lib.body_generic_apply_force_at_position(self.obj, c.c_float(force[0]), c.c_float(force[1]), c.c_float(force[2]),
+                                                          c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2]))
+        else:
+            _pal.lib.body_generic_apply_force(self.obj, c.c_float(force[0]), c.c_float(force[1]), c.c_float(force[2]))
+
+    def apply_torque(self, force):
+        """Applies a torque to the object for a single step."""
+        _pal.lib.body_generic_apply_torque(self.obj, c.c_float(force[0]), c.c_float(force[1]), c.c_float(force[2]))
+
+    def apply_impulse(self, impulse,pos=None):
+        """Applies an impulse to the object for a single step at an optional offset in world coordinates."""
+        if pos:
+            _pal.lib.body_generic_apply_impulse_at_position(self.obj, c.c_float(impulse[0]), c.c_float(impulse[1]), c.c_float(impulse[2]),
+                                                                 c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2]))
+        else:
+            _pal.lib.body_generic_apply_impulse(self.obj, c.c_float(impulse[0]), c.c_float(impulse[1]), c.c_float(impulse[2]))
+
+    def apply_angular_impulse(self, impulse):
+        """Applies an angular impulse to the object for a single step at an optional offset in world coordinates."""
+        _pal.lib.body_generic_apply_angular_impulse(self.obj, c.c_float(impulse[0]), c.c_float(impulse[1]), c.c_float(impulse[2]))
+
+
+    def get_linear_velocity(self):
+        """Returns the linear velocity of the body."""
+        ret = _pal.Vec3()
+        _pal.lib.body_generic_get_linear_velocity(self.obj, ret)
+        return [x for x in ret]
+
+    def get_angular_velocity(self):
+        """Returns the linear velocity of the body."""
+        ret = _pal.Vec3()
+        _pal.lib.body_generic_get_angular_velocity(self.obj, ret)
+        return [x for x in ret]
+
+    def set_linear_velocity(self, velocity):
+        """sets the linear velocity og the object"""
+        vec = _pal.Vec3()
+        for i in range(3):
+            vec[i] = velocity[i]
+        _pal.lib.body_generic_set_linear_velocity(self.obj, vec)
+
+    def set_angular_velocity(self, velocity):
+        """sets the angular velocity og the object"""
+        vec = _pal.Vec3()
+        for i in range(3):
+            vec[i] = velocity[i]
+        _pal.lib.body_generic_set_angular_velocity(self.obj, vec)
+        
+    def is_active(self):
+        """Returns true if the body is not asleep."""
+        _pal.lib.body_generic_is_active.restype = c.c_bool
+        return _pal.lib.body_generic_is_active(self.obj)
+
+    def set_active(self,active):
+        """Sets the body to active or not."""
+        _pal.lib.body_generic_set_active(self.obj, c.c_bool(active))
 
     @property
     def dynamics_type(self):
@@ -29,7 +116,7 @@ class GenericBody(BodyBase):
         dynType: "dynamic", "static" or "kinematic"
         """
         char = {"dynamic":'d', "static":'c', "kinematic":'k'}[dyn_type]
-        pal.lib.generic_set_dynamics_type(self.obj, c.c_char(char))
+        _pal.lib.body_generic_set_dynamics_type(self.obj, c.c_char(char))
         self._dynamics_type = dyn_type
 
     @property
@@ -44,7 +131,7 @@ class GenericBody(BodyBase):
         enabled: True, False
         """
         if enabled in [True, False]:
-            pal.lib.generic_set_gravity_enabled(self.obj, c.c_bool(enabled))
+            _pal.lib.body_generic_set_gravity_enabled(self.obj, c.c_bool(enabled))
             self._gravity_enabled = enabled
 
     @property
@@ -59,7 +146,7 @@ class GenericBody(BodyBase):
         enabled: True, False
         """
         if enabled in [True, False]:
-            pal.lib.generic_set_collision_response_enabled(self.obj, c.c_bool(enabled))
+            _pal.lib.body_generic_set_collision_response_enabled(self.obj, c.c_bool(enabled))
             self._collision_response_enabled = enabled
 
     @property
@@ -68,13 +155,13 @@ class GenericBody(BodyBase):
 
     @mass.setter
     def mass(self, mass):
-        pal.lib.generic_set_mass(self.obj, c.c_float(mass))
+        _pal.lib.body_generic_set_mass(self.obj, c.c_float(mass))
         self._mass = mass
 
     @property
     def inertia(self):
         inertia = [c.c_float() for x in range(3)]
-        pal.lib.generic_get_inertia(self.obj,c.byref(inertia[0]),c.byref(inertia[1]),c.byref(inertia[2]))
+        _pal.lib.body_generic_get_inertia(self.obj,c.byref(inertia[0]),c.byref(inertia[1]),c.byref(inertia[2]))
         return [p.value for p in inertia]
 
     @inertia.setter
@@ -84,12 +171,12 @@ class GenericBody(BodyBase):
 
         inertia: sequence of 3 floats
         """
-        pal.lib.generic_set_inertia(self.obj,c.c_float(inertia[0]),c.c_float(inertia[1]),c.c_float(inertia[2]))
+        _pal.lib.body_generic_set_inertia(self.obj,c.c_float(inertia[0]),c.c_float(inertia[1]),c.c_float(inertia[2]))
 
     @property
     def linear_damping(self):
-        pal.lib.generic_get_linear_damping.restype = c.c_float
-        return pal.lib.generic_get_linear_damping(self.obj)
+        _pal.lib.body_generic_get_linear_damping.restype = c.c_float
+        return _pal.lib.body_generic_get_linear_damping(self.obj)
 
     @linear_damping.setter
     def linear_damping(self, damping):
@@ -98,12 +185,12 @@ class GenericBody(BodyBase):
 
         damping: float
         """
-        pal.lib.generic_set_linear_damping(self.obj, c.c_float(damping))
+        _pal.lib.body_generic_set_linear_damping(self.obj, c.c_float(damping))
 
     @property
     def angular_damping(self):
-        pal.lib.generic_get_angular_damping.restype = c.c_float
-        return pal.lib.generic_get_angular_damping(self.obj)
+        _pal.lib.body_generic_get_angular_damping.restype = c.c_float
+        return _pal.lib.body_generic_get_angular_damping(self.obj)
 
     @angular_damping.setter
     def angular_damping(self, damping):
@@ -112,7 +199,7 @@ class GenericBody(BodyBase):
 
         damping: float
         """
-        pal.lib.generic_set_angular_damping(self.obj, c.c_float(damping))
+        _pal.lib.body_generic_set_angular_damping(self.obj, c.c_float(damping))
 
     def connect_geometry(self, geometry):
         """
@@ -120,7 +207,7 @@ class GenericBody(BodyBase):
 
         geometry: a pre initialised geometry
         """
-        pal.lib.generic_connect_geometry(self.obj, geometry.obj, c.c_char(geometry.typechar))
+        _pal.lib.body_generic_connect_geometry(self.obj, geometry.obj, c.c_char(geometry.typechar))
         self._geometries.append(geometry)
 
     def remove_geometry(self, geometry):
@@ -130,7 +217,7 @@ class GenericBody(BodyBase):
         geometry: a geometry that has been added
         """
         if geometry in self._geometries:
-            pal.lib.generic_remove_geometry(self.obj, geometry.obj, c.c_char(geometry.typechar))
+            _pal.lib.body_generic_remove_geometry(self.obj, geometry.obj, c.c_char(geometry.typechar))
             self._geometries.remove(geometry)
 
     def get_geometries(self):

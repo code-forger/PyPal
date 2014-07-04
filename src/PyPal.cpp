@@ -243,12 +243,6 @@ extern "C"
  *********************************************************/
 extern "C" 
 {
-    palStaticBox * create_static_box(Float x, Float y, Float z, Float width, Float height, Float depth)
-    {
-        palStaticBox *pb = dynamic_cast<palStaticBox *>(PF->CreateObject("palStaticBox")); //create a box
-	    pb->Init(x,y,z,width,height,depth);
-        return pb;
-    }
 
     palStaticCapsule * create_static_capsule(Float x, Float y, Float z, Float radius, Float length)
     {
@@ -257,12 +251,6 @@ extern "C"
         return pc;
     }
 
-    palCompoundBody * create_compound(Float x, Float y, Float z)
-    {
-        palCompoundBody *pcb = PF->CreateCompoundBody(); //create a box
-	    pcb->Init(x, y, z);
-        return pcb;
-    }
 
     palStaticConvex* create_static_convex_no_triangles(Float x, Float y, Float z, const Float *pVertices, int nVertices)
     {
@@ -329,16 +317,6 @@ extern "C"
         mat_set_rotation(&pos, rx, ry, rz);
         bg->Init (pos, width, height, depth, mass);
         return bg;
-    }
-
-    palGenericBody* create_generic(Float x, Float y, Float z, Float rx, Float ry, Float rz)
-    {
-        palGenericBody *gb = dynamic_cast<palGenericBody*>(PF->CreateObject("palGenericBody")); //create a box
-	    palMatrix4x4 pos;
-        mat_set_translation(&pos, x, y, z);
-        mat_set_rotation(&pos, rx, ry, rz);
-        gb->Init (pos);
-        return gb;
     }
 
     palStaticSphere * create_static_sphere(Float x, Float y, Float z, Float radius)
@@ -745,88 +723,6 @@ extern "C"
         pcc->Warp(direction);
     }
 }
-
-/*********************************************************
- *                                                       *
- *               the generic body function               *
- *                                                       *
- *********************************************************/
-extern "C" 
-{
-    void generic_set_dynamics_type(palGenericBody* g, char c)
-    {
-        palDynamicsType p;
-        switch(c)
-        {
-        case 'd':
-            p = PALBODY_DYNAMIC;
-            break;
-        case 's':
-            p = PALBODY_DYNAMIC;
-            break;
-        case 'k':
-            p = PALBODY_DYNAMIC;
-            break;
-        }
-        g->SetDynamicsType(p);
-    }
-
-    void generic_set_gravity_enabled(palGenericBody* g, bool e)
-    {
-        g->SetGravityEnabled(e);
-    }
-
-    void generic_set_collision_response_enabled(palGenericBody* g, bool e)
-    {
-        g->SetCollisionResponseEnabled(e);
-    }
-
-    void generic_set_mass(palGenericBody* g, Float mass)
-    {
-        g->SetMass(mass);
-    }
-
-    void generic_set_inertia(palGenericBody* g, Float x, Float y, Float z)
-    {
-        g->SetInertia(x,y,z);
-    }
-
-    void generic_get_inertia(palGenericBody* g, Float &x, Float &y, Float &z)
-    {
-        g->GetInertia(x,y,z);
-    }
-
-    void generic_set_linear_damping(palGenericBody* g, Float linear_damping)
-    {
-        g->SetLinearDamping(linear_damping);
-    }
-
-    Float generic_get_linear_damping(palGenericBody* g)
-    {
-        return g->GetLinearDamping();
-    }
-
-    void generic_set_angular_damping(palGenericBody* g, Float angular_damping)
-    {
-        g->SetAngularDamping(angular_damping);
-    }
-
-    Float generic_get_angular_damping(palGenericBody* g)
-    {
-        return g->GetAngularDamping();
-    }
-
-    void generic_connect_geometry(palGenericBody* g,palGeometry*geom, char typechar)
-    {
-        g->ConnectGeometry(GEOMCASTUP(typechar,geom));
-    }
-
-    void generic_remove_geometry(palGenericBody* g,palGeometry*geom, char typechar)
-    {
-        g->RemoveGeometry(GEOMCASTUP(typechar,geom));
-    }
-}
-
 /*********************************************************
  *                                                       *
  *               the static convex functions             *

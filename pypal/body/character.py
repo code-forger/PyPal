@@ -1,7 +1,6 @@
 from pypal import private_globals as pal
 import ctypes as c
 import weakref
-from bodybase import BodyBase
 class Character(pal.PalObject):
     typechar = 'C'
     def __init__(self,rect,mass=1):

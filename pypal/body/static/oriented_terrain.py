@@ -1,5 +1,5 @@
-from bodybase import BodyBase
-class OrientedTerrain(BodyBase):
+
+class OrientedTerrain():
     """ an oriented terrain object """
     def __init__(pos,normal,min_size):
         """

@@ -1,13 +1,15 @@
-from bodybase import BodyBase
-from box import Box, StaticBox
+from box import Box
 from capsule import Capsule, StaticCapsule
 from character import Character
 from convex import Convex, StaticConvex
 from compound import Compound
 from generic_body import GenericBody
 from ghost import Ghost
-from heightmap_terrain import HeightMapTerrain
-from mesh_terrain import MeshTerrain
-from oriented_terrain import OrientedTerrain
 from sphere import Sphere, StaticSphere
-from terrain import Terrain
+
+from static.box import StaticBox
+from static.heightmap_terrain import HeightMapTerrain
+from static.mesh_terrain import MeshTerrain
+from static.oriented_terrain import OrientedTerrain
+from static.terrain import Terrain
+

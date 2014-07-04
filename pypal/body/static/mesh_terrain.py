@@ -1,5 +1,5 @@
-from bodybase import BodyBase
-class MeshTerrain(BodyBase):
+
+class MeshTerrain():
     """ a mesh based terrain object """
     def __init__(pos,points,triangles):
         """

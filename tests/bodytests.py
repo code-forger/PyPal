@@ -35,7 +35,6 @@ class TestBoxFunctions(unittest.TestCase):
 
     def test_box_get_location(self):
         box = pal.body.Box((0,0,0),(1,1,1),mass=1)
-        print "responce: ",[x for x in box.get_location()]
         self.assertEqual(box.get_location(), [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1])
 
     def test_box_get_position(self):
@@ -99,12 +98,12 @@ class TestBoxFunctions(unittest.TestCase):
 
     def test_box_set_velocity(self):
         box = pal.body.Box((0,0,0),(1,1,1),mass=1)
-        box.set_linear_velocity(10,10,10)
+        box.set_linear_velocity((10,10,10))
         self.assertEqual(box.get_linear_velocity(), [10,10,10])
 
-    def test_box_get_angular_velocity(self):
+    def test_box_set_angular_velocity(self):
         box = pal.body.Box((0,0,0),(1,1,1),mass=1)
-        box.set_angular_velocity(10,10,10)
+        box.set_angular_velocity((10,10,10))
         self.assertEqual(box.get_angular_velocity(), [10,10,10])
 
     def test_box_is_active(self):
@@ -217,12 +216,12 @@ class TestSphereFunctions(unittest.TestCase):
 
     def test_sphere_set_velocity(self):
         sphere = pal.body.Sphere((0,0,0),(1,1,1),mass=1)
-        sphere.set_linear_velocity(10,10,10)
+        sphere.set_linear_velocity((10,10,10))
         self.assertEqual(sphere.get_linear_velocity(), [10,10,10])
 
-    def test_sphere_get_angular_velocity(self):
+    def test_sphere_set_angular_velocity(self):
         sphere = pal.body.Sphere((0,0,0),(1,1,1),mass=1)
-        sphere.set_angular_velocity(10,10,10)
+        sphere.set_angular_velocity((10,10,10))
         self.assertEqual(sphere.get_angular_velocity(), [10,10,10])
 
     def test_sphere_is_active(self):
@@ -335,12 +334,12 @@ class TestCapsuleFunctions(unittest.TestCase):
 
     def test_capsule_set_velocity(self):
         capsule = pal.body.Capsule((0,0,0),(1,1,1),mass=1)
-        capsule.set_linear_velocity(10,10,10)
+        capsule.set_linear_velocity((10,10,10))
         self.assertEqual(capsule.get_linear_velocity(), [10,10,10])
 
-    def test_capsule_get_angular_velocity(self):
+    def test_capsule_set_angular_velocity(self):
         capsule = pal.body.Capsule((0,0,0),(1,1,1),mass=1)
-        capsule.set_angular_velocity(10,10,10)
+        capsule.set_angular_velocity((10,10,10))
         self.assertEqual(capsule.get_angular_velocity(), [10,10,10])
 
     def test_capsule_is_active(self):
@@ -470,14 +469,14 @@ class TestCompoundFunctions(unittest.TestCase):
         compound = pal.body.Compound((0,0,0))
         compound.add_box((0,0,0,1,1,1), 1)
         compound.finalize()
-        compound.set_linear_velocity(10,10,10)
+        compound.set_linear_velocity((10,10,10))
         self.assertEqual(compound.get_linear_velocity(), [10,10,10])
 
-    def test_compound_get_angular_velocity(self):
+    def test_compound_set_angular_velocity(self):
         compound = pal.body.Compound((0,0,0))
         compound.add_box((0,0,0,1,1,1), 1)
         compound.finalize()
-        compound.set_angular_velocity(10,10,10)
+        compound.set_angular_velocity((10,10,10))
         self.assertEqual(compound.get_angular_velocity(), [10,10,10])
 
     def test_compound_is_active(self):
@@ -608,12 +607,12 @@ class TestConvexFunctions(unittest.TestCase):
 
     def test_convex_set_velocity(self):
         convex = pal.body.Convex((0,0,0),self.points,mass=1)
-        convex.set_linear_velocity(10,10,10)
+        convex.set_linear_velocity((10,10,10))
         self.assertEqual(convex.get_linear_velocity(), [10,10,10])
 
-    def test_convex_get_angular_velocity(self):
+    def test_convex_set_angular_velocity(self):
         convex = pal.body.Convex((0,0,0),self.points,mass=1)
-        convex.set_angular_velocity(10,10,10)
+        convex.set_angular_velocity((10,10,10))
         self.assertEqual(convex.get_angular_velocity(), [10,10,10])
 
     def test_convex_is_active(self):
@@ -624,6 +623,16 @@ class TestConvexFunctions(unittest.TestCase):
         convex = pal.body.Convex((0,0,0),self.points,mass=1)
         convex.set_active(False)
         self.assertTrue(not convex.is_active())
+
+#  ______                                           __                  ________  ________   ______  ________   ______  
+# /      \                                         |  \                |        \|        \ /      \|        \ /      \ 
+#|  $$$$$$\  ______   _______    ______    ______   \$$  _______        \$$$$$$$$| $$$$$$$$|  $$$$$$\\$$$$$$$$|  $$$$$$\
+#| $$ __\$$ /      \ |       \  /      \  /      \ |  \ /       \         | $$   | $$__    | $$___\$$  | $$   | $$___\$$
+#| $$|    \|  $$$$$$\| $$$$$$$\|  $$$$$$\|  $$$$$$\| $$|  $$$$$$$         | $$   | $$  \    \$$    \   | $$    \$$    \ 
+#| $$ \$$$$| $$    $$| $$  | $$| $$    $$| $$   \$$| $$| $$               | $$   | $$$$$    _\$$$$$$\  | $$    _\$$$$$$\
+#| $$__| $$| $$$$$$$$| $$  | $$| $$$$$$$$| $$      | $$| $$_____          | $$   | $$_____ |  \__| $$  | $$   |  \__| $$
+# \$$    $$ \$$     \| $$  | $$ \$$     \| $$      | $$ \$$     \         | $$   | $$     \ \$$    $$  | $$    \$$    $$
+#  \$$$$$$   \$$$$$$$ \$$   \$$  \$$$$$$$ \$$       \$$  \$$$$$$$          \$$    \$$$$$$$$  \$$$$$$    \$$     \$$$$$$ 
 
 class TestGenericFunctions(unittest.TestCase):
     def setUp(self):
@@ -640,6 +649,88 @@ class TestGenericFunctions(unittest.TestCase):
         generic = pal.body.GenericBody((0,0,0))
         generic.delete()
         self.assertEqual(len(pal._pal.all_objects),0)
+
+    def test_generic_get_location(self):
+        generic = pal.body.GenericBody((0,0,0))
+        self.assertEqual(generic.get_location(), [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1])
+
+    def test_generic_get_position(self):
+        generic = pal.body.GenericBody((0,0,0))
+        self.assertEqual(generic.get_position(), [0,0,0])
+
+    def test_generic_get_group(self):
+        generic = pal.body.GenericBody((0,0,0))
+        self.assertEqual(generic.get_group(), 0)
+
+    def test_generic_set_group(self):
+        generic = pal.body.GenericBody((0,0,0))
+        generic.set_group(10)
+        self.assertEqual(generic.get_group(), 10)
+
+    def test_generic_to_string(self):
+        generic = pal.body.GenericBody((0,0,0))
+        self.assertEqual(generic.__str__(), "A Generic at : 0.00, 0.00, 0.00")
+
+    def test_generic_set_position(self):
+        generic = pal.body.GenericBody((0,0,0))
+        generic.set_position((10,10,10))
+        self.assertEqual(generic.get_position(), [10,10,10])
+
+    def test_generic_set_orientation(self):
+        generic = pal.body.GenericBody((0,0,0))
+        generic.set_orientation((10,10,10))
+        self.assertEqual(generic.get_location(), [0.7040410041809082, 0.45647263526916504, 0.5440211296081543, 0.0, -0.7048034071922302, 0.5430330634117126, 0.45647263526916504, 0.0, -0.08705419301986694, -0.7048034071922302, 0.7040410041809082, 0.0, 0.0, 0.0, 0.0, 1.,])#TODO
+
+    def test_generic_apply_force(self):
+        generic = pal.body.GenericBody((0,0,0))
+        generic.apply_force((1,1,1))
+
+    def test_generic_apply_torque(self):
+        generic = pal.body.GenericBody((0,0,0))
+        generic.apply_torque((1,1,1))
+
+    def test_generic_apply_force_pos(self):
+        generic = pal.body.GenericBody((0,0,0))
+        generic.apply_force((1,1,1),pos=(1,1,1))
+
+    def test_generic_apply_impulse(self):
+        generic = pal.body.GenericBody((0,0,0))
+        generic.apply_impulse((1,1,1))
+
+    def test_generic_apply_angular_impulse(self):
+        generic = pal.body.GenericBody((0,0,0))
+        generic.apply_angular_impulse((1,1,1))
+
+    def test_generic_apply_impulse_pos(self):
+        generic = pal.body.GenericBody((0,0,0))
+        generic.apply_impulse((1,1,1),pos=(1,1,1))
+
+    def test_generic_get_velocity(self):
+        generic = pal.body.GenericBody((0,0,0))
+        self.assertEqual(generic.get_linear_velocity(), [0,0,0])
+
+    def test_generic_get_angular_velocity(self):
+        generic = pal.body.GenericBody((0,0,0))
+        self.assertEqual(generic.get_angular_velocity(), [0,0,0])
+
+    def test_generic_set_velocity(self):
+        generic = pal.body.GenericBody((0,0,0))
+        generic.set_linear_velocity((10,10,10))
+        self.assertEqual(generic.get_linear_velocity(), [10,10,10])
+
+    def test_generic_set_angular_velocity(self):
+        generic = pal.body.GenericBody((0,0,0))
+        generic.set_angular_velocity((10,10,10))
+        self.assertEqual(generic.get_angular_velocity(), [10,10,10])
+
+    def test_generic_is_active(self):
+        generic = pal.body.GenericBody((0,0,0))
+        self.assertTrue(generic.is_active())
+
+    def test_generic_set_active(self):
+        generic = pal.body.GenericBody((0,0,0))
+        generic.set_active(False)
+        self.assertTrue(not generic.is_active())
 
     def test_generic_dynamics_type(self):
         generic = pal.body.GenericBody((0,0,0))
@@ -696,11 +787,11 @@ class TestGenericFunctions(unittest.TestCase):
 
 
 suite = [unittest.TestLoader().loadTestsFromTestCase(TestBoxFunctions),
-        unittest.TestLoader().loadTestsFromTestCase(TestSphereFunctions),
-        unittest.TestLoader().loadTestsFromTestCase(TestCapsuleFunctions),
-        unittest.TestLoader().loadTestsFromTestCase(TestCompoundFunctions),
-        unittest.TestLoader().loadTestsFromTestCase(TestConvexFunctions)]
-        #unittest.TestLoader().loadTestsFromTestCase(TestGenericFunctions)]
+         unittest.TestLoader().loadTestsFromTestCase(TestSphereFunctions),
+         unittest.TestLoader().loadTestsFromTestCase(TestCapsuleFunctions),
+         unittest.TestLoader().loadTestsFromTestCase(TestCompoundFunctions),
+         unittest.TestLoader().loadTestsFromTestCase(TestConvexFunctions),
+         unittest.TestLoader().loadTestsFromTestCase(TestGenericFunctions)]
 
 if __name__ == "__main__":
     suite = unittest.TestSuite(suite)

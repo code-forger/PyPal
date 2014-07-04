@@ -152,56 +152,6 @@ palBodyBase
          
         virtual void    SetActive (bool active)=0
     }
-         palGenericBody
-         {
-            virtual void    Init (const palMatrix4x4 &pos)
-
-            virtual void    SetDynamicsType (palDynamicsType dynType)
-             
-            virtual void    SetGravityEnabled (bool enabled)=0
-             
-            virtual bool    IsGravityEnabled () const =0
-             
-            virtual void    SetCollisionResponseEnabled (bool enabled)=0
-             
-            virtual bool    IsCollisionResponseEnabled () const =0
-             
-            virtual void    SetMass (Float mass)
-             
-            virtual void    SetInertia (Float Ixx, Float Iyy, Float Izz)
-             
-            virtual void    GetInertia (Float &Ixx, Float &Iyy, Float &Izz)
-             
-            virtual void    SetLinearDamping (Float)
-             
-            virtual Float   GetLinearDamping () const
-             
-            virtual void    SetAngularDamping (Float)
-             
-            virtual Float   GetAngularDamping () const
-             
-            virtual void    SetMaxAngularVelocity (Float maxAngVel)
-                Artificial maximum magnitude of angular velocity.
-             
-            virtual Float   GetMaxAngularVelocity () const
-             
-            virtual void    ConnectGeometry (palGeometry *pGeom)
-             
-            virtual const PAL_VECTOR
-            < palGeometry * > &     GetGeometries ()
-             
-            virtual unsigned int    GetNumGeometries ()
-             
-            virtual void    RemoveGeometry (palGeometry *pGeom)
-             
-            virtual bool    IsDynamic () const
-             
-            virtual bool    IsKinematic () const
-             
-            virtual bool    IsStatic () const
-             
-            palDynamicsType     GetDynamicsType () const 
-         }
         palSoftBody
         {
             virtual int     GetNumParticles () const =0
@@ -218,20 +168,6 @@ palBodyBase
              {
                 virtual void    Init (const Float *pParticles, const Float *pMass, const int nParticles, const int *pIndices, const int nIndices)=0
              }
-    palBoxBase
-    {
-        virtual Float   GetWidth ()
-         
-        virtual Float   GetHeight ()
-         
-        virtual Float   GetDepth ()
-    }
-         palStaticBox
-         {
-            virtual void    Init (Float x, Float y, Float z, Float width, Float height, Float depth)
-
-            virtual void    Init (const palMatrix4x4 &pos, Float width, Float height, Float depth)
-         }
     palCapsuleBase
     {
         virtual void   Init (const palMatrix4x4 &pos, Float radius, Float length, Float mass)
@@ -310,12 +246,6 @@ palBodyBase
     {
         palStatic (const palStatic &obj)
     }
-         palStaticBox
-         {
-            virtual void    Init (Float x, Float y, Float z, Float width, Float height, Float depth)
-
-            virtual void    Init (const palMatrix4x4 &pos, Float width, Float height, Float depth)
-         }
          palStaticCapsule
          {
             virtual void   Init (Float x, Float y, Float z, Float radius, Float length)

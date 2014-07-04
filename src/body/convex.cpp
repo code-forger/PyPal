@@ -81,13 +81,19 @@ extern "C"
             vec[i] = v._vec[i];
     }
 
-    void body_convex_set_linear_velocity(palConvex* c, palVector3 v)
+    void body_convex_set_linear_velocity(palConvex* c, float vec[3])
     {
+        palVector3 v;
+        for (int i = 0; i < 3; i++)
+            v._vec[i] = vec[i];
         c->SetLinearVelocity(v);
     }
 
-    void body_convex_set_linear_angular(palConvex* c, palVector3 v)
+    void body_convex_set_angular_velocity(palConvex* c, float vec[3])
     {
+        palVector3 v;
+        for (int i = 0; i < 3; i++)
+            v._vec[i] = vec[i];
         c->SetAngularVelocity(v);
     }
 

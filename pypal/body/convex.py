@@ -98,6 +98,20 @@ class Convex(_pal.PalObject):
         ret = _pal.Vec3()
         _pal.lib.body_convex_get_angular_velocity(self.obj, ret)
         return [x for x in ret]
+
+    def set_linear_velocity(self, velocity):
+        """sets the linear velocity og the object"""
+        vec = _pal.Vec3()
+        for i in range(3):
+            vec[i] = velocity[i]
+        _pal.lib.body_convex_set_linear_velocity(self.obj, vec)
+
+    def set_angular_velocity(self, velocity):
+        """sets the angular velocity og the object"""
+        vec = _pal.Vec3()
+        for i in range(3):
+            vec[i] = velocity[i]
+        _pal.lib.body_convex_set_angular_velocity(self.obj, vec)
         
     def is_active(self):
         """Returns true if the body is not asleep."""

@@ -81,13 +81,19 @@ extern "C"
             vec[i] = v._vec[i];
     }
 
-    void body_box_set_linear_velocity(palBox* b, palVector3 v)
+    void body_box_set_linear_velocity(palBox* b, float vec[3])
     {
+        palVector3 v;
+        for (int i = 0; i < 3; i++)
+            v._vec[i] = vec[i];
         b->SetLinearVelocity(v);
     }
 
-    void body_box_set_linear_angular(palBox* b, palVector3 v)
+    void body_box_set_angular_velocity(palBox* b, float vec[3])
     {
+        palVector3 v;
+        for (int i = 0; i < 3; i++)
+            v._vec[i] = vec[i];
         b->SetAngularVelocity(v);
     }
 

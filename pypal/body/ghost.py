@@ -3,7 +3,6 @@ from pypal import private_globals as pal
 import ctypes as c
 import weakref
 import math
-from bodybase import BodyBase
 from generic_body import GenericBody
 class Ghost(GenericBody):
     def __init__(self, pos, rotation=[0,0,0]):

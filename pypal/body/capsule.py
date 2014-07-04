@@ -1,7 +1,6 @@
 from pypal import private_globals as _pal
 import ctypes as c
 import weakref
-from bodybase import BodyBase
 class Capsule(_pal.PalObject):
     def __init__(self, pos, size, mass = 1.):
         """
@@ -78,6 +77,20 @@ class Capsule(_pal.PalObject):
         ret = _pal.Vec3()
         _pal.lib.body_capsule_get_angular_velocity(self.obj, ret)
         return [x for x in ret]
+
+    def set_linear_velocity(self, velocity):
+        """sets the linear velocity og the object"""
+        vec = _pal.Vec3()
+        for i in range(3):
+            vec[i] = velocity[i]
+        _pal.lib.body_capsule_set_linear_velocity(self.obj, vec)
+
+    def set_angular_velocity(self, velocity):
+        """sets the angular velocity og the object"""
+        vec = _pal.Vec3()
+        for i in range(3):
+            vec[i] = velocity[i]
+        _pal.lib.body_capsule_set_angular_velocity(self.obj, vec)
         
     def is_active(self):
         """Returns true if the body is not asleep."""
