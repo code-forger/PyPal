@@ -175,6 +175,26 @@ extern "C"
         g->ConnectGeometry(geom);
     }
 
+    void body_generic_connect_capsule_geometry(palGenericBody* g,palCapsuleGeometry*geom)
+    {
+        g->ConnectGeometry(geom);
+    }
+
+    void body_generic_connect_convex_geometry(palGenericBody* g,palConvexGeometry*geom)
+    {
+        g->ConnectGeometry(geom);
+    }
+
+    void body_generic_connect_concave_geometry(palGenericBody* g,palConcaveGeometry*geom)
+    {
+        g->ConnectGeometry(geom);
+    }
+
+    void body_generic_connect_sphere_geometry(palGenericBody* g,palSphereGeometry*geom)
+    {
+        g->ConnectGeometry(geom);
+    }
+
     void body_generic_remove_box_geometry(palGenericBody* g,palGeometry*geom, char typechar)
     {
         //g->RemoveGeometry(GEOMCASTUP(typechar,geom));

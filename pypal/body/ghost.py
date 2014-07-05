@@ -18,7 +18,7 @@ class Ghost(GenericBody):
         #    self.actions.append(a)
 
     def contains_object(self, target):
-        for contact in target.get_contacts():
+        for contact in pypal.get_contacts(target):
             for ref in contact:
                 if ref in weakref.getweakrefs(self):
                     return True

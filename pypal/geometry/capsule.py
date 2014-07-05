@@ -1,16 +1,37 @@
-from pypal import private_globals as pal
+from pypal import private_globals as _pal
 import ctypes as c
 import weakref
-from geometry_base import GeometryBase
-class Capsule(GeometryBase):
-    typechar = 'c'
-    def __init__(self,rect, rotation = [0,0,0],mass = 1):
-        """
-        constructs a capsule
-        
-        rect: a 5 part tuple with x,y,z,radius,length.
-        mass: the mass of the object, if mass is specified it will be used.
-        density: if no mass is specified and a density is, the mass will be 
-        calculated from the density and the volumne.
-        """
-        self.obj = pal.lib.create_geometry_capsule(c.c_float(rect[0]),c.c_float(rect[1]),c.c_float(rect[2]),c.c_float(rotation[0]),c.c_float(rotation[1]),c.c_float(rotation[2]),c.c_float(rect[3]),c.c_float(rect[4]),c.c_float(mass))
+class Capsule(_pal.PalObject):
+    def __init__(self,pos, size, rotation = [0,0,0],mass = 1):
+        self.obj = _pal.lib.geometry_capsule_create(c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]),c.c_float(rotation[0]),c.c_float(rotation[1]),c.c_float(rotation[2]),c.c_float(size[0]),c.c_float(size[1]),c.c_float(mass))
+
+    def get_location(self):
+        ret = _pal.Mat4x4()
+        print "HERE"
+        _pal.lib.geometry_capsule_get_location(self.obj, ret)
+        return [x for x in ret]
+
+    def get_offsett(self):
+        ret = _pal.Mat4x4()
+        _pal.lib.geometry_capsule_get_offsett(self.obj, ret)
+        return [x for x in ret]
+
+    def get_position(self):
+        ret = _pal.Vec3()
+        _pal.lib.geometry_capsule_get_position(self.obj, ret)
+        return [x for x in ret]
+
+    def set_margin(self, margin):
+        _pal.lib.geometry_capsule_set_margin(self.obj, c.c_float(margin))
+
+    def get_margin(self):
+        _pal.lib.geometry_capsule_get_margin.restype = c.c_float
+        return _pal.lib.geometry_capsule_get_margin(self.obj)
+
+    def set_mass(self, mass):
+        _pal.lib.geometry_capsule_set_mass(self.obj, c.c_float(mass))
+
+    def get_mass(self):
+        _pal.lib.geometry_capsule_get_mass.restype = c.c_float
+        return _pal.lib.geometry_capsule_get_mass(self.obj)
+

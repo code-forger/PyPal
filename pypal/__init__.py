@@ -136,3 +136,47 @@ def load_vertices_from_collada_file(f_name):
         objects.append(mesh.geometries[i].primitives[0].vertex.tolist())
         matricies.append(mesh.geometries[i].collada.scene.nodes[i].matrix[2][:3])
     return objects, matricies
+
+
+
+
+def notify_collision(body,enabled):
+    """informs the body that it can at any time have its current collision points requested"""
+    _pal.lib.collision_notify(body.obj,enabled)
+    if enabled:
+        notified_objects.append(weakref.proxy(body))
+    elif body.obj in notified_objects:
+        notified_objects.remove(body)
+
+def get_contacts(body):
+    """returns the bodies that this body is currently in contact with."""
+    contacts = _pal.lib.get_contacts(body.obj)
+    ret = []
+    _pal.lib.contacts_get_distance.restype = c.c_float
+    try:
+        for x in range(_pal.lib.contacts_get_size(contacts)):
+            ret.append([weakref.proxy(_pal.all_objects[str(_pal.lib.contacts_get_body_one(contacts,x))]),
+                      weakref.proxy(_pal.all_objects[str(_pal.lib.contacts_get_body_two(contacts,x))])])
+        _pal.lib.remove_contact(contacts)
+    except KeyError:
+        pass
+    return ret
+    
+def get_unique_contacts(body):
+    """returns the bodies that this body is currently in contact with."""
+    contacts = _pal.lib.get_contacts(body.obj)
+    ret = []
+    _pal.lib.contacts_get_distance.restype = c.c_float
+    try:
+        for x in range(_pal.lib.contacts_get_size(contacts)):
+            a = weakref.proxy(_pal.all_objects[str(_pal.lib.contacts_get_body_one(contacts,x))])
+            b = weakref.proxy(_pal.all_objects[str(_pal.lib.contacts_get_body_two(contacts,x))])
+            if [a,b] not in ret:
+                ret.append([a,b])
+        _pal.lib.remove_contact(contacts)
+    except KeyError:
+        pass
+    try:
+        print ret[0] == ret[1]
+    except: pass
+    return ret

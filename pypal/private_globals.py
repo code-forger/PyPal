@@ -32,5 +32,6 @@ class PalObject(object):
         lib.remove_object(self.obj)
         del all_objects[str(self.obj)]
 
+
 Vec3 = c.c_float * 3
 Mat4x4 = c.c_float * 16

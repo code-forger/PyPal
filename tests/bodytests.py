@@ -636,6 +636,17 @@ class TestConvexFunctions(unittest.TestCase):
 
 class TestGenericFunctions(unittest.TestCase):
     def setUp(self):
+        self.points = ((1,1,1),
+                       (0,1,1),
+                       (1,0,1),
+                       (1,1,0),
+                       (0,0,1),
+                       (0,1,0),
+                       (1,0,0),
+                       (0,0,0))
+        self.triangles = ((0,1,2),
+                          (2,3,4),
+                          (4,5,6))
         pal.init()
 
     def tearDown(self):
@@ -768,20 +779,40 @@ class TestGenericFunctions(unittest.TestCase):
     #    pal.update(1)
     #    self.assertEqual(generic.angular_damping,1)
 
-    def test_generic_connect_geometry(self):
+    def test_generic_connect_box_geometry(self):
         generic = pal.body.GenericBody((0,0,0))
-        geometry = pal.geometry.Box((0,0,0,1,1,1))  
+        geometry = pal.geometry.Box((0,0,0),(1,1,1))  
+        generic.connect_geometry(geometry)
+
+    def test_generic_connect_capsule_geometry(self):
+        generic = pal.body.GenericBody((0,0,0))
+        geometry = pal.geometry.Capsule((0,0,0,1,1,1))  
+        generic.connect_geometry(geometry)
+
+    def test_generic_connect_convex_geometry(self):
+        generic = pal.body.GenericBody((0,0,0))
+        geometry = pal.geometry.Convex((0,0,0),self.points, self.triangles)  
+        generic.connect_geometry(geometry)
+
+    def test_generic_connect_concave_geometry(self):
+        generic = pal.body.GenericBody((0,0,0))
+        geometry = pal.geometry.Concave((0,0,0,1,1,1))  
+        generic.connect_geometry(geometry)
+
+    def test_generic_connect_sphere_geometry(self):
+        generic = pal.body.GenericBody((0,0,0))
+        geometry = pal.geometry.Sphere((0,0,0,1,1,1))  
         generic.connect_geometry(geometry)
 
     def test_generic_remove_geometry(self):
         generic = pal.body.GenericBody((0,0,0))
-        geometry = pal.geometry.Box((0,0,0,1,1,1)) 
+        geometry = pal.geometry.Box((0,0,0),(1,1,1)) 
         generic.connect_geometry(geometry)  
         generic.remove_geometry(geometry)
 
     def test_generic_get_geometry(self):
         generic = pal.body.GenericBody((0,0,0))
-        geometry = pal.geometry.Box((0,0,0,1,1,1))  
+        geometry = pal.geometry.Box((0,0,0),(1,1,1))  
         generic.connect_geometry(geometry)
         self.assertEqual(generic.get_geometries(),[geometry])
 

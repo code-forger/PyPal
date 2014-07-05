@@ -210,6 +210,14 @@ class GenericBody(_pal.PalObject):
         """
         if (isinstance(geometry, libgeometry.Box)):
             _pal.lib.body_generic_connect_box_geometry(self.obj, geometry.obj)
+        elif (isinstance(geometry, libgeometry.Capsule)):
+            _pal.lib.body_generic_connect_capsule_geometry(self.obj, geometry.obj)
+        elif (isinstance(geometry, libgeometry.Convex)):
+            _pal.lib.body_generic_connect_convex_geometry(self.obj, geometry.obj)
+        elif (isinstance(geometry, libgeometry.Concave)):
+            _pal.lib.body_generic_connect_concave_geometry(self.obj, geometry.obj)
+        elif (isinstance(geometry, libgeometry.Sphere)):
+            _pal.lib.body_generic_connect_sphere_geometry(self.obj, geometry.obj)
         self._geometries.append(geometry)
 
     def remove_geometry(self, geometry):

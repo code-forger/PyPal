@@ -52,14 +52,40 @@ class TestCapsuleFunctions(unittest.TestCase):
     def tearDown(self):
         pal.cleanup()
 
-    def test_capsule_create(self):
-        pal.geometry.Capsule((0,0,0,1,1))
+    def test_box_create(self):
+        pal.geometry.Capsule((0,0,0),(1,1))
         self.assertEqual(len(pal._pal.all_objects),1)
 
-    def test_capsule_delete(self):
-        capsule = pal.geometry.Capsule((0,0,0,1,1))
+    def test_box_delete(self):
+        capsule = pal.geometry.Capsule((0,0,0),(1,1))
         capsule.delete()
         self.assertEqual(len(pal._pal.all_objects),0)
+
+    #def test_capsule_get_location(self):
+    #    capsule = pal.geometry.Capsule((0,0,0),(1,1))
+    #    self.assertEqual(capsule.get_location(), [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1])
+
+    #def test_capsule_get_position(self):
+    #    capsule = pal.geometry.Capsule((0,0,0),(1,1))
+    #    self.assertEqual(capsule.get_position(), [0,0,0])
+
+    def test_capsule_get_mass(self):
+        capsule = pal.geometry.Capsule((0,0,0),(1,1))
+        self.assertEqual(capsule.get_mass(), 1)
+
+    def test_capsule_set_mass(self):
+        capsule = pal.geometry.Capsule((0,0,0),(1,1))
+        capsule.set_mass(10)
+        self.assertEqual(capsule.get_mass(), 10)
+
+    def test_capsule_get_margin(self):
+        capsule = pal.geometry.Capsule((0,0,0),(1,1))
+        self.assertEqual(capsule.get_margin(), 0.03999999910593033)
+
+    def test_capsule_set_margin(self):
+        capsule = pal.geometry.Capsule((0,0,0),(1,1))
+        capsule.set_margin(10)
+        self.assertEqual(capsule.get_margin(), 10)
 
 class TestSphereFunctions(unittest.TestCase):
     def setUp(self):
@@ -101,9 +127,9 @@ class TestConvexFunctions(unittest.TestCase):
         convex.delete()
         self.assertEqual(len(pal._pal.all_objects),0)
 
-suite = [unittest.TestLoader().loadTestsFromTestCase(TestBoxFunctions)]
+suite = [unittest.TestLoader().loadTestsFromTestCase(TestBoxFunctions),
+        unittest.TestLoader().loadTestsFromTestCase(TestCapsuleFunctions)]
         #unittest.TestLoader().loadTestsFromTestCase(TestSphereFunctions),
-        #unittest.TestLoader().loadTestsFromTestCase(TestCapsuleFunctions),
         #unittest.TestLoader().loadTestsFromTestCase(TestConvexFunctions)]
 
 if __name__ == "__main__":

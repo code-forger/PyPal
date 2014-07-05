@@ -1,0 +1,49 @@
+void GetPosition (palVector3 &pos)
+palVector3 geometry_capusle_get_position(palCapusleGeometry*)
+float(3) get_position()
+
+const palMatrix4x4 & GetLocationMatrix ()
+ palMatrix geometry_capusle_get_location(palCapusleGeometry*)
+#float(16) get_location()
+
+const palMatrix4x4 & GetOffsetMatrix ()
+ palMatrix geometry_capusle_get_offsett(palCapusleGeometry*)
+#float(16) get_location()
+
+#Float * GenerateMesh_Vertices ()
+
+#int * GenerateMesh_Indices ()
+
+#int GetNumberOfVertices ()
+
+#int GetNumberOfIndices ()
+
+void SetMass (Float mass)
+void geometry_capusle_set_mass(palCapusleGeometry*,float)
+set_mass(float)
+
+#Float GetMass ()
+float geometry_capusle_get_mass(palCapusleGeometry*,)
+float get_mass()
+
+#palBodyBase * GetBaseBody ()
+
+#void CalculateInertia ()
+
+Float GetMargin ()
+float geometry_capusle_get_margin(palCapusleGeometry*,)
+float get_margin()
+
+
+bool SetMargin (Float margin)
+bool geometry_capusle_set_margin(palCapusleGeometry*,float)
+bool set_margin(float)
+
+
+void Init (const palMatrix4x4 &pos, Float width, Float height, Float mass)
+palCapusleGeometry * geometry_capusle_create(Float x, Float y, Float z,Float rx, Float ry, Float rz, Float width, Float depth, Float mass)
+Capusle()    
+
+#void CalculateInertia ()
+
+#palVector3 GetXYZDimensions ()
