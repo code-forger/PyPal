@@ -1,0 +1,49 @@
+void GetPosition (palVector3 &pos)
+palVector3 geometry_box_get_position(palBoxGeometry*)
+float(3) get_position()
+
+const palMatrix4x4 & GetLocationMatrix ()
+ palMatrix geometry_box_get_location(palBoxGeometry*)
+#float(16) get_location()
+
+const palMatrix4x4 & GetOffsetMatrix ()
+ palMatrix geometry_box_get_offsett(palBoxGeometry*)
+#float(16) get_location()
+
+#Float * GenerateMesh_Vertices ()
+
+#int * GenerateMesh_Indices ()
+
+#int GetNumberOfVertices ()
+
+#int GetNumberOfIndices ()
+
+void SetMass (Float mass)
+void geometry_box_set_mass(palBoxGeometry*,float)
+set_mass(float)
+
+#Float GetMass ()
+float geometry_box_get_mass(palBoxGeometry*,)
+float get_mass()
+
+#palBodyBase * GetBaseBody ()
+
+#void CalculateInertia ()
+
+Float GetMargin ()
+float geometry_box_get_margin(palBoxGeometry*,)
+float get_margin()
+
+
+bool SetMargin (Float margin)
+bool geometry_box_set_margin(palBoxGeometry*,float)
+bool set_margin(float)
+
+
+void Init (const palMatrix4x4 &pos, Float width, Float height, Float depth, Float mass)
+palBoxGeometry * geometry_box_create(Float x, Float y, Float z,Float rx, Float ry, Float rz, Float width, Float height, Float depth, Float mass)
+Box()    
+
+#void CalculateInertia ()
+
+#palVector3 GetXYZDimensions ()

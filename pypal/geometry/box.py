@@ -7,6 +7,7 @@ class Box(_pal.PalObject):
 
     def get_location(self):
         ret = _pal.Mat4x4()
+        print "HERE"
         _pal.lib.geometry_box_get_location(self.obj, ret)
         return [x for x in ret]
 
@@ -19,3 +20,18 @@ class Box(_pal.PalObject):
         ret = _pal.Vec3()
         _pal.lib.geometry_box_get_position(self.obj, ret)
         return [x for x in ret]
+
+    def set_margin(self, margin):
+        _pal.lib.geometry_box_set_margin(self.obj, c.c_float(margin))
+
+    def get_margin(self):
+        _pal.lib.geometry_box_get_margin.restype = c.c_float
+        return _pal.lib.geometry_box_get_margin(self.obj)
+
+    def set_mass(self, mass):
+        _pal.lib.geometry_box_set_mass(self.obj, c.c_float(mass))
+
+    def get_mass(self):
+        _pal.lib.geometry_box_get_mass.restype = c.c_float
+        return _pal.lib.geometry_box_get_mass(self.obj)
+
