@@ -284,17 +284,6 @@ palGeometry
      
     virtual bool    SetMargin (Float margin)
 }
-     palBoxGeometry
-     {
-        virtual void    Init (const palMatrix4x4 &pos, Float width, Float height, Float depth, Float mass)
-
-        virtual void    CalculateInertia ()
-         
-        virtual void    GenericInit (const palMatrix4x4 &location, const void *param_array)
-         
-        palVector3  GetXYZDimensions () const
-            Depending on when axis is up, x,y, and z maps differently to width depth, and height. 
-     }
      palCapsuleGeometry
      {
         virtual void    Init (const palMatrix4x4 &pos, Float radius, Float length, Float mass)

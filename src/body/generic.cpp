@@ -170,12 +170,12 @@ extern "C"
         return g->GetAngularDamping();
     }
 
-    void body_generic_connect_geometry(palGenericBody* g,palGeometry*geom, char typechar)
+    void body_generic_connect_box_geometry(palGenericBody* g,palBoxGeometry*geom)
     {
-        //g->ConnectGeometry(GEOMCASTUP(typechar,geom));
+        g->ConnectGeometry(geom);
     }
 
-    void body_generic_remove_geometry(palGenericBody* g,palGeometry*geom, char typechar)
+    void body_generic_remove_box_geometry(palGenericBody* g,palGeometry*geom, char typechar)
     {
         //g->RemoveGeometry(GEOMCASTUP(typechar,geom));
     }

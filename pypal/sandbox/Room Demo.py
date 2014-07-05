@@ -24,7 +24,7 @@ room2offset = 20
 room3offset = 40
 
 
-player = pal.body.Box((0,1,0,1,1,1),mass=10)
+player = pal.body.Box((0,1,0),(1,1,1),mass=10)
 objects.append(glh.Box(player, (255, 255, 0)))
 
 
@@ -42,50 +42,50 @@ def load_area_one():
 
     wipe_area_bodies()
 
-    terrain1 = pal.body.StaticBox((0,0,0,30,1,20))
+    terrain1 = pal.body.StaticBox((0,0,0),(30,1,20))
     objects.append(glh.Box(terrain1,(0,0,255)))
 
-    sbox11 = pal.body.StaticBox((15,1.5,0,1.,3.,20.))
+    sbox11 = pal.body.StaticBox((15,1.5,0),(1.,3.,20.))
     objects.append(glh.Box(sbox11, (255, 0, 0)))
-    sbox12 = pal.body.StaticBox((-15,1.5,0,1.,3.,20.))
+    sbox12 = pal.body.StaticBox((-15,1.5,0),(1.,3.,20.))
     objects.append(glh.Box(sbox12, (255, 0, 0)))
-    sbox13 = pal.body.StaticBox((0,1.5,10,30.,3.,1.))
+    sbox13 = pal.body.StaticBox((0,1.5,10),(30.,3.,1.))
     objects.append(glh.Box(sbox13, (255, 0, 0)))
-    sbox14 = pal.body.StaticBox((15/2.+1,1.5,-10,15.-1,3.,1.))
+    sbox14 = pal.body.StaticBox((15/2.+1,1.5,-10),(15.-1,3.,1.))
     objects.append(glh.Box(sbox14, (255, 0, 0)))
-    sbox15 = pal.body.StaticBox((-15/2.-1,1.5,-10,15.-1,3.,1.))
+    sbox15 = pal.body.StaticBox((-15/2.-1,1.5,-10),(15.-1,3.,1.))
     objects.append(glh.Box(sbox15, (255, 0, 0)))
 
-    terrain2 = pal.body.StaticBox((0,0,-room2offset,30,1,20))
+    terrain2 = pal.body.StaticBox((0,0,-room2offset),(30,1,20))
     objects.append(glh.Box(terrain2,(0,0,255)))
 
-    sbox21 = pal.body.StaticBox((15,1.5,-room2offset,1.,3.,20.))
+    sbox21 = pal.body.StaticBox((15,1.5,-room2offset),(1.,3.,20.))
     objects.append(glh.Box(sbox21, (255, 0, 0)))
-    sbox22 = pal.body.StaticBox((-15,1.5,-10/2.-1-room2offset,1.,3.,10.-1))
+    sbox22 = pal.body.StaticBox((-15,1.5,-10/2.-1-room2offset),(1.,3.,10.-1))
     objects.append(glh.Box(sbox22, (255, 0, 0)))
-    sbox26 = pal.body.StaticBox((-15,1.5,10/2.+1-room2offset,1.,3.,10.-1))
+    sbox26 = pal.body.StaticBox((-15,1.5,10/2.+1-room2offset),(1.,3.,10.-1))
     objects.append(glh.Box(sbox26, (255, 0, 0)))
-    sbox23 = pal.body.StaticBox((15/2.+1,1.5,10-room2offset,15.-1,3.,1.))
+    sbox23 = pal.body.StaticBox((15/2.+1,1.5,10-room2offset),(15.-1,3.,1.))
     objects.append(glh.Box(sbox23, (255, 0, 0)))
-    sbox25 = pal.body.StaticBox((-15/2.-1,1.5,10-room2offset,15.-1,3.,1.))
+    sbox25 = pal.body.StaticBox((-15/2.-1,1.5,10-room2offset),(15.-1,3.,1.))
     objects.append(glh.Box(sbox25, (255, 0, 0)))
-    sbox24 = pal.body.StaticBox((0,1.5,-10-room2offset,30.,3.,1.))
+    sbox24 = pal.body.StaticBox((0,1.5,-10-room2offset),(30.,3.,1.))
     objects.append(glh.Box(sbox24, (255, 0, 0)))
 
 
-    bridge_floor = pal.body.StaticBox((0-(room3offset/2),0,-room2offset,10,1,5))
+    bridge_floor = pal.body.StaticBox((0-(room3offset/2),0,-room2offset),(10,1,5))
     objects.append(glh.Box(bridge_floor,(0,0,255)))
 
-    sboxbridge1 = pal.body.StaticBox((-room2offset,1.5,2.5-(room3offset/2),10.,3.,1.))
+    sboxbridge1 = pal.body.StaticBox((-room2offset,1.5,2.5-(room3offset/2)),(10.,3.,1.))
     objects.append(glh.Box(sboxbridge1, (255, 0, 0)))
-    sboxbridge2 = pal.body.StaticBox((-room2offset,1.5,-2.5-(room3offset/2),10.,3.,1.))
+    sboxbridge2 = pal.body.StaticBox((-room2offset,1.5,-2.5-(room3offset/2)),(10.,3.,1.))
     objects.append(glh.Box(sboxbridge2, (255, 0, 0)))
 
 
-    trigger = pal.body.Ghost((0-(room3offset/2)-5,0,-room2offset,5,5,5))
+    trigger = pal.body.Ghost((0-(room3offset/2)-5,0,-room2offset),(5,5,5))
 
     def switch_on_trigger(name,trigger):
-        if trigger.collide(player):
+        if trigger.contains_object(player):
             pal.get_actions()[name].pause()
             load_area_two()
 
@@ -116,36 +116,36 @@ def load_area_two():
     objects.append(glh.Box(sbox35, (255, 0, 0)))
 
 
-    terrain4 = pal.body.StaticBox((0-room3offset,0,-room2offset,30,1,20))
+    terrain4 = pal.body.StaticBox((0-room3offset,0,-room2offset),(30,1,20))
     objects.append(glh.Box(terrain4,(0,0,255)))
 
-    sbox41 = pal.body.StaticBox((-15-room3offset,1.5,-room2offset,1.,3.,20.))
+    sbox41 = pal.body.StaticBox((-15-room3offset,1.5,-room2offset),(1.,3.,20.))
     objects.append(glh.Box(sbox41, (255, 0, 0)))
-    sbox42 = pal.body.StaticBox((15-room3offset,1.5,-10/2.-1-room2offset,1.,3.,10.-1))
+    sbox42 = pal.body.StaticBox((15-room3offset,1.5,-10/2.-1-room2offset),(1.,3.,10.-1))
     objects.append(glh.Box(sbox42, (255, 0, 0)))
-    sbox46 = pal.body.StaticBox((15-room3offset,1.5,10/2.+1-room2offset,1.,3.,10.-1))
+    sbox46 = pal.body.StaticBox((15-room3offset,1.5,10/2.+1-room2offset),(1.,3.,10.-1))
     objects.append(glh.Box(sbox46, (255, 0, 0)))
-    sbox43 = pal.body.StaticBox((15/2.+1-room3offset,1.5,10-room2offset,15.-1,3.,1.))
+    sbox43 = pal.body.StaticBox((15/2.+1-room3offset,1.5,10-room2offset),(15.-1,3.,1.))
     objects.append(glh.Box(sbox43, (255, 0, 0)))
-    sbox45 = pal.body.StaticBox((-15/2.-1-room3offset,1.5,10-room2offset,15.-1,3.,1.))
+    sbox45 = pal.body.StaticBox((-15/2.-1-room3offset,1.5,10-room2offset),(15.-1,3.,1.))
     objects.append(glh.Box(sbox45, (255, 0, 0)))
-    sbox44 = pal.body.StaticBox((0-room3offset,1.5,-10-room2offset,30.,3.,1.))
+    sbox44 = pal.body.StaticBox((0-room3offset,1.5,-10-room2offset),(30.,3.,1.))
     objects.append(glh.Box(sbox44, (255, 0, 0)))
 
 
-    bridge_floor = pal.body.StaticBox((0-(room3offset/2),0,-room2offset,10,1,5))
+    bridge_floor = pal.body.StaticBox((0-(room3offset/2),0,-room2offset),(10,1,5))
     objects.append(glh.Box(bridge_floor,(0,0,255)))
 
-    sboxbridge1 = pal.body.StaticBox((-room2offset,1.5,2.5-(room3offset/2),10.,3.,1.))
+    sboxbridge1 = pal.body.StaticBox((-room2offset),(1.5,2.5-(room3offset/2),10.,3.,1.))
     objects.append(glh.Box(sboxbridge1, (255, 0, 0)))
-    sboxbridge2 = pal.body.StaticBox((-room2offset,1.5,-2.5-(room3offset/2),10.,3.,1.))
+    sboxbridge2 = pal.body.StaticBox((-room2offset),(1.5,-2.5-(room3offset/2),10.,3.,1.))
     objects.append(glh.Box(sboxbridge2, (255, 0, 0)))
 
-    trigger = pal.body.Ghost((0-(room3offset/2)+5,0,-room2offset,5,5,5))
+    trigger = pal.body.Ghost((0-(room3offset/2)+5,0,-room2offset),(5,5,5))
 
 
     def switch_on_trigger(name,trigger):
-        if trigger.collide(player):
+        if trigger.contains_object(player):
             pal.get_actions()[name].pause()
             load_area_one()
 

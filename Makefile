@@ -15,7 +15,8 @@ REQUIREDOBJECTS = build/PyPal.o\
 				  build/body/generic.o\
 				  build/body/character.o\
 				  build/body/static/box.o\
-				  build/body/static/convex.o
+				  build/body/static/convex.o\
+				  build/geometry/box.o
 
 all: libPyPal.so
 
@@ -52,6 +53,10 @@ build/body/static/box.o: src/body/static/box.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
 
 build/body/static/convex.o: src/body/static/convex.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+
+# geometry body object rules
+build/geometry/box.o: src/geometry/box.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
 
 

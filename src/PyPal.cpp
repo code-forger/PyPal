@@ -251,16 +251,6 @@ extern "C"
         return pc;
     }
 
-    palBoxGeometry * create_geometry_box(Float x, Float y, Float z,Float rx, Float ry, Float rz, Float width, Float height, Float depth, Float mass)
-    {
-        palBoxGeometry *bg= PF->CreateBoxGeometry ();
-        palMatrix4x4 pos;
-        mat_set_translation(&pos, x, y, z);
-        mat_set_rotation(&pos, rx, ry, rz);
-        bg->Init (pos, width, height, depth, mass);
-        return bg;
-    }
-
     palStaticSphere * create_static_sphere(Float x, Float y, Float z, Float radius)
     {
         palStaticSphere *ps = dynamic_cast<palStaticSphere*>(PF->CreateObject("palStaticSphere"));

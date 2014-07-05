@@ -1,6 +1,7 @@
 from pypal import private_globals as _pal
 import ctypes as c
 import weakref
+import pypal.geometry as libgeometry
 class GenericBody(_pal.PalObject):
     typechar = 'g'
     def __init__(self, pos, rotation=[0,0,0]):
@@ -207,7 +208,8 @@ class GenericBody(_pal.PalObject):
 
         geometry: a pre initialised geometry
         """
-        _pal.lib.body_generic_connect_geometry(self.obj, geometry.obj, c.c_char(geometry.typechar))
+        if (isinstance(geometry, libgeometry.Box)):
+            _pal.lib.body_generic_connect_box_geometry(self.obj, geometry.obj)
         self._geometries.append(geometry)
 
     def remove_geometry(self, geometry):
@@ -217,7 +219,7 @@ class GenericBody(_pal.PalObject):
         geometry: a geometry that has been added
         """
         if geometry in self._geometries:
-            _pal.lib.body_generic_remove_geometry(self.obj, geometry.obj, c.c_char(geometry.typechar))
+            _pal.lib.body_generic_remove_geometry(self.obj, geometry.obj)
             self._geometries.remove(geometry)
 
     def get_geometries(self):
