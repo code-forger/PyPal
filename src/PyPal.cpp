@@ -251,42 +251,6 @@ extern "C"
         return pc;
     }
 
-
-    palStaticConvex* create_static_convex_no_triangles(Float x, Float y, Float z, const Float *pVertices, int nVertices)
-    {
-        palStaticConvex *pc = dynamic_cast<palStaticConvex*>(PF->CreateObject("palStaticConvex")); //create a box
-	    pc->Init(x, y, z, pVertices, nVertices);
-        return pc;
-    }
-
-    palStaticConvex* create_static_convex_triangles(float m1, float m2, float m3, float m4,
-                                                    float m5, float m6, float m7, float m8,
-                                                    float m9, float m10,float m11,float m12,
-                                                    float m13,float m14,float m15,float m16, const Float *pVertices, int nVertices, const int *pIndices, int nIndices)
-    {
-        palMatrix4x4 m;
-        m._11 = m1;
-        m._12 = m2;
-        m._13 = m3;
-        m._14 = m4;
-        m._21 = m5;
-        m._22 = m6;
-        m._23 = m7;
-        m._24 = m8;
-        m._31 = m9;
-        m._32 = m10;
-        m._33 = m11;
-        m._34 = m12;
-        m._41 = m13;
-        m._42 = m14;
-        m._43 = m15;
-        m._44 = m16;
-
-        palStaticConvex *pc = dynamic_cast<palStaticConvex*>(PF->CreateObject("palStaticConvex")); //create a box
-	    pc->Init(m, pVertices, nVertices, pIndices, nIndices);
-        return pc;
-    }
-
     palCharacterController * create_character(Float x, Float y, Float z, Float radius, Float length)
     {
         palCharacterController *pcc = dynamic_cast<palCharacterController*>(PF->CreateObject("palCharacterController")); //create a box
@@ -723,19 +687,6 @@ extern "C"
         pcc->Warp(direction);
     }
 }
-/*********************************************************
- *                                                       *
- *               the static convex functions             *
- *                                                       *
- *********************************************************/
-extern "C" 
-{
-    void static_convex_remove(palStaticConvex*c){
-        delete c;
-        c = NULL;
-    }
-}
-
 /*********************************************************
  *                                                       *
  *               the prismatic link functions            *
