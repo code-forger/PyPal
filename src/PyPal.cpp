@@ -251,28 +251,6 @@ extern "C"
         return pc;
     }
 
-    palCharacterController * create_character(Float x, Float y, Float z, Float radius, Float length)
-    {
-        palCharacterController *pcc = dynamic_cast<palCharacterController*>(PF->CreateObject("palCharacterController")); //create a box
-
-        palCharacterControllerDesc desc;
-        palCapsuleGeometry *pcg = PF->CreateCapsuleGeometry();
-
-        palMatrix4x4 pos;
-        mat_set_translation(&pos, x,y,z);
-        mat_set_rotation(&pos, 0,0,0);
-        pcg->Init (pos, radius, length, 1);
-        desc.m_pShape = pcg;
-        desc.m_Group = 1;
-        pcc->Init(desc);
-        palVector3 vec;
-        vec[0] = x;
-        vec[1] = y;
-        vec[2] = z;
-        pcc->Warp(vec);
-        return pcc;
-    }
-
     palBoxGeometry * create_geometry_box(Float x, Float y, Float z,Float rx, Float ry, Float rz, Float width, Float height, Float depth, Float mass)
     {
         palBoxGeometry *bg= PF->CreateBoxGeometry ();
@@ -623,68 +601,6 @@ extern "C"
         y = v[1];
         z = v[2];
         mat_get_rotation((palMatrix4x4*)m,&x1,&y1,&z1);
-    }
-}
-
-/*********************************************************
- *                                                       *
- *               the character controller functions      *
- *                                                       *
- *********************************************************/
-extern "C"
-{
-
-    void character_get_matrix_location(palCharacterController*b,float&m1, float&m2, float&m3, float&m4,
-                                                          float&m5, float&m6, float&m7, float&m8,
-                                                          float&m9, float&m10,float&m11,float&m12,
-                                                          float&m13,float&m14,float&m15,float&m16)
-    {
-        palMatrix4x4 const *m = &(b)->GetLocationMatrix();//->GetBaseBody();
-        m1 = m->_11;
-        m2 = m->_12;
-        m3 = m->_13;
-        m4 = m->_14;
-        m5 = m->_21;
-        m6 = m->_22;
-        m7 = m->_23;
-        m8 = m->_24;
-        m9 = m->_31;
-        m10 = m->_32;
-        m11 = m->_33;
-        m12 = m->_34;
-        m13 = m->_41;
-        m14 = m->_42;
-        m15 = m->_43;
-        m16 = m->_44;
-    }
-
-    void character_get_primative_location(palCharacterController*b,float&x,float&y,float&z,float&x1,float&y1,float&z1)
-    {
-        palMatrix4x4 const *m = &(b)->m_Geometries.front()->GetLocationMatrix();//->GetBaseBody();
-        palVector3 v;
-        mat_get_translation(m, &v);
-        x = v[0];
-        y = v[1];
-        z = v[2];
-        mat_get_rotation((palMatrix4x4*)m,&x1,&y1,&z1);
-    }
-
-    void character_walk(palCharacterController*pcc,float x,float y,float z, float duration)
-    {
-        palVector3 direction;
-        direction[0] = x;
-        direction[1] = y;
-        direction[2] = z;
-        pcc->Walk(direction, duration);
-    }
-
-    void character_warp(palCharacterController*pcc,float x,float y,float z)
-    {
-        palVector3 direction;
-        direction[0] = x;
-        direction[1] = y;
-        direction[2] = z;
-        pcc->Warp(direction);
     }
 }
 /*********************************************************
