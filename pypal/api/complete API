@@ -132,22 +132,6 @@ palBodyBase
 
             virtual void    Init (const palMatrix4x4 &pos, Float radius, Float length)
          }
-     palCharacterController
-     {
-        virtual bool    Init (const palCharacterControllerDesc &desc)=0
-
-        virtual void    Move (const palVector3 &displacement)=0
-            Moves with a given displacement vector.
-         
-        virtual void    Walk (const palVector3 &walkVelocity, Float timeInterval)=0
-            Starts motion along the walkVelocity vector for the specified item interval.
-         
-        virtual void    WalkClear ()=0
-            Clears a walk call early.
-         
-        virtual void    Warp (const palVector3 &worldPos)=0
-            Sets an upward velocity for causing a character to jump. More...
-     }
     palCompoundBodyBase
     {
         virtual palSphereGeometry *     AddSphere ()
@@ -201,14 +185,6 @@ palBodyBase
             virtual const palMatrix4x4 &    GetLocationMatrix () const
              
             virtual void    Finalize ()
-         }
-         palStaticConvex
-         {
-            virtual void    Init (Float x, Float y, Float z, const Float *pVertices, int nVertices)
-
-            virtual void    Init (const palMatrix4x4 &pos, const Float *pVertices, int nVertices)
-             
-            virtual void    Init (const palMatrix4x4 &pos, const Float *pVertices, int nVertices, const int *pIndices, int nIndices)
          }
          palStaticSphere
          {
@@ -284,14 +260,6 @@ palGeometry
      
     virtual bool    SetMargin (Float margin)
 }
-     palCapsuleGeometry
-     {
-        virtual void    Init (const palMatrix4x4 &pos, Float radius, Float length, Float mass)
-
-        virtual void    CalculateInertia ()
-         
-        virtual void    GenericInit (const palMatrix4x4 &location, const void *param_array)
-     }
      palConcaveGeometry
      {
         virtual void    Init (const palMatrix4x4 &pos, const Float *pVertices, int nVertices, const int *pIndices, int nIndices, Float mass)
@@ -303,14 +271,6 @@ palGeometry
         virtual void    Init (const palMatrix4x4 &pos, const Float *pVertices, int nVertices, const int *pIndices, int nIndices, Float mass)
          
         virtual void    SetIndices (const int *pIndices, int nIndices)
-     }
-     palSphereGeometry
-     {
-        virtual void    Init (const palMatrix4x4 &pos, Float radius, Float mass)
-
-        virtual void    CalculateInertia ()
-         
-        virtual void    GenericInit (const palMatrix4x4 &location, const void *param_array)
      }
 palGridFluid
 {

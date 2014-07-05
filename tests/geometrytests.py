@@ -95,13 +95,39 @@ class TestSphereFunctions(unittest.TestCase):
         pal.cleanup()
 
     def test_sphere_create(self):
-        pal.geometry.Sphere((0,0,0,1))
+        pal.geometry.Sphere((0,0,0),(1,))
         self.assertEqual(len(pal._pal.all_objects),1)
 
     def test_sphere_delete(self):
-        sphere = pal.geometry.Sphere((0,0,0,1))
+        sphere = pal.geometry.Sphere((0,0,0),(1,))
         sphere.delete()
         self.assertEqual(len(pal._pal.all_objects),0)
+
+    #def test_sphere_get_location(self):
+    #    sphere = pal.geometry.Sphere((0,0,0),(1))
+    #    self.assertEqual(sphere.get_location(), [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1])
+
+    #def test_sphere_get_position(self):
+    #    sphere = pal.geometry.Sphere((0,0,0),(1))
+    #    self.assertEqual(sphere.get_position(), [0,0,0])
+
+    def test_sphere_get_mass(self):
+        sphere = pal.geometry.Sphere((0,0,0),(1,))
+        self.assertEqual(sphere.get_mass(), 1)
+
+    def test_sphere_set_mass(self):
+        sphere = pal.geometry.Sphere((0,0,0),(1,))
+        sphere.set_mass(10)
+        self.assertEqual(sphere.get_mass(), 10)
+
+    def test_sphere_get_margin(self):
+        sphere = pal.geometry.Sphere((0,0,0),(1,))
+        self.assertEqual(sphere.get_margin(), 1)
+
+    # FAILS TO SET IN PAL
+    #def test_sphere_set_margin(self):
+    #    sphere = pal.geometry.Sphere((0,0,0),(1,))
+    #    self.assertEqual(sphere.get_margin(), 10)
 
 class TestConvexFunctions(unittest.TestCase):
     def setUp(self):
@@ -128,8 +154,8 @@ class TestConvexFunctions(unittest.TestCase):
         self.assertEqual(len(pal._pal.all_objects),0)
 
 suite = [unittest.TestLoader().loadTestsFromTestCase(TestBoxFunctions),
-        unittest.TestLoader().loadTestsFromTestCase(TestCapsuleFunctions)]
-        #unittest.TestLoader().loadTestsFromTestCase(TestSphereFunctions),
+        unittest.TestLoader().loadTestsFromTestCase(TestCapsuleFunctions),
+        unittest.TestLoader().loadTestsFromTestCase(TestSphereFunctions)]
         #unittest.TestLoader().loadTestsFromTestCase(TestConvexFunctions)]
 
 if __name__ == "__main__":

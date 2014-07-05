@@ -372,17 +372,7 @@ extern "C"
         ps->Init(CASTUP(pbtc1,pb1),CASTUP(pbtc2,pb2),rest,ks,kd); //initialize it, set its location to 0,0,0 and minimum size to 50
 	    return ps;
     }
-
-    palCapsuleGeometry * create_geometry_capsule(Float x, Float y, Float z,Float rx, Float ry, Float rz, Float radius, Float height, Float mass)
-    {
-        palCapsuleGeometry *cg= PF->CreateCapsuleGeometry ();
-        palMatrix4x4 pos;
-        mat_set_translation(&pos, x, y, z);
-        mat_set_rotation(&pos, rx, ry, rz);
-        cg->Init (pos, radius, height, mass);
-        return cg;
-    }
-
+    
     palSphereGeometry * create_geometry_sphere(Float x, Float y, Float z,Float rx, Float ry, Float rz, Float radius, Float mass)
     {
         palSphereGeometry *sg= PF->CreateSphereGeometry ();

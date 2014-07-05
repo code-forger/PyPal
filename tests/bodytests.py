@@ -786,7 +786,7 @@ class TestGenericFunctions(unittest.TestCase):
 
     def test_generic_connect_capsule_geometry(self):
         generic = pal.body.GenericBody((0,0,0))
-        geometry = pal.geometry.Capsule((0,0,0,1,1,1))  
+        geometry = pal.geometry.Capsule((0,0,0),(1,1))  
         generic.connect_geometry(geometry)
 
     def test_generic_connect_convex_geometry(self):
@@ -796,19 +796,19 @@ class TestGenericFunctions(unittest.TestCase):
 
     def test_generic_connect_concave_geometry(self):
         generic = pal.body.GenericBody((0,0,0))
-        geometry = pal.geometry.Concave((0,0,0,1,1,1))  
+        geometry = pal.geometry.Concave((0,0,0),(1,1,1))  
         generic.connect_geometry(geometry)
 
     def test_generic_connect_sphere_geometry(self):
         generic = pal.body.GenericBody((0,0,0))
-        geometry = pal.geometry.Sphere((0,0,0,1,1,1))  
+        geometry = pal.geometry.Sphere((0,0,0),(1,))  
         generic.connect_geometry(geometry)
 
-    def test_generic_remove_geometry(self):
-        generic = pal.body.GenericBody((0,0,0))
-        geometry = pal.geometry.Box((0,0,0),(1,1,1)) 
-        generic.connect_geometry(geometry)  
-        generic.remove_geometry(geometry)
+    #def test_generic_remove_geometry(self):
+    #    generic = pal.body.GenericBody((0,0,0))
+    #    geometry = pal.geometry.Box((0,0,0),(1,1,1)) 
+    #    generic.connect_geometry(geometry)  
+    #    generic.remove_geometry(geometry)
 
     def test_generic_get_geometry(self):
         generic = pal.body.GenericBody((0,0,0))
