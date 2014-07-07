@@ -121,4 +121,9 @@ extern "C"
         pc->Init(x,y,z, pVertices, nVertices, pIndices, nIndices, mass);
         return pc;
     }
+
+    void body_convex_remove(palConvex*o){
+        delete o;
+        o = NULL;
+    }
 }

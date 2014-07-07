@@ -531,10 +531,10 @@ class TestConvexFunctions(unittest.TestCase):
         pal.body.Convex((0,0,0),self.points,self.triangles,mass=1)
         self.assertEqual(len(pal._pal.all_objects),1)
 
-    #def test_convex_delete(self):
-    #    convex = pal.body.Convex((0,0,0),self.points,mass=1)
-    #    convex.delete()
-    #    self.assertEqual(len(pal._pal.all_objects),0)
+    def test_convex_delete(self):
+        convex = pal.body.Convex((0,0,0),self.points,mass=1)
+        convex.delete()
+        self.assertEqual(len(pal._pal.all_objects),0)
 
     def test_convex_weakref(self):
         convex = pal.body.Convex((0,0,0),self.points,mass=1)

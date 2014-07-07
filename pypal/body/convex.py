@@ -30,6 +30,10 @@ class Convex(_pal.PalObject):
 
         self.points = points
 
+    def delete(self):
+        _pal.lib.body_convex_remove(self.obj)
+        del _pal.all_objects[str(self.obj)]
+
     def get_location(self):
         ret = _pal.Mat4x4()
         _pal.lib.body_convex_get_location(self.obj, ret)

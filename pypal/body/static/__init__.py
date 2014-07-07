@@ -1,4 +1,6 @@
 from box import StaticBox
+from sphere import StaticSphere
+from capsule import StaticCapsule
 from convex import StaticConvex
 from heightmap_terrain import HeightMapTerrain
 from mesh_terrain import MeshTerrain

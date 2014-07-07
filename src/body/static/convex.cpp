@@ -26,8 +26,6 @@ extern "C"
         c->SetGroup(group);
     }
 
-
-
     palStaticConvex* body_static_convex_create_no_triangles(Float x, Float y, Float z, Float rx, Float ry, Float rz, const Float *pVertices, int nVertices)
     {
         palStaticConvex *pc = dynamic_cast<palStaticConvex*>(PF->CreateObject("palStaticConvex")); //create a box
@@ -47,5 +45,10 @@ extern "C"
         mat_set_rotation(&pos, rx, ry, rz);
         pc->Init(pos, pVertices, nVertices, pIndices, nIndices);
         return pc;
+    }
+
+    void body_static_convex_remove(palStaticConvex*o){
+        delete o;
+        o = NULL;
     }
 }

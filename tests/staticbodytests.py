@@ -66,71 +66,42 @@ class TestStaticSphereFunctions(unittest.TestCase):
         pal.cleanup()
 
     def test_sphere_create(self):
-        pal.body.StaticSphere((0,0,0,1))
+        pal.body.StaticSphere((0,0,0),(1,))
         self.assertEqual(len(pal._pal.all_objects),1)
 
     def test_sphere_delete(self):
-        sphere = pal.body.StaticSphere((0,0,0,1,1))
+        sphere = pal.body.StaticSphere((0,0,0),(1,))
         sphere.delete()
         self.assertEqual(len(pal._pal.all_objects),0)
 
     def test_sphere_weakref(self):
-        sphere = pal.body.StaticSphere((0,0,0,1,1))
+        sphere = pal.body.StaticSphere((0,0,0),(1,))
         self.assertTrue(isinstance(sphere,weakref.ProxyType))
 
+    def test_sphere_get_location(self):
+        sphere = pal.body.StaticSphere((0,0,0),(1,))
+        self.assertEqual(sphere.get_location(), [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1])
+
     def test_sphere_get_position(self):
-        sphere = pal.body.StaticSphere((0,0,0,1,1))
+        sphere = pal.body.StaticSphere((0,0,0),(1,))
         self.assertEqual(sphere.get_position(), [0,0,0])
 
-    def test_sphere_get_location(self):
-        sphere = pal.body.StaticSphere((0,0,0,1,1))
-        self.assertEqual(sphere.get_location(), [0,0,0,0.0,0.0,0.0])
-
     def test_sphere_get_group(self):
-        sphere = pal.body.StaticSphere((0,0,0,1,1))
+        sphere = pal.body.StaticSphere((0,0,0),(1,))
         self.assertEqual(sphere.get_group(), 0)
 
     def test_sphere_set_group(self):
-        sphere = pal.body.StaticSphere((0,0,0,1,1))
+        sphere = pal.body.StaticSphere((0,0,0),(1,))
         sphere.set_group(10)
         self.assertEqual(sphere.get_group(), 10)
 
-    # NOT SUPPORTED WITH BULLET!
-    #def test_sphere_get_skin_width(self):
-    #    sphere = pal.body.StaticSphere((0,0,0,1,1))
-    #    self.assertEqual(sphere.get_skin_width(), 10)
-
-    #def test_sphere_set_skin_width(self):
-    #    sphere = pal.body.StaticSphere((0,0,0,1,1))
-    #    sphere.set_skin_width(10)
-    #    self.assertEqual(sphere.get_skin_width(), 10)
-
-    def test_sphere_set_position(self):
-        sphere = pal.body.StaticSphere((0,0,0,1,1))
-        sphere.set_position((10,10,10))
-        self.assertEqual(sphere.get_position(), [10,10,10])
-
-    def test_sphere_set_orientation(self):
-        sphere = pal.body.StaticSphere((0,0,0,1,1))
-        sphere.set_orientation((10,10,10))
-        self.assertEqual(sphere.get_location(), [0,0,0,0.5752220749855042, 5.707963466644287, 0.5752220749855042])#TODO
+    def test_sphere_to_string(self):
+        sphere = pal.body.StaticSphere((0,0,0),(1,))
+        self.assertEqual(sphere.__str__(), "A Static Sphere at : 0.00, 0.00, 0.00")
 
     def test_sphere_get_size(self):
-        sphere = pal.body.StaticSphere((0,0,0,1,1))
-        self.assertEqual(sphere.get_size(),(1.,1.,1.))
-
-    def test_sphere_set_position(self):
-        sphere = pal.body.StaticSphere((0,0,0,1,1))
-        sphere.set_position((10,10,10))
-        self.assertEqual(sphere.get_position(),[10,10,10])
-
-    #def apply_impulse(self,impulse):
-    #    """Applies an impulse to the object for a single step at an optional offset in world coordinates."""
-    #    pal.lib.sphere_apply_impulse(self.obj,c.c_float(impulse[0]),c.c_float(impulse[1]),c.c_float(impulse[2]))
-
-    def test_sphere_get_size(self):
-        sphere = pal.body.StaticSphere((0,0,0,1,1))
-        self.assertEqual(sphere.get_size(), 1)
+        sphere = pal.body.StaticSphere((0,0,0),(1.,))
+        self.assertEqual(sphere.get_size(),(1.,))
 
 
 class TestStaticCapsuleFunctions(unittest.TestCase):
@@ -141,71 +112,42 @@ class TestStaticCapsuleFunctions(unittest.TestCase):
         pal.cleanup()
 
     def test_capsule_create(self):
-        pal.body.StaticCapsule((0,0,0,1,1))
+        pal.body.StaticCapsule((0,0,0),(1,1))
         self.assertEqual(len(pal._pal.all_objects),1)
 
     def test_capsule_delete(self):
-        capsule = pal.body.StaticCapsule((0,0,0,1,1))
+        capsule = pal.body.StaticCapsule((0,0,0),(1,1))
         capsule.delete()
         self.assertEqual(len(pal._pal.all_objects),0)
 
     def test_capsule_weakref(self):
-        capsule = pal.body.StaticCapsule((0,0,0,1,1))
+        capsule = pal.body.StaticCapsule((0,0,0),(1,1))
         self.assertTrue(isinstance(capsule,weakref.ProxyType))
 
+    def test_capsule_get_location(self):
+        capsule = pal.body.StaticCapsule((0,0,0),(1,1))
+        self.assertEqual(capsule.get_location(), [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1])
+
     def test_capsule_get_position(self):
-        capsule = pal.body.StaticCapsule((0,0,0,1,1))
+        capsule = pal.body.StaticCapsule((0,0,0),(1,1))
         self.assertEqual(capsule.get_position(), [0,0,0])
 
-    def test_capsule_get_location(self):
-        capsule = pal.body.StaticCapsule((0,0,0,1,1))
-        self.assertEqual(capsule.get_location(), [0,0,0,0.0,0.0,0.0])
-
     def test_capsule_get_group(self):
-        capsule = pal.body.StaticCapsule((0,0,0,1,1))
+        capsule = pal.body.StaticCapsule((0,0,0),(1,1))
         self.assertEqual(capsule.get_group(), 0)
 
     def test_capsule_set_group(self):
-        capsule = pal.body.StaticCapsule((0,0,0,1,1))
+        capsule = pal.body.StaticCapsule((0,0,0),(1,1))
         capsule.set_group(10)
         self.assertEqual(capsule.get_group(), 10)
 
-    # NOT SUPPORTED WITH BULLET!
-    #def test_capsule_get_skin_width(self):
-    #    capsule = pal.body.StaticCapsule((0,0,0,1,1))
-    #    self.assertEqual(capsule.get_skin_width(), 10)
-
-    #def test_capsule_set_skin_width(self):
-    #    capsule = pal.body.StaticCapsule((0,0,0,1,1))
-    #    capsule.set_skin_width(10)
-    #    self.assertEqual(capsule.get_skin_width(), 10)
-
-    def test_capsule_set_position(self):
-        capsule = pal.body.StaticCapsule((0,0,0,1,1))
-        capsule.set_position((10,10,10))
-        self.assertEqual(capsule.get_position(), [10,10,10])
-
-    def test_capsule_set_orientation(self):
-        capsule = pal.body.StaticCapsule((0,0,0,1,1))
-        capsule.set_orientation((10,10,10))
-        self.assertEqual(capsule.get_location(), [0,0,0,0.5752220749855042, 5.707963466644287, 0.5752220749855042])#TODO
+    def test_capsule_to_string(self):
+        capsule = pal.body.StaticCapsule((0,0,0),(1,1))
+        self.assertEqual(capsule.__str__(), "A Static Capsule at : 0.00, 0.00, 0.00")
 
     def test_capsule_get_size(self):
-        capsule = pal.body.StaticCapsule((0,0,0,1,1))
-        self.assertEqual(capsule.get_size(),(1.,1.,1.))
-
-    def test_capsule_set_position(self):
-        capsule = pal.body.StaticCapsule((0,0,0,1,1))
-        capsule.set_position((10,10,10))
-        self.assertEqual(capsule.get_position(),[10,10,10])
-
-    #def apply_impulse(self,impulse):
-    #    """Applies an impulse to the object for a single step at an optional offset in world coordinates."""
-    #    pal.lib.capsule_apply_impulse(self.obj,c.c_float(impulse[0]),c.c_float(impulse[1]),c.c_float(impulse[2]))
-
-    def test_capsule_get_size(self):
-        capsule = pal.body.StaticCapsule((0,0,0,1,1))
-        self.assertEqual(capsule.get_size(), (1,1))
+        capsule = pal.body.StaticCapsule((0,0,0),(1.,1.))
+        self.assertEqual(capsule.get_size(),(1., 1.))
 
 class TestStaticConvexFunctions(unittest.TestCase):
     def setUp(self):
@@ -226,10 +168,10 @@ class TestStaticConvexFunctions(unittest.TestCase):
         pal.body.StaticConvex((0,0,0), (0,0,0),self.points)
         self.assertEqual(len(pal._pal.all_objects),1)
 
-    #def test_convex_delete(self):
-    #    convex = pal.body.StaticConvex((0,0,0), (0,0,0),self.points)
-    #    convex.delete()
-    #    self.assertEqual(len(pal._pal.all_objects),0)
+    def test_convex_delete(self):
+        convex = pal.body.StaticConvex((0,0,0), (0,0,0),self.points)
+        convex.delete()
+        self.assertEqual(len(pal._pal.all_objects),0)
 
     def test_convex_get_location(self):
         convex = pal.body.StaticConvex((0,0,0), (0,0,0),self.points)
@@ -254,9 +196,9 @@ class TestStaticConvexFunctions(unittest.TestCase):
 
 
 suite = [unittest.TestLoader().loadTestsFromTestCase(TestStaticBoxFunctions),
-         unittest.TestLoader().loadTestsFromTestCase(TestStaticConvexFunctions)]
-        #unittest.TestLoader().loadTestsFromTestCase(TestStaticSphereFunctions),
-        #unittest.TestLoader().loadTestsFromTestCase(TestStaticCapsuleFunctions),
+         unittest.TestLoader().loadTestsFromTestCase(TestStaticConvexFunctions),
+         unittest.TestLoader().loadTestsFromTestCase(TestStaticSphereFunctions),
+         unittest.TestLoader().loadTestsFromTestCase(TestStaticCapsuleFunctions)]
 
 if __name__ == "__main__":
     suite = unittest.TestSuite(suite)

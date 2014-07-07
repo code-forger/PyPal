@@ -15,6 +15,8 @@ REQUIREDOBJECTS = build/PyPal.o\
 				  build/body/generic.o\
 				  build/body/character.o\
 				  build/body/static/box.o\
+				  build/body/static/capsule.o\
+				  build/body/static/sphere.o\
 				  build/body/static/convex.o\
 				  build/geometry/box.o\
 				  build/geometry/capsule.o\
@@ -52,6 +54,12 @@ build/body/character.o: src/body/character.cpp
 
 # static body object rules
 build/body/static/box.o: src/body/static/box.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+	
+build/body/static/capsule.o: src/body/static/capsule.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+	
+build/body/static/sphere.o: src/body/static/sphere.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
 
 build/body/static/convex.o: src/body/static/convex.cpp

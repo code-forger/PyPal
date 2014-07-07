@@ -122,16 +122,6 @@ palBodyBase
      
     virtual std::string     toString () const 
 }
-    palCapsuleBase
-    {
-        virtual void   Init (const palMatrix4x4 &pos, Float radius, Float length, Float mass)
-    }
-         palStaticCapsule
-         {
-            virtual void    Init (Float x, Float y, Float z, Float radius, Float length)
-
-            virtual void    Init (const palMatrix4x4 &pos, Float radius, Float length)
-         }
     palCompoundBodyBase
     {
         virtual palSphereGeometry *     AddSphere ()
@@ -156,26 +146,10 @@ palBodyBase
              
             virtual void    Finalize ()
          }
-    palSphereBase
-    {
-        virtual void    Init (const palMatrix4x4 &pos, Float radius, Float mass)
-    }
-         palStaticSphere
-         {
-            virtual void    Init (Float x, Float y, Float z, Float radius)
-
-            virtual void    Init (const palMatrix4x4 &pos, Float radius)
-         }
     palStatic
     {
         palStatic (const palStatic &obj)
     }
-         palStaticCapsule
-         {
-            virtual void   Init (Float x, Float y, Float z, Float radius, Float length)
-
-            virtual void    Init (const palMatrix4x4 &pos, Float radius, Float length)
-         }
          palStaticCompoundBody
          {
             virtual void    Init (Float x, Float y, Float z)
@@ -185,12 +159,6 @@ palBodyBase
             virtual const palMatrix4x4 &    GetLocationMatrix () const
              
             virtual void    Finalize ()
-         }
-         palStaticSphere
-         {
-            virtual void    Init (Float x, Float y, Float z, Float radius)
-
-            virtual void    Init (const palMatrix4x4 &pos, Float radius)
          }
         palTerrain
         {

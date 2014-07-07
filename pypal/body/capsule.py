@@ -104,13 +104,3 @@ class Capsule(_pal.PalObject):
     def get_size(self):
         """returns the size of the object in a 3 part tuple"""
         return self._size
-
-class StaticCapsule():
-    typechar = 'C'
-    def __init__(self,rect):#TESTED
-        self.obj = pal.lib.create_static_capsule(c.c_float(rect[0]),c.c_float(rect[1]),c.c_float(rect[2]),c.c_float(rect[3]),c.c_float(rect[4]))
-        self.size = rect[3:]
-
-    def get_size(self):
-        """returns the size of the object in a 3 part tuple"""
-        return self.size
