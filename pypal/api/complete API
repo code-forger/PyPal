@@ -100,54 +100,6 @@ palActuator
          
         void    Apply ()
      }
-palBodyBase
-{
-    virtual const palMatrix4x4 &    GetLocationMatrix () const =0
-     
-    virtual void    GetPosition (palVector3 &pos) const
-     
-    virtual void    SetMaterial (palMaterial *material)
-     
-    virtual palGroup    GetGroup () const
-     
-    virtual void    SetGroup (palGroup group)
-     
-    virtual Float   GetSkinWidth () const
-     
-    virtual bool    SetSkinWidth (Float skinWidth)
-     
-    void    SetUserData (void *dataPtr)
-     
-    void *  GetUserData () const
-     
-    virtual std::string     toString () const 
-}
-    palStatic
-    {
-        palStatic (const palStatic &obj)
-    }
-        palTerrain
-        {
-            palTerrainType  GetType () const 
-        }
-             palTerrainHeightmap
-             {
-                virtual void    Init (Float x, Float y, Float z, Float width, Float depth, int terrain_data_width, int terrain_data_depth, const Float *pHeightmap)
-
-                const Float *   GetHeightMap () const
-                 
-                Float   GetWidth () const
-                 
-                Float   GetDepth () const
-                 
-                int     GetDataWidth () const
-                 
-                int     GetDataDepth () const 
-             }
-             palTerrainMesh
-             {
-                virtual void    Init (Float x, Float y, Float z, const Float *pVertices, int nVertices, const int *pIndices, int nIndices)
-             }
 palGeometry
 {
     virtual void    GetPosition (palVector3 &pos) const

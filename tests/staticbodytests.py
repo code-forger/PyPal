@@ -235,7 +235,6 @@ class TestStaticCompoundFunctions(unittest.TestCase):
         compound = pal.body.StaticCompound((0,0,0))
         self.assertEqual(compound.__str__(), "A Static Compound Body at : 0.00, 0.00, 0.00")
 
-
 class TestTerrainPlaneFunctions(unittest.TestCase):
     def setUp(self):
         pal.init()
@@ -326,13 +325,110 @@ class TestOrientatedTerrainPlaneFunctions(unittest.TestCase):
         orientated_terrain_plane = pal.body.OrientatedTerrainPlane((0,0,0),(0,1,0),1)
         self.assertEqual(orientated_terrain_plane.get_size(),(1))
 
+class TestHeightmapTerrainFunctions(unittest.TestCase):
+    def setUp(self):
+        pal.init()
+        self._map = [[1,1,1],[1,0,1],[0,0,0]]
+
+    def tearDown(self):
+        pal.cleanup()
+
+    def test_heightmap_terrain_create(self):
+        pal.body.HeightMapTerrain((0,0,0),(1,1),(3,3),self._map)
+        self.assertEqual(len(pal._pal.all_objects),1)
+
+    def test_heightmap_terrain_delete(self):
+        heightmap_terrain = pal.body.HeightMapTerrain((0,0,0),(1,1),(3,3),self._map)
+        heightmap_terrain.delete()
+        self.assertEqual(len(pal._pal.all_objects),0)
+
+    def test_heightmap_terrain_weakref(self):
+        heightmap_terrain = pal.body.HeightMapTerrain((0,0,0),(1,1),(3,3),self._map)
+        self.assertTrue(isinstance(heightmap_terrain,weakref.ProxyType))
+
+    def test_heightmap_terrain_get_location(self):
+        heightmap_terrain = pal.body.HeightMapTerrain((0,0,0),(1,1),(3,3),self._map)
+        self.assertEqual(heightmap_terrain.get_location(), [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1])
+
+    def test_heightmap_terrain_get_position(self):
+        heightmap_terrain = pal.body.HeightMapTerrain((0,0,0),(1,1),(3,3),self._map)
+        self.assertEqual(heightmap_terrain.get_position(), [0,0,0])
+
+    def test_heightmap_terrain_get_group(self):
+        heightmap_terrain = pal.body.HeightMapTerrain((0,0,0),(1,1),(3,3),self._map)
+        self.assertEqual(heightmap_terrain.get_group(), 0)
+
+    def test_heightmap_terrain_set_group(self):
+        heightmap_terrain = pal.body.HeightMapTerrain((0,0,0),(1,1),(3,3),self._map)
+        heightmap_terrain.set_group(10)
+        self.assertEqual(heightmap_terrain.get_group(), 10)
+
+    def test_heightmap_terrain_to_string(self):
+        heightmap_terrain = pal.body.HeightMapTerrain((0,0,0),(1,1),(3,3),self._map)
+        self.assertEqual(heightmap_terrain.__str__(), "A Height Map Terrain at : 0.00, 0.00, 0.00")
+
+    def test_heightmap_terrain_get_size(self):
+        heightmap_terrain = pal.body.HeightMapTerrain((0,0,0),(1,1),(3,3),self._map)
+        self.assertEqual(heightmap_terrain.get_size(),(1,1))
+
+class TestMeshTerrainFunctions(unittest.TestCase):
+    def setUp(self):
+        self.points = ((1,1,1),
+                       (0,1,1),
+                       (1,0,1),
+                       (1,1,0),
+                       (0,0,1),
+                       (0,1,0),
+                       (1,0,0),
+                       (0,0,0))
+        self.triangles = ((0,1,2),
+                          (2,3,4),
+                          (4,5,6))
+        pal.init()
+
+    def tearDown(self):
+        pal.cleanup()
+
+    def test_mesh_terrain_create(self):
+        pal.body.MeshTerrain((0,0,0),self.points,self.triangles)
+        self.assertEqual(len(pal._pal.all_objects),1)
+
+    def test_mesh_terrain_delete(self):
+        mesh_terrain = pal.body.MeshTerrain((0,0,0),self.points,self.triangles)
+        mesh_terrain.delete()
+        self.assertEqual(len(pal._pal.all_objects),0)
+
+    def test_mesh_terrain_get_location(self):
+        mesh_terrain = pal.body.MeshTerrain((0,0,0),self.points,self.triangles)
+        self.assertEqual(mesh_terrain.get_location(), [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1])
+
+    def test_mesh_terrain_get_position(self):
+        mesh_terrain = pal.body.MeshTerrain((0,0,0),self.points,self.triangles)
+        self.assertEqual(mesh_terrain.get_position(), [0,0,0])
+
+    def test_mesh_terrain_get_group(self):
+        mesh_terrain = pal.body.MeshTerrain((0,0,0),self.points,self.triangles)
+        self.assertEqual(mesh_terrain.get_group(), 0)
+
+    def test_mesh_terrain_set_group(self):
+        mesh_terrain = pal.body.MeshTerrain((0,0,0),self.points,self.triangles)
+        mesh_terrain.set_group(10)
+        self.assertEqual(mesh_terrain.get_group(), 10)
+
+    def test_mesh_terrain_to_string(self):
+        mesh_terrain = pal.body.MeshTerrain((0,0,0),self.points,self.triangles)
+        self.assertEqual(mesh_terrain.__str__(), "A Mesh Terrain at : 0.00, 0.00, 0.00")
+
+
 suite = [unittest.TestLoader().loadTestsFromTestCase(TestStaticBoxFunctions),
          unittest.TestLoader().loadTestsFromTestCase(TestStaticConvexFunctions),
          unittest.TestLoader().loadTestsFromTestCase(TestStaticSphereFunctions),
          unittest.TestLoader().loadTestsFromTestCase(TestStaticCapsuleFunctions),
          unittest.TestLoader().loadTestsFromTestCase(TestStaticCompoundFunctions),
          unittest.TestLoader().loadTestsFromTestCase(TestTerrainPlaneFunctions),
-         unittest.TestLoader().loadTestsFromTestCase(TestOrientatedTerrainPlaneFunctions)]
+         unittest.TestLoader().loadTestsFromTestCase(TestOrientatedTerrainPlaneFunctions),
+         unittest.TestLoader().loadTestsFromTestCase(TestHeightmapTerrainFunctions),
+         unittest.TestLoader().loadTestsFromTestCase(TestMeshTerrainFunctions)]
 
 if __name__ == "__main__":
     suite = unittest.TestSuite(suite)

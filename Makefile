@@ -21,6 +21,8 @@ REQUIREDOBJECTS = build/PyPal.o\
 				  build/body/static/compound.o\
 				  build/body/static/terrainplane.o\
 				  build/body/static/orientatedterrainplane.o\
+				  build/body/static/heightmapterrain.o\
+				  build/body/static/meshterrain.o\
 				  build/geometry/box.o\
 				  build/geometry/capsule.o\
 				  build/geometry/sphere.o
@@ -75,6 +77,12 @@ build/body/static/terrainplane.o: src/body/static/terrainplane.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
 
 build/body/static/orientatedterrainplane.o: src/body/static/orientatedterrainplane.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+
+build/body/static/heightmapterrain.o: src/body/static/heightmapterrain.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+
+build/body/static/meshterrain.o: src/body/static/meshterrain.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
 
 # geometry body object rules

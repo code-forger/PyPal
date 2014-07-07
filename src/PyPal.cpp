@@ -244,34 +244,6 @@ extern "C"
 extern "C" 
 {
 
-    palStaticCapsule * create_static_capsule(Float x, Float y, Float z, Float radius, Float length)
-    {
-        palStaticCapsule *pc = dynamic_cast<palStaticCapsule*>(PF->CreateObject("palStaticCapsule"));
-	    pc->Init(x, y, z, radius, length);
-        return pc;
-    }
-
-    palStaticSphere * create_static_sphere(Float x, Float y, Float z, Float radius)
-    {
-        palStaticSphere *ps = dynamic_cast<palStaticSphere*>(PF->CreateObject("palStaticSphere"));
-	    ps->Init(x, y, z, radius);
-        return ps;
-    }
-
-    palTerrainPlane * create_terrain_plane(Float x, Float y, Float z, Float min_size)
-    {
-        palTerrainPlane *pt= PF->CreateTerrainPlane(); //create the ground
-        pt->Init(x,y,z,min_size); //initialize it, set its location to 0,0,0 and minimum size to 50
-	    return pt;
-    }
-
-    palTerrainHeightmap * create_terrain_heightmap(Float x, Float y, Float z, Float width, Float depth, int terrain_data_width, int terrain_data_depth, const Float *pHeightmap)
-    {
-        palTerrainHeightmap *pth= PF->CreateTerrainHeightmap(); //create the ground
-        pth->Init(x,y,z,width,depth,terrain_data_width,terrain_data_depth,pHeightmap); //initialize it, set its location to 0,0,0 and minimum size to 50
-	    return pth;
-    }
-
     palPrismaticLink * create_prismatic(palBody *parent,palBody *child,Float x,Float y,
                                       Float z, Float axis_x,Float axis_y, Float axis_z, bool collide)
     {
@@ -371,16 +343,6 @@ extern "C"
         palSpring *ps= dynamic_cast<palSpring*>(PF->CreateObject("palSpring"));
         ps->Init(CASTUP(pbtc1,pb1),CASTUP(pbtc2,pb2),rest,ks,kd); //initialize it, set its location to 0,0,0 and minimum size to 50
 	    return ps;
-    }
-    
-    palSphereGeometry * create_geometry_sphere(Float x, Float y, Float z,Float rx, Float ry, Float rz, Float radius, Float mass)
-    {
-        palSphereGeometry *sg= PF->CreateSphereGeometry ();
-        palMatrix4x4 pos;
-        mat_set_translation(&pos, x, y, z);
-        mat_set_rotation(&pos, rx, ry, rz);
-        sg->Init (pos, radius, mass);
-        return sg;
     }
 
     palConvexGeometry* create_geometry_convex(Float x, Float y, Float z,Float rx, Float ry, Float rz, const Float *pVertices, int nVertices, const int *pIndices, int nIndices, Float mass)
