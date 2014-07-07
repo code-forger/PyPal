@@ -100,10 +100,6 @@ class Compound(_pal.PalObject):
         """Sets the body to active or not."""
         _pal.lib.body_compound_set_active(self.obj, c.c_bool(active))
 
-    #def add_compound(self,pos,mass,rotation=(0,0,0)):
-    #    """adds a compound geometry to the compound body"""
-    #    _pal.lib.bodycompound_add_compound(self.obj, c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2]), c.c_float(rotation[0]), c.c_float(rotation[1]), c.c_float(rotation[2]), c.c_float(pos[3]), c.c_float(pos[4]), c.c_float(pos[5]),c.c_float(mass))
-
     def add_box(self,pos,mass,rotation=(0,0,0)):
         """adds a box geometry to the compound body"""
         _pal.lib.body_compound_add_box(self.obj, c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2]), c.c_float(rotation[0]), c.c_float(rotation[1]), c.c_float(rotation[2]), c.c_float(pos[3]), c.c_float(pos[4]), c.c_float(pos[5]),c.c_float(mass))

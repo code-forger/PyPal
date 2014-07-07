@@ -1,0 +1,57 @@
+ palMatrix4x4 & palBodyBase::GetLocationMatrix ()
+ palMatrix body_static_compound_get_location(palStaticCompound*)
+#float(16) get_location()
+
+ void palBodyBase::GetPosition (palVector3 &pos)
+ palVector3 body_static_compound_get_position(palStaticCompound*)
+#float(3) get_position()
+
+#void palBodyBase::SetMaterial (palMaterial *material)
+#void body_static_compound_set_material(palStaticCompound*, palMaterial*)
+#set_material(Material)
+
+ palGroup palBodyBase::GetGroup ()
+ int body_static_compound_get_group(palStaticCompound*)
+#int get_group()
+
+ void palBodyBase::SetGroup (palGroup group)
+ void body_static_compound_set_group(palStaticCompound*, int)
+#get_group(int)
+
+#Float palBodyBase::GetSkinWidth ()
+#float body_static_compound_get_skin_width(palStaticCompound*)
+#float get_skin_width()
+
+#bool palBodyBase::SetSkinWidth (Float skinWidth)
+#bool body_static_compound_set_skin_width(palStaticCompound*, float)
+#bool set_skin_width(float)
+
+#std::string palBodyBase::toString ()
+ __str__()
+
+#float(3) get_size()
+
+ 
+#void palStaticCompoundBody::Init (Float x, Float y, Float z)
+#palCompoudBody* body_static_compound_create(float, float, float)
+#CompoundBody(float(3))
+
+#palSphereGeometry* AddSphere()
+#palSphereGeometry* body_static_compound_add_sphere(palStaticCompound*)
+#add_sphere()
+
+#palBoxGeometry* AddBox()
+#palBoxGeometry* body_static_compound_add_box(palStaticCompound*)
+#add_box()
+
+#palCapsuleGeometry* AddCapsule()
+#palCapsuleGeometry* body_static_compound_add_capsule(palStaticCompound*)
+#add_capsule()
+
+#palConvexGeometry* AddConvex()
+#palConvexGeometry* body_static_compound_add_convex(palStaticCompound*)
+#add_convex()
+
+#void palStaticCompoundBody::Finalize()
+#void body_static_compound_finalize(palStaticCompound*)
+#finalize()

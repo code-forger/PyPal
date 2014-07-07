@@ -194,11 +194,145 @@ class TestStaticConvexFunctions(unittest.TestCase):
         convex = pal.body.StaticConvex((0,0,0), (0,0,0),self.points)
         self.assertEqual(convex.__str__(), "A Static Convex at : 0.00, 0.00, 0.00")
 
+class TestStaticCompoundFunctions(unittest.TestCase):
+    def setUp(self):
+        pal.init()
+
+    def tearDown(self):
+        pal.cleanup()
+
+    def test_compound_create(self):
+        pal.body.StaticCompound((0,0,0))
+        self.assertEqual(len(pal._pal.all_objects),1)
+
+    def test_compound_delete(self):
+        compound = pal.body.StaticCompound((0,0,0))
+        compound.delete()
+        self.assertEqual(len(pal._pal.all_objects),0)
+
+    def test_compound_weakref(self):
+        compound = pal.body.StaticCompound((0,0,0))
+        self.assertTrue(isinstance(compound,weakref.ProxyType))
+
+    def test_compound_get_location(self):
+        compound = pal.body.StaticCompound((0,0,0))
+        self.assertEqual(compound.get_location(), [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1])
+
+    def test_compound_get_position(self):
+        compound = pal.body.StaticCompound((0,0,0))
+        self.assertEqual(compound.get_position(), [0,0,0])
+
+    def test_compound_get_group(self):
+        compound = pal.body.StaticCompound((0,0,0))
+        self.assertEqual(compound.get_group(), 0)
+
+    def test_compound_set_group(self):
+        compound = pal.body.StaticCompound((0,0,0))
+        compound.set_group(10)
+        self.assertEqual(compound.get_group(), 10)
+
+    def test_compound_to_string(self):
+        compound = pal.body.StaticCompound((0,0,0))
+        self.assertEqual(compound.__str__(), "A Static Compound Body at : 0.00, 0.00, 0.00")
+
+
+class TestTerrainPlaneFunctions(unittest.TestCase):
+    def setUp(self):
+        pal.init()
+
+    def tearDown(self):
+        pal.cleanup()
+
+    def test_terrain_plane_create(self):
+        pal.body.TerrainPlane((0,0,0),1)
+        self.assertEqual(len(pal._pal.all_objects),1)
+
+    def test_terrain_plane_delete(self):
+        terrain_plane = pal.body.TerrainPlane((0,0,0),1)
+        terrain_plane.delete()
+        self.assertEqual(len(pal._pal.all_objects),0)
+
+    def test_terrain_plane_weakref(self):
+        terrain_plane = pal.body.TerrainPlane((0,0,0),1)
+        self.assertTrue(isinstance(terrain_plane,weakref.ProxyType))
+
+    def test_terrain_plane_get_location(self):
+        terrain_plane = pal.body.TerrainPlane((0,0,0),1)
+        self.assertEqual(terrain_plane.get_location(), [1,0,0,0,0,1,0,0,0,0,1,0,0,-1,0,1])
+
+    def test_terrain_plane_get_position(self):
+        terrain_plane = pal.body.TerrainPlane((0,0,0),1)
+        self.assertEqual(terrain_plane.get_position(), [0,-1,0])
+
+    def test_terrain_plane_get_group(self):
+        terrain_plane = pal.body.TerrainPlane((0,0,0),1)
+        self.assertEqual(terrain_plane.get_group(), 0)
+
+    def test_terrain_plane_set_group(self):
+        terrain_plane = pal.body.TerrainPlane((0,0,0),1)
+        terrain_plane.set_group(10)
+        self.assertEqual(terrain_plane.get_group(), 10)
+
+    def test_terrain_plane_to_string(self):
+        terrain_plane = pal.body.TerrainPlane((0,0,0),1)
+        self.assertEqual(terrain_plane.__str__(), "A Terrain Plane at : 0.00, -1.00, 0.00")
+
+    def test_terrain_plane_get_size(self):
+        terrain_plane = pal.body.TerrainPlane((0,0,0),1)
+        self.assertEqual(terrain_plane.get_size(),(1))
+
+class TestOrientatedTerrainPlaneFunctions(unittest.TestCase):
+    def setUp(self):
+        pal.init()
+
+    def tearDown(self):
+        pal.cleanup()
+
+    def test_orientated_terrain_plane_create(self):
+        pal.body.OrientatedTerrainPlane((0,0,0),(0,1,0),1)
+        self.assertEqual(len(pal._pal.all_objects),1)
+
+    def test_orientated_terrain_plane_delete(self):
+        orientated_terrain_plane = pal.body.OrientatedTerrainPlane((0,0,0),(0,1,0),1)
+        orientated_terrain_plane.delete()
+        self.assertEqual(len(pal._pal.all_objects),0)
+
+    def test_orientated_terrain_plane_weakref(self):
+        orientated_terrain_plane = pal.body.OrientatedTerrainPlane((0,0,0),(0,1,0),1)
+        self.assertTrue(isinstance(orientated_terrain_plane,weakref.ProxyType))
+
+    def test_orientated_terrain_plane_get_location(self):
+        orientated_terrain_plane = pal.body.OrientatedTerrainPlane((0,0,0),(0,1,0),1)
+        self.assertEqual(orientated_terrain_plane.get_location(), [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1])
+
+    def test_orientated_terrain_plane_get_position(self):
+        orientated_terrain_plane = pal.body.OrientatedTerrainPlane((0,0,0),(0,1,0),1)
+        self.assertEqual(orientated_terrain_plane.get_position(), [0,0,0])
+
+    def test_orientated_terrain_plane_get_group(self):
+        orientated_terrain_plane = pal.body.OrientatedTerrainPlane((0,0,0),(0,1,0),1)
+        self.assertEqual(orientated_terrain_plane.get_group(), 0)
+
+    def test_orientated_terrain_plane_set_group(self):
+        orientated_terrain_plane = pal.body.OrientatedTerrainPlane((0,0,0),(0,1,0),1)
+        orientated_terrain_plane.set_group(10)
+        self.assertEqual(orientated_terrain_plane.get_group(), 10)
+
+    def test_orientated_terrain_plane_to_string(self):
+        orientated_terrain_plane = pal.body.OrientatedTerrainPlane((0,0,0),(0,1,0),1)
+        self.assertEqual(orientated_terrain_plane.__str__(), "An Orientated Terrain Plane at : 0.00, 0.00, 0.00")
+
+    def test_orientated_terrain_plane_get_size(self):
+        orientated_terrain_plane = pal.body.OrientatedTerrainPlane((0,0,0),(0,1,0),1)
+        self.assertEqual(orientated_terrain_plane.get_size(),(1))
 
 suite = [unittest.TestLoader().loadTestsFromTestCase(TestStaticBoxFunctions),
          unittest.TestLoader().loadTestsFromTestCase(TestStaticConvexFunctions),
          unittest.TestLoader().loadTestsFromTestCase(TestStaticSphereFunctions),
-         unittest.TestLoader().loadTestsFromTestCase(TestStaticCapsuleFunctions)]
+         unittest.TestLoader().loadTestsFromTestCase(TestStaticCapsuleFunctions),
+         unittest.TestLoader().loadTestsFromTestCase(TestStaticCompoundFunctions),
+         unittest.TestLoader().loadTestsFromTestCase(TestTerrainPlaneFunctions),
+         unittest.TestLoader().loadTestsFromTestCase(TestOrientatedTerrainPlaneFunctions)]
 
 if __name__ == "__main__":
     suite = unittest.TestSuite(suite)

@@ -122,58 +122,14 @@ palBodyBase
      
     virtual std::string     toString () const 
 }
-    palCompoundBodyBase
-    {
-        virtual palSphereGeometry *     AddSphere ()
-
-        virtual palBoxGeometry *    AddBox ()
-         
-        virtual palCapsuleGeometry *    AddCapsule ()
-         
-        virtual palConvexGeometry *     AddConvex ()
-         
-        virtual palGeometry *   AddGeometry (PAL_STRING type)
-         
-        virtual void    Finalize ()=0
-    }
-         palStaticCompoundBody
-         {
-            virtual void    Init (Float x, Float y, Float z)
-
-            virtual void    Init (const palMatrix4x4 &pos)
-             
-            virtual const palMatrix4x4 &    GetLocationMatrix () const
-             
-            virtual void    Finalize ()
-         }
     palStatic
     {
         palStatic (const palStatic &obj)
     }
-         palStaticCompoundBody
-         {
-            virtual void    Init (Float x, Float y, Float z)
-
-            virtual void    Init (const palMatrix4x4 &pos)
-             
-            virtual const palMatrix4x4 &    GetLocationMatrix () const
-             
-            virtual void    Finalize ()
-         }
         palTerrain
         {
             palTerrainType  GetType () const 
         }
-             palOrientatedTerrainPlane
-             {
-                virtual void    Init (Float x, Float y, Float z, Float nx, Float ny, Float nz, Float min_size)
-
-                virtual void    Init (Float nx, Float ny, Float nz, Float d, Float min_size)
-                 
-                virtual const palMatrix4x4 &    GetLocationMatrix () const
-                 
-                Float   GetMinimumSize () const 
-             }
              palTerrainHeightmap
              {
                 virtual void    Init (Float x, Float y, Float z, Float width, Float depth, int terrain_data_width, int terrain_data_depth, const Float *pHeightmap)
@@ -191,12 +147,6 @@ palBodyBase
              palTerrainMesh
              {
                 virtual void    Init (Float x, Float y, Float z, const Float *pVertices, int nVertices, const int *pIndices, int nIndices)
-             }
-             palTerrainPlane
-             {
-                virtual void   Init (Float x, Float y, Float z, Float min_size)
-
-                Float   GetMinimumSize () const 
              }
 palGeometry
 {

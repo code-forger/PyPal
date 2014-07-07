@@ -11,8 +11,9 @@ from static.box import StaticBox
 from static.sphere import StaticSphere
 from static.capsule import StaticCapsule
 from static.convex import StaticConvex
+from static.compound import StaticCompound
 from static.heightmap_terrain import HeightMapTerrain
 from static.mesh_terrain import MeshTerrain
-from static.oriented_terrain import OrientedTerrain
-from static.terrain import Terrain
+from static.orientated_terrain import OrientatedTerrainPlane
+from static.terrain import TerrainPlane
 
