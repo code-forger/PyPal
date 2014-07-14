@@ -12,14 +12,6 @@ palActuator
          
         virtual std::string     toString () const 
      }
-     palDCMotor
-     {
-        virtual void    Init (palRevoluteLink *revolute_link, Float torque_constant, Float back_EMF_constant, Float armature_resistance)
-
-        virtual void    SetVoltage (Float voltage)
-         
-        virtual void    Apply ()
-     }
      palDMDCMotor
      {
         void    Init (palRevoluteLink *prl, Float torque_constant, Float back_EMF_constant, Float armature_resistance, Float rotor_inertia, Float coulomb_friction_constant, Float viscous_friction_constant, Float max_brush_drop, Float half_drop_value)
@@ -29,21 +21,6 @@ palActuator
         void    Apply ()
          
         Float   computeTau (Float source_voltage, Float external_torque, Float joint_vel)
-     }
-     palFakeBuoyancy
-     {
-        virtual void   Init (palBody *pbody, Float density=998.29f)
-
-        virtual void    Apply ()
-     }
-     palForceActuator
-     {
-        virtual void    Init (palBody *pbody, Float px, Float py, Float pz, Float axis_x, Float axis_y, Float axis_z)
-
-        virtual void    SetForce (Float force)
-         
-        virtual void    Apply ()
-         
      }
      palGenericLinkSpring
      {
@@ -86,12 +63,6 @@ palActuator
              
             virtual void    Apply ()
          }
-     palLiquidDrag
-     {
-        virtual void    Init (palBody *pbody, Float area, Float CD, Float density=0.99829f)
-
-        virtual void    Apply ()
-     }
      palSpring
      {
         void    Init (palBody *pb1, palBody *pb2, const palSpringDesc &desc)

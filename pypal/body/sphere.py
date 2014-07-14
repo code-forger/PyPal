@@ -11,7 +11,7 @@ class Sphere(_pal.PalObject):
         mass: the mass of the object, if mass is specified it will be used.
         """
         self._size = size
-        self.obj = _pal.lib.body_sphere_create(c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]),c.c_float(size[0]),c.c_float(size[1]),c.c_float(size[2]),c.c_float(mass))
+        self.obj = _pal.lib.body_sphere_create(c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]),c.c_float(size[0]),c.c_float(mass))
 
     def get_location(self):
         ret = _pal.Mat4x4()

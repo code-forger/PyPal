@@ -25,7 +25,11 @@ REQUIREDOBJECTS = build/PyPal.o\
 				  build/body/static/meshterrain.o\
 				  build/geometry/box.o\
 				  build/geometry/capsule.o\
-				  build/geometry/sphere.o
+				  build/geometry/sphere.o\
+				  build/actuator/force.o\
+				  build/actuator/dcmotor.o\
+				  build/actuator/fakebuoyancy.o\
+				  build/actuator/liquiddrag.o
 
 all: libPyPal.so
 
@@ -93,6 +97,19 @@ build/geometry/capsule.o: src/geometry/capsule.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
 
 build/geometry/sphere.o: src/geometry/sphere.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+
+# actuator body object rules
+build/actuator/force.o: src/actuator/force.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+
+build/actuator/dcmotor.o: src/actuator/dcmotor.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+
+build/actuator/fakebuoyancy.o: src/actuator/fakebuoyancy.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+
+build/actuator/liquiddrag.o: src/actuator/liquiddrag.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
 
 

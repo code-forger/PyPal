@@ -6,8 +6,8 @@ import weakref
 class TestDCMotorFunctions(unittest.TestCase):
     def setUp(self):
         pal.init()
-        self.sphere = pal.body.Sphere((0,0,0,1),mass=1)
-        self.ssphere = pal.body.StaticSphere((5,0,0,1))
+        self.sphere = pal.body.Sphere((0,0,0),(1,),mass=1)
+        self.ssphere = pal.body.StaticSphere((5,0,0),(1,))
         self.link = pal.link.Revolute(self.ssphere, self.sphere,
                                       self.ssphere.get_position(),[0,1,0],
                                       True)
@@ -31,7 +31,7 @@ class TestDCMotorFunctions(unittest.TestCase):
 
     def test_dcmotor_run(self):
         dcmotor = pal.actuator.DCMotor(self.link,100,1,1)
-        dcmotor.run()
+        dcmotor.apply()
 
 class TestSpringFunctions(unittest.TestCase):
     def setUp(self):
@@ -73,7 +73,7 @@ class TestImpulseFunctions(unittest.TestCase):
 class TestForceFunctions(unittest.TestCase):
     def setUp(self):
         pal.init()
-        self.sphere = pal.body.Sphere((0,0,0,1),mass=1)
+        self.sphere = pal.body.Sphere((0,0,0),(1,),mass=1)
 
     def tearDown(self):
         pal.cleanup()
@@ -84,7 +84,7 @@ class TestForceFunctions(unittest.TestCase):
 
     def test_force_run(self):
         force = pal.actuator.Force(self.sphere,self.sphere.get_position(),[0,1,0])
-        force.run()
+        force.apply()
 
     def test_force_set_force(self):
         force = pal.actuator.Force(self.sphere,self.sphere.get_position(),[0,1,0])
@@ -93,7 +93,7 @@ class TestForceFunctions(unittest.TestCase):
 class TestFakeBuoyancyFunctions(unittest.TestCase):
     def setUp(self):
         pal.init()
-        self.sphere = pal.body.Sphere((0,0,0,1),mass=1)
+        self.sphere = pal.body.Sphere((0,0,0),(1,),mass=1)
 
     def tearDown(self):
         pal.cleanup()
@@ -104,7 +104,7 @@ class TestFakeBuoyancyFunctions(unittest.TestCase):
 
     def test_fake_buoyancy_run(self):
         fake_buoyancy = pal.actuator.FakeBuoyancy(self.sphere)
-        fake_buoyancy.run()
+        fake_buoyancy.apply()
 
 class TestHydrofoilFunctions(unittest.TestCase):
     def setUp(self):
@@ -149,7 +149,7 @@ class TestPropellerFunctions(unittest.TestCase):
 class TestLiquidDragFunctions(unittest.TestCase):
     def setUp(self):
         pal.init()
-        self.sphere = pal.body.Sphere((0,0,0,1),mass=1)
+        self.sphere = pal.body.Sphere((0,0,0),(1,),mass=1)
 
     def tearDown(self):
         pal.cleanup()
@@ -160,17 +160,17 @@ class TestLiquidDragFunctions(unittest.TestCase):
 
     def test_drag_run(self):
         drag = pal.actuator.LiquidDrag(self.sphere,1,1,1)
-        drag.run()
+        drag.apply()
 
 
-suite = [unittest.TestLoader().loadTestsFromTestCase(TestDCMotorFunctions),
-         unittest.TestLoader().loadTestsFromTestCase(TestSpringFunctions),
-         unittest.TestLoader().loadTestsFromTestCase(TestImpulseFunctions),
-         unittest.TestLoader().loadTestsFromTestCase(TestForceFunctions),
+suite = [unittest.TestLoader().loadTestsFromTestCase(TestForceFunctions),
+         unittest.TestLoader().loadTestsFromTestCase(TestDCMotorFunctions),
          unittest.TestLoader().loadTestsFromTestCase(TestFakeBuoyancyFunctions),
-         unittest.TestLoader().loadTestsFromTestCase(TestHydrofoilFunctions),
-         unittest.TestLoader().loadTestsFromTestCase(TestPropellerFunctions),
          unittest.TestLoader().loadTestsFromTestCase(TestLiquidDragFunctions)]
+         #unittest.TestLoader().loadTestsFromTestCase(TestSpringFunctions),
+         #unittest.TestLoader().loadTestsFromTestCase(TestImpulseFunctions),
+         #unittest.TestLoader().loadTestsFromTestCase(TestHydrofoilFunctions),
+         #unittest.TestLoader().loadTestsFromTestCase(TestPropellerFunctions)]
 
 if __name__ == "__main__":
     suite = unittest.TestSuite(suite)

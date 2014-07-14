@@ -8,20 +8,6 @@
  *
  */
 
-#define CASTUP(char,in) (int)char >91?(char=='b') ? reinterpret_cast<palBox*>(in):\
-                        (char=='s') ? reinterpret_cast<palSphere*>(in):\
-                        (char=='c') ? reinterpret_cast<palCapsule*>(in):\
-                        (char=='o') ? reinterpret_cast<palCompoundBody*>(in):\
-                        (char=='x') ? reinterpret_cast<palConvex*>(in):\
-                        (char=='g') ? reinterpret_cast<palGenericBody*>(in):in:in
-                        //(char=='B') ? dynamic_cast<palStaticBox*>(static_cast<palBodyBase*>(in)):\
-                        //(char=='S') ? dynamic_cast<palStaticSphere*>(static_cast<palBodyBase*>(in)):\
-                        //(char=='S') ? dynamic_cast<palStaticCapsule*>(static_cast<palBodyBase*>(in)):reinterpret_cast<palStatic*>(in)
-                        //(dynamic_cast<palTerrainPlane*>(in))           ? dynamic_cast<palTerrainPlane*>(in):\
-                        //(dynamic_cast<palTerrainHeightmap*>(in))       ? dynamic_cast<palTerrainHeightmap*>(in):\
-                        //(dynamic_cast<palTerrainMesh*>(in))            ? dynamic_cast<palTerrainMesh*>(in):\
-                        //(dynamic_cast<palOrientatedTerrainPlane*>(in)) ? dynamic_cast<palOrientatedTerrainPlane*>(in):in
-
 #define GEOMCASTUP(char,in) (char=='b') ? reinterpret_cast<palBoxGeometry*>(in):\
                             (char=='s') ? reinterpret_cast<palSphereGeometry*>(in):\
                             (char=='c') ? reinterpret_cast<palCapsuleGeometry*>(in):\
@@ -87,7 +73,7 @@ extern "C"
 {
     palPhysics* pal_init(char[])
     {
-        std::cout << "PAL INTERNAL DEBUG MODE SELECTED\n";
+        std::cout << "PYPAL INTERNAL DEBUG MODE SELECTED\n";
         PF->LoadPALfromDLL("/usr/local/lib64/x86_64-linux-gnu/");
         PF->SelectEngine("Bullet");
         PM = new palMaterials();
@@ -275,39 +261,11 @@ extern "C"
 	    return prl;
     }
 
-    palDCMotor * create_dcmotor(palRevoluteLink *revolute_link, Float torque, Float EMF, Float resistance)
-    {
-        palDCMotor *pm= dynamic_cast<palDCMotor*>(PF->CreateObject("palDCMotor"));
-        pm->Init(revolute_link,torque,EMF,resistance); //initialize it, set its location to 0,0,0 and minimum size to 50
-	    return pm;
-    }
-
     palImpulseActuator * create_impulse(palBody* pb, char pbtc, Float px, Float py, Float pz, Float ax, Float ay, Float az)
     {
         palImpulseActuator *pi= dynamic_cast<palImpulseActuator*>(PF->CreateObject("palImpulseActuator"));
-        pi->Init(CASTUP(pbtc,pb),px,py,pz,ax,ay,az); //initialize it, set its location to 0,0,0 and minimum size to 50
+        //pi->Init(CASTUP(pbtc,pb),px,py,pz,ax,ay,az); //initialize it, set its location to 0,0,0 and minimum size to 50
 	    return pi;
-    }
-
-    palForceActuator * create_force(palBody* pb, char pbtc, Float px, Float py, Float pz, Float ax, Float ay, Float az)
-    {
-        palForceActuator *pf= dynamic_cast<palForceActuator*>(PF->CreateObject("palForceActuator"));
-        pf->Init(CASTUP(pbtc,pb),px,py,pz,ax,ay,az); //initialize it, set its location to 0,0,0 and minimum size to 50
-	    return pf;
-    }
-
-    palFakeBuoyancy * create_fake_buoyancy(palBody* pb, char pbtc, Float density)
-    {
-        palFakeBuoyancy *pf= dynamic_cast<palFakeBuoyancy*>(PF->CreateObject("palFakeBuoyancy"));
-        pf->Init(CASTUP(pbtc,pb),density); //initialize it, set its location to 0,0,0 and minimum size to 50
-	    return pf;
-    }
-
-    palLiquidDrag * create_liqid_drag(palBody* pb, char pbtc, Float area, Float CD, Float density)
-    {
-        palLiquidDrag *pl= dynamic_cast<palLiquidDrag*>(PF->CreateObject("palLiquidDrag"));
-        pl->Init(CASTUP(pbtc,pb),area,CD,density); //initialize it, set its location to 0,0,0 and minimum size to 50
-	    return pl;
     }
 
     palHydrofoil * create_hydrofoil(palBody* pb, char pbtc, Float px, Float py, Float pz,
@@ -318,12 +276,12 @@ extern "C"
                                                             Float density)
     {
         palHydrofoil *ph= dynamic_cast<palHydrofoil*>(PF->CreateObject("palHydrofoil"));
-        ph->Init(CASTUP(pbtc,pb), px, pz, px,
+        /*ph->Init(CASTUP(pbtc,pb), px, pz, px,
                                   ax, az, ax,
                                   lx, lz, lx,
                                   af,
                                   a, b,  c,
-                                  density);
+                                  density);*/
 	    return ph;
     }
 
@@ -332,16 +290,16 @@ extern "C"
                                                             Float l)
     {
         palPropeller *ph= dynamic_cast<palPropeller*>(PF->CreateObject("palPropeller"));
-        ph->Init(CASTUP(pbtc,pb), px, pz, px,
+        /*ph->Init(CASTUP(pbtc,pb), px, pz, px,
                                   ax, az, ax,
-                                  l);
+                                  l);*/
 	    return ph;
     }
 
     palSpring * create_spring(palBody* pb1, char pbtc1, palBody* pb2, char pbtc2, Float rest, Float ks, Float kd)
     {
         palSpring *ps= dynamic_cast<palSpring*>(PF->CreateObject("palSpring"));
-        ps->Init(CASTUP(pbtc1,pb1),CASTUP(pbtc2,pb2),rest,ks,kd); //initialize it, set its location to 0,0,0 and minimum size to 50
+        //ps->Init(CASTUP(pbtc1,pb1),CASTUP(pbtc2,pb2),rest,ks,kd); //initialize it, set its location to 0,0,0 and minimum size to 50
 	    return ps;
     }
 
@@ -365,7 +323,7 @@ extern "C"
     palGPSSensor* create_gps(palBody*b,char btc, int sec, Float lat, Float lon)
     {
         palGPSSensor *gps= PF->CreateGPSSensor();
-        gps->Init(CASTUP(btc,b),sec,lat,lon);
+        //gps->Init(CASTUP(btc,b),sec,lat,lon);
         return gps;
     }
 
@@ -399,153 +357,8 @@ extern "C"
         delete o;
         o = NULL;
     }
-    void body_get_position(palBody*b,char typechar,float&x,float&y,float&z)
-    {
-        palVector3 pos;
-        (CASTUP(typechar,b))->GetPosition(pos);
-        x = pos[0];
-        y = pos[1];
-        z = pos[2];
-    }
-
-    void body_set_position(palBody*b,char typechar,float x,float y,float z)
-    {
-        (CASTUP(typechar,b))->SetPosition(x,y,z);
-    }
-
-    void body_set_orientation(palBody*b,float x,float y,float z)
-    {
-        b->SetOrientation(x,y,z);
-    }
-
-    void body_set_material(palBody*b,palMaterialUnique * material)
-    {
-        b->SetMaterial(material);
-    }
-
-    int body_get_group(palBody*b)
-    {
-        return b->GetGroup();
-    }
-
-    void body_set_group(palBody*b, int group)
-    {
-        b->SetGroup(group);
-    }
-
-    Float body_get_skin_width(palBody*b)
-    {
-        return b->GetSkinWidth();
-    }
-
-    bool body_set_skin_width(palBody*b, Float width)
-    {
-        b->SetSkinWidth(width);
-    }
-
-    void body_get_primative_location(palBody*b,char typechar,float&x,float&y,float&z,float&x1,float&y1,float&z1)
-    {
-        palMatrix4x4 const *m = &(CASTUP(typechar,b))->m_Geometries.front()->GetLocationMatrix();//->GetBaseBody();
-        palVector3 v;
-        mat_get_translation(m, &v);
-        x = v[0];
-        y = v[1];
-        z = v[2];
-        mat_get_rotation((palMatrix4x4*)m,&x1,&y1,&z1);
-    }
-
-    void body_get_matrix_location(palBody*b,char typechar,float&m1, float&m2, float&m3, float&m4,
-                                                          float&m5, float&m6, float&m7, float&m8,
-                                                          float&m9, float&m10,float&m11,float&m12,
-                                                          float&m13,float&m14,float&m15,float&m16)
-    {
-        palMatrix4x4 const *m = &(CASTUP(typechar,b))->GetLocationMatrix();//->GetBaseBody();
-        m1 = m->_11;
-        m2 = m->_12;
-        m3 = m->_13;
-        m4 = m->_14;
-        m5 = m->_21;
-        m6 = m->_22;
-        m7 = m->_23;
-        m8 = m->_24;
-        m9 = m->_31;
-        m10 = m->_32;
-        m11 = m->_33;
-        m12 = m->_34;
-        m13 = m->_41;
-        m14 = m->_42;
-        m15 = m->_43;
-        m16 = m->_44;
-    }
 }
-
-/*********************************************************
- *                                                       *
- *               the geometry_base functions             *
- *                                                       *
- *********************************************************/
-extern "C" 
-{
-    /*void remove_object(palFactoryObject*o){
-        delete o;
-        o = NULL;
-    }
-    void body_get_position(palBody*b,char typechar,float&x,float&y,float&z)
-    {
-        palVector3 pos;
-        (CASTUP(typechar,b))->GetPosition(pos);
-        x = pos[0];
-        y = pos[1];
-        z = pos[2];
-    }
-
-    void body_set_position(palBody*b,char typechar,float x,float y,float z)
-    {
-        (CASTUP(typechar,b))->SetPosition(x,y,z);
-    }
-
-    void body_set_orientation(palBody*b,float x,float y,float z)
-    {
-        b->SetOrientation(x,y,z);
-    }
-
-    void body_set_material(palBody*b,palMaterialUnique * material)
-    {
-        b->SetMaterial(material);
-    }
-
-    int body_get_group(palBody*b)
-    {
-        return b->GetGroup();
-    }
-
-    void body_set_group(palBody*b, int group)
-    {
-        b->SetGroup(group);
-    }
-
-    Float body_get_skin_width(palBody*b)
-    {
-        return b->GetSkinWidth();
-    }
-
-    bool body_set_skin_width(palBody*b, Float width)
-    {
-        b->SetSkinWidth(width);
-    }*/
-
-    void geometry_get_primative_location(palGeometry*b,char typechar,float&x,float&y,float&z,float&x1,float&y1,float&z1)
-    {
-        palMatrix4x4 const *m = &(GEOMCASTUP(typechar,b))->GetLocationMatrix();//->GetBaseBody();
-        palVector3 v;
-        mat_get_translation(m, &v);
-        x = v[0];
-        y = v[1];
-        z = v[2];
-        mat_get_rotation((palMatrix4x4*)m,&x1,&y1,&z1);
-    }
-}
-/*********************************************************
+/*****************************************
  *                                                       *
  *               the prismatic link functions            *
  *                                                       *
@@ -617,34 +430,6 @@ extern "C"
 
 /*********************************************************
  *                                                       *
- *               the DCMotor functions                   *
- *                                                       *
- *********************************************************/
-extern "C" 
-{
-    void dcmotor_run(palDCMotor*a){
-        a->Apply();
-    }
-
-    void dcmotor_set_voltage(palDCMotor*m,float voltage){
-        m->SetVoltage(voltage);
-    }
-}
-
-/*********************************************************
- *                                                       *
- *               the liquid drag functions               *
- *                                                       *
- *********************************************************/
-extern "C" 
-{
-    void liquid_drag_run(palLiquidDrag*a){
-        a->Apply();
-    }
-}
-
-/*********************************************************
- *                                                       *
  *               the Impulse functions                   *
  *                                                       *
  *********************************************************/
@@ -658,23 +443,6 @@ extern "C"
         a->Apply();
     }
 }
-
-/*********************************************************
- *                                                       *
- *               the Force functions                     *
- *                                                       *
- *********************************************************/
-extern "C" 
-{
-    void force_set_force(palForceActuator*f,float force){
-        f->SetForce(force);
-    }
-
-    void force_run(palForceActuator*a){
-        a->Apply();
-    }
-}
-
 /*********************************************************
  *                                                       *
  *               the hydrofoil functions                 *
@@ -706,19 +474,6 @@ extern "C"
         a->Apply();
     }
 }
-
-/*********************************************************
- *                                                       *
- *               the FakeBuoyancy functions              *
- *                                                       *
- *********************************************************/
-extern "C" 
-{
-    void fake_buoyancy_run(palFakeBuoyancy*a){
-        a->Apply();
-    }
-}
-
 /*********************************************************
  *                                                       *
  *               the Spring functions                   *

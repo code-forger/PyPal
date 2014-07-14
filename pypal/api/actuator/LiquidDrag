@@ -1,0 +1,6 @@
+void Init (palBody *pbody, float, area,float CD, Float density=998.29f)
+actuator_fake_buoyancy(palBody*, float, float, float)
+FakeBuoyancy(Body, float, float, float)
+
+void Apply ()
+actuator_fake_buoyancy_apply(palFakeBuoyancy*)
