@@ -261,41 +261,6 @@ extern "C"
 	    return prl;
     }
 
-    palImpulseActuator * create_impulse(palBody* pb, char pbtc, Float px, Float py, Float pz, Float ax, Float ay, Float az)
-    {
-        palImpulseActuator *pi= dynamic_cast<palImpulseActuator*>(PF->CreateObject("palImpulseActuator"));
-        //pi->Init(CASTUP(pbtc,pb),px,py,pz,ax,ay,az); //initialize it, set its location to 0,0,0 and minimum size to 50
-	    return pi;
-    }
-
-    palHydrofoil * create_hydrofoil(palBody* pb, char pbtc, Float px, Float py, Float pz,
-                                                            Float ax, Float ay, Float az,
-                                                            Float lx, Float ly, Float lz,
-                                                            Float af,
-                                                            Float a, Float b, Float c,
-                                                            Float density)
-    {
-        palHydrofoil *ph= dynamic_cast<palHydrofoil*>(PF->CreateObject("palHydrofoil"));
-        /*ph->Init(CASTUP(pbtc,pb), px, pz, px,
-                                  ax, az, ax,
-                                  lx, lz, lx,
-                                  af,
-                                  a, b,  c,
-                                  density);*/
-	    return ph;
-    }
-
-    palPropeller * create_propeller(palBody* pb, char pbtc, Float px, Float py, Float pz,
-                                                            Float ax, Float ay, Float az,
-                                                            Float l)
-    {
-        palPropeller *ph= dynamic_cast<palPropeller*>(PF->CreateObject("palPropeller"));
-        /*ph->Init(CASTUP(pbtc,pb), px, pz, px,
-                                  ax, az, ax,
-                                  l);*/
-	    return ph;
-    }
-
     palSpring * create_spring(palBody* pb1, char pbtc1, palBody* pb2, char pbtc2, Float rest, Float ks, Float kd)
     {
         palSpring *ps= dynamic_cast<palSpring*>(PF->CreateObject("palSpring"));
@@ -427,56 +392,9 @@ extern "C"
         z = pos[2];
     }
 }
-
 /*********************************************************
  *                                                       *
- *               the Impulse functions                   *
- *                                                       *
- *********************************************************/
-extern "C" 
-{
-    void impulse_set_impulse(palImpulseActuator*i,float impulse){
-        i->SetImpulse(impulse);
-    }
-
-    void impulse_run(palImpulseActuator*a){
-        a->Apply();
-    }
-}
-/*********************************************************
- *                                                       *
- *               the hydrofoil functions                 *
- *                                                       *
- *********************************************************/
-extern "C" 
-{
-    void hydrofoil_set_angle(palHydrofoil*f,float angle){
-        f->SetAngle(angle);
-    }
-
-    void hydrofoil_run(palHydrofoil*a){
-        a->Apply();
-    }
-}
-
-/*********************************************************
- *                                                       *
- *               the propeller functions                 *
- *                                                       *
- *********************************************************/
-extern "C" 
-{
-    void propeller_set_voltage(palPropeller*f,float voltage){
-        f->SetVoltage(voltage);
-    }
-
-    void propeller_run(palPropeller*a){
-        a->Apply();
-    }
-}
-/*********************************************************
- *                                                       *
- *               the Spring functions                   *
+ *               the Spring functions                    *
  *                                                       *
  *********************************************************/
 extern "C" 

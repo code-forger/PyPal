@@ -39,30 +39,6 @@ palActuator
          
         palGenericLink *    GetLink ()
      }
-    palImpulseActuator
-    {
-        virtual void    Init (palBody *pbody, Float px, Float py, Float pz, Float axis_x, Float axis_y, Float axis_z)
-
-        virtual void    SetImpulse (Float impulse)
-         
-        virtual void    Apply ()
-    }
-         palHydrofoil
-         {
-            virtual void    Init (palBody *pbody, Float px, Float py, Float pz, Float o_axis_x, Float o_axis_y, Float o_axis_z, Float lift_axis_x, Float lift_axis_y, Float lift_axis_z, Float Af, Float a, Float b, Float c, Float density=0.99829)
-
-            virtual void    SetAngle (Float alpha)
-             
-            virtual void    Apply ()
-         }
-         palPropeller
-         {
-            virtual void    Init (palBody *pbody, Float px, Float py, Float pz, Float axis_x, Float axis_y, Float axis_z, Float a_l)
-
-            virtual void    SetVoltage (Float voltage)
-             
-            virtual void    Apply ()
-         }
      palSpring
      {
         void    Init (palBody *pb1, palBody *pb2, const palSpringDesc &desc)

@@ -53,7 +53,7 @@ class TestSpringFunctions(unittest.TestCase):
 class TestImpulseFunctions(unittest.TestCase):
     def setUp(self):
         pal.init()
-        self.sphere = pal.body.Sphere((0,0,0,1),mass=1)
+        self.sphere = pal.body.Sphere((0,0,0),(1,),mass=1)
 
     def tearDown(self):
         pal.cleanup()
@@ -62,9 +62,9 @@ class TestImpulseFunctions(unittest.TestCase):
         impulse = pal.actuator.Impulse(self.sphere,self.sphere.get_position(),[0,1,0])
         self.assertEqual(len(pal._pal.all_objects),2)
 
-    def test_impulse_run(self):
+    def test_impulse_apply(self):
         impulse = pal.actuator.Impulse(self.sphere,self.sphere.get_position(),[0,1,0])
-        impulse.run()
+        impulse.apply()
 
     def test_impulse_set_impulse(self):
         impulse = pal.actuator.Impulse(self.sphere,self.sphere.get_position(),[0,1,0])
@@ -109,27 +109,27 @@ class TestFakeBuoyancyFunctions(unittest.TestCase):
 class TestHydrofoilFunctions(unittest.TestCase):
     def setUp(self):
         pal.init()
-        self.sphere = pal.body.Sphere((0,0,0,1),mass=1)
+        self.sphere = pal.body.Sphere((0,0,0),(1,),mass=1)
 
     def tearDown(self):
         pal.cleanup()
 
     def test_hydrofoil_create(self):
-        hydrofoil = pal.actuator.Hydrofoil(self.sphere,self.sphere.get_position(),(0,0,0),(0,1,0),10,1,1,1,1)
+        hydrofoil = pal.actuator.Hydrofoil(self.sphere,self.sphere.get_position(),(0,0,0),(0,1,0),(10,1,1,1),1)
         self.assertEqual(len(pal._pal.all_objects),2)
 
-    def test_hydrofoil_run(self):
-        hydrofoil = pal.actuator.Hydrofoil(self.sphere,self.sphere.get_position(),(0,0,0),(0,1,0),10,1,1,1,1)
-        hydrofoil.run()
+    def test_hydrofoil_apply(self):
+        hydrofoil = pal.actuator.Hydrofoil(self.sphere,self.sphere.get_position(),(0,0,0),(0,1,0),(10,1,1,1),1)
+        hydrofoil.apply()
 
     def test_hydrofoil_set_angle(self):
-        hydrofoil = pal.actuator.Hydrofoil(self.sphere,self.sphere.get_position(),(0,0,0),(0,1,0),10,1,1,1,1)
+        hydrofoil = pal.actuator.Hydrofoil(self.sphere,self.sphere.get_position(),(0,0,0),(0,1,0),(10,1,1,1),1)
         hydrofoil.set_angle(10)
 
 class TestPropellerFunctions(unittest.TestCase):
     def setUp(self):
         pal.init()
-        self.sphere = pal.body.Sphere((0,0,0,1),mass=1)
+        self.sphere = pal.body.Sphere((0,0,0),(1,),mass=1)
 
     def tearDown(self):
         pal.cleanup()
@@ -138,9 +138,9 @@ class TestPropellerFunctions(unittest.TestCase):
         propeller = pal.actuator.Propeller(self.sphere,self.sphere.get_position(),(0,0,0),1)
         self.assertEqual(len(pal._pal.all_objects),2)
 
-    def test_propeller_run(self):
+    def test_propeller_apply(self):
         propeller = pal.actuator.Propeller(self.sphere,self.sphere.get_position(),(0,0,0),1)
-        propeller.run()
+        propeller.apply()
 
     def test_propeller_set_voltage(self):
         propeller = pal.actuator.Propeller(self.sphere,self.sphere.get_position(),(0,0,0),1)
@@ -166,11 +166,11 @@ class TestLiquidDragFunctions(unittest.TestCase):
 suite = [unittest.TestLoader().loadTestsFromTestCase(TestForceFunctions),
          unittest.TestLoader().loadTestsFromTestCase(TestDCMotorFunctions),
          unittest.TestLoader().loadTestsFromTestCase(TestFakeBuoyancyFunctions),
-         unittest.TestLoader().loadTestsFromTestCase(TestLiquidDragFunctions)]
-         #unittest.TestLoader().loadTestsFromTestCase(TestSpringFunctions),
-         #unittest.TestLoader().loadTestsFromTestCase(TestImpulseFunctions),
-         #unittest.TestLoader().loadTestsFromTestCase(TestHydrofoilFunctions),
-         #unittest.TestLoader().loadTestsFromTestCase(TestPropellerFunctions)]
+         unittest.TestLoader().loadTestsFromTestCase(TestLiquidDragFunctions),
+         unittest.TestLoader().loadTestsFromTestCase(TestImpulseFunctions),
+         unittest.TestLoader().loadTestsFromTestCase(TestHydrofoilFunctions),
+         unittest.TestLoader().loadTestsFromTestCase(TestPropellerFunctions)]
+         #unittest.TestLoader().loadTestsFromTestCase(TestSpringFunctions)]
 
 if __name__ == "__main__":
     suite = unittest.TestSuite(suite)

@@ -1,0 +1,11 @@
+void Init (palBody *pbody, Float px, Float py, Float pz, Float o_axis_x, Float o_axis_y, Float o_axis_z, Float lift_axis_x, Float lift_axis_y, Float lift_axis_z, Float Af, Float a, Float b, Float c, Float density=0.99829)
+palHydrofoil* actuator_hydrofoil_create(palBody* pb, float, float, float, float, float, float, float, float, float, float, float, float, float, float)
+Hydrofoil(float(3), float(3), float(3), float(4))
+
+void SetAngle (Float angle)
+actuator_hydrofoil_set_angle(float angle)
+set_angle(float)
+         
+void Apply ()
+actuator_hydrofoil_apply(palHydrofoil *h)
+apply()

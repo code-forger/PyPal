@@ -29,7 +29,10 @@ REQUIREDOBJECTS = build/PyPal.o\
 				  build/actuator/force.o\
 				  build/actuator/dcmotor.o\
 				  build/actuator/fakebuoyancy.o\
-				  build/actuator/liquiddrag.o
+				  build/actuator/liquiddrag.o\
+				  build/actuator/propeller.o\
+				  build/actuator/hydrofoil.o\
+				  build/actuator/impulse.o
 
 all: libPyPal.so
 
@@ -110,6 +113,15 @@ build/actuator/fakebuoyancy.o: src/actuator/fakebuoyancy.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
 
 build/actuator/liquiddrag.o: src/actuator/liquiddrag.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+
+build/actuator/propeller.o: src/actuator/propeller.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+
+build/actuator/hydrofoil.o: src/actuator/hydrofoil.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+
+build/actuator/impulse.o: src/actuator/impulse.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
 
 
