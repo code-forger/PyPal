@@ -63,31 +63,8 @@ void* castup_bodybase(palBodyBase* in)
  *               the pal functions                       *
  *                                                       *
  *********************************************************/
-
-palMaterials *PM = NULL;
-palPhysics *pp = NULL;
-palCollisionDetection *pcd = NULL;
-int material_index;
-palRayHit last_hit;
-extern "C" 
+extern "C"
 {
-    palPhysics* pal_init(char[])
-    {
-        std::cout << "PYPAL INTERNAL DEBUG MODE SELECTED\n";
-        PF->LoadPALfromDLL("/usr/local/lib64/x86_64-linux-gnu/");
-        PF->SelectEngine("Bullet");
-        PM = new palMaterials();
-        material_index = 0;
-        pp = PF->CreatePhysics();
-        if (pp == NULL) 
-        {
-		    printf("Failed to create the physics engine. Check to see if you spelt the engine name correctly, or that the engine DLL is in the right location\n");
-		    return NULL;
-        }
-	    pcd = dynamic_cast<palCollisionDetection *>(pp);
-        return pp;
-    }
-
     bool pal_ray_hit(Float x, Float y, Float z, Float dx, Float dy, Float dz, Float range)
     {
         last_hit.m_pBody = 0;
@@ -119,35 +96,6 @@ extern "C"
             y = vec[1];
             z = vec[2];
         }
-    }
-
-    void pal_cleanup(){
-	    PF->Cleanup();
-    }
-
-    float pal_get_time(){
-        return pp->GetTime();
-    }
-}
-/*********************************************************
- *                                                       *
- *               the physics class functions             *
- *                                                       *
- *********************************************************/
-extern "C" 
-{
-    void physics_init(float x, float y, float z)
-    {
-	    palPhysicsDesc desc;
-        desc.m_vGravity[0] = x; 
-        desc.m_vGravity[1] = y; 
-        desc.m_vGravity[2] = z;
-        pp->Init(desc);
-    }
-
-    void physics_update(float step)
-    {
-	    pp->Update(step);
     }
 }
 /*********************************************************

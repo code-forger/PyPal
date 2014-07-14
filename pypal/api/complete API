@@ -212,41 +212,6 @@ palParticleFluid
      {
         virtual void    Init ()=0
      }
- palPhysics
- {
-    virtual void    Init (const palPhysicsDesc &desc)
-
-    virtual void    Update (Float timestep)
-     
-    virtual const char *    GetPALVersion () const =0
-     
-    virtual const char *    GetVersion () const =0
-     
-    virtual Float   GetTime () const
-     
-    virtual Float   GetLastTimestep () const
-     
-    virtual void    SetGroupCollision (palGroup a, palGroup b, bool enabled)
-     
-    virtual void    GetGravity (palVector3 &g) const
-     
-    virtual void    SetFactoryInstance (palFactory *pfInstance=0)
-     
-    palAxis     GetUpAxis () const
-        Return the index, i.e. x (0), y (1), or z(2), to use for up.
-     
-    virtual void    AddAction (palAction *action)
-     
-    virtual void    RemoveAction (palAction *action)
-        Removes an action from the physics system.
-     
-    virtual void    SetDebugDraw (palDebugDraw *debugDraw)
-        Assigns the debug draw instance.
-     
-    virtual palDebugDraw *  GetDebugDraw ()
-     
-    virtual palCollisionDetection *     asCollisionDetection ()
- }
 palSensor
      palCompassSensor
      {

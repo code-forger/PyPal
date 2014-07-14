@@ -67,30 +67,33 @@ def cleanup():
 
 def get_time():
     """Returns age of the simulation."""
-    _pal.lib.pal_get_time.restype = c.c_float
-    return _pal.lib.pal_get_time()
+    _pal.lib.physics_get_time.restype = c.c_float
+    return _pal.lib.physics_get_time()
 
 def get_time_step():
     """Returns last timestep."""
-    pass
+    _pal.lib.physics_get_last_timestep.restype = c.c_float
+    return _pal.lib.physics_get_last_timestep()
 
 def set_group_collision(group1,group2,collide):
     """
     group1,group2: the groups between which the relation is being set.
     collide: bool, wether or not the two groups can collide with eachother  
     """
-    pass
+    _pal.lib.physics_set_group_collision(c.c_int(group1),c.c_int(group2),c.c_bool(collise));
 
 def get_gravity():
     """Returns the current direction of gravity.
 
     returns:(x,y,z)
     """
-    pass
+    ret = _pal.Vec3()
+    _pal.lib.physics_get_gracity(ret);
+    return [x for x in ret]
 
 def get_up_axis():
     """Return the index, i.e. x (0), y (1), or z(2), to use for up."""
-    pass
+    return _pal.lib.physics_get_up_axis()
 
 #collision detection functions
 

@@ -1,0 +1,33 @@
+
+void Init (const palPhysicsDesc &desc)
+
+void Update (Float timestep)
+
+#const char * GetPALVersion ()
+
+#const char * GetVersion ()
+
+Float GetTime ()
+
+Float GetLastTimestep ()
+
+void SetGroupCollision (palGroup a, palGroup b, bool enabled)
+
+void GetGravity (palVector3 &g)
+
+void SetFactoryInstance (palFactory *pfInstance=0)
+
+palAxis GetUpAxis ()
+Return the index, i.e. x (0), y (1), or z(2), to use for up.
+
+void AddAction (palAction *action)
+
+void RemoveAction (palAction *action)
+Removes an action from the physics system.
+
+void SetDebugDraw (palDebugDraw *debugDraw)
+Assigns the debug draw instance.
+
+palDebugDraw *  GetDebugDraw ()
+
+palCollisionDetection * asCollisionDetection ()

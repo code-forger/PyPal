@@ -7,6 +7,7 @@ LIBCXXFLAGS      = -shared -Wl,-soname,libPyPal.so
 LIBLIBS          = -L/usr/local/lib64/x86_64-linux-gnu/ -lpal -ldl -lpal_bullet
 
 REQUIREDOBJECTS = build/PyPal.o\
+				  build/pypal.o\
 				  build/body/box.o\
 				  build/body/sphere.o\
 				  build/body/capsule.o\
@@ -41,6 +42,9 @@ libPyPal.so: $(REQUIREDOBJECTS)
 	g++ $(LIBCXXFLAGS) -o libPyPal.so $(REQUIREDOBJECTS)  $(LIBLIBS)
 
 build/PyPal.o: src/PyPal.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+
+build/pypal.o: src/pypal.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
 
 # body object rules
