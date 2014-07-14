@@ -26,6 +26,7 @@ REQUIREDOBJECTS = build/PyPal.o\
 				  build/geometry/box.o\
 				  build/geometry/capsule.o\
 				  build/geometry/sphere.o\
+				  build/geometry/convex.o\
 				  build/actuator/force.o\
 				  build/actuator/dcmotor.o\
 				  build/actuator/fakebuoyancy.o\
@@ -100,6 +101,9 @@ build/geometry/capsule.o: src/geometry/capsule.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
 
 build/geometry/sphere.o: src/geometry/sphere.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+
+build/geometry/convex.o: src/geometry/convex.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
 
 # actuator body object rules

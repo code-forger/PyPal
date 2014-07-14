@@ -139,13 +139,20 @@ class TestConvexFunctions(unittest.TestCase):
                        (0,1,0),
                        (1,0,0),
                        (0,0,0))
+        self.triangles = ((0,1,2),
+                          (2,3,4),
+                          (4,5,6))
         pal.init()
 
     def tearDown(self):
         pal.cleanup()
 
-    def test_convex_create(self):
-        pal.geometry.Convex((0,0,0),points = self.points)
+    def test_convex_create_no_triangles(self):
+        pal.geometry.Convex((0,0,0),self.points)
+        self.assertEqual(len(pal._pal.all_objects),1)
+
+    def test_convex_create_triangles(self):
+        pal.geometry.Convex((0,0,0),self.points, triangles = self.triangles)
         self.assertEqual(len(pal._pal.all_objects),1)
 
     def test_convex_delete(self):
@@ -155,8 +162,8 @@ class TestConvexFunctions(unittest.TestCase):
 
 suite = [unittest.TestLoader().loadTestsFromTestCase(TestBoxFunctions),
         unittest.TestLoader().loadTestsFromTestCase(TestCapsuleFunctions),
-        unittest.TestLoader().loadTestsFromTestCase(TestSphereFunctions)]
-        #unittest.TestLoader().loadTestsFromTestCase(TestConvexFunctions)]
+        unittest.TestLoader().loadTestsFromTestCase(TestSphereFunctions),
+        unittest.TestLoader().loadTestsFromTestCase(TestConvexFunctions)]
 
 if __name__ == "__main__":
     suite = unittest.TestSuite(suite)
