@@ -6,7 +6,7 @@ import weakref
 class TestCompassFunctions(unittest.TestCase):
     def setUp(self):
         pal.init()
-        self.sphere = pal.body.Sphere((0,0,0,1),mass=1)
+        self.sphere = pal.body.Sphere((0,0,0),(1,),mass=1)
 
     def tearDown(self):
         pal.cleanup()
@@ -27,7 +27,7 @@ class TestCompassFunctions(unittest.TestCase):
 class TestInclinometerFunctions(unittest.TestCase):
     def setUp(self):
         pal.init()
-        self.sphere = pal.body.Sphere((0,0,0,1),mass=1)
+        self.sphere = pal.body.Sphere((0,0,0),(1,),mass=1)
 
     def tearDown(self):
         pal.cleanup()
@@ -43,7 +43,7 @@ class TestInclinometerFunctions(unittest.TestCase):
 class TestPSDFunctions(unittest.TestCase):
     def setUp(self):
         pal.init()
-        self.sphere = pal.body.Sphere((0,0,0,1),mass=1)
+        self.sphere = pal.body.Sphere((0,0,0),(1,),mass=1)
 
     def tearDown(self):
         pal.cleanup()
@@ -59,7 +59,7 @@ class TestPSDFunctions(unittest.TestCase):
 class TestGPSFunctions(unittest.TestCase):
     def setUp(self):
         pal.init()
-        self.sphere = pal.body.Sphere((0,0,0,1),mass=1)
+        self.sphere = pal.body.Sphere((0,0,0),(1,),mass=1)
 
     def tearDown(self):
         pal.cleanup()
@@ -69,7 +69,7 @@ class TestGPSFunctions(unittest.TestCase):
         self.assertEqual(len(pal._pal.all_objects),2)
 
     def test_gps_get_angle(self):
-        self.box = pal.body.Box((0,0,0,1,1,1),mass=1)
+        self.box = pal.body.Box((0,0,0),(1,1,1),mass=1)
         gps = pal.sensor.GPS(self.box,100,10,10)
         self.assertEqual(gps.get_string().split(",")[2],'A')
 

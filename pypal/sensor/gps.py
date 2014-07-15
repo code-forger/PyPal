@@ -1,11 +1,11 @@
-from pypal import private_globals as pal
+from pypal import private_globals as _pal
 import ctypes as c
 import weakref
-class GPS(pal.PalObject):
+class GPS(_pal.PalObject):
     def __init__(self, body, time, latitude, longitude):
         """
 
-        GPS CURRENTLY ONLY WORKS WITH pal.body.Box() DO NOT ADD ANY OTHER BODIES TO IT
+        GPS CURRENTLY ONLY WORKS WITH _pal.body.Box() DO NOT ADD ANY OTHER BODIES TO IT
         A fix for this is coming soon.
 
         adds a gps to the world
@@ -15,11 +15,10 @@ class GPS(pal.PalObject):
 	    latitude: The initial latitude position of the sensor (radians, ie: rad(degrees,minutes,seconds))
 	    longitude: The initial longitude position of the sensor (radians, ie: rad(degrees,minutes,seconds)) 
         """
-        self.obj = pal.lib.create_gps(body.obj,c.c_char(body.typechar), c.c_int(time), c.c_float(latitude), c.c_float(longitude))
+        self.obj = _pal.lib.sensor_gps_create(_pal.get_body_pointer(body), c.c_int(time), c.c_float(latitude), c.c_float(longitude))
 
     def get_string(self):
         """returns the angle from north in radiens in the x-y plane"""
-        string = pal.lib.gps_create_string()
-        pal.lib.gps_get_string(self.obj,string)
-        constructed = c.c_char_p(string)
-        return constructed.value
+        string = _pal.lib.sensor_gps_create_string()
+        _pal.lib.sensor_gps_get_string(self.obj,string)
+        return c.c_char_p(string).value

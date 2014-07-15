@@ -209,38 +209,6 @@ extern "C"
 	    return prl;
     }
 
-    palCompassSensor* create_compass(palBody*b, Float x, Float y, Float z)
-    {
-        palCompassSensor *c= PF->CreateCompassSensor();
-        c->Init(b,x,y,z);
-        return c;
-    }
-
-    palGPSSensor* create_gps(palBody*b,char btc, int sec, Float lat, Float lon)
-    {
-        palGPSSensor *gps= PF->CreateGPSSensor();
-        //gps->Init(CASTUP(btc,b),sec,lat,lon);
-        return gps;
-    }
-
-    palInclinometerSensor* create_inclinometer(palBody*b, Float ax, Float ay, Float az
-                                                   , Float ux, Float uy, Float uz
-                                                   , Float gx, Float gy, Float gz)
-    {
-        palInclinometerSensor *i= PF->CreateInclinometerSensor();
-        i->Init(b,ax,ay,az,ux,uy,uz,gx,gy,gz);
-        return i;
-    }
-
-    palPSDSensor* create_psd(palBody*b, Float x, Float y, Float z
-                                      , Float ax, Float ay, Float az
-                                      , Float range)
-    {
-        palPSDSensor *p= PF->CreatePSDSensor();
-        p->Init(b,x,y,z,ax,ay,az,range);
-        return p;
-    }
-
 }
 /*********************************************************
  *                                                       *
@@ -354,61 +322,3 @@ extern "C"
         z = pos[2];
     }
 }
-
-/*********************************************************
- *                                                       *
- *               the compass functions                   *
- *                                                       *
- *********************************************************/
-extern "C" 
-{
-    Float compass_get_angle(palCompassSensor* c)
-    {
-        return c->GetAngle();
-    }
-}
-
-/*********************************************************
- *                                                       *
- *               the gps functions                       *
- *                                                       *
- *********************************************************/
-extern "C" 
-{
-    void gps_get_string(palGPSSensor* gps, char * str)
-    {
-        gps->GetGPSString(str); //TODO
-    }
-
-    char* gps_create_string()
-    {
-        char* string = new char[100];
-    }
-}
-
-/*********************************************************
- *                                                       *
- *               the inclinometer functions              *
- *                                                       *
- *********************************************************/
-extern "C" 
-{
-    Float inclinometer_get_angle(palInclinometerSensor* i)
-    {
-        return i->GetAngle();
-    }
-}
-
-/*********************************************************
- *                                                       *
- *               the PSD functions                       *
- *                                                       *
- *********************************************************/
-extern "C" 
-{
-    Float psd_get_distance(palPSDSensor* p)
-    {
-        return p->GetDistance();
-    }
-}
-

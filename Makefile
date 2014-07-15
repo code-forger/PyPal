@@ -37,7 +37,11 @@ REQUIREDOBJECTS = build/PyPal.o\
 				  build/actuator/hydrofoil.o\
 				  build/actuator/impulse.o\
 				  build/actuator/spring.o\
-				  build/actuator/angularmotor.o
+				  build/actuator/angularmotor.o\
+				  build/sensor/compass.o\
+				  build/sensor/psd.o\
+				  build/sensor/gps.o\
+				  build/sensor/inclinometer.o
 
 all: libPyPal.so
 
@@ -141,8 +145,20 @@ build/actuator/impulse.o: src/actuator/impulse.cpp
 build/actuator/spring.o: src/actuator/spring.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
 
-
 build/actuator/angularmotor.o: src/actuator/angularmotor.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+
+# sensor body object rules
+build/sensor/compass.o: src/sensor/compass.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+
+build/sensor/gps.o: src/sensor/gps.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+
+build/sensor/inclinometer.o: src/sensor/inclinometer.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+
+build/sensor/psd.o: src/sensor/psd.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
 
 

@@ -1,7 +1,7 @@
-from pypal import private_globals as pal
+from pypal import private_globals as _pal
 import ctypes as c
 import weakref
-class Compass(pal.PalObject):
+class Compass(_pal.PalObject):
     def __init__(self, body, north):
         """
         adds a compass to the world
@@ -9,10 +9,9 @@ class Compass(pal.PalObject):
         body: The body to connect the compass to
         north: a unit vector describing north
         """
-        self.obj = pal.lib.create_compass(body.obj, c.c_float(north[0]), c.c_float(north[1]), c.c_float(north[2]))
+        self.obj = _pal.lib.sensor_compass_create(body.obj, c.c_float(north[0]), c.c_float(north[1]), c.c_float(north[2]))
 
     def get_angle(self):
         """returns the angle from north in radiens in the x-y plane"""
-        pal.lib.compass_get_angle.restype = c.c_float
-        angle = pal.lib.compass_get_angle(self.obj)
-        return angle
+        _pal.lib.sensor_compass_get_angle.restype = c.c_float
+        return _pal.lib.sensor_compass_get_angle(self.obj)
