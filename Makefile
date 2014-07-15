@@ -47,10 +47,10 @@ REQUIREDOBJECTS = build/PyPal.o\
 				  build/link/prismatic.o\
 				  build/link/spherical.o
 
-all: libPyPal.so
+all: libpypal.so
 
-libPyPal.so: $(REQUIREDOBJECTS)
-	g++ $(LIBCXXFLAGS) -o libPyPal.so $(REQUIREDOBJECTS)  $(LIBLIBS)
+libpypal.so: $(REQUIREDOBJECTS)
+	g++ $(LIBCXXFLAGS) -o libpypal.so $(REQUIREDOBJECTS)  $(LIBLIBS)
 
 build/PyPal.o: src/PyPal.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
@@ -180,7 +180,7 @@ build/link/spherical.o: src/link/spherical.cpp
 
 
 install: all
-	install -m 0755 libPyPal.so /usr/local/lib
+	install -m 0755 libpypal.so /usr/local/lib
 
 
 .PHONY: install
