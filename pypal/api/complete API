@@ -1,66 +1,3 @@
-palActuator
-{
-    Apply()
-}
-     palAngularMotor
-     {
-        virtual void    Init (palRevoluteLink *pLink, Float Max)
-
-        virtual void    Update (Float targetVelocity)=0
-         
-        palRevoluteLink *   GetLink ()
-         
-        virtual std::string     toString () const 
-     }
-     palDMDCMotor
-     {
-        void    Init (palRevoluteLink *prl, Float torque_constant, Float back_EMF_constant, Float armature_resistance, Float rotor_inertia, Float coulomb_friction_constant, Float viscous_friction_constant, Float max_brush_drop, Float half_drop_value)
-
-        void    SetVoltage (Float voltage)
-         
-        void    Apply ()
-         
-        Float   computeTau (Float source_voltage, Float external_torque, Float joint_vel)
-     }
-     palGenericLinkSpring
-     {
-        virtual void    Init (palGenericLink *link)
-
-        virtual void    SetLinearSpring (palAxis axis, const palSpringDesc &spring)
-         
-        virtual void    GetLinearSpring (palAxis axis, palSpringDesc &out) const
-         
-        virtual void    SetAngularSpring (palAxis axis, const palSpringDesc &spring)
-         
-        virtual void    GetAngularSpring (palAxis axis, palSpringDesc &out) const
-         
-        virtual void    Apply ()
-            applies the spring. This may do nothing for some implementations as the physics engine may do the work internally.
-         
-        palGenericLink *    GetLink ()
-     }
-palGridFluid
-{
-    virtual void    Update ()=0
-}
-     palDampendShallowFluid
-     {
-        void    Init (int dimX=128, int dimY=128, Float cellSize=0.08, Float density=1000, Float dampingFluid=0.01, Float dampingBody_linear=0.02, Float dampingBody_angular=0.04)
-
-        void    Update ()
-         
-        int     Get_DimensionsX ()
-         
-        int     Get_DimensionsY ()
-         
-        Float   GetCellSize ()
-         
-        Float *     GetFluidHeights ()
-         
-        palVector3 *    GetFluidVertices ()
-         
-        int     GetNumVertices ()
-     }
 palLink
 {
     virtual void    Init (palBodyBase *parent, palBodyBase *child, bool disableCollisionsBetweenLinkedBodies)
@@ -148,20 +85,6 @@ palMaterial
      
     virtual palMaterialInteraction *    GetMaterialInteraction (PAL_STRING name1, PAL_STRING name2)
  }
-palParticleFluid
-{
-    virtual void    AddParticle (Float x, Float y, Float z, Float vx, Float vy, Float vz)=0
-
-    virtual int     GetNumParticles () const =0
-     
-    virtual palVector3 *    GetParticlePositions () const =0
-     
-    virtual void    Finalize ()=0
-}
-     palSPHFluid
-     {
-        virtual void    Init ()=0
-     }
 palSensor
      palCompassSensor
      {

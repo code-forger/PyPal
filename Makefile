@@ -36,7 +36,8 @@ REQUIREDOBJECTS = build/PyPal.o\
 				  build/actuator/propeller.o\
 				  build/actuator/hydrofoil.o\
 				  build/actuator/impulse.o\
-				  build/actuator/spring.o
+				  build/actuator/spring.o\
+				  build/actuator/angularmotor.o
 
 all: libPyPal.so
 
@@ -138,6 +139,10 @@ build/actuator/impulse.o: src/actuator/impulse.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
 
 build/actuator/spring.o: src/actuator/spring.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+
+
+build/actuator/angularmotor.o: src/actuator/angularmotor.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
 
 

@@ -62,6 +62,7 @@ def get_actions():
 def cleanup():
     """Ends the simulation."""
     _pal.all_objects = {}
+    _pal.actions = {}
     _pal.lib.pal_cleanup()
 
 def get_time():

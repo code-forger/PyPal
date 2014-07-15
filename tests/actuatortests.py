@@ -31,7 +31,36 @@ class TestDCMotorFunctions(unittest.TestCase):
 
     def test_dcmotor_run(self):
         dcmotor = pal.actuator.DCMotor(self.link,100,1,1)
-        dcmotor.apply()
+
+class TestAngularMotorFunctions(unittest.TestCase):
+    def setUp(self):
+        pal.init()
+        self.sphere = pal.body.Sphere((0,0,0),(1,),mass=1)
+        self.ssphere = pal.body.StaticSphere((5,0,0),(1,))
+        self.link = pal.link.Revolute(self.ssphere, self.sphere,
+                                      self.ssphere.get_position(),[0,1,0],
+                                      True)
+
+    def tearDown(self):
+        pal.cleanup()
+
+    def test_angular_motor_create(self):
+        angular_motor = pal.actuator.AngularMotor(self.link,100)
+        self.assertEqual(len(pal._pal.all_objects),4)
+
+    def test_angular_motor_remove(self):
+        angular_motor = pal.actuator.AngularMotor(self.link,100)
+        angular_motor.delete()
+        self.assertEqual(len(pal._pal.all_objects),3)
+
+    def test_angular_motor_turn_on(self):
+        angular_motor = pal.actuator.AngularMotor(self.link,100)
+        angular_motor.turn_on(10)
+        self.assertEqual(len(pal.get_actions()),1)
+
+    def test_angular_motor_run(self):
+        angular_motor = pal.actuator.AngularMotor(self.link,100)
+        angular_motor.update(10)
 
 class TestSpringFunctions(unittest.TestCase):
     def setUp(self):
@@ -170,7 +199,8 @@ suite = [unittest.TestLoader().loadTestsFromTestCase(TestForceFunctions),
          unittest.TestLoader().loadTestsFromTestCase(TestImpulseFunctions),
          unittest.TestLoader().loadTestsFromTestCase(TestHydrofoilFunctions),
          unittest.TestLoader().loadTestsFromTestCase(TestPropellerFunctions),
-         unittest.TestLoader().loadTestsFromTestCase(TestSpringFunctions)]
+         unittest.TestLoader().loadTestsFromTestCase(TestSpringFunctions),
+         unittest.TestLoader().loadTestsFromTestCase(TestAngularMotorFunctions)]
 
 if __name__ == "__main__":
     suite = unittest.TestSuite(suite)
