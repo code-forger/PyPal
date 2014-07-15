@@ -1,14 +1,14 @@
-To compile and test this library (assuming you are compiling for bullet):
+To compile and test this library (assuming you are compiling for bullet and have PAL already installed and working):
 
 put this directory in a location accessable from PYTHONPATH.
 
-cd to pypal/pypal then run:
+cd to this directory then run:
 
 $ make
 $ sudo make install
 
-then cd to pypal/tests and run:
+to test the project run:
 
-$ python testall.py
+$ python tests/testall.py
 
 This will run the unit tests.
