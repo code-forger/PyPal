@@ -41,7 +41,11 @@ REQUIREDOBJECTS = build/PyPal.o\
 				  build/sensor/compass.o\
 				  build/sensor/psd.o\
 				  build/sensor/gps.o\
-				  build/sensor/inclinometer.o
+				  build/sensor/inclinometer.o\
+				  build/link/rigid.o\
+				  build/link/revolute.o\
+				  build/link/prismatic.o\
+				  build/link/spherical.o
 
 all: libPyPal.so
 
@@ -159,6 +163,19 @@ build/sensor/inclinometer.o: src/sensor/inclinometer.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
 
 build/sensor/psd.o: src/sensor/psd.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+
+# link body object rules
+build/link/rigid.o: src/link/rigid.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+
+build/link/revolute.o: src/link/revolute.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+
+build/link/prismatic.o: src/link/prismatic.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+
+build/link/spherical.o: src/link/spherical.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
 
 

@@ -16,6 +16,11 @@ extern "C"
             vec[i] = v._vec[i];
     }
 
+    void body_static_compound_set_material(palStaticCompoundBody* c, palMaterial* m)
+    {
+        c->SetMaterial(m);
+    }
+
     int body_static_compound_get_group(palStaticCompoundBody* cb)
     {
         return cb->GetGroup();

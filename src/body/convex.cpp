@@ -16,6 +16,11 @@ extern "C"
             vec[i] = v._vec[i];
     }
 
+    void body_convex_set_material(palConvex* c, palMaterial* m)
+    {
+        c->SetMaterial(m);
+    }
+
     int body_convex_get_group(palConvex* c)
     {
         return c->GetGroup();

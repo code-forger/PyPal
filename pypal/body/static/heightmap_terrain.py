@@ -24,6 +24,9 @@ class HeightMapTerrain(_pal.PalObject):
         _pal.lib.body_static_heightmap_terrain_get_position(self.obj, ret)
         return [x for x in ret]
 
+    def set_material(self, material):
+        _pal.lib.body_static_heightmap_terrain_set_material(self.obj, material.obj)
+
     def get_group(self):
         return _pal.lib.body_static_heightmap_terrain_get_group(self.obj)
 

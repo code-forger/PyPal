@@ -1,114 +1,37 @@
 #include "globals.h"
-/* This is the c++ -> c bindings:
- * the pal_ prefix relates to any function that uses PF excluding all the create functions
- * the create_ prefix relates to any function that creats and adds an object to the world
- * all other prefixes relate to the class that should be passed in as its first parameter
- *
- *
- *
- */
 
-#define GEOMCASTUP(char,in) (char=='b') ? reinterpret_cast<palBoxGeometry*>(in):\
-                            (char=='s') ? reinterpret_cast<palSphereGeometry*>(in):\
-                            (char=='c') ? reinterpret_cast<palCapsuleGeometry*>(in):\
-                            (char=='x') ? reinterpret_cast<palConvexGeometry*>(in):in
-
-void* castup_bodybase(palBodyBase* in)
-{
-    if (palBox* obj = dynamic_cast<palBox*>(in))
-    {
-        return obj;
-    }
-    else if (palSphere* obj = dynamic_cast<palSphere*>(in))
-    {
-        return obj;
-    }
-    else if (palCapsule* obj = dynamic_cast<palCapsule*>(in))
-    {
-        return obj;
-    }
-    else if (palCompoundBody* obj = dynamic_cast<palCompoundBody*>(in))
-    {
-        return obj;
-    }
-    else if (palConvex* obj = dynamic_cast<palConvex*>(in))
-    {
-        return obj;
-    }
-    else if (palGenericBody* obj = dynamic_cast<palGenericBody*>(in))
-    {
-        return obj;
-    }
-    else if (palTerrainPlane* obj = dynamic_cast<palTerrainPlane*>(in))
-    {
-        return obj;
-    }
-    else if (palTerrainHeightmap* obj = dynamic_cast<palTerrainHeightmap*>(in))
-    {
-        return obj;
-    }
-    else if (palTerrainMesh* obj = dynamic_cast<palTerrainMesh*>(in))
-    {
-        return obj;
-    }
-    else if (palOrientatedTerrainPlane* obj = dynamic_cast<palOrientatedTerrainPlane*>(in))
-    {
-        return obj;
-    }
-    return in;
-}
-
-/*********************************************************
- *                                                       *
- *               the pal functions                       *
- *                                                       *
- *********************************************************/
-extern "C"
-{
-    bool pal_ray_hit(Float x, Float y, Float z, Float dx, Float dy, Float dz, Float range)
-    {
-        last_hit.m_pBody = 0;
-        pcd->RayCast( x, y, z,dx, dy, dz, range, last_hit);
-        if (last_hit.m_pBody)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    void* get_last_hit_body()
-    {
-        if (last_hit.m_pBody)
-            return last_hit.m_pBody;
-        else
-            return NULL;
-    }
-
-    void get_last_hit_location(float &x, float &y, float &z)
-    {
-        if (last_hit.m_pBody)
-        {
-            palVector3 vec = last_hit.m_vHitPosition;
-            x = vec[0];
-            y = vec[1];
-            z = vec[2];
-        }
-    }
-}
-/*********************************************************
- *                                                       *
- *               the material functions                  *
- *                                                       *
- *********************************************************/
+palMaterials *PM = NULL;
+palPhysics *pp = NULL;
+palCollisionDetection *pcd = NULL;
+int material_index;
+palRayHit last_hit;
 extern "C" 
 {
-    palMaterialUnique * add_material(float staticfric, float kineticfric, float restitution)
+    void pal_init(char[])
+    {
+        std::cout << "PYPAL INTERNAL DEBUG MODE SELECTED\n";
+        PF->LoadPALfromDLL("/usr/local/lib64/x86_64-linux-gnu/");
+        PF->SelectEngine("Bullet");
+        PM = new palMaterials();
+        material_index = 0;
+        pp = PF->CreatePhysics();
+        if (pp == NULL) 
+        {
+            printf("Failed to create the physics engine. Check to see if you spelt the engine name correctly, or that the engine DLL is in the right location\n");
+            return NULL;
+        }
+        pcd = dynamic_cast<palCollisionDetection *>(pp);
+    }
+
+    void pal_cleanup()
+    {
+        PF->Cleanup();
+    }
+
+    palMaterialUnique * pal_add_material(float staticfric, float kineticfric, float restitution)
     {
         char str[8];
-	    palMaterialDesc desc;
+        palMaterialDesc desc;
         desc.m_fStatic = staticfric;
         desc.m_fKinetic = kineticfric;
         desc.m_fRestitution = restitution;
@@ -124,100 +47,50 @@ extern "C"
         material_index++;
         return PM->NewMaterial(std::string(str),desc);
     }
-}
-/*********************************************************
- *                                                       *
- *               the collision class functions           *
- *                                                       *
- *********************************************************/
-extern "C"
-{
-    void collision_notify(palBox*b,bool enable)
-    {   
-        palBodyBase *body = dynamic_cast<palBodyBase*>(b);
-        pcd->NotifyCollision(body,true);
-    }
 
-    palContact* get_contacts(palBody*b)
+    void physics_init(float x, float y, float z)
     {
-        palContact* pc = new palContact;
-        pcd->GetContacts(b,*pc);
-        return pc;
+        palPhysicsDesc desc;
+        desc.m_vGravity[0] = x; 
+        desc.m_vGravity[1] = y; 
+        desc.m_vGravity[2] = z;
+        pp->Init(desc);
     }
 
-    int contacts_get_size(palContact*c)
+    void physics_update(float step)
     {
-        return c->m_ContactPoints.size();
+        pp->Update(step);
     }
 
-    void* contacts_get_body_one(palContact*c,int pos)
+    float physics_get_time()
     {
-        return castup_bodybase(c->m_ContactPoints[pos].m_pBody1);
+        return pp->GetTime();
     }
 
-    void* contacts_get_body_two(palContact*c,int pos)
+    float physics_get_last_timestep()
     {
-        return castup_bodybase(c->m_ContactPoints[pos].m_pBody2);
+        return pp->GetLastTimestep();
     }
 
-    float contacts_get_distance(palContact*c,int pos)
+    void physics_set_group_collision(palGroup a, palGroup b, bool enabled)
     {
-        return c->m_ContactPoints[pos].m_fDistance;
+        pp->SetGroupCollision(a, b, enabled);
     }
 
-    void remove_contact(palContact *p)
+    void physics_get_gravity(float vec[3])
     {
-        delete p;
+        palVector3 v;
+        pp->GetGravity(v);
+        for (int i = 0; i < 3; i++)
+            vec[i] = v._vec[i];
     }
-}
-/*********************************************************
- *                                                       *
- *               the create functions                    *
- *                                                       *
- *********************************************************/
-extern "C" 
-{
 
-    palPrismaticLink * create_prismatic(palBody *parent,palBody *child,Float x,Float y,
-                                      Float z, Float axis_x,Float axis_y, Float axis_z, bool collide)
+    int physics_get_up_axis()
     {
-        palPrismaticLink *ppl= PF->CreatePrismaticLink();
-        ppl->Init(parent,child,x,y,z,axis_x,axis_y,axis_z,collide); //initialize it, set its location to 0,0,0 and minimum size to 50
-	    return ppl;
+        return pp->GetUpAxis();
     }
 
-    palRevoluteLink * create_revolute(palBody *parent,palBody *child,Float x,Float y,
-                                      Float z, Float axis_x,Float axis_y, Float axis_z, bool collide)
-    {
-        palRevoluteLink *prl= PF->CreateRevoluteLink();
-        prl->Init(parent,child,x,y,z,axis_x,axis_y,axis_z,collide); //initialize it, set its location to 0,0,0 and minimum size to 50
-	    return prl;
-    }
-
-    palRigidLink * create_rigid(palBody *parent,palBody *child, bool collide)
-    {
-        palRigidLink *prl= PF->CreateRigidLink();
-        prl->Init(parent,child,collide); //initialize it, set its location to 0,0,0 and minimum size to 50
-	    return prl;
-    }
-
-    palSphericalLink * create_spherical(palBody *parent,palBody *child,Float x,Float y,
-                                      Float z, bool collide)
-    {
-        palSphericalLink *prl= PF->CreateSphericalLink();
-        prl->Init(parent,child,x,y,z,collide); //initialize it, set its location to 0,0,0 and minimum size to 50
-	    return prl;
-    }
-
-}
-/*********************************************************
- *                                                       *
- *               the body_base_ functions                *
- *                                                       *
- *********************************************************/
-extern "C" 
-{
-
+    // Some helper functions to fix the pointer segfault issue
     void* cast_box_body(palBox* ps)
     {
         return dynamic_cast<palBody*>(ps);
@@ -251,74 +124,5 @@ extern "C"
     void remove_object(palFactoryObject*o){
         delete o;
         o = NULL;
-    }
-}
-/*****************************************
- *                                                       *
- *               the prismatic link functions            *
- *                                                       *
- *********************************************************/
-extern "C" 
-{
-    void prismatic_link_set_limits(palPrismaticLink*pl,float min,float max){
-        pl->SetLimits(min, max);
-    }
-}
-
-/*********************************************************
- *                                                       *
- *               the spherical link functions            *
- *                                                       *
- *********************************************************/
-extern "C" 
-{
-    void spherical_link_set_limits(palSphericalLink*sl,float cone,float twist){
-        sl->SetLimits(cone, twist);
-    }
-}
-
-/*********************************************************
- *                                                       *
- *               the revolute link functions             *
- *                                                       *
- *********************************************************/
-extern "C" 
-{
-    void revolute_link_set_limits(palRevoluteLink*rl,float max, float min){
-        rl->SetLimits(max,min);
-    }
-
-    void revolute_link_get_position(palRevoluteLink*rl,float&x,float&y,float&z)
-    {
-        palVector3 pos;
-        rl->GetPosition(pos);
-        x = pos[0];
-        y = pos[1];
-        z = pos[2];
-    }
-
-    float revolute_link_get_angle(palRevoluteLink*rl){
-        return rl->GetAngle();
-    }
-
-    float revolute_link_get_angular_velocity(palRevoluteLink*rl){
-        return rl->GetAngularVelocity();
-    }
-
-    void revolute_link_apply_torque(palRevoluteLink*rl, Float torque){
-        rl->ApplyTorque(torque);
-    }
-
-    void revolute_link_apply_angular_impulse(palRevoluteLink*rl, Float impulse){
-        rl->ApplyAngularImpulse(impulse);
-    }
-
-    void revolute_link_get_axis(palRevoluteLink*rl,float&x,float&y,float&z)
-    {
-        palVector3 pos;
-        pos = rl->GetAxis();
-        x = pos[0];
-        y = pos[1];
-        z = pos[2];
     }
 }

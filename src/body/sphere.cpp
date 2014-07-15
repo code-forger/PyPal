@@ -16,6 +16,11 @@ extern "C"
             vec[i] = v._vec[i];
     }
 
+    void body_sphere_set_material(palSphere* s, palMaterial* m)
+    {
+        s->SetMaterial(m);
+    }
+
     int body_sphere_get_group(palSphere* s)
     {
         return s->GetGroup();

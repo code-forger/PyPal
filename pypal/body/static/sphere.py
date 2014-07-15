@@ -22,6 +22,9 @@ class StaticSphere(_pal.PalObject):
         _pal.lib.body_static_sphere_get_position(self.obj, ret)
         return [x for x in ret]
 
+    def set_material(self, material):
+        _pal.lib.body_static_sphere_set_material(self.obj, material.obj)
+
     def get_group(self):
         return _pal.lib.body_static_sphere_get_group(self.obj)
 

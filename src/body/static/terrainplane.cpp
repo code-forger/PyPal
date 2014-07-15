@@ -16,6 +16,11 @@ extern "C"
             vec[i] = v._vec[i];
     }
 
+    void body_static_terrain_plane_set_material(palTerrainPlane* tp, palMaterial* m)
+    {
+        tp->SetMaterial(m);
+    }
+
     int body_static_terrain_plane_get_group(palTerrainPlane* tp)
     {
         return tp->GetGroup();

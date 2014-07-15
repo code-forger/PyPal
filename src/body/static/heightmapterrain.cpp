@@ -16,6 +16,11 @@ extern "C"
             vec[i] = v._vec[i];
     }
 
+    void body_static_heightmap_terrain_set_material(palTerrainHeightmap* hmt, palMaterial* m)
+    {
+        hmt->SetMaterial(m);
+    }
+
     int body_static_heightmap_terrain_get_group(palTerrainHeightmap* hmt)
     {
         return hmt->GetGroup();

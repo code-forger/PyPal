@@ -5,8 +5,8 @@ import weakref
 class TestRigidFunctions(unittest.TestCase):
     def setUp(self):
         pal.init()
-        self.box1 = pal.body.Box((0,0,0,1,1,1),mass=1)
-        self.box2 = pal.body.Box((10,10,10,1,1,1),mass=1)
+        self.box1 = pal.body.Box((0,0,0),(1,1,1),mass=1)
+        self.box2 = pal.body.Box((10,10,10),(1,1,1),mass=1)
 
     def tearDown(self):
         pal.cleanup()
@@ -27,8 +27,8 @@ class TestRigidFunctions(unittest.TestCase):
 class TestPrismaticFunctions(unittest.TestCase):
     def setUp(self):
         pal.init()
-        self.box1 = pal.body.Box((0,0,0,1,1,1),mass=1)
-        self.box2 = pal.body.Box((10,10,10,1,1,1),mass=1)
+        self.box1 = pal.body.Box((0,0,0),(1,1,1),mass=1)
+        self.box2 = pal.body.Box((10,10,10),(1,1,1),mass=1)
 
     def tearDown(self):
         pal.cleanup()
@@ -55,8 +55,8 @@ class TestPrismaticFunctions(unittest.TestCase):
 class TestSphericalFunctions(unittest.TestCase):
     def setUp(self):
         pal.init()
-        self.box1 = pal.body.Box((0,0,0,1,1,1),mass=1)
-        self.box2 = pal.body.Box((10,10,10,1,1,1),mass=1)
+        self.box1 = pal.body.Box((0,0,0),(1,1,1),mass=1)
+        self.box2 = pal.body.Box((10,10,10),(1,1,1),mass=1)
 
     def tearDown(self):
         pal.cleanup()
@@ -83,8 +83,8 @@ class TestSphericalFunctions(unittest.TestCase):
 class TestRevoluteFunctions(unittest.TestCase):
     def setUp(self):
         pal.init()
-        self.box1 = pal.body.Box((0,0,0,1,1,1),mass=1)
-        self.box2 = pal.body.Box((10,10,10,1,1,1),mass=1)
+        self.box1 = pal.body.Box((0,0,0),(1,1,1),mass=1)
+        self.box2 = pal.body.Box((10,10,10),(1,1,1),mass=1)
 
     def tearDown(self):
         pal.cleanup()
