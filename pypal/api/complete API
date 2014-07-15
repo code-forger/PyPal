@@ -39,56 +39,6 @@ palActuator
          
         palGenericLink *    GetLink ()
      }
-     palSpring
-     {
-        void    Init (palBody *pb1, palBody *pb2, const palSpringDesc &desc)
-
-        void    Init (palBody *pb1, palBody *pb2, Float restLength, Float ks, Float kd)
-         
-        void    Apply ()
-     }
-palGeometry
-{
-    virtual void    GetPosition (palVector3 &pos) const
-
-    virtual const palMatrix4x4 &    GetLocationMatrix () const
-     
-    virtual const palMatrix4x4 &    GetOffsetMatrix () const
-     
-    virtual void    GenericInit (const palMatrix4x4 &location, const void *param_array)=0
-     
-    virtual Float *     GenerateMesh_Vertices ()
-     
-    virtual int *   GenerateMesh_Indices ()
-     
-    virtual int     GetNumberOfVertices () const
-     
-    virtual int     GetNumberOfIndices () const
-     
-    virtual void    SetMass (Float mass)
-     
-    Float   GetMass () const
-     
-    palBodyBase *   GetBaseBody () const
-     
-    virtual void    CalculateInertia ()=0
-     
-    virtual Float   GetMargin () const
-     
-    virtual bool    SetMargin (Float margin)
-}
-     palConcaveGeometry
-     {
-        virtual void    Init (const palMatrix4x4 &pos, const Float *pVertices, int nVertices, const int *pIndices, int nIndices, Float mass)
-     }
-     palConvexGeometry
-     {
-        virtual void    Init (const palMatrix4x4 &pos, const Float *pVertices, int nVertices, Float mass)
-
-        virtual void    Init (const palMatrix4x4 &pos, const Float *pVertices, int nVertices, const int *pIndices, int nIndices, Float mass)
-         
-        virtual void    SetIndices (const int *pIndices, int nIndices)
-     }
 palGridFluid
 {
     virtual void    Update ()=0

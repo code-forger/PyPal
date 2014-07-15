@@ -796,7 +796,7 @@ class TestGenericFunctions(unittest.TestCase):
 
     def test_generic_connect_concave_geometry(self):
         generic = pal.body.GenericBody((0,0,0))
-        geometry = pal.geometry.Concave((0,0,0),(1,1,1))  
+        geometry = pal.geometry.Concave((0,0,0),self.points, self.triangles)  
         generic.connect_geometry(geometry)
 
     def test_generic_connect_sphere_geometry(self):

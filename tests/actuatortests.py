@@ -36,19 +36,19 @@ class TestDCMotorFunctions(unittest.TestCase):
 class TestSpringFunctions(unittest.TestCase):
     def setUp(self):
         pal.init()
-        self.sphere = pal.body.Sphere((0,0,0,1),mass=1)
-        self.ssphere = pal.body.Sphere((5,0,0,1),mass=1)
+        self.sphere = pal.body.Sphere((0,0,0),(1,),mass=1)
+        self.ssphere = pal.body.Sphere((5,0,0),(1,),mass=1)
 
     def tearDown(self):
         pal.cleanup()
 
     def test_spring_create(self):
-        spring = pal.actuator.Spring(self.sphere,self.ssphere,5,10,1)
+        spring = pal.actuator.Spring(self.sphere,self.ssphere,(5,10,1))
         self.assertEqual(len(pal._pal.all_objects),3)
 
-    def test_spring_run(self):
-        spring = pal.actuator.Spring(self.sphere,self.ssphere,5,10,1)
-        spring.run()
+    def test_spring_apply(self):
+        spring = pal.actuator.Spring(self.sphere,self.ssphere,(5,10,1))
+        spring.apply()
 
 class TestImpulseFunctions(unittest.TestCase):
     def setUp(self):
@@ -169,8 +169,8 @@ suite = [unittest.TestLoader().loadTestsFromTestCase(TestForceFunctions),
          unittest.TestLoader().loadTestsFromTestCase(TestLiquidDragFunctions),
          unittest.TestLoader().loadTestsFromTestCase(TestImpulseFunctions),
          unittest.TestLoader().loadTestsFromTestCase(TestHydrofoilFunctions),
-         unittest.TestLoader().loadTestsFromTestCase(TestPropellerFunctions)]
-         #unittest.TestLoader().loadTestsFromTestCase(TestSpringFunctions)]
+         unittest.TestLoader().loadTestsFromTestCase(TestPropellerFunctions),
+         unittest.TestLoader().loadTestsFromTestCase(TestSpringFunctions)]
 
 if __name__ == "__main__":
     suite = unittest.TestSuite(suite)

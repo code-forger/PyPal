@@ -28,13 +28,15 @@ REQUIREDOBJECTS = build/PyPal.o\
 				  build/geometry/capsule.o\
 				  build/geometry/sphere.o\
 				  build/geometry/convex.o\
+				  build/geometry/concave.o\
 				  build/actuator/force.o\
 				  build/actuator/dcmotor.o\
 				  build/actuator/fakebuoyancy.o\
 				  build/actuator/liquiddrag.o\
 				  build/actuator/propeller.o\
 				  build/actuator/hydrofoil.o\
-				  build/actuator/impulse.o
+				  build/actuator/impulse.o\
+				  build/actuator/spring.o
 
 all: libPyPal.so
 
@@ -110,6 +112,9 @@ build/geometry/sphere.o: src/geometry/sphere.cpp
 build/geometry/convex.o: src/geometry/convex.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
 
+build/geometry/concave.o: src/geometry/concave.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+
 # actuator body object rules
 build/actuator/force.o: src/actuator/force.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
@@ -130,6 +135,9 @@ build/actuator/hydrofoil.o: src/actuator/hydrofoil.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
 
 build/actuator/impulse.o: src/actuator/impulse.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+
+build/actuator/spring.o: src/actuator/spring.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
 
 

@@ -4,12 +4,6 @@ import weakref
 from actuatorbase import ActuatorBase
 from pypal import body
 class LiquidDrag(ActuatorBase):
-    _create_functions = {body.Box:_pal.lib.actuator_liquid_drag_create_on_box,
-                        body.Sphere:_pal.lib.actuator_liquid_drag_create_on_sphere,
-                        body.Capsule:_pal.lib.actuator_liquid_drag_create_on_capsule,
-                        body.Compound:_pal.lib.actuator_liquid_drag_create_on_compound,
-                        body.Convex:_pal.lib.actuator_liquid_drag_create_on_convex,
-                        body.GenericBody:_pal.lib.actuator_liquid_drag_create_on_generic}
     def __init__(self,body,area,drag,density):
         """
         applies a torque to a revolute link
@@ -19,7 +13,7 @@ class LiquidDrag(ActuatorBase):
     	drag: The drag coefficient
     	density: The fluid density 
         """
-        self.obj = self._create_functions[body.__class__](body.obj,
+        self.obj = _pal.lib.actuator_liquid_drag_create(_pal.get_body_pointer(body),
                                              c.c_float(area), c.c_float(drag),
                                              c.c_float(density))
 

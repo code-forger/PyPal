@@ -23,6 +23,8 @@ class Convex(_pal.PalObject):
 
         self.points = points
 
+        self.set_mass(mass)
+
 
     def delete(self):
         _pal.lib.geometry_convex_remove(self.obj)

@@ -64,7 +64,6 @@ def cleanup():
     _pal.all_objects = {}
     _pal.lib.pal_cleanup()
 
-
 def get_time():
     """Returns age of the simulation."""
     _pal.lib.physics_get_time.restype = c.c_float
@@ -183,3 +182,10 @@ def get_unique_contacts(body):
         print ret[0] == ret[1]
     except: pass
     return ret
+
+_pal._casting_functions = {body.Box:_pal.lib.cast_box_body,
+                           body.Sphere:_pal.lib.cast_sphere_body,
+                           body.Capsule:_pal.lib.cast_capsule_body,
+                           body.Compound:_pal.lib.cast_compound_body,
+                           body.Convex:_pal.lib.cast_convex_body,
+                           body.GenericBody:_pal.lib.cast_generic_body}

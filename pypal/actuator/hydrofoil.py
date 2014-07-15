@@ -4,12 +4,6 @@ import weakref
 from actuatorbase import ActuatorBase
 from pypal import body
 class Hydrofoil(ActuatorBase):
-    _create_functions = {body.Box:_pal.lib.actuator_hydrofoil_create_on_box,
-                        body.Sphere:_pal.lib.actuator_hydrofoil_create_on_sphere,
-                        body.Capsule:_pal.lib.actuator_hydrofoil_create_on_capsule,
-                        body.Compound:_pal.lib.actuator_hydrofoil_create_on_compound,
-                        body.Convex:_pal.lib.actuator_hydrofoil_create_on_convex,
-                        body.GenericBody:_pal.lib.actuator_hydrofoil_create_on_generic}
     def __init__(self,body,pos,direction,lift_vector,lift_params,density):
         """
         applies an hydrofoil to a body
@@ -25,7 +19,7 @@ class Hydrofoil(ActuatorBase):
                     	    c 	The constant term of the lift coefficient
 	    density 	The density of the liquid. 
         """
-        self.obj = self._create_functions[body.__class__](body.obj,
+        self.obj = _pal.lib.actuator_hydrofoil_create(_pal.get_body_pointer(body),
                                             c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2]),
                                             c.c_float(direction[0]), c.c_float(direction[1]), c.c_float(direction[2]),
                                             c.c_float(lift_vector[0]), c.c_float(lift_vector[1]), c.c_float(lift_vector[2]),

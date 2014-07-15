@@ -209,23 +209,6 @@ extern "C"
 	    return prl;
     }
 
-    palSpring * create_spring(palBody* pb1, char pbtc1, palBody* pb2, char pbtc2, Float rest, Float ks, Float kd)
-    {
-        palSpring *ps= dynamic_cast<palSpring*>(PF->CreateObject("palSpring"));
-        //ps->Init(CASTUP(pbtc1,pb1),CASTUP(pbtc2,pb2),rest,ks,kd); //initialize it, set its location to 0,0,0 and minimum size to 50
-	    return ps;
-    }
-
-    palConvexGeometry* create_geometry_convex(Float x, Float y, Float z,Float rx, Float ry, Float rz, const Float *pVertices, int nVertices, const int *pIndices, int nIndices, Float mass)
-    {
-        palConvexGeometry *pcg= dynamic_cast<palConvexGeometry*>(PF->CreateObject("palConvexGeometry"));
-        palMatrix4x4 pos;
-        mat_set_translation(&pos, x, y, z);
-        mat_set_rotation(&pos, rx, ry, rz);
-        pcg->Init(pos, pVertices, nVertices, pIndices, nIndices, mass);
-        return pcg;
-    }
-
     palCompassSensor* create_compass(palBody*b, Float x, Float y, Float z)
     {
         palCompassSensor *c= PF->CreateCompassSensor();
@@ -266,6 +249,37 @@ extern "C"
  *********************************************************/
 extern "C" 
 {
+
+    void* cast_box_body(palBox* ps)
+    {
+        return dynamic_cast<palBody*>(ps);
+    }
+
+    void* cast_sphere_body(palSphere* ps)
+    {
+        return dynamic_cast<palBody*>(ps);
+    }
+
+    void* cast_capsule_body(palCapsule* ps)
+    {
+        return dynamic_cast<palBody*>(ps);
+    }
+
+    void* cast_compound_body(palCompoundBody* ps)
+    {
+        return dynamic_cast<palBody*>(ps);
+    }
+
+    void* cast_convex_body(palConvex* ps)
+    {
+        return dynamic_cast<palBody*>(ps);
+    }
+
+    void* cast_generic_body(palGenericBody* ps)
+    {
+        return dynamic_cast<palBody*>(ps);
+    }
+
     void remove_object(palFactoryObject*o){
         delete o;
         o = NULL;
@@ -338,17 +352,6 @@ extern "C"
         x = pos[0];
         y = pos[1];
         z = pos[2];
-    }
-}
-/*********************************************************
- *                                                       *
- *               the Spring functions                    *
- *                                                       *
- *********************************************************/
-extern "C" 
-{
-    void spring_run(palSpring*a){
-        a->Apply();
     }
 }
 

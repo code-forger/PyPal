@@ -1,5 +1,5 @@
 void Init (palBody *pbody, Float px, Float py, Float pz, Float axis_x, Float axis_y, Float axis_z)
-palFotceActuator* actuator_force_create(palBody* pb, float, float, float, float, float, float)
+palForceActuator* actuator_force_create(palBody* pb, float, float, float, float, float, float)
 Force(float(3), float(3))
 
 void SetForce (Float force)

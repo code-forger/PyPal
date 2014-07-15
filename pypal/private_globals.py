@@ -8,7 +8,6 @@ all_objects = {} # this dictionarry holds the ONLY strong reference to the objec
 actions = {}
 notified_objects = []
 
-
 class PalObject(object):
     def __new__(cls, *args, **kwargs):
         o = super(PalObject,cls).__new__(cls)
@@ -35,3 +34,9 @@ class PalObject(object):
 
 Vec3 = c.c_float * 3
 Mat4x4 = c.c_float * 16
+
+
+_casting_functions = {}
+
+def get_body_pointer(body):
+    return _casting_functions[body.__class__](body.obj)
