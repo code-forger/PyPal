@@ -4,8 +4,8 @@ import pypal as pal
 
 pal.init()
 
-terain =  pal.body.Terrain((0,0,0),50)
-box = pal.body.Box((0,5,0,1,1,1),mass = 1)
+terain =  pal.body.TerrainPlane((0,0,0),50)
+box = pal.body.Box((0,5,0),(1,1,1),mass = 1)
 
 for x in range(25):
     pal.update(0.02)

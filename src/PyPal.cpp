@@ -9,7 +9,6 @@ extern "C"
 {
     void pal_init(char[])
     {
-        std::cout << "PYPAL INTERNAL DEBUG MODE SELECTED\n";
         PF->LoadPALfromDLL("/usr/local/lib64/x86_64-linux-gnu/");
         PF->SelectEngine("Bullet");
         PM = new palMaterials();

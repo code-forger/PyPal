@@ -10,10 +10,9 @@ import math
 
 from OpenGL.GL import (
     GL_TRIANGLE_STRIP, GL_POLYGON, GL_COLOR_BUFFER_BIT, GL_DEPTH_BUFFER_BIT,
-    glPushMatrix, glPopMatrix, glColor, glClear,
+    glPushMatrix, glPopMatrix, glMultMatrixd, glColor, glClear,
     glBegin, glEnd, glTranslate, glVertex, glRotate)
 from OpenGL.GLU import gluNewQuadric, gluSphere, gluLookAt
-
 
 import pypal as pal
 
@@ -75,44 +74,8 @@ class Box:
 
     def render(self):
         x, y, z = map(lambda x: x/2.,self.body.get_size())
-        o = self.body.get_location()
         glColor(*self.color)
-        glTranslate(o[0], o[1], o[2])
-        glRotate(o[5]/math.pi*180,0,0,1)
-        glRotate(o[4]/math.pi*180,0,1,0)
-        glRotate(o[3]/math.pi*180,1,0,0)
-        render_cube(x,y,z,self.color)
-        
-class Generic:
-    def __init__(self,body,color):
-        self.body = body
-        self.color = color
-
-    def render(self):
-        x, y, z = 1,1,1
-        o = self.body.get_location()
-        o[0], o[1], o[2] =  self.body.get_position()
-        glColor(*self.color)
-        glTranslate(o[0], o[1], o[2])
-        glRotate(o[5]/math.pi*180,0,0,1)
-        glRotate(o[4]/math.pi*180,0,1,0)
-        glRotate(o[3]/math.pi*180,1,0,0)
-        render_cube(x,y,z,self.color)
-        #glPopMatrix()
-        #for geom in self.body.get_geometries():
-        #    glPushMatrix()
-        #    self.renderGeom(geom)
-        #    glPopMatrix()
-        #glPushMatrix()
-
-    def renderGeom(self, geom):
-        x, y, z = 1,1,1
-        o = geom.get_location()
-        glColor(*self.color)
-        glTranslate(o[0], o[1], o[2])
-        glRotate(o[5]/math.pi*180,0,0,1)
-        glRotate(o[4]/math.pi*180,0,1,0)
-        glRotate(o[3]/math.pi*180,1,0,0)
+        glMultMatrixd(self.body.get_location())
         render_cube(x,y,z,self.color)
 
 class Ball:
@@ -122,10 +85,10 @@ class Ball:
         self.color = color
 
     def render(self):
-        o = self.body.get_location()
+        o = self.body.get_position()
         glColor(*self.color)
         glTranslate(o[0], o[1], o[2])
-        gluSphere(self.quad, self.body.get_size(), 25, 25)
+        gluSphere(self.quad, self.body.get_size()[0], 25, 25)
 
 def render(objects):
     glPushMatrix()

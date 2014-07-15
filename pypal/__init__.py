@@ -6,18 +6,14 @@ Module functions:
 
 """
 
-print "DEBUG PYPAL VERSION SELECTED!"
-
 import collada
 
 import actuator
 import body
-import fluid
 import geometry
 import link
 import material
 import sensor
-import vehicle
 import ctypes as c
 import weakref
 
