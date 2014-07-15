@@ -1,8 +1,0 @@
-void Init (palBody *pb1, palBody *pb2, Float restLength, Float ks, Float kd)
-palSpring* actuator_force_create(palBody* pb, palBody* pb, float, float, float)
-Spring(body, body, spring_desc())
-
-         
-void Apply ()
-actuator_force_apply(palSpring *fa)
-apply()

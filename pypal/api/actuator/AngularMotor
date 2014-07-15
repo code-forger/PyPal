@@ -1,7 +1,0 @@
-void Init (palRevoluteLink* rl, Float max)
-palAngularMotor* actuator_angular_motor_create(palBody* pb, palBody* pb, float, float, float)
-Spring(body, body, spring_desc())
-
-void Update (float target Velocity)
-actuator_angular_motor_Update(palAngularMotor *fa, float)
-apply(float)
