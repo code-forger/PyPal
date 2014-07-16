@@ -1,8 +1,19 @@
 
 """
-Python Bindings for PAL geared toward game development
+Python Bindings for PAL.
+
+Sub Modules:
+    :mod:`actuator`
+    :mod:`body`
+    :mod:`geometry`
+    :mod:`link`
+    :mod:`material`
+    :mod:`sensor`
+
 
 Module functions:
+    init(gravity):
+
 
 """
 
@@ -39,7 +50,7 @@ def update(time_step):
     """
     _pal.lib.physics_update(c.c_float(time_step))
     for action in _pal.actions.values():
-        action.responce = action.function(*action.args,**action.kwargs)
+        action.response = action.function(*action.args,**action.kwargs)
 
 def get_objects():
     """ Returns all physics objects"""

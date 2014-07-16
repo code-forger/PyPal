@@ -1,19 +1,9 @@
+For this revision:
+
+create usefull doc strings for all classes and functions in these files:
 pypal/
 ├── Makefile-docs
 ├── __init__.py
-├── actuator
-│   ├── __init__.py
-│   ├── action.py
-│   ├── actuatorbase.py
-│   ├── angular_motor.py
-│   ├── dc_motor.py
-│   ├── fake_buoyancy.py
-│   ├── force.py
-│   ├── hydrofoil.py
-│   ├── impulse.py
-│   ├── liquid_drag.py
-│   ├── propeller.py
-│   └── spring.py
 ├── body
 │   ├── __init__.py
 │   ├── box.py

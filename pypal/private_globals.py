@@ -17,6 +17,15 @@ class PalObject(object):
         return weakref.proxy(o)
 
     def set_user_data(self, data):
+        """ 
+        Attaches a python object onto this physics object
+
+        This function will associate a python object with this specific physics object.
+        This is particulary usefull for when the physics engine returns you a physics object, for example, as part of :func:`pypal.get_contacts()`.
+        
+        Paremeters:
+            data: ``object`` The object to be saved.
+        """
         old_data = None
         try:
             old_data = user_data[self.obj]
@@ -26,6 +35,7 @@ class PalObject(object):
         return old_data
 
     def get_user_data(self):
+        """ Returns the python object previously attached to this physics object. """
         return user_data[self.obj]
 
     def delete(self):

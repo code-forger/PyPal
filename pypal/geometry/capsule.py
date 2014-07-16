@@ -7,7 +7,6 @@ class Capsule(_pal.PalObject):
 
     def get_location(self):
         ret = _pal.Mat4x4()
-        print "HERE"
         _pal.lib.geometry_capsule_get_location(self.obj, ret)
         return [x for x in ret]
 

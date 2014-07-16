@@ -1,25 +1,19 @@
-.. PyPalGame documentation master file, created by
-   sphinx-quickstart on Mon Mar 18 14:24:36 2013.
+.. PyPal documentation master file, created by
+   sphinx-quickstart on Wed Jul 16 12:03:41 2014.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to PyPalGame's documentation!
-=====================================
+Welcome to PyPal's documentation!
+=================================
 
 Contents:
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 2
 
-   actuator
-   body
-   fluid
-   geometry
-   link
-   pypalgame
-   sensor
-   test
-   vehicle
+   pypal.rst
+
+
 
 
 Indices and tables
