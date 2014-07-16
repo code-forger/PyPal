@@ -1,0 +1,63 @@
+pypal/
+├── Makefile-docs
+├── __init__.py
+├── actuator
+│   ├── __init__.py
+│   ├── action.py
+│   ├── actuatorbase.py
+│   ├── angular_motor.py
+│   ├── dc_motor.py
+│   ├── fake_buoyancy.py
+│   ├── force.py
+│   ├── hydrofoil.py
+│   ├── impulse.py
+│   ├── liquid_drag.py
+│   ├── propeller.py
+│   └── spring.py
+├── body
+│   ├── __init__.py
+│   ├── box.py
+│   ├── capsule.py
+│   ├── character.py
+│   ├── compound.py
+│   ├── convex.py
+│   ├── generic_body.py
+│   ├── ghost.py
+│   ├── sphere.py
+│   └── static
+│       ├── __init__.py
+│       ├── box.py
+│       ├── capsule.py
+│       ├── compound.py
+│       ├── convex.py
+│       ├── heightmap_terrain.py
+│       ├── mesh_terrain.py
+│       ├── orientated_terrain.py
+│       ├── sphere.py
+│       └── terrain.py
+├── geometry
+│   ├── __init__.py
+│   ├── box.py
+│   ├── capsule.py
+│   ├── concave.py
+│   ├── convex.py
+│   ├── geometry_base.py
+│   └── sphere.py
+├── link
+│   ├── __init__.py
+│   ├── prismatic.py
+│   ├── revolute.py
+│   ├── rigid.py
+│   └── spherical.py
+├── material
+│   ├── __init__.py
+│   └── material.py
+├── private_globals.py
+└── sensor
+    ├── __init__.py
+    ├── compass.py
+    ├── gps.py
+    ├── inclinometer.py
+    └── psd.py
+
+7 directories, 53 files
