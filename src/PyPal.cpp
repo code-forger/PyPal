@@ -89,37 +89,6 @@ extern "C"
         return pp->GetUpAxis();
     }
 
-    // Some helper functions to fix the pointer segfault issue
-    void* cast_box_body(palBox* ps)
-    {
-        return dynamic_cast<palBody*>(ps);
-    }
-
-    void* cast_sphere_body(palSphere* ps)
-    {
-        return dynamic_cast<palBody*>(ps);
-    }
-
-    void* cast_capsule_body(palCapsule* ps)
-    {
-        return dynamic_cast<palBody*>(ps);
-    }
-
-    void* cast_compound_body(palCompoundBody* ps)
-    {
-        return dynamic_cast<palBody*>(ps);
-    }
-
-    void* cast_convex_body(palConvex* ps)
-    {
-        return dynamic_cast<palBody*>(ps);
-    }
-
-    void* cast_generic_body(palGenericBody* ps)
-    {
-        return dynamic_cast<palBody*>(ps);
-    }
-
     void remove_object(palFactoryObject*o){
         delete o;
         o = NULL;

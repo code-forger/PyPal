@@ -11,7 +11,7 @@ class Inclinometer(_pal.PalObject):
         up: The up axis w.r.t the body (x)
         g: The gravity axis w.r.t the world (x)
         """
-        self.obj = _pal.lib.sensor_inclinometer_create(body.obj, c.c_float(axis[0]), c.c_float(axis[1]), c.c_float(axis[2])
+        self.obj = _pal.lib.sensor_inclinometer_create(body._body, c.c_float(axis[0]), c.c_float(axis[1]), c.c_float(axis[2])
                                                        , c.c_float(up[0]), c.c_float(up[1]), c.c_float(up[2])
                                                        , c.c_float(gravity[0]), c.c_float(gravity[1]), c.c_float(gravity[2]))
 

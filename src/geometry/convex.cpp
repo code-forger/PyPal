@@ -2,44 +2,9 @@
 
 extern "C"
 {
-    void geometry_convex_get_location(palConvexGeometry* b, float mat[16])
+    void* cast_convex_geometry(palConvexGeometry* o)
     {
-        for (int i = 0; i < 16; i++)
-            mat[i] = b->GetLocationMatrix()._mat[i];
-    }
-
-    void geometry_convex_get_offsett(palConvexGeometry* b, float mat[16])
-    {
-        for (int i = 0; i < 16; i++)
-            mat[i] = b->GetOffsetMatrix()._mat[i];
-    }
-
-    void geometry_convex_get_position(palConvexGeometry* b, float vec[3])
-    {
-        palVector3 v;
-        b->GetPosition(v);
-        for (int i = 0; i < 3; i++)
-            vec[i] = v._vec[i];
-    }
-
-    void geometry_convex_set_mass(palConvexGeometry* bg, float mass)
-    {
-        bg->SetMass(mass);
-    }
-
-    float geometry_convex_get_mass(palConvexGeometry* bg)
-    {
-        return bg->GetMass();
-    }
-
-    float geometry_convex_get_margin(palConvexGeometry* bg)
-    {
-        return bg->GetMargin();
-    }
-
-    bool geometry_convex_set_margin(palConvexGeometry* bg, float margin)
-    {
-        return bg->SetMargin(margin);
+        return dynamic_cast<palGeometry*>(o);
     }
 
     palConvexGeometry* geometry_convex_create_no_triangles(Float x, Float y, Float z,Float rx, Float ry, Float rz, const Float *pVertices, int nVertices, Float mass)

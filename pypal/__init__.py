@@ -152,7 +152,7 @@ def load_vertices_from_collada_file(f_name):
 
 def notify_collision(body,enabled):
     """informs the body that it can at any time have its current collision points requested"""
-    _pal.lib.collision_notify(body.obj,enabled)
+    _pal.lib.collision_notify(body._body_base,enabled)
     if enabled:
         notified_objects.append(weakref.proxy(body))
     elif body.obj in notified_objects:
@@ -160,7 +160,7 @@ def notify_collision(body,enabled):
 
 def get_contacts(body):
     """returns the bodies that this body is currently in contact with."""
-    contacts = _pal.lib.get_contacts(body.obj)
+    contacts = _pal.lib.get_contacts(body._body_base)
     ret = []
     _pal.lib.contacts_get_distance.restype = c.c_float
     try:
@@ -174,7 +174,7 @@ def get_contacts(body):
     
 def get_unique_contacts(body):
     """returns the bodies that this body is currently in contact with."""
-    contacts = _pal.lib.get_contacts(body.obj)
+    contacts = _pal.lib.get_contacts(body._body_base)
     ret = []
     _pal.lib.contacts_get_distance.restype = c.c_float
     try:
@@ -190,10 +190,3 @@ def get_unique_contacts(body):
         print ret[0] == ret[1]
     except: pass
     return ret
-
-_pal._casting_functions = {body.Box:_pal.lib.cast_box_body,
-                           body.Sphere:_pal.lib.cast_sphere_body,
-                           body.Capsule:_pal.lib.cast_capsule_body,
-                           body.Compound:_pal.lib.cast_compound_body,
-                           body.Convex:_pal.lib.cast_convex_body,
-                           body.GenericBody:_pal.lib.cast_generic_body}

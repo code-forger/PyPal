@@ -152,7 +152,6 @@ class TestSphereFunctions(unittest.TestCase):
 
     def test_sphere_get_location(self):
         sphere = pal.body.Sphere((0,0,0),(1,),mass=1)
-        print "responce: ",[x for x in sphere.get_location()]
         self.assertEqual(sphere.get_location(), [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1])
 
     def test_sphere_get_position(self):
@@ -270,7 +269,6 @@ class TestCapsuleFunctions(unittest.TestCase):
 
     def test_capsule_get_location(self):
         capsule = pal.body.Capsule((0,0,0),(1,1),mass=1)
-        print "responce: ",[x for x in capsule.get_location()]
         self.assertEqual(capsule.get_location(), [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1])
 
     def test_capsule_get_position(self):
@@ -387,7 +385,6 @@ class TestCompoundFunctions(unittest.TestCase):
 
     def test_compound_get_location(self):
         compound = pal.body.Compound((0,0,0))
-        print "responce: ",[x for x in compound.get_location()]
         self.assertEqual(compound.get_location(), [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1])
 
     def test_compound_get_position(self):
@@ -542,7 +539,6 @@ class TestConvexFunctions(unittest.TestCase):
 
     def test_convex_get_location(self):
         convex = pal.body.Convex((0,0,0),self.points,mass=1)
-        print "responce: ",[x for x in convex.get_location()]
         self.assertEqual(convex.get_location(), [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1])
 
     def test_convex_get_position(self):
@@ -586,7 +582,6 @@ class TestConvexFunctions(unittest.TestCase):
 
     def test_convex_apply_impulse(self):
         convex = pal.body.Convex((0,0,0),self.points,mass=1)
-        print "DEBUG APPLYING IMPULSE" 
         convex.apply_impulse((1,1,1))
 
     def test_convex_apply_angular_impulse(self):

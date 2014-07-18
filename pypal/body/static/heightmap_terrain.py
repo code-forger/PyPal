@@ -1,7 +1,8 @@
 from pypal import private_globals as _pal
 import ctypes as c
 import weakref
-class HeightMapTerrain(_pal.PalObject):
+from ..bodybase import BodyBase
+class HeightMapTerrain(BodyBase):
     def __init__(self,pos,size,chunks,height_map):
         self._size = size
         points = c.c_float * (chunks[0] * chunks[1])
@@ -13,28 +14,7 @@ class HeightMapTerrain(_pal.PalObject):
                                                     c.c_float(size[0]),c.c_float(size[1]),
                                                     c.c_int(chunks[0]),c.c_int(chunks[1]),
                                                     c.pointer(points))
-
-    def get_location(self):
-        """ Return the location of the body as a ``float[16]`` matrix. """
-        ret = _pal.Mat4x4()
-        _pal.lib.body_static_heightmap_terrain_get_location(self.obj, ret)
-        return [x for x in ret]
-
-    def get_position(self):
-        """ Return position of the body as the ``float[3]`` x, y, z components. """
-        ret = _pal.Vec3()
-        _pal.lib.body_static_heightmap_terrain_get_position(self.obj, ret)
-        return [x for x in ret]
-
-    def set_material(self, material):
-        _pal.lib.body_static_heightmap_terrain_set_material(self.obj, material.obj)
-
-    def get_group(self):
-        """ Return collision group of the body as a ``float``. """
-        return _pal.lib.body_static_heightmap_terrain_get_group(self.obj)
-
-    def set_group(self, group):
-        return _pal.lib.body_static_heightmap_terrain_set_group(self.obj, c.c_int(group))
+        self._body_base = _pal.lib.cast_static_heightmap_terrain_body_base(self.obj)
 
     def __str__(self):
         x, y, z = self.get_position()

@@ -2,33 +2,9 @@
 
 extern "C"
 {
-    void body_static_convex_get_location(palStaticConvex* c, float mat[16])
+    void* cast_static_convex_body_base(palStaticConvex* o)
     {
-        for (int i = 0; i < 16; i++)
-            mat[i] = c->GetLocationMatrix()._mat[i];
-    }
-
-    void body_static_convex_get_position(palStaticConvex* c, float vec[3])
-    {
-        palVector3 v;
-        c->GetPosition(v);
-        for (int i = 0; i < 3; i++)
-            vec[i] = v._vec[i];
-    }
-
-    void body_static_convex_set_material(palStaticConvex* c, palMaterial* m)
-    {
-        c->SetMaterial(m);
-    }
-
-    int body_static_convex_get_group(palStaticConvex* c)
-    {
-        return c->GetGroup();
-    }
-
-    void body_static_convex_set_group(palStaticConvex* c, int group)
-    {
-        c->SetGroup(group);
+        return dynamic_cast<palBodyBase*>(o);
     }
 
     palStaticConvex* body_static_convex_create_no_triangles(Float x, Float y, Float z, Float rx, Float ry, Float rz, const Float *pVertices, int nVertices)

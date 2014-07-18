@@ -2,35 +2,11 @@
 
 extern "C"
 {
-    void body_static_heightmap_terrain_get_location(palTerrainHeightmap* hmt, float mat[16])
+    void* cast_static_heightmap_terrain_body_base(palTerrainHeightmap* o)
     {
-        for (int i = 0; i < 16; i++)
-            mat[i] = hmt->GetLocationMatrix()._mat[i];
+        return dynamic_cast<palBodyBase*>(o);
     }
 
-    void body_static_heightmap_terrain_get_position(palTerrainHeightmap* hmt, float vec[3])
-    {
-        palVector3 v;
-        hmt->GetPosition(v);
-        for (int i = 0; i < 3; i++)
-            vec[i] = v._vec[i];
-    }
-
-    void body_static_heightmap_terrain_set_material(palTerrainHeightmap* hmt, palMaterial* m)
-    {
-        hmt->SetMaterial(m);
-    }
-
-    int body_static_heightmap_terrain_get_group(palTerrainHeightmap* hmt)
-    {
-        return hmt->GetGroup();
-    }
-
-    void body_static_heightmap_terrain_set_group(palTerrainHeightmap* hmt, int group)
-    {
-        hmt->SetGroup(group);
-    }
-    
     palTerrainHeightmap * body_static_heightmap_terrain_create(Float x, Float y, Float z, Float width, Float depth, int terrain_data_width, int terrain_data_depth, const Float *pHeightmap)
     {
         palTerrainHeightmap *pth= PF->CreateTerrainHeightmap();

@@ -45,9 +45,3 @@ class PalObject(object):
 
 Vec3 = c.c_float * 3
 Mat4x4 = c.c_float * 16
-
-
-_casting_functions = {}
-
-def get_body_pointer(body):
-    return _casting_functions[body.__class__](body.obj)

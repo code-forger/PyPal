@@ -2,46 +2,10 @@
 
 extern "C"
 {
-    void geometry_box_get_location(palBoxGeometry* b, float mat[16])
+    void* cast_box_geometry(palBoxGeometry* o)
     {
-        for (int i = 0; i < 16; i++)
-            mat[i] = b->GetLocationMatrix()._mat[i];
+        return dynamic_cast<palGeometry*>(o);
     }
-
-    void geometry_box_get_offsett(palBoxGeometry* b, float mat[16])
-    {
-        for (int i = 0; i < 16; i++)
-            mat[i] = b->GetOffsetMatrix()._mat[i];
-    }
-
-    void geometry_box_get_position(palBoxGeometry* b, float vec[3])
-    {
-        palVector3 v;
-        b->GetPosition(v);
-        for (int i = 0; i < 3; i++)
-            vec[i] = v._vec[i];
-    }
-
-    void geometry_box_set_mass(palBoxGeometry* bg, float mass)
-    {
-        bg->SetMass(mass);
-    }
-
-    float geometry_box_get_mass(palBoxGeometry* bg)
-    {
-        return bg->GetMass();
-    }
-
-    float geometry_box_get_margin(palBoxGeometry* bg)
-    {
-        return bg->GetMargin();
-    }
-
-    bool geometry_box_set_margin(palBoxGeometry* bg, float margin)
-    {
-        return bg->SetMargin(margin);
-    }
-
 
     palBoxGeometry * geometry_box_create(Float x, Float y, Float z,Float rx, Float ry, Float rz, Float width, Float height, Float depth, Float mass)
     {

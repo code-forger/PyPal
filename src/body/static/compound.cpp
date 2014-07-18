@@ -2,33 +2,9 @@
 
 extern "C"
 {
-    void body_static_compound_get_location(palStaticCompoundBody* cb, float mat[16])
+    void* cast_static_compound_body_base(palStaticCompoundBody* o)
     {
-        for (int i = 0; i < 16; i++)
-            mat[i] = cb->GetLocationMatrix()._mat[i];
-    }
-
-    void body_static_compound_get_position(palStaticCompoundBody* cb, float vec[3])
-    {
-        palVector3 v;
-        cb->GetPosition(v);
-        for (int i = 0; i < 3; i++)
-            vec[i] = v._vec[i];
-    }
-
-    void body_static_compound_set_material(palStaticCompoundBody* c, palMaterial* m)
-    {
-        c->SetMaterial(m);
-    }
-
-    int body_static_compound_get_group(palStaticCompoundBody* cb)
-    {
-        return cb->GetGroup();
-    }
-
-    void body_static_compound_set_group(palStaticCompoundBody* cb, int group)
-    {
-        cb->SetGroup(group);
+        return dynamic_cast<palBodyBase*>(o);
     }
 
     palStaticCompoundBody* body_static_compound_create(Float x, Float y, Float z)
@@ -37,7 +13,6 @@ extern "C"
         pcb->Init(x,y,z);
         return pcb;
     }
-
 
     void body_static_compound_finalize(palStaticCompoundBody*cb)
     {

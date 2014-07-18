@@ -10,7 +10,7 @@ class PSD(_pal.PalObject):
         pos: The position of the ray
         axis:  The axis which the angle is measured about w.r.t. the body
         """
-        self.obj = _pal.lib.sensor_psd_create(body.obj, c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2])
+        self.obj = _pal.lib.sensor_psd_create(body._body, c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2])
                                                        , c.c_float(axis[0]), c.c_float(axis[1]), c.c_float(axis[2]))
 
     def get_distance(self):

@@ -13,7 +13,7 @@ class LiquidDrag(ActuatorBase):
     	  drag: ``float`` The drag coefficient.
     	  density: ``float`` The fluid density Note: setting this to a low enough value can be used to simulate air drag.
         """
-        self.obj = _pal.lib.actuator_liquid_drag_create(_pal.get_body_pointer(body),
+        self.obj = _pal.lib.actuator_liquid_drag_create(body._body,
                                              c.c_float(area), c.c_float(drag),
                                              c.c_float(density))
 

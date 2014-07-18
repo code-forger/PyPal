@@ -2,115 +2,15 @@
 
 extern "C"
 {
-    void body_generic_get_location(palGenericBody* g, float mat[16])
+    void* cast_generic_body(palGenericBody* o)
     {
-        for (int i = 0; i < 16; i++)
-            mat[i] = g->GetLocationMatrix()._mat[i];
+        return dynamic_cast<palBody*>(o);
     }
 
-    void body_generic_get_position(palGenericBody* g, float vec[3])
+    void* cast_generic_body_base(palGenericBody* o)
     {
-        palVector3 v;
-        g->GetPosition(v);
-        for (int i = 0; i < 3; i++)
-            vec[i] = v._vec[i];
+        return dynamic_cast<palBodyBase*>(o);
     }
-
-    void body_generic_set_material(palGenericBody* g, palMaterial* m)
-    {
-        g->SetMaterial(m);
-    }
-
-    int body_generic_get_group(palGenericBody* g)
-    {
-        return g->GetGroup();
-    }
-
-    void body_generic_set_group(palGenericBody* g, int group)
-    {
-        g->SetGroup(group);
-    }
-
-    void body_generic_set_position(palGenericBody* g, float x, float y, float z, float roll, float pitch, float yaw)
-    {
-        g->SetPosition(x, y, z, roll, pitch, yaw);
-    }
-
-    void body_generic_set_orientation(palGenericBody* g, float roll, float pitch, float yaw)
-    {
-        g->SetOrientation(roll, pitch, yaw);
-    }
-
-    void body_generic_apply_force(palGenericBody* g, float x, float y, float z)
-    {
-        g->ApplyForce(x, y, z);
-    }
-
-    void body_generic_apply_torque(palGenericBody* g, float x, float y, float z)
-    {
-        g->ApplyTorque(x, y, z);
-    }
-
-    void body_generic_apply_force_at_position(palGenericBody* g, float x, float y, float z, float px, float py, float pz)
-    {
-        g->ApplyForceAtPosition(x, y, z, pz, py, pz);
-    }
-
-    void body_generic_apply_impulse(palGenericBody* g, float ix, float iy, float iz)
-    {
-        g->ApplyImpulse(ix,iy,iz);
-    }
-
-    void body_generic_apply_angular_impulse(palGenericBody* g, float ix, float iy, float iz){
-        g->ApplyAngularImpulse(ix, iy, iz);
-    }
-
-    void body_generic_apply_impulse_at_position(palGenericBody* g, float x, float y, float z, float px, float py, float pz)
-    {
-        g->ApplyImpulseAtPosition(x, y, z, pz, py, pz);
-    }
-
-    void body_generic_get_linear_velocity(palGenericBody* g, float vec[3])
-    {
-        palVector3 v;
-        g->GetLinearVelocity(v);
-        for (int i = 0; i < 3; i++)
-            vec[i] = v._vec[i];
-    }
-
-    void body_generic_get_angular_velocity(palGenericBody* g, float vec[3])
-    {
-        palVector3 v;
-        g->GetAngularVelocity(v);
-        for (int i = 0; i < 3; i++)
-            vec[i] = v._vec[i];
-    }
-
-    void body_generic_set_linear_velocity(palGenericBody* g, float vec[3])
-    {
-        palVector3 v;
-        for (int i = 0; i < 3; i++)
-            v._vec[i] = vec[i];
-        g->SetLinearVelocity(v);
-    }
-
-    void body_generic_set_angular_velocity(palGenericBody* g, float vec[3])
-    {
-        palVector3 v;
-        for (int i = 0; i < 3; i++)
-            v._vec[i] = vec[i];
-        g->SetAngularVelocity(v);
-    }
-
-    bool body_generic_is_active(palGenericBody* g)
-    {
-        return g->IsActive();
-    }
-
-    void body_generic_set_active(palGenericBody* g,bool active)
-    {
-        g->SetActive(active);
-    }    
 
     void body_generic_set_dynamics_type(palGenericBody* g, char c)
     {
@@ -175,7 +75,7 @@ extern "C"
         return g->GetAngularDamping();
     }
 
-    void body_generic_connect_box_geometry(palGenericBody* g,palBoxGeometry*geom)
+    void body_generic_connect_geometry(palGenericBody* g,palGeometry*geom)
     {
         g->ConnectGeometry(geom);
     }

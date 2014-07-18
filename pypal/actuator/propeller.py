@@ -12,7 +12,7 @@ class Propeller(ActuatorBase):
 	      direction: ``float[3]`` The unit vector which supplies the orientation of the actuator.
 	      lumped: ``float`` The lumped parameter.
         """
-        self.obj = _pal.lib.actuator_propeller_create(body.obj,
+        self.obj = _pal.lib.actuator_propeller_create(body._body,
                                             c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2]),
                                             c.c_float(direction[0]), c.c_float(direction[1]), c.c_float(direction[2]),
                                             c.c_float(lumped))

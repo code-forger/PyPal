@@ -12,7 +12,7 @@ class Impulse(ActuatorBase):
           direction: ``float[3]`` The unit vector which supplies the direction of the actuator's impulse.
           impulse: ``float`` the impulse for the actuator to apply, if none is set the actuator will do nothing.
         """
-        self.obj = _pal.lib.actuator_impulse_create(body.obj,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]),
+        self.obj = _pal.lib.actuator_impulse_create(body._body,c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]),
                                          c.c_float(direction[0]),c.c_float(direction[1]),c.c_float(direction[2]))
         if impulse:
             self.set_impulse(impulse)

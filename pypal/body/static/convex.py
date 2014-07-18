@@ -1,7 +1,8 @@
 from pypal import private_globals as _pal
 import ctypes as c
 import weakref
-class StaticConvex(_pal.PalObject):
+from ..bodybase import BodyBase
+class StaticConvex(BodyBase):
     def __init__(self, pos, rot, points, triangles=None):
         """
         constructs a static convex and adds it to the world
@@ -29,32 +30,12 @@ class StaticConvex(_pal.PalObject):
                                   c.pointer(cpoints),len(points)*3, c.pointer(ctris), len(triangles)*3)
 
         self.points = points
+        self._body_base = _pal.lib.cast_static_convex_body_base(self.obj)
+
 
     def delete(self):
         _pal.lib.body_static_convex_remove(self.obj)
         del _pal.all_objects[str(self.obj)]
-
-    def get_location(self):
-        """ Return the location of the body as a ``float[16]`` matrix. """
-        ret = _pal.Mat4x4()
-        _pal.lib.body_static_convex_get_location(self.obj, ret)
-        return [x for x in ret]
-
-    def get_position(self):
-        """ Return position of the body as the ``float[3]`` x, y, z components. """
-        ret = _pal.Vec3()
-        _pal.lib.body_static_convex_get_position(self.obj, ret)
-        return [x for x in ret]
-
-    def set_material(self, material):
-        _pal.lib.body_static_convex_set_material(self.obj, material.obj)
-
-    def get_group(self):
-        """ Return collision group of the body as a ``float``. """
-        return _pal.lib.body_static_convex_get_group(self.obj)
-
-    def set_group(self, group):
-        return _pal.lib.body_static_convex_set_group(self.obj, c.c_int(group))
 
     def __str__(self):
         x, y, z = self.get_position()

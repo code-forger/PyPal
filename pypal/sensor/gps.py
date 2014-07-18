@@ -15,7 +15,7 @@ class GPS(_pal.PalObject):
 	    latitude: The initial latitude position of the sensor (radians, ie: rad(degrees,minutes,seconds))
 	    longitude: The initial longitude position of the sensor (radians, ie: rad(degrees,minutes,seconds)) 
         """
-        self.obj = _pal.lib.sensor_gps_create(_pal.get_body_pointer(body), c.c_int(time), c.c_float(latitude), c.c_float(longitude))
+        self.obj = _pal.lib.sensor_gps_create(body._body, c.c_int(time), c.c_float(latitude), c.c_float(longitude))
 
     def get_string(self):
         """returns the angle from north in radiens in the x-y plane"""

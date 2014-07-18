@@ -2,28 +2,14 @@
 
 extern "C"
 {
-    void body_character_get_location(palCharacterController *pcc, float mat[16])
+    void* cast_character_body(palCharacterController* o)
     {
-        for (int i = 0; i < 16; i++)
-            mat[i] = pcc->GetLocationMatrix()._mat[i];
+        return dynamic_cast<palBody*>(o);
     }
 
-    void body_character_get_position(palCharacterController *pcc, float vec[3])
+    void* cast_character_body_base(palCharacterController* o)
     {
-        palVector3 v;
-        pcc->GetPosition(v);
-        for (int i = 0; i < 3; i++)
-            vec[i] = v._vec[i];
-    }
-
-    int body_character_get_group(palCharacterController *pcc)
-    {
-        return pcc->GetGroup();
-    }
-
-    void body_character_set_group(palCharacterController *pcc, int group)
-    {
-        pcc->SetGroup(group);
+        return dynamic_cast<palBodyBase*>(o);
     }
 
     void body_character_walk(palCharacterController*pcc,float x,float y,float z, float duration)

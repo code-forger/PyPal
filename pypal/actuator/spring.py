@@ -13,7 +13,7 @@ class Spring(ActuatorBase):
           spring: ``float`` The spring constant.
           dampening: ``float`` The damping constant. 
         """
-        self.obj = _pal.lib.actuator_spring_create(_pal.get_body_pointer(body1),_pal.get_body_pointer(body2),c.c_float(spring_desc[0]),c.c_float(spring_desc[1]),c.c_float(spring_desc[2]))
+        self.obj = _pal.lib.actuator_spring_create(body1._body,body2._body,c.c_float(spring_desc[0]),c.c_float(spring_desc[1]),c.c_float(spring_desc[2]))
 
     def apply(self):
         """ Ensures the actuator will be running for this step. """

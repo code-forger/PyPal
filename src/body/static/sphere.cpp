@@ -2,33 +2,9 @@
 
 extern "C"
 {
-    void body_static_sphere_get_location(palStaticSphere* s, float mat[16])
+    void* cast_static_sphere_body_base(palStaticSphere* o)
     {
-        for (int i = 0; i < 16; i++)
-            mat[i] = s->GetLocationMatrix()._mat[i];
-    }
-
-    void body_static_sphere_get_position(palStaticSphere* s, float vec[3])
-    {
-        palVector3 v;
-        s->GetPosition(v);
-        for (int i = 0; i < 3; i++)
-            vec[i] = v._vec[i];
-    }
-
-    void body_static_sphere_set_material(palStaticSphere* s, palMaterial* m)
-    {
-        s->SetMaterial(m);
-    }
-
-    int body_static_sphere_get_group(palStaticSphere* s)
-    {
-        return s->GetGroup();
-    }
-
-    void body_static_sphere_set_group(palStaticSphere* s, int group)
-    {
-        s->SetGroup(group);
+        return dynamic_cast<palBodyBase*>(o);
     }
 
     palStaticSphere* body_static_sphere_create(Float x, Float y, Float z, Float width)

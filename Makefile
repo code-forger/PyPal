@@ -8,6 +8,8 @@ LIBLIBS          = -L/usr/local/lib64/x86_64-linux-gnu/ -lpal -ldl -lpal_bullet
 
 REQUIREDOBJECTS = build/PyPal.o\
 				  build/pypal.o\
+				  build/body/bodybase.o\
+				  build/body/body.o\
 				  build/body/box.o\
 				  build/body/sphere.o\
 				  build/body/capsule.o\
@@ -24,6 +26,7 @@ REQUIREDOBJECTS = build/PyPal.o\
 				  build/body/static/orientatedterrainplane.o\
 				  build/body/static/heightmapterrain.o\
 				  build/body/static/meshterrain.o\
+				  build/geometry/geometry.o\
 				  build/geometry/box.o\
 				  build/geometry/capsule.o\
 				  build/geometry/sphere.o\
@@ -59,6 +62,12 @@ build/pypal.o: src/pypal.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
 
 # body object rules
+build/body/bodybase.o: src/body/bodybase.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+
+build/body/body.o: src/body/body.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+
 build/body/box.o: src/body/box.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
 
@@ -109,6 +118,9 @@ build/body/static/meshterrain.o: src/body/static/meshterrain.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
 
 # geometry body object rules
+build/geometry/geometry.o: src/geometry/geometry.cpp
+	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
+
 build/geometry/box.o: src/geometry/box.cpp
 	g++ $(CXXFLAGS) $(INCPATH)  -c $< -o $@
 

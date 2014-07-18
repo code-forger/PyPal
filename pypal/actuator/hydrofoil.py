@@ -19,7 +19,7 @@ class Hydrofoil(ActuatorBase):
                                 3: The constant term of the lift coefficient.
           density: ``float`` The density of the liquid. 
         """
-        self.obj = _pal.lib.actuator_hydrofoil_create(_pal.get_body_pointer(body),
+        self.obj = _pal.lib.actuator_hydrofoil_create(body._body,
                                             c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2]),
                                             c.c_float(direction[0]), c.c_float(direction[1]), c.c_float(direction[2]),
                                             c.c_float(lift_vector[0]), c.c_float(lift_vector[1]), c.c_float(lift_vector[2]),

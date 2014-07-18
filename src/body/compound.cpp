@@ -2,114 +2,14 @@
 
 extern "C"
 {
-    void body_compound_get_location(palCompoundBody* c, float mat[16])
+    void* cast_compound_body(palCompoundBody* o)
     {
-        for (int i = 0; i < 16; i++)
-            mat[i] = c->GetLocationMatrix()._mat[i];
+        return dynamic_cast<palBody*>(o);
     }
 
-    void body_compound_get_position(palCompoundBody* c, float vec[3])
+    void* cast_compound_body_base(palCompoundBody* o)
     {
-        palVector3 v;
-        c->GetPosition(v);
-        for (int i = 0; i < 3; i++)
-            vec[i] = v._vec[i];
-    }
-
-    void body_compound_set_material(palCompoundBody* c, palMaterial* m)
-    {
-        c->SetMaterial(m);
-    }
-
-    int body_compound_get_group(palCompoundBody* c)
-    {
-        return c->GetGroup();
-    }
-
-    void body_compound_set_group(palCompoundBody* c, int group)
-    {
-        c->SetGroup(group);
-    }
-
-    void body_compound_set_position(palCompoundBody* c, float x, float y, float z, float roll, float pitch, float yaw)
-    {
-        c->SetPosition(x, y, z, roll, pitch, yaw);
-    }
-
-    void body_compound_set_orientation(palCompoundBody* c, float roll, float pitch, float yaw)
-    {
-        c->SetOrientation(roll, pitch, yaw);
-    }
-
-    void body_compound_apply_force(palCompoundBody* c, float x, float y, float z)
-    {
-        c->ApplyForce(x, y, z);
-    }
-
-    void body_compound_apply_torque(palCompoundBody* c, float x, float y, float z)
-    {
-        c->ApplyTorque(x, y, z);
-    }
-
-    void body_compound_apply_force_at_position(palCompoundBody* c, float x, float y, float z, float px, float py, float pz)
-    {
-        c->ApplyForceAtPosition(x, y, z, pz, py, pz);
-    }
-
-    void body_compound_apply_impulse(palCompoundBody* c, float ix, float iy, float iz)
-    {
-        c->ApplyImpulse(ix,iy,iz);
-    }
-
-    void body_compound_apply_angular_impulse(palCompoundBody* c, float ix, float iy, float iz){
-        c->ApplyAngularImpulse(ix, iy, iz);
-    }
-
-    void body_compound_apply_impulse_at_position(palCompoundBody* c, float x, float y, float z, float px, float py, float pz)
-    {
-        c->ApplyImpulseAtPosition(x, y, z, pz, py, pz);
-    }
-
-    void body_compound_get_linear_velocity(palCompoundBody* c, float vec[3])
-    {
-        palVector3 v;
-        c->GetLinearVelocity(v);
-        for (int i = 0; i < 3; i++)
-            vec[i] = v._vec[i];
-    }
-
-    void body_compound_get_angular_velocity(palCompoundBody* c, float vec[3])
-    {
-        palVector3 v;
-        c->GetAngularVelocity(v);
-        for (int i = 0; i < 3; i++)
-            vec[i] = v._vec[i];
-    }
-
-    void body_compound_set_linear_velocity(palCompoundBody* c, float vec[3])
-    {
-        palVector3 v;
-        for (int i = 0; i < 3; i++)
-            v._vec[i] = vec[i];
-        c->SetLinearVelocity(v);
-    }
-
-    void body_compound_set_angular_velocity(palCompoundBody* c, float vec[3])
-    {
-        palVector3 v;
-        for (int i = 0; i < 3; i++)
-            v._vec[i] = vec[i];
-        c->SetAngularVelocity(v);
-    }
-
-    bool body_compound_is_active(palCompoundBody* c)
-    {
-        return c->IsActive();
-    }
-
-    void body_compound_set_active(palCompoundBody* c,bool active)
-    {
-        c->SetActive(active);
+        return dynamic_cast<palBodyBase*>(o);
     }
 
     palCompoundBody* body_compound_create(Float x, Float y, Float z)
