@@ -1,76 +1,91 @@
 pypal.body package
 ==================
 
-Subpackages
------------
-
-.. toctree::
-
-    pypal.body.static
-
-Submodules
-----------
-
-pypal.body.box module
+:class:`Box` module
 ---------------------
 
-.. automodule:: pypal.body.box
+.. autoclass:: pypal.body.Box
     :members:
     :undoc-members:
     :show-inheritance:
 
-pypal.body.capsule module
+.. autoclass:: pypal.body.StaticBox
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:class:`Capsule` module
 -------------------------
 
-.. automodule:: pypal.body.capsule
+.. autoclass:: pypal.body.Capsule
     :members:
     :undoc-members:
     :show-inheritance:
 
-pypal.body.character module
+.. autoclass:: pypal.body.StaticCapsule
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:class:`Character` module
 ---------------------------
 
-.. automodule:: pypal.body.character
+.. autoclass:: pypal.body.Character
     :members:
     :undoc-members:
     :show-inheritance:
 
-pypal.body.compound module
+:class:`Compound` module
 --------------------------
 
-.. automodule:: pypal.body.compound
+.. autoclass:: pypal.body.Compound
     :members:
     :undoc-members:
     :show-inheritance:
 
-pypal.body.convex module
+.. autoclass:: pypal.body.StaticCompound
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:class:`Convex` module
 ------------------------
 
-.. automodule:: pypal.body.convex
+.. autoclass:: pypal.body.Convex
     :members:
     :undoc-members:
     :show-inheritance:
 
-pypal.body.generic_body module
+.. autoclass:: pypal.body.StaticConvex
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:class:`GenericBody` module
 ------------------------------
 
-.. automodule:: pypal.body.generic_body
+.. autoclass:: pypal.body.GenericBody
     :members:
     :undoc-members:
     :show-inheritance:
 
-pypal.body.ghost module
+:class:`Ghost` module
 -----------------------
 
-.. automodule:: pypal.body.ghost
+.. autoclass:: pypal.body.Ghost
     :members:
     :undoc-members:
     :show-inheritance:
 
-pypal.body.sphere module
+:class:`Sphere` module
 ------------------------
 
-.. automodule:: pypal.body.sphere
+.. autoclass:: pypal.body.Sphere
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. autoclass:: pypal.body.StaticSphere
     :members:
     :undoc-members:
     :show-inheritance:
@@ -79,7 +94,7 @@ pypal.body.sphere module
 Module contents
 ---------------
 
-.. automodule:: pypal.body
+.. autoclass:: pypal.body
     :members:
     :undoc-members:
     :show-inheritance:

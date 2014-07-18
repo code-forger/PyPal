@@ -2,7 +2,6 @@ from pypal import private_globals as _pal
 import ctypes as c
 import weakref
 class Character(_pal.PalObject):
-    typechar = 'C'
     def __init__(self,rect,mass=1):
         """
         constructs a character and adds it to the world
@@ -16,16 +15,19 @@ class Character(_pal.PalObject):
         self.obj = _pal.lib.body_character_create(c.c_float(rect[0]),c.c_float(rect[1]),c.c_float(rect[2]),c.c_float(rect[3]),c.c_float(rect[4]))
 
     def get_location(self):
+        """ Return the location of the body as a ``float[16]`` matrix. """
         ret = _pal.Mat4x4()
         _pal.lib.body_character_get_location(self.obj, ret)
         return [x for x in ret]
 
     def get_position(self):
+        """ Return position of the body as the ``float[3]`` x, y, z components. """
         ret = _pal.Vec3()
         _pal.lib.body_character_get_position(self.obj, ret)
         return [x for x in ret]
 
     def get_group(self):
+        """ Return collision group of the body as a ``float``. """
         return _pal.lib.body_character_get_group(self.obj)
 
     def set_group(self, group):

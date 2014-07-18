@@ -6,16 +6,19 @@ class Sphere(_pal.PalObject):
         self.obj = _pal.lib.geometry_sphere_create(c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]),c.c_float(rotation[0]),c.c_float(rotation[1]),c.c_float(rotation[2]),c.c_float(size[0]),c.c_float(mass))
 
     def get_location(self):
+        """ Return the location of the body as a ``float[16]`` matrix. """
         ret = _pal.Mat4x4()
         _pal.lib.geometry_sphere_get_location(self.obj, ret)
         return [x for x in ret]
 
     def get_offsett(self):
+        """ Return the offsett from the body to the geometry as a ``float[16]`` matrix. """
         ret = _pal.Mat4x4()
         _pal.lib.geometry_sphere_get_offsett(self.obj, ret)
         return [x for x in ret]
 
     def get_position(self):
+        """ Return position of the body as the ``float[3]`` x, y, z components. """
         ret = _pal.Vec3()
         _pal.lib.geometry_sphere_get_position(self.obj, ret)
         return [x for x in ret]

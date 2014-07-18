@@ -14,11 +14,13 @@ class Capsule(_pal.PalObject):
         self.obj = _pal.lib.body_capsule_create(c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]),c.c_float(size[0]),c.c_float(size[1]),c.c_float(mass))
 
     def get_location(self):
+        """ Return the location of the body as a ``float[16]`` matrix. """
         ret = _pal.Mat4x4()
         _pal.lib.body_capsule_get_location(self.obj, ret)
         return [x for x in ret]
 
     def get_position(self):
+        """ Return position of the body as the ``float[3]`` x, y, z components. """
         ret = _pal.Vec3()
         _pal.lib.body_capsule_get_position(self.obj, ret)
         return [x for x in ret]
@@ -27,6 +29,7 @@ class Capsule(_pal.PalObject):
         _pal.lib.body_capsule_set_material(self.obj, material.obj)
 
     def get_group(self):
+        """ Return collision group of the body as a ``float``. """
         return _pal.lib.body_capsule_get_group(self.obj)
 
     def set_group(self, group):
@@ -37,15 +40,32 @@ class Capsule(_pal.PalObject):
         return "A Capsule at : %.2f, %.2f, %.2f" % (x, y, z)
 
     def set_position(self, pos, rot=(0, 0, 0)):
-        """Sets the position of the object and its orientation."""
+        """
+        Sets the position of the object and its orientation.
+
+        Parameters:
+          pos: ``float[3]`` The x, y, z, position of the body.
+          rot: ``float[3]`` The rx, ry, rz, rotation of the body.
+        """
         _pal.lib.body_capsule_set_position(self.obj, c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2]), c.c_float(rot[0]), c.c_float(rot[1]), c.c_float(rot[2]))
 
     def set_orientation(self, rot):
-        """Sets the position of the object and/or its orientation."""
+        """
+        Sets the rotation of the object.
+
+        Parameters:
+          rot: ``float[3]`` The rx, ry, rz, rotation of the body.
+        """
         _pal.lib.body_capsule_set_orientation(self.obj, c.c_float(rot[0]), c.c_float(rot[1]), c.c_float(rot[2]))
 
     def apply_force(self, force, pos=None):
-        """Applies a force to the object for a single step at an optional offset in world coordinates."""
+        """
+        Applies a force to the object for a single step at an optional offset in world coordinates.
+
+        Parameters:
+          force: ``float[3]`` The x, y, z, force vector to be applied body.
+          pos: ``float[3]`` The optional x, y, z, offset to apply the force at.
+        """
         if pos:
             _pal.lib.body_capsule_apply_force_at_position(self.obj, c.c_float(force[0]), c.c_float(force[1]), c.c_float(force[2]),
                                                           c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2]))
@@ -56,8 +76,14 @@ class Capsule(_pal.PalObject):
         """Applies a torque to the object for a single step."""
         _pal.lib.body_capsule_apply_torque(self.obj, c.c_float(force[0]), c.c_float(force[1]), c.c_float(force[2]))
 
-    def apply_impulse(self, impulse,pos=None):
-        """Applies an impulse to the object for a single step at an optional offset in world coordinates."""
+    def apply_impulse(self, impulse, pos=None):
+        """
+        Applies an impulse to the object for a single step at an optional offset in world coordinates.
+
+        Parameters:
+          impulse: ``float[3]`` The x, y, z, imulse vector to be applied body.
+          pos: ``float[3]`` The optional x, y, z, offset to apply the impulse at.
+        """
         if pos:
             _pal.lib.body_capsule_apply_impulse_at_position(self.obj, c.c_float(impulse[0]), c.c_float(impulse[1]), c.c_float(impulse[2]),
                                                                  c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2]))

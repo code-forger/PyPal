@@ -15,6 +15,7 @@ class Revolute(_pal.PalObject):
         _pal.lib.link_revolute_set_limits(self.obj,c.c_float(lower),c.c_float(upper))
 
     def get_position(self):
+        """ Return position of the body as the ``float[3]`` x, y, z components. """
         """
         returns the position of the link
         """
