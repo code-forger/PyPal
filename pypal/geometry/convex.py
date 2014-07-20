@@ -11,7 +11,7 @@ class Convex(Geometry):
                 cpoints[(i*3)+j] = points[i][j]
         if triangles==None:
             self.obj = _pal.lib.geometry_convex_create_no_triangles(c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2]),
-                                  c.pointer(cpoints),len(points)*3,c.c_float(mass))
+                                  c.pointer(cpoints),len(points),c.c_float(mass))
         else:
             CTris = c.c_int * len(triangles*3)
             ctris = CTris()

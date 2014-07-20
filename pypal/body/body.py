@@ -5,7 +5,7 @@ from bodybase import BodyBase
 class Body(BodyBase):
     def set_position(self, pos, rot=(0, 0, 0)):
         """
-        Sets the position of the object and its orientation.
+        Sets the position of the body and its orientation.
 
         Parameters:
           pos: ``float[3]`` The x, y, z, position of the body.
@@ -15,7 +15,7 @@ class Body(BodyBase):
 
     def set_orientation(self, rot):
         """
-        Sets the rotation of the object.
+        Sets the rotation of the body.
 
         Parameters:
           rot: ``float[3]`` The rx, ry, rz, rotation of the body.
@@ -24,7 +24,7 @@ class Body(BodyBase):
 
     def apply_force(self, force, pos=None):
         """
-        Applies a force to the object for a single step at an optional offset in world coordinates.
+        Applies a force to the body for a single step at an optional offset in world coordinates.
 
         Parameters:
           force: ``float[3]`` The x, y, z, force vector to be applied body.
@@ -36,13 +36,18 @@ class Body(BodyBase):
         else:
             _pal.lib.body_apply_force(self._body, c.c_float(force[0]), c.c_float(force[1]), c.c_float(force[2]))
 
-    def apply_torque(self, force):
-        """Applies a torque to the object for a single step."""
-        _pal.lib.body_apply_torque(self._body, c.c_float(force[0]), c.c_float(force[1]), c.c_float(force[2]))
+    def apply_torque(self, torque):
+        """
+        Applies a torque to the body for a single step.
+
+        Parameters:
+          torque: ``float[3]`` The x, y, z torque vector to be applied
+        """
+        _pal.lib.body_apply_torque(self._body, c.c_float(torque[0]), c.c_float(torque[1]), c.c_float(torque[2]))
 
     def apply_impulse(self, impulse, pos=None):
         """
-        Applies an impulse to the object for a single step at an optional offset in world coordinates.
+        Applies an impulse to the body for a single step at an optional offset in world coordinates.
 
         Parameters:
           impulse: ``float[3]`` The x, y, z, imulse vector to be applied body.
@@ -55,41 +60,61 @@ class Body(BodyBase):
             _pal.lib.body_apply_impulse(self._body, c.c_float(impulse[0]), c.c_float(impulse[1]), c.c_float(impulse[2]))
 
     def apply_angular_impulse(self, impulse):
-        """Applies an angular impulse to the object for a single step at an optional offset in world coordinates."""
+        """
+        Applies an angular impulse to the body for a single step.
+
+        Parameters:
+          impulse: ``float[3]`` The rx, ry, rz, angular imulse vector to be applied body.
+        """
         _pal.lib.body_apply_angular_impulse(self._body, c.c_float(impulse[0]), c.c_float(impulse[1]), c.c_float(impulse[2]))
 
 
     def get_linear_velocity(self):
-        """Returns the linear velocity of the body."""
+        """ Returns the linear velocity of the body. """
         ret = _pal.Vec3()
         _pal.lib.body_get_linear_velocity(self._body, ret)
         return [x for x in ret]
 
     def get_angular_velocity(self):
-        """Returns the linear velocity of the body."""
+        """ Returns the angular velocity of the body. """
         ret = _pal.Vec3()
         _pal.lib.body_get_angular_velocity(self._body, ret)
         return [x for x in ret]
 
     def set_linear_velocity(self, velocity):
-        """sets the linear velocity og the object"""
+        """
+        Sets the linear velocity of the body.
+
+        Parameters:
+          velocity: ``float`` The x, y, z, velocity vectory to be set.
+        """
         vec = _pal.Vec3()
         for i in range(3):
             vec[i] = velocity[i]
         _pal.lib.body_set_linear_velocity(self._body, vec)
 
     def set_angular_velocity(self, velocity):
-        """sets the angular velocity og the object"""
+        """
+        Sets the angular velocity of the body.
+
+        Parameters:
+          velocity: ``float`` The rx, ry, rz, angular vectory to be set.
+        """
         vec = _pal.Vec3()
         for i in range(3):
             vec[i] = velocity[i]
         _pal.lib.body_set_angular_velocity(self._body, vec)
         
     def is_active(self):
-        """Returns true if the body is not asleep."""
+        """ Returns true if the body is not asleep. """
         _pal.lib.body_is_active.restype = c.c_bool
         return _pal.lib.body_is_active(self._body)
 
     def set_active(self,active):
-        """Sets the body to active or not."""
+        """
+        Sets the body to active or not.
+        
+        Parameters:
+          active: ``bool`` Weather the body should be active or not
+        """
         _pal.lib.body_set_active(self._body, c.c_bool(active))

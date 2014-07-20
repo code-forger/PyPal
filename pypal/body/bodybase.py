@@ -15,6 +15,12 @@ class BodyBase(_pal.PalObject):
         return [x for x in ret]
 
     def set_material(self, material):
+        """ 
+        Sets the collision material of the body.
+
+        Parameters:
+          material: ``pypal.material.Material`` The material to be set for collisions.
+        """
         _pal.lib.body_base_set_material(self._body_base, material.obj)
 
     def get_group(self):
@@ -22,4 +28,10 @@ class BodyBase(_pal.PalObject):
         return _pal.lib.body_base_get_group(self._body_base)
 
     def set_group(self, group):
+        """
+        Set the collision group of the body
+
+        Parameters:
+          group: ``int`` The group to be set.
+        """
         return _pal.lib.body_base_set_group(self._body_base, c.c_int(group))

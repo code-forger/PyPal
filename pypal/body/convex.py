@@ -18,7 +18,7 @@ class Convex(Body):
                 cpoints[(i*3)+j] = points[i][j]
         if triangles==None:
             self.obj = _pal.lib.body_convex_create_no_triangles(c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2]),
-                                  c.pointer(cpoints),len(points)*3,c.c_float(mass))
+                                  c.pointer(cpoints),len(points),c.c_float(mass))
         else:
             CTris = c.c_int * len(triangles*3)
             ctris = CTris()
@@ -27,7 +27,7 @@ class Convex(Body):
                     ctris[(i*3)+j] = triangles[i][j]
 
             self.obj = _pal.lib.body_convex_create_triangles(c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2]),
-                                  c.pointer(cpoints),len(points)*3, c.pointer(ctris), len(triangles)*3,c.c_float(mass))
+                                  c.pointer(cpoints),len(points), c.pointer(ctris), len(triangles)*3,c.c_float(mass))
 
         self.points = points
         self._body_base = _pal.lib.cast_convex_body_base(self.obj)

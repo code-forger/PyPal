@@ -1,9 +1,10 @@
 from pypal import private_globals as _pal
 import ctypes as c
 import weakref
-from body import Body
-class Character(Body):
-    def __init__(self,rect,mass=1):
+from generic_body import GenericBody
+from ..geometry import Capsule
+class Character(GenericBody):
+    def __init__(self, pos, size, rotation=[0,0,0], mass=1.):
         """
         constructs a character and adds it to the world
         
@@ -13,17 +14,24 @@ class Character(Body):
         calculated from the density and the volumne.
         static: used to create this object static, if static is true, mass will be ignored
         """
-        self.obj = _pal.lib.body_character_create(c.c_float(rect[0]),c.c_float(rect[1]),c.c_float(rect[2]),c.c_float(rect[3]),c.c_float(rect[4]))
-        self._body_base = _pal.lib.cast_character_body_base(self.obj)
-        self._body = _pal.lib.cast_character_body(self.obj)
-
+        GenericBody.__init__(self, pos, rotation)
+        self.dynamic_type = "dynamic"
+        self.mass = mass
+        self.collision_response = True
+        self.geom = Capsule([0,0,0], size)
+        self.connect_geometry(self.geom)
+        self.angular_damping = 100000
+        
     def __str__(self):
         x, y, z = self.get_position()
         return "A Character at : %.2f, %.2f, %.2f" % (x, y, z)
 
-    def walk(self, direction, duration):
-        _pal.lib.body_character_walk(self.obj,c.c_float(direction[0]),c.c_float(direction[1]),c.c_float(direction[2]),c.c_float(duration))
+    def walk(self, d):
+        x, y, z = self.get_position()
+        self.set_position((x + d[0]/100., y + d[1]/100., z + d[2]/100.))
+        #_pal.lib.body_character_walk(self.obj,c.c_float(direction[0]),c.c_float(direction[1]),c.c_float(direction[2]),c.c_float(duration))
 
     def warp(self, vector):
-        _pal.lib.body_character_warp(self.obj,c.c_float(vector[0]),c.c_float(vector[1]),c.c_float(vector[2]))
+        pass
+        #_pal.lib.body_character_warp(self.obj,c.c_float(vector[0]),c.c_float(vector[1]),c.c_float(vector[2]))
 

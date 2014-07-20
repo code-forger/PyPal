@@ -2,10 +2,9 @@ For this revision:
 
 create usefull doc strings for all classes and functions in these files:
 pypal/
-├── Makefile-docs
-├── __init__.py
 ├── body
-│   ├── __init__.py
+│   ├── bodybase.py
+│   ├── body.py
 │   ├── box.py
 │   ├── capsule.py
 │   ├── character.py
@@ -13,26 +12,28 @@ pypal/
 │   ├── convex.py
 │   ├── generic_body.py
 │   ├── ghost.py
+│   ├── __init__.py
 │   ├── sphere.py
 │   └── static
-│       ├── __init__.py
 │       ├── box.py
 │       ├── capsule.py
 │       ├── compound.py
 │       ├── convex.py
 │       ├── heightmap_terrain.py
+│       ├── __init__.py
 │       ├── mesh_terrain.py
 │       ├── orientated_terrain.py
 │       ├── sphere.py
 │       └── terrain.py
 ├── geometry
-│   ├── __init__.py
 │   ├── box.py
 │   ├── capsule.py
 │   ├── concave.py
 │   ├── convex.py
-│   ├── geometry_base.py
+│   ├── geometry.py
+│   ├── __init__.py
 │   └── sphere.py
+├── __init__.py
 ├── link
 │   ├── __init__.py
 │   ├── prismatic.py
@@ -44,10 +45,10 @@ pypal/
 │   └── material.py
 ├── private_globals.py
 └── sensor
-    ├── __init__.py
     ├── compass.py
     ├── gps.py
     ├── inclinometer.py
+    ├── __init__.py
     └── psd.py
 
-7 directories, 53 files
+7 directories, 54 files

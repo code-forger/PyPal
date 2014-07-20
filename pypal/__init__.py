@@ -147,20 +147,17 @@ def load_vertices_from_collada_file(f_name):
         matricies.append(mesh.geometries[i].collada.scene.nodes[i].matrix[2][:3])
     return objects, matricies
 
-
-
-
 def notify_collision(body,enabled):
     """informs the body that it can at any time have its current collision points requested"""
-    _pal.lib.collision_notify(body._body_base,enabled)
+    _pal.lib.collision_notify(body._body,enabled)
     if enabled:
-        notified_objects.append(weakref.proxy(body))
+        _pal.notified_objects.append(body)
     elif body.obj in notified_objects:
-        notified_objects.remove(body)
+        _pal.notified_objects.remove(body)
 
 def get_contacts(body):
     """returns the bodies that this body is currently in contact with."""
-    contacts = _pal.lib.get_contacts(body._body_base)
+    contacts = _pal.lib.get_contacts(body._body)
     ret = []
     _pal.lib.contacts_get_distance.restype = c.c_float
     try:
@@ -169,7 +166,7 @@ def get_contacts(body):
                       weakref.proxy(_pal.all_objects[str(_pal.lib.contacts_get_body_two(contacts,x))])])
         _pal.lib.remove_contact(contacts)
     except KeyError:
-        pass
+        print "ERROR PAL HAS FAILED TO SUCCESFULLY CONSTRUCT A COLLISION!!!!"
     return ret
     
 def get_unique_contacts(body):

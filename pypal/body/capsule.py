@@ -3,13 +3,13 @@ import ctypes as c
 import weakref
 from body import Body
 class Capsule(Body):
+    """ A Dynamic Rigid Capsule. """
     def __init__(self, pos, size, mass = 1.):
         """
-        constructs a capsule and adds it to the world
-        
-        pos: a 3 part tuple with x,y,z.
-        size: a 3 part tuple with width, height, depth
-        mass: the mass of the object, if mass is specified it will be used.
+        Parameters:
+          pos: ``float[3]`` The x, y, z position of the Capsule.
+          size: ``float[3]`` The height, radius, of the Capsule
+          mass: ``float`` The mass of the Capsule.
         """
         self._size = size
         self.obj = _pal.lib.body_capsule_create(c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]),c.c_float(size[0]),c.c_float(size[1]),c.c_float(mass))
@@ -21,5 +21,5 @@ class Capsule(Body):
         return "A Capsule at : %.2f, %.2f, %.2f" % (x, y, z)
 
     def get_size(self):
-        """returns the size of the object in a 3 part tuple"""
+        """ Returns the size of the object in a 2 part tuple """
         return self._size
