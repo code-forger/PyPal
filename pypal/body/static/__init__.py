@@ -3,6 +3,7 @@ from sphere import StaticSphere
 from capsule import StaticCapsule
 from convex import StaticConvex
 from compound import StaticCompound
+from ghost import Ghost
 from heightmap_terrain import HeightMapTerrain
 from mesh_terrain import MeshTerrain
 from orientated_terrain import OrientatedTerrainPlane

@@ -8,7 +8,7 @@ class Capsule(Body):
         """
         Parameters:
           pos: ``float[3]`` The x, y, z position of the Capsule.
-          size: ``float[3]`` The height, radius, of the Capsule
+          size: ``float[3]`` The height, radius, of the Capsule.
           mass: ``float`` The mass of the Capsule.
         """
         self._size = size
@@ -21,5 +21,5 @@ class Capsule(Body):
         return "A Capsule at : %.2f, %.2f, %.2f" % (x, y, z)
 
     def get_size(self):
-        """ Returns the size of the object in a 2 part tuple """
+        """ Returns the size of the object in a 2 part tuple. """
         return self._size

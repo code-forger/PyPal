@@ -4,15 +4,20 @@ import weakref
 from generic_body import GenericBody
 from ..geometry import Capsule
 class Character(GenericBody):
+    """
+    A Character.
+
+    The Character class is a convinience wrapper of a Generic body wich a capsule geometry.
+    As the angular damping of the body is set to a high number, the character wont fall over!
+    """
     def __init__(self, pos, size, rotation=[0,0,0], mass=1.):
         """
-        constructs a character and adds it to the world
-        
-        rect: a 5 part tuple with x,y,z,radius,height
-        mass: the mass of the object, if mass is specified it will be used.
-        density: if no mass is specified and a density is, the mass will be 
-        calculated from the density and the volumne.
-        static: used to create this object static, if static is true, mass will be ignored
+        Parameters:
+          pos: ``float[3]`` The x, y, z position of the Character.
+          size: ``float[2]`` The height, radius of the Character.
+          rotation: ``float[3]`` the rx, ry, rz rotation of the body.
+            Note: A Character will never rotate on any axis,
+          mass: ``float`` The mass of the Character.
         """
         GenericBody.__init__(self, pos, rotation)
         self.dynamic_type = "dynamic"
@@ -26,9 +31,17 @@ class Character(GenericBody):
         x, y, z = self.get_position()
         return "A Character at : %.2f, %.2f, %.2f" % (x, y, z)
 
-    def walk(self, d):
+    def walk(self, direction):
+        """
+        Walk the character forward along the given vector
+
+        Note: The walk function needs to be called every time the physics engine is updated.
+
+        Parameters:
+          direction: ``float[3]`` The unit vector the character should walk along.
+        """
         x, y, z = self.get_position()
-        self.set_position((x + d[0]/100., y + d[1]/100., z + d[2]/100.))
+        self.set_position((x + direction[0]/100., y + direction[1]/100., z + direction[2]/100.))
         #_pal.lib.body_character_walk(self.obj,c.c_float(direction[0]),c.c_float(direction[1]),c.c_float(direction[2]),c.c_float(duration))
 
     def warp(self, vector):

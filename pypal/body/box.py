@@ -8,7 +8,7 @@ class Box(Body):
         """
         Parameters:
           pos: ``float[3]`` The x, y, z position of the Box.
-          size: ``float[3]`` The height, width, depth, of the Box
+          size: ``float[3]`` The height, width, depth, of the Box.
           mass: ``float`` The mass of the Box.
         """
         self._size = size
@@ -21,5 +21,5 @@ class Box(Body):
         return "A Box at : %.2f, %.2f, %.2f" % (x, y, z)
 
     def get_size(self):
-        """ Returns the size of the object in a 3 part tuple """
+        """ Returns the size of the object in a 3 part tuple. """
         return self._size

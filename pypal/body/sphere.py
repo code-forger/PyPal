@@ -3,13 +3,13 @@ import ctypes as c
 import weakref
 from body import Body
 class Sphere(Body):
+    """ A Ridgid Dynamic Sphere. """
     def __init__(self, pos, size, mass = 1.):
         """
-        constructs a sphere and adds it to the world
-        
-        pos: a 3 part tuple with x,y,z.
-        size: a 3 part tuple with width, height, depth
-        mass: the mass of the object, if mass is specified it will be used.
+        Parameters:
+          pos: ``float[3]`` The x, y, z, position of the body.
+          size: ``float[1]`` Radius of the body.
+          mass: ``float`` The mass of the object.
         """
         self._size = size
         self.obj = _pal.lib.body_sphere_create(c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]),c.c_float(size[0]),c.c_float(mass))
@@ -21,5 +21,5 @@ class Sphere(Body):
         return "A Sphere at : %.2f, %.2f, %.2f" % (x, y, z)
 
     def get_size(self):
-        """returns the size of the object in a 3 part tuple"""
+        """ Returns the size of the object in a 3 part tuple. """
         return self._size

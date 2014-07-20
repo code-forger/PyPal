@@ -3,13 +3,15 @@ import ctypes as c
 import weakref
 from body import Body
 class Convex(Body):
-    def __init__(self, pos, points, triangles=None, mass = 1.):
+    """ A Ridgid Dynamic Convex Hull. """
+    def __init__(self, pos, points, triangles=None, mass=1.):
         """
-        constructs a convex and adds it to the world
-        
-        pos: a 3 part tuple with x,y,z.
-        size: a 3 part tuple with width, height, depth
-        mass: the mass of the object, if mass is specified it will be used.
+        Parameters:
+          pos: ``float[3]`` The x, y, z position for the Convex Body.
+          points: ``float[x][3]`` The points from which the convex hull will be calculated.
+          triangles: ``float[x][3]`` the triangles to be used when forming the Convex Hull.
+            Note: The triangles might be ignored by the internal physics engine.
+          mass: ``float`` The mass of the Convex Body.
         """
         CPoints = c.c_float * (len(points) * 3)
         cpoints = CPoints()
