@@ -8,7 +8,7 @@ class StaticSphere(BodyBase):
         """
         Parameters:
           pos: ``float[3]`` The x, y, z position of the Sphere.
-          size: ``float[1]`` The Radius, of the Sphere.
+          size: ``float[1]`` The radius, of the Sphere.
         """
         self._size = size
         self.obj = _pal.lib.body_static_sphere_create(c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]),c.c_float(size[0]))

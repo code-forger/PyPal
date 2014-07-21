@@ -8,7 +8,7 @@ class Box(Body):
         """
         Parameters:
           pos: ``float[3]`` The x, y, z position of the Box.
-          size: ``float[3]`` The height, width, depth, of the Box.
+          size: ``float[3]`` The width, height, depth, of the Box.
           mass: ``float`` The mass of the Box.
         """
         self._size = size

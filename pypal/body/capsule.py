@@ -8,7 +8,7 @@ class Capsule(Body):
         """
         Parameters:
           pos: ``float[3]`` The x, y, z position of the Capsule.
-          size: ``float[3]`` The height, radius, of the Capsule.
+          size: ``float[3]`` The radius, height, of the Capsule.
           mass: ``float`` The mass of the Capsule.
         """
         self._size = size

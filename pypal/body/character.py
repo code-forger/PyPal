@@ -14,7 +14,7 @@ class Character(GenericBody):
         """
         Parameters:
           pos: ``float[3]`` The x, y, z position of the Character.
-          size: ``float[2]`` The height, radius of the Character.
+          size: ``float[2]`` The radius, height of the Character.
           rotation: ``float[3]`` the rx, ry, rz rotation of the body.
             Note: A Character will never rotate on any axis,
           mass: ``float`` The mass of the Character.

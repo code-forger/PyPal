@@ -22,18 +22,15 @@ import os
 
 def process_docstring(app, what, name, obj, options, lines):
     """Prepend '|' to each line to preserve line breaks."""
+    if what == "class":
+        if hasattr(obj, "__init__") and obj.__init__.__doc__:
+            lines.extend([l[8:] for l in obj.__init__.__doc__.split("\n")][1:])
     for i in range(len(lines)):
         if lines[i].startswith("  "):
             lines[i] = " | " + lines[i]
 
-def skip(app, what, name, obj, skip, options):
-    if name == "__init__":
-        return False
-    return skip
-
 def setup(app):
     app.connect('autodoc-process-docstring', process_docstring)
-    app.connect("autodoc-skip-member", skip)
 
 # Maintain member order from the source code
 autodoc_member_order = "bysource"

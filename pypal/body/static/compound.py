@@ -22,7 +22,7 @@ class StaticCompound(BodyBase):
 
         Parameters:
           pos: ``float[3]`` The x, y, z, positional offsett for the new geometry.
-          size: ``float[3]`` The height, width, depth, for the new geometry.
+          size: ``float[3]`` The width, height, depth, for the new geometry.
           rotation: ``float[3]`` The rx, ry, rz, rotation for the new geometry.
         """
         _pal.lib.body_static_compound_add_box(self.obj, c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2]),
@@ -48,7 +48,7 @@ class StaticCompound(BodyBase):
 
         Parameters:
           pos: ``float[3]`` The x, y, z, positional offsett for the new geometry.
-          size: ``float[2]`` The height, radius, for the new geometry.
+          size: ``float[2]`` The radius, height, for the new geometry.
           rotation: ``float[3]`` The rx, ry, rz, rotation for the new geometry.
         """
         _pal.lib.body_static_compound_add_capsule(self.obj, c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2]),

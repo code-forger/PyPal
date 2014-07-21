@@ -8,7 +8,7 @@ class StaticBox(BodyBase):
         """
         Parameters:
           pos: ``float[3]`` The x, y, z position of the Box.
-          size: ``float[3]`` The Height, Width, Depth, of the Box.
+          size: ``float[3]`` The width, height, depth, of the Box.
         """
         self._size = size
         self.obj = _pal.lib.body_static_box_create(c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]),c.c_float(size[0]),c.c_float(size[1]),c.c_float(size[2]))

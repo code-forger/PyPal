@@ -1,54 +1,37 @@
-For this revision:
-
-create usefull doc strings for all classes and functions in these files:
-pypal/
-├── body
-│   ├── bodybase.py
-│   ├── body.py
-│   ├── box.py
-│   ├── capsule.py
-│   ├── character.py
-│   ├── compound.py
-│   ├── convex.py
-│   ├── generic_body.py
-│   ├── ghost.py
-│   ├── __init__.py
-│   ├── sphere.py
-│   └── static
-│       ├── box.py
-│       ├── capsule.py
-│       ├── compound.py
-│       ├── convex.py
-│       ├── heightmap_terrain.py
-│       ├── __init__.py
-│       ├── mesh_terrain.py
-│       ├── orientated_terrain.py
-│       ├── sphere.py
-│       └── terrain.py
-├── geometry
-│   ├── box.py
-│   ├── capsule.py
-│   ├── concave.py
-│   ├── convex.py
-│   ├── geometry.py
-│   ├── __init__.py
-│   └── sphere.py
-├── __init__.py
-├── link
-│   ├── __init__.py
-│   ├── prismatic.py
-│   ├── revolute.py
-│   ├── rigid.py
-│   └── spherical.py
-├── material
-│   ├── __init__.py
-│   └── material.py
-├── private_globals.py
-└── sensor
-    ├── compass.py
-    ├── gps.py
-    ├── inclinometer.py
-    ├── __init__.py
-    └── psd.py
-
-7 directories, 54 files
+--- ../pypal/body/static/terrain.py (1 lines found) ---
+  11 ->           min_size: ``float`` The minimum size of the terrain.
+--- ../pypal/body/character.py (1 lines found) ---
+  17 ->           size: ``float[2]`` The height, radius of the Character.
+--- ../pypal/body/static/compound.py (3 lines found) ---
+  25 ->           size: ``float[3]`` The width, height, depth, for the new geometry.
+  38 ->           size: ``float[1]`` The radius for the new geometry.
+  51 ->           size: ``float[2]`` The radius, height, for the new geometry.
+--- ../pypal/body/static/mesh_terrain.py (1 lines found) ---
+  11 ->         size: a 3 part tuple with width, height, depth
+--- ../pypal/body/compound.py (3 lines found) ---
+  26 ->           size: ``float[3]`` The width, height, depth, for the new geometry.
+  41 ->           size: ``float[1]`` The radius for the new geometry.
+  56 ->           size: ``float[2]`` The radius, height, for the new geometry.
+--- ../pypal/geometry/box.py (1 lines found) ---
+  11 ->           size: ``float[3]`` The width, height, depth of the Box.
+--- ../pypal/body/sphere.py (1 lines found) ---
+  11 ->           size: ``float[1]`` Radius of the body.
+--- ../pypal/body/box.py (1 lines found) ---
+  11 ->           size: ``float[3]`` The width, height, depth, of the Box.
+--- ../pypal/geometry/sphere.py (1 lines found) ---
+  11 ->           size: ``float[1]`` The radius of the Sphere.
+--- ../pypal/body/static/heightmap_terrain.py (1 lines found) ---
+  11 ->           size: ``float[2]`` The x, z size of the Terrain.
+--- ../pypal/body/static/orientated_terrain.py (1 lines found) ---
+  12 ->           min_size: ``float`` The minimum size for the terrain.
+--- ../pypal/geometry/capsule.py (1 lines found) ---
+  11 ->           size: ``float[2]`` The radius, height of the Capsule.
+--- ../pypal/body/static/box.py (1 lines found) ---
+  11 ->           size: ``float[3]`` The width, height, depth, of the Box.
+--- ../pypal/body/static/sphere.py (1 lines found) ---
+  11 ->           size: ``float[1]`` The radius, of the Sphere.
+--- ../pypal/body/static/capsule.py (1 lines found) ---
+  11 ->           size: ``float[2]`` The radius, height, of the Capsule.
+--- ../pypal/body/capsule.py (1 lines found) ---
+  11 ->           size: ``float[3]`` The radius, height, of the Capsule.
+Total lines found: 20

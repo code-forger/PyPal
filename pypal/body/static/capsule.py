@@ -8,7 +8,7 @@ class StaticCapsule(BodyBase):
         """
         Parameters:
           pos: ``float[3]`` The x, y, z position of the Capsule.
-          size: ``float[2]`` The Height, Radius, of the Capsule.
+          size: ``float[2]`` The radius, height, of the Capsule.
         """
         self._size = size
         self.obj = _pal.lib.body_static_capsule_create(c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]),c.c_float(size[0]),c.c_float(size[1]))

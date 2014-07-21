@@ -6,7 +6,7 @@ import math
 from ..generic_body import GenericBody
 class Ghost(GenericBody):
     """
-    A Static Ghost 
+    A Static Ghost with no starting geometry.
 
     The Ghost body cannot collide with anything however can still detect objects that are intersecting with it.
     """

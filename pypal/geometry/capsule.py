@@ -8,7 +8,7 @@ class Capsule(Geometry):
         """
         Parameters:
           pos: ``float[3]`` The x, y, z, position of the Capsule.
-          size: ``float[2]`` The height, radius of the Capsule.
+          size: ``float[2]`` The radius, height of the Capsule.
           rotation: ``float[3]`` The rx, ry, rz rotation of the Capsule.
           mass: ``float`` The mass of the Capsule.
         """

@@ -23,7 +23,7 @@ class Compound(Body):
 
         Parameters:
           pos: ``float[3]`` The x, y, z, positional offsett for the new geometry.
-          size: ``float[3]`` The height, width, depth, for the new geometry.
+          size: ``float[3]`` The width, height, depth, for the new geometry.
           rotation: ``float[3]`` The rx, ry, rz, rotation for the new geometry.
           mass: ``float`` The mass of the new geometry.
         """
@@ -53,7 +53,7 @@ class Compound(Body):
 
         Parameters:
           pos: ``float[3]`` The x, y, z, positional offsett for the new geometry.
-          size: ``float[2]`` The height, radius, for the new geometry.
+          size: ``float[2]`` The radius, height, for the new geometry.
           rotation: ``float[3]`` The rx, ry, rz, rotation for the new geometry.
           mass: ``float`` The mass of the new geometry 
         """
