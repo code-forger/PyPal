@@ -3,7 +3,15 @@ import ctypes as c
 import weakref
 from ..bodybase import BodyBase
 class HeightMapTerrain(BodyBase):
-    def __init__(self,pos,size,chunks,height_map):
+    """ A Static Heightmaped Terrain. """
+    def __init__(self, pos, size, chunks, height_map):
+        """
+        Parameters:
+          pos: ``float[3]`` The x, y, z, position of the Terrain.
+          size: ``float[2]`` The x, z size of the Terrain.
+          chunks: ``float[2]`` The number of heightmap points x, z.
+          height_map: ``float[chunks[0]][chunks[1]]`` the y values for the center of each chunk.
+        """
         self._size = size
         points = c.c_float * (chunks[0] * chunks[1])
         points = points()
@@ -21,5 +29,5 @@ class HeightMapTerrain(BodyBase):
         return "A Height Map Terrain at : %.2f, %.2f, %.2f" % (x, y, z)
 
     def get_size(self):
-        """returns the size of the object in a 3 part tuple"""
+        """ Returns the size of the object in a 2 part tuple. """
         return self._size

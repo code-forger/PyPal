@@ -80,4 +80,9 @@ class Compound(Body):
         _pal.lib.body_compound_add_convex(self.obj, c.c_float(pos[0]), c.c_float(pos[1]), c.c_float(pos[2]), c.c_float(rotation[0]), c.c_float(rotation[1]), c.c_float(rotation[2]), c.pointer(cpoints),len(points)*3,c.c_float(mass))
 
     def finalize(self):
+        """
+        Finalize the body.
+  
+        You must call this function after all geometries have been added and before the physics engine is updated.
+        """
         _pal.lib.body_compound_finalize(self.obj)

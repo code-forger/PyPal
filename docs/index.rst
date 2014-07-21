@@ -9,7 +9,7 @@ Welcome to PyPal's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    pypal.rst
 

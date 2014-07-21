@@ -3,12 +3,12 @@ import ctypes as c
 import weakref
 from ..bodybase import BodyBase
 class TerrainPlane(BodyBase):
+    """ A Static Terrain Plane parralell to the x, z axis. """
     def __init__(self, pos, min_size):
         """
-        constructs a static terrain_plane and adds it to the world
-        
-        pos: a 3 part tuple with x,y,z.
-        size: a 3 part tuple with width, height, depth
+        Parameters:
+          pos: ``float[3]`` The x, y, z, position of the terrain.
+          min_size: ``float`` The minimum size of the terrain.
         """
         self._size = min_size
         self.obj = _pal.lib.body_static_terrain_plane_create(c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]),c.c_float(min_size))
@@ -19,5 +19,5 @@ class TerrainPlane(BodyBase):
         return "A Terrain Plane at : %.2f, %.2f, %.2f" % (x, y, z)
 
     def get_size(self):
-        """returns the size of the object in a 3 part tuple"""
+        """ Returns the size of the object. """
         return self._size

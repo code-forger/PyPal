@@ -1,4 +1,4 @@
-pypal.actuator package
+actuator module
 ======================
 
 :class:`Action` class

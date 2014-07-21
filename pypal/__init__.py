@@ -1,20 +1,6 @@
 
 """
 Python Bindings for PAL.
-
-Sub Modules:
-    :mod:`actuator`
-    :mod:`body`
-    :mod:`geometry`
-    :mod:`link`
-    :mod:`material`
-    :mod:`sensor`
-
-
-Module functions:
-    init(gravity):
-
-
 """
 
 import collada

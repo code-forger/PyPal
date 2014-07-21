@@ -1,46 +1,38 @@
-pypal.sensor package
+sensor module
 ====================
 
-Submodules
-----------
-
-pypal.sensor.compass module
+:class:`Compass` class
 ---------------------------
 
 .. automodule:: pypal.sensor.compass
     :members:
     :undoc-members:
-    :show-inheritance:
+    :inherited-members:
+    :exclude-members: delete
 
-pypal.sensor.gps module
+:class:`gps` class
 -----------------------
 
 .. automodule:: pypal.sensor.gps
     :members:
     :undoc-members:
-    :show-inheritance:
+    :inherited-members:
+    :exclude-members: delete
 
-pypal.sensor.inclinometer module
+:class:`Inclinometer` class
 --------------------------------
 
 .. automodule:: pypal.sensor.inclinometer
     :members:
     :undoc-members:
-    :show-inheritance:
+    :inherited-members:
+    :exclude-members: delete
 
-pypal.sensor.psd module
+:class:`PSD` class
 -----------------------
 
 .. automodule:: pypal.sensor.psd
     :members:
     :undoc-members:
-    :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: pypal.sensor
-    :members:
-    :undoc-members:
-    :show-inheritance:
+    :inherited-members:
+    :exclude-members: delete

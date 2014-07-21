@@ -1,9 +1,6 @@
 pypal package
 =============
 
-Subpackages
------------
-
 .. toctree::
 
     pypal.actuator
@@ -12,9 +9,6 @@ Subpackages
     pypal.link
     pypal.material
     pypal.sensor
-
-Submodules
-----------
 
 Module contents
 ---------------

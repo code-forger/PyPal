@@ -1,62 +1,47 @@
-pypal.geometry package
+geometry module
 ======================
 
-Submodules
-----------
-
-pypal.geometry.box module
+:class:`Box` class
 -------------------------
 
 .. automodule:: pypal.geometry.box
     :members:
     :undoc-members:
-    :show-inheritance:
+    :inherited-members:
+    :exclude-members: delete
 
-pypal.geometry.capsule module
+:class:`Capsule` class
 -----------------------------
 
 .. automodule:: pypal.geometry.capsule
     :members:
     :undoc-members:
-    :show-inheritance:
+    :inherited-members:
+    :exclude-members: delete
 
-pypal.geometry.concave module
+:class:`Concave` class
 -----------------------------
 
 .. automodule:: pypal.geometry.concave
     :members:
     :undoc-members:
-    :show-inheritance:
+    :inherited-members:
+    :exclude-members: delete
 
-pypal.geometry.convex module
+:class:`Convex` class
 ----------------------------
 
 .. automodule:: pypal.geometry.convex
     :members:
     :undoc-members:
-    :show-inheritance:
+    :inherited-members:
+    :exclude-members: delete
 
-pypal.geometry.geometry_base module
------------------------------------
-
-.. automodule:: pypal.geometry.geometry_base
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-pypal.geometry.sphere module
+:class:`Sphere` class
 ----------------------------
 
 .. automodule:: pypal.geometry.sphere
     :members:
     :undoc-members:
-    :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: pypal.geometry
-    :members:
-    :undoc-members:
-    :show-inheritance:
+    :inherited-members:
+    :exclude-members: delete

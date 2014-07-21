@@ -1,46 +1,38 @@
-pypal.link package
+link module
 ==================
 
-Submodules
-----------
-
-pypal.link.prismatic module
+:class:`Prismatic` class
 ---------------------------
 
 .. automodule:: pypal.link.prismatic
     :members:
     :undoc-members:
-    :show-inheritance:
+    :inherited-members:
+    :exclude-members: delete
 
-pypal.link.revolute module
+:class:`Revolute` class
 --------------------------
 
 .. automodule:: pypal.link.revolute
     :members:
     :undoc-members:
-    :show-inheritance:
+    :inherited-members:
+    :exclude-members: delete
 
-pypal.link.rigid module
+:class:`rigid` class
 -----------------------
 
 .. automodule:: pypal.link.rigid
     :members:
     :undoc-members:
-    :show-inheritance:
+    :inherited-members:
+    :exclude-members: delete
 
-pypal.link.spherical module
+:class:`spherical` class
 ---------------------------
 
 .. automodule:: pypal.link.spherical
     :members:
     :undoc-members:
-    :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: pypal.link
-    :members:
-    :undoc-members:
-    :show-inheritance:
+    :inherited-members:
+    :exclude-members: delete

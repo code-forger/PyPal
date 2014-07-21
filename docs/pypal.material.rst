@@ -1,22 +1,9 @@
-pypal.material package
+material module
 ======================
 
-Submodules
-----------
-
-pypal.material.material module
+:class:`material` class
 ------------------------------
 
 .. automodule:: pypal.material.material
     :members:
     :undoc-members:
-    :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: pypal.material
-    :members:
-    :undoc-members:
-    :show-inheritance:

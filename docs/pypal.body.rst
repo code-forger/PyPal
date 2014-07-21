@@ -1,7 +1,7 @@
-pypal.body package
+body module
 ==================
 
-:class:`Box` module
+:class:`Box` class
 ---------------------
 
 .. autoclass:: pypal.body.Box
@@ -10,13 +10,7 @@ pypal.body package
     :inherited-members:
     :exclude-members: delete
 
-.. autoclass:: pypal.body.StaticBox
-    :members:
-    :undoc-members:
-    :inherited-members:
-    :exclude-members: delete
-
-:class:`Capsule` module
+:class:`Capsule` class
 -------------------------
 
 .. autoclass:: pypal.body.Capsule
@@ -25,13 +19,7 @@ pypal.body package
     :inherited-members:
     :exclude-members: delete
 
-.. autoclass:: pypal.body.StaticCapsule
-    :members:
-    :undoc-members:
-    :inherited-members:
-    :exclude-members: delete
-
-:class:`Character` module
+:class:`Character` class
 ---------------------------
 
 .. autoclass:: pypal.body.Character
@@ -40,7 +28,7 @@ pypal.body package
     :inherited-members:
     :exclude-members: delete
 
-:class:`Compound` module
+:class:`Compound` class
 --------------------------
 
 .. autoclass:: pypal.body.Compound
@@ -49,13 +37,7 @@ pypal.body package
     :inherited-members:
     :exclude-members: delete
 
-.. autoclass:: pypal.body.StaticCompound
-    :members:
-    :undoc-members:
-    :inherited-members:
-    :exclude-members: delete
-
-:class:`Convex` module
+:class:`Convex` class
 ------------------------
 
 .. autoclass:: pypal.body.Convex
@@ -64,13 +46,7 @@ pypal.body package
     :inherited-members:
     :exclude-members: delete
 
-.. autoclass:: pypal.body.StaticConvex
-    :members:
-    :undoc-members:
-    :inherited-members:
-    :exclude-members: delete
-
-:class:`GenericBody` module
+:class:`GenericBody` class
 ------------------------------
 
 .. autoclass:: pypal.body.GenericBody
@@ -79,16 +55,7 @@ pypal.body package
     :inherited-members:
     :exclude-members: delete
 
-:class:`Ghost` module
------------------------
-
-.. autoclass:: pypal.body.Ghost
-    :members:
-    :undoc-members:
-    :inherited-members:
-    :exclude-members: delete
-
-:class:`Sphere` module
+:class:`Sphere` class
 ------------------------
 
 .. autoclass:: pypal.body.Sphere
@@ -97,17 +64,55 @@ pypal.body package
     :inherited-members:
     :exclude-members: delete
 
+:class:`StaticBox` class
+---------------------
+
+.. autoclass:: pypal.body.StaticBox
+    :members:
+    :undoc-members:
+    :inherited-members:
+    :exclude-members: delete
+
+:class:`StaticCapsule` class
+-------------------------
+
+.. autoclass:: pypal.body.StaticCapsule
+    :members:
+    :undoc-members:
+    :inherited-members:
+    :exclude-members: delete
+
+:class:`StaticCompound` class
+--------------------------
+
+.. autoclass:: pypal.body.StaticCompound
+    :members:
+    :undoc-members:
+    :inherited-members:
+    :exclude-members: delete
+
+:class:`StaticConvex` class
+------------------------
+
+.. autoclass:: pypal.body.StaticConvex
+    :members:
+    :undoc-members:
+    :inherited-members:
+    :exclude-members: delete
+
+:class:`StaticSphere` class
+------------------------
+
 .. autoclass:: pypal.body.StaticSphere
     :members:
     :undoc-members:
     :inherited-members:
     :exclude-members: delete
 
+:class:`Ghost` class
+-----------------------
 
-Module contents
----------------
-
-.. autoclass:: pypal.body
+.. autoclass:: pypal.body.Ghost
     :members:
     :undoc-members:
     :inherited-members:

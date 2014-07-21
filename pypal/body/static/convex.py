@@ -3,12 +3,14 @@ import ctypes as c
 import weakref
 from ..bodybase import BodyBase
 class StaticConvex(BodyBase):
+    """ A Static Rigid Convex Hull """
     def __init__(self, pos, rot, points, triangles=None):
         """
-        constructs a static convex and adds it to the world
-        
-        pos: a 3 part tuple with x,y,z.
-        size: a 3 part tuple with width, height, depth
+        Parameters:
+          pos: ``float[3]`` The x, y, z position for the Convex Body.
+          points: ``float[x][3]`` The points from which the convex hull will be calculated.
+          triangles: ``float[x][3]`` the triangles to be used when forming the Convex Hull.
+            Note: The triangles might be ignored by the internal physics engine.
         """
 
         CPoints = c.c_float * (len(points) * 3)
@@ -42,5 +44,5 @@ class StaticConvex(BodyBase):
         return "A Static Convex at : %.2f, %.2f, %.2f" % (x, y, z)
 
     def get_size(self):
-        """returns the size of the object in a 3 part tuple"""
+        """ Returns the size of the object in a 3 part tuple. """
         return self._size

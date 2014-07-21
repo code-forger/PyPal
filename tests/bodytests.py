@@ -416,75 +416,75 @@ class TestCompoundFunctions(unittest.TestCase):
 
     def test_compound_apply_force(self):
         compound = pal.body.Compound((0,0,0))
-        compound.add_box((0,0,0,1,1,1), 1)
+        compound.add_box((0,0,0),(1,1,1))
         compound.finalize()
         compound.apply_force((1,1,1))
 
     def test_compound_apply_torque(self):
         compound = pal.body.Compound((0,0,0))
-        compound.add_box((0,0,0,1,1,1), 1)
+        compound.add_box((0,0,0),(1,1,1))
         compound.finalize()
         compound.apply_torque((1,1,1))
 
     def test_compound_apply_force_pos(self):
         compound = pal.body.Compound((0,0,0))
-        compound.add_box((0,0,0,1,1,1), 1)
+        compound.add_box((0,0,0),(1,1,1))
         compound.finalize()
         compound.apply_force((1,1,1),pos=(1,1,1))
 
     def test_compound_apply_impulse(self):
         compound = pal.body.Compound((0,0,0))
-        compound.add_box((0,0,0,1,1,1), 1)
+        compound.add_box((0,0,0),(1,1,1))
         compound.finalize()
         compound.apply_impulse((1,1,1))
 
     def test_compound_apply_angular_impulse(self):
         compound = pal.body.Compound((0,0,0))
-        compound.add_box((0,0,0,1,1,1), 1)
+        compound.add_box((0,0,0),(1,1,1))
         compound.finalize()
         compound.apply_angular_impulse((1,1,1))
 
     def test_compound_apply_impulse_pos(self):
         compound = pal.body.Compound((0,0,0))
-        compound.add_box((0,0,0,1,1,1), 1)
+        compound.add_box((0,0,0),(1,1,1))
         compound.finalize()
         compound.apply_impulse((1,1,1),pos=(1,1,1))
 
     def test_compound_get_velocity(self):
         compound = pal.body.Compound((0,0,0))
-        compound.add_box((0,0,0,1,1,1), 1)
+        compound.add_box((0,0,0),(1,1,1))
         compound.finalize()
         self.assertEqual(compound.get_linear_velocity(), [0,0,0])
 
     def test_compound_get_angular_velocity(self):
         compound = pal.body.Compound((0,0,0))
-        compound.add_box((0,0,0,1,1,1), 1)
+        compound.add_box((0,0,0),(1,1,1))
         compound.finalize()
         self.assertEqual(compound.get_angular_velocity(), [0,0,0])
 
     def test_compound_set_velocity(self):
         compound = pal.body.Compound((0,0,0))
-        compound.add_box((0,0,0,1,1,1), 1)
+        compound.add_box((0,0,0),(1,1,1))
         compound.finalize()
         compound.set_linear_velocity((10,10,10))
         self.assertEqual(compound.get_linear_velocity(), [10,10,10])
 
     def test_compound_set_angular_velocity(self):
         compound = pal.body.Compound((0,0,0))
-        compound.add_box((0,0,0,1,1,1), 1)
+        compound.add_box((0,0,0),(1,1,1))
         compound.finalize()
         compound.set_angular_velocity((10,10,10))
         self.assertEqual(compound.get_angular_velocity(), [10,10,10])
 
     def test_compound_is_active(self):
         compound = pal.body.Compound((0,0,0))
-        compound.add_box((0,0,0,1,1,1), 1)
+        compound.add_box((0,0,0),(1,1,1))
         compound.finalize()
         self.assertTrue(compound.is_active())
 
     def test_compound_set_active(self):
         compound = pal.body.Compound((0,0,0))
-        compound.add_box((0,0,0,1,1,1), 1)
+        compound.add_box((0,0,0),(1,1,1))
         compound.finalize()
         compound.set_active(False)
         self.assertTrue(not compound.is_active())

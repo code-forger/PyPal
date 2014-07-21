@@ -3,7 +3,16 @@ import ctypes as c
 import weakref
 from geometry import Geometry
 class Convex(Geometry):
+    """ A Convex Geometry. """
     def __init__(self, pos, points, triangles=None, mass = 1.):
+        """
+        Parameters:
+          pos: ``float[3]`` The x, y, z position for the Convex Geometry.
+          points: ``float[x][3]`` The points from which the Convex hull will be calculated.
+          triangles: ``float[x][3]`` the triangles to be used when forming the Convex Geometry.
+            Note: The triangles might be ignored by the internal physics engine.
+          mass: ``float`` The mass of the Convex Geometry.
+        """
         CPoints = c.c_float * (len(points) * 3)
         cpoints = CPoints()
         for i in xrange(len(points)):

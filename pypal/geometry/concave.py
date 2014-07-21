@@ -3,7 +3,20 @@ import ctypes as c
 import weakref
 from geometry import Geometry
 class Concave(Geometry):
+    """
+    A Concave Geometry.
+
+    Note: This is the only way of acheiving a convex body in pypal.
+    """
     def __init__(self, pos, points, triangles, mass = 1.):
+        """
+        Parameters:
+          pos: ``float[3]`` The x, y, z position for the Concave Geometry.
+          points: ``float[x][3]`` The points from which the Concave hull will be calculated.
+          triangles: ``float[x][3]`` the triangles to be used when forming the Concave Geometry.
+            Note: The triangles might be ignored by the internal physics engine.
+          mass: ``float`` The mass of the Concave Geometry.
+        """
         CPoints = c.c_float * (len(points) * 3)
         cpoints = CPoints()
         for i in xrange(len(points)):

@@ -22,46 +22,46 @@ extern "C"
     void body_static_compound_add_box(palStaticCompoundBody*cb, Float x, Float y, Float z,
                                              Float rx, Float ry, Float rz,
                                              Float width, Float height,
-                                             Float depth, Float mass)
+                                             Float depth)
     {
         palBoxGeometry*pbg = cb->AddBox();
 
         palMatrix4x4 pos;
         mat_set_translation(&pos, x, y, z);
         mat_set_rotation(&pos, rx, ry, rz);
-        pbg->Init (pos, width, height, depth, mass);
+        pbg->Init (pos, width, height, depth, 0);
     }
     
     void body_static_compound_add_sphere(palStaticCompoundBody*cb, Float x, Float y, Float z,
-                                             Float rx, Float ry, Float rz, Float radius, Float mass)
+                                             Float rx, Float ry, Float rz, Float radius)
     {
         palSphereGeometry*psg = cb->AddSphere();
 
         palMatrix4x4 pos;
         mat_set_translation(&pos, x, y, z);
         mat_set_rotation(&pos, rx, ry, rz);
-        psg->Init (pos, radius, mass);
+        psg->Init (pos, radius, 0);
     }
     
     void body_static_compound_add_capsule(palStaticCompoundBody*cb, Float x, Float y, Float z,
-                                             Float rx, Float ry, Float rz, Float radius, Float height, Float mass)
+                                             Float rx, Float ry, Float rz, Float radius, Float height)
     {
         palCapsuleGeometry*pcg = cb->AddCapsule();
 
         palMatrix4x4 pos;
         mat_set_translation(&pos, x, y, z);
         mat_set_rotation(&pos, rx, ry, rz);
-        pcg->Init (pos, radius, height, mass);
+        pcg->Init (pos, radius, height, 0);
     }
     
     void body_static_compound_add_convex(palStaticCompoundBody*cb, Float x, Float y, Float z,
-                                             Float rx, Float ry, Float rz, const Float *pVertices, int nVertices, Float mass)
+                                             Float rx, Float ry, Float rz, const Float *pVertices, int nVertices)
     {
         palConvexGeometry*pcg = dynamic_cast<palConvexGeometry*>(cb->AddGeometry("palConvexGeometry"));
 
         palMatrix4x4 pos;
         mat_set_translation(&pos, x, y, z);
         mat_set_rotation(&pos, rx, ry, rz);
-        pcg->Init (pos, pVertices, nVertices, mass);
+        pcg->Init (pos, pVertices, nVertices, 0);
     }
 }

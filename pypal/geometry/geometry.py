@@ -21,16 +21,30 @@ class Geometry(_pal.PalObject):
         return [x for x in ret]
 
     def set_margin(self, margin):
+        """ 
+        Set the colision margin for the geometry. 
+
+        Parameters:
+          margin: ``float`` The margin from the surface that collisions will take place.
+        """
         _pal.lib.geometry_set_margin(self._geometry, c.c_float(margin))
 
     def get_margin(self):
+        """ Return the colision margin for the geometry. """
         _pal.lib.geometry_get_margin.restype = c.c_float
         return _pal.lib.geometry_get_margin(self._geometry)
 
     def set_mass(self, mass):
+        """ 
+        Set the mass for the geometry. 
+
+        Parameters:
+          mass: ``float`` The mass for the geometry.
+        """
         _pal.lib.geometry_set_mass(self._geometry, c.c_float(mass))
 
     def get_mass(self):
+        """ Return the mass of the geometry """
         _pal.lib.geometry_get_mass.restype = c.c_float
         return _pal.lib.geometry_get_mass(self._geometry)
 
