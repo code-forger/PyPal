@@ -18,28 +18,31 @@ import private_globals as _pal
 
 
 def init(gravity = (0,-9.8,0)):
-    """Initializes the module.
+    """
+    Initializes the module.
 
-    This function must be called before any other function from this library is called
+    This function must be called before any other function from this library is called.
 
-    gravity: int int int, default = (0,-9.8,0): gravity to be applied to the world.
-    pygame: the pygame instance to be used to emit events.
+    Parameters:
+      gravity: ``float[3]``, default = (0,-9.8,0): gravity to be applied to the world.
     """
     libs = c.c_char_p("/usr/local/lib/")
     _pal.lib.pal_init(libs)
     _pal.lib.physics_init(c.c_float(gravity[0]),c.c_float(gravity[1]),c.c_float(gravity[2]))
 
 def update(time_step):
-    """Steps the simulation.
+    """
+    Steps the simulation.
 
-    timestep: time since last step
+    Parameters:
+      timestep: ``float`` time since last step.
     """
     _pal.lib.physics_update(c.c_float(time_step))
     for action in _pal.actions.values():
         action.response = action.function(*action.args,**action.kwargs)
 
 def get_objects():
-    """ Returns all physics objects"""
+    """ Returns a weakref to all the physics objects """
     objects = []
     for o in _pal.all_objects.values():
         objects.append(weakref.proxy(o))
@@ -53,33 +56,33 @@ def get_actions():
     return actions
 
 def cleanup():
-    """Ends the simulation."""
+    """ Ends the simulation. """
     _pal.all_objects = {}
     _pal.actions = {}
     _pal.lib.pal_cleanup()
 
 def get_time():
-    """Returns age of the simulation."""
+    """ Returns age of the simulation. """
     _pal.lib.physics_get_time.restype = c.c_float
     return _pal.lib.physics_get_time()
 
 def get_time_step():
-    """Returns last timestep."""
+    """ Returns last timestep. """
     _pal.lib.physics_get_last_timestep.restype = c.c_float
     return _pal.lib.physics_get_last_timestep()
 
 def set_group_collision(group1,group2,collide):
     """
-    group1,group2: the groups between which the relation is being set.
-    collide: bool, wether or not the two groups can collide with eachother  
+    Sets weather or not tho bodies from the specified groups should collide.
+
+    Parameters:
+      group1,group2: the groups between which the relation is being set.
+      collide: bool, weather or not the two groups can collide with eachother  
     """
     _pal.lib.physics_set_group_collision(c.c_int(group1),c.c_int(group2),c.c_bool(collise));
 
 def get_gravity():
-    """Returns the current direction of gravity.
-
-    returns:(x,y,z)
-    """
+    """ Returns the current gravity vector. """
     ret = _pal.Vec3()
     _pal.lib.physics_get_gracity(ret);
     return [x for x in ret]
@@ -92,16 +95,19 @@ def get_up_axis():
 
 def SetCollisionAccuracy(accuracy):
     """
+    Not implemented yet.
     acccuracy: sets the acuracy of the simulateion, Ranges from 0..1, 0 indicates fast and inaccurate, 1 indicates accurate and slow. 
     """
     pass
 
 def raycast(pos,direction,max_range):
     """
-    returns a structure thusly: [pos,normal,distance,body,normal] any of these values may be 'None' if unavailable
-    pos: the position to start the cast from
-    dirction: the direction the cast will take
-    max_range: the max range of the cast
+    Returns a dictionary with 'pos' and 'body' these values may be 'None' if unavailable
+    
+    Parameters:
+      pos: ``float[3]`` The position to start the cast from
+      dirction: ``float[3] The direction the cast will take
+      max_range: ``float`` The max range of the cast.
     """
     _pal.lib.pal_ray_hit(c.c_float(pos[0]),c.c_float(pos[1]),c.c_float(pos[2]),
                          c.c_float(direction[0]),c.c_float(direction[1]),c.c_float(direction[2]),
@@ -124,17 +130,16 @@ def raycast(pos,direction,max_range):
     pos = [p.value for p in pos]
     return {'pos':pos, 'body': body}
 
-def load_vertices_from_collada_file(f_name):
-    mesh = collada.Collada(f_name)
-    objects = []
-    matricies = []
-    for i in range(len(mesh.geometries)):
-        objects.append(mesh.geometries[i].primitives[0].vertex.tolist())
-        matricies.append(mesh.geometries[i].collada.scene.nodes[i].matrix[2][:3])
-    return objects, matricies
 
 def notify_collision(body,enabled):
-    """informs the body that it can at any time have its current collision points requested"""
+    """
+    Informs the body that it can at any time have its current collision points requested.
+
+    Parameters:
+      body: ``pypal.body`` The body to notify. 
+      enabled: ``bool`` Weather we want to collect the collision poinsts later or not.
+    """
+
     _pal.lib.collision_notify(body._body,enabled)
     if enabled:
         _pal.notified_objects.append(body)
@@ -142,7 +147,12 @@ def notify_collision(body,enabled):
         _pal.notified_objects.remove(body)
 
 def get_contacts(body):
-    """returns the bodies that this body is currently in contact with."""
+    """
+    Returns the bodies that this body is currently in contact with.
+
+    Paramters:
+      body: ``pypal.body`` The body we are qwerying the contacts.
+      """
     contacts = _pal.lib.get_contacts(body._body)
     ret = []
     _pal.lib.contacts_get_distance.restype = c.c_float
@@ -156,7 +166,12 @@ def get_contacts(body):
     return ret
     
 def get_unique_contacts(body):
-    """returns the bodies that this body is currently in contact with."""
+    """
+    Returns the bodies that this body is currently in contact with withought repeats.
+
+    Paramters:
+      body: ``pypal.body`` The body we are qwerying the contacts.
+      """
     contacts = _pal.lib.get_contacts(body._body_base)
     ret = []
     _pal.lib.contacts_get_distance.restype = c.c_float
