@@ -73,7 +73,12 @@ class Box:
         self.color = color
 
     def render(self):
-        x, y, z = map(lambda x: x/2.,self.body.get_size())
+        if isinstance(self.body, pal.body.Box) or isinstance(self.body, pal.body.StaticBox):
+           x, y, z = map(lambda x: x/2.,self.body.get_size())
+        else:
+           x = z = self.body.get_size()/2
+           y = .1
+
         glColor(*self.color)
         glMultMatrixd(self.body.get_location())
         render_cube(x,y,z,self.color)

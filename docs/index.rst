@@ -9,17 +9,12 @@ Welcome to PyPal's documentation!
 Contents:
 
 .. toctree::
+   :maxdepth: 2
+
+   license
+   tutorial
+
+.. toctree::
    :maxdepth: 3
 
-   pypal.rst
-
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
+   pypal

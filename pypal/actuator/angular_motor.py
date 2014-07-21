@@ -20,7 +20,7 @@ class AngularMotor(ActuatorBase):
         Parameters:
           target_velocity: ``float`` The target velocity for this step.
         """
-        _pal.lib.actuator_dcmotor_apply(self.obj, c.c_int(target_velocity))
+        _pal.lib.actuator_angular_motor_update(self.obj, c.c_float(target_velocity))
 
     def turn_on(self, target_velocity):
         """

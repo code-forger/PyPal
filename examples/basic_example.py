@@ -1,4 +1,4 @@
-#this example is equivelent to the C++ basic pal example as seen on <http://www.adrianboeing.com/pal/current/pal/pal/documentation/html/index.html>
+# This example is equivelent to the C++ basic pal example as seen on <http://www.adrianboeing.com/pal/current/pal/pal/documentation/html/index.html>
 
 import pypal as pal
 
