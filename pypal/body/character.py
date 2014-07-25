@@ -23,7 +23,7 @@ class Character(GenericBody):
         self.dynamic_type = "dynamic"
         self.mass = mass
         self.collision_response = True
-        self.geom = Capsule([0,0,0], size)
+        self.geom = Capsule([0,0,0], size, mass=mass)
         self.connect_geometry(self.geom)
         self.angular_damping = 100000
         

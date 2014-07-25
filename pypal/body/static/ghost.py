@@ -34,8 +34,8 @@ class Ghost(GenericBody):
         Parameters:
           target: ``pypal.body`` The body we want to know, if it is in the ghost.
         """
-        for contact in pypal.get_contacts(target):
+        for contact in pypal.get_contacts(self):
             for ref in contact:
-                if ref in weakref.getweakrefs(self):
+                if ref == target:
                     return True
         return False
