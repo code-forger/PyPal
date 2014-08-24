@@ -1,96 +1,136 @@
 #include "globals.h"
 
-palMaterials *PM = NULL;
-palPhysics *pp = NULL;
-palCollisionDetection *pcd = NULL;
-int material_index;
-palRayHit last_hit;
-extern "C" 
+void* castup_bodybase(palBodyBase* in)
 {
-    void pal_init(char[])
+    if (palBox* obj = dynamic_cast<palBox*>(in))
     {
-        PF->LoadPALfromDLL("/usr/local/lib64/x86_64-linux-gnu/");
-        PF->SelectEngine("Bullet");
-        PM = new palMaterials();
-        material_index = 0;
-        pp = PF->CreatePhysics();
-        if (pp == NULL) 
+        return obj;
+    }
+    else if (palSphere* obj = dynamic_cast<palSphere*>(in))
+    {
+        return obj;
+    }
+    else if (palCapsule* obj = dynamic_cast<palCapsule*>(in))
+    {
+        return obj;
+    }
+    else if (palCompoundBody* obj = dynamic_cast<palCompoundBody*>(in))
+    {
+        return obj;
+    }
+    else if (palConvex* obj = dynamic_cast<palConvex*>(in))
+    {
+        return obj;
+    }
+    else if (palGenericBody* obj = dynamic_cast<palGenericBody*>(in))
+    {
+        return obj;
+    }
+    else if (palTerrainPlane* obj = dynamic_cast<palTerrainPlane*>(in))
+    {
+        return obj;
+    }
+    else if (palTerrainHeightmap* obj = dynamic_cast<palTerrainHeightmap*>(in))
+    {
+        return obj;
+    }
+    else if (palTerrainMesh* obj = dynamic_cast<palTerrainMesh*>(in))
+    {
+        return obj;
+    }
+    else if (palOrientatedTerrainPlane* obj = dynamic_cast<palOrientatedTerrainPlane*>(in))
+    {
+        return obj;
+    }
+    else if (palStaticConvex* obj = dynamic_cast<palStaticConvex*>(in))
+    {
+        return obj;
+    }
+    return in;
+}
+
+/*********************************************************
+ *                                                       *
+ *               the pal functions                       *
+ *                                                       *
+ *********************************************************/
+extern "C"
+{
+    bool pal_ray_hit(Float x, Float y, Float z, Float dx, Float dy, Float dz, Float range)
+    {
+        last_hit.m_pBody = 0;
+        pcd->RayCast( x, y, z,dx, dy, dz, range, last_hit);
+        if (last_hit.m_pBody)
         {
-            printf("Failed to create the physics engine. Check to see if you spelt the engine name correctly, or that the engine DLL is in the right location\n");
-            return NULL;
+            return true;
         }
-        pcd = dynamic_cast<palCollisionDetection *>(pp);
+        else
+        {
+            return false;
+        }
     }
 
-    void pal_cleanup()
+    void* get_last_hit_body()
     {
-        PF->Cleanup();
+        if (last_hit.m_pBody)
+            return last_hit.m_pBody;
+        else
+            return NULL;
     }
 
-    palMaterialUnique * pal_add_material(float staticfric, float kineticfric, float restitution)
+    void get_last_hit_location(float &x, float &y, float &z)
     {
-        char str[8];
-        palMaterialDesc desc;
-        desc.m_fStatic = staticfric;
-        desc.m_fKinetic = kineticfric;
-        desc.m_fRestitution = restitution;
-
-        str[0] = (char)material_index%10;
-        str[1] = (char)(material_index/10)%10;
-        str[2] = (char)(material_index/100)%10;
-        str[3] = (char)(material_index/1000)%10;
-        str[4] = (char)(material_index/10000)%10;
-        str[5] = (char)(material_index/100000)%10;
-        str[6] = (char)(material_index/1000000)%10;
-        str[7] = '\0';
-        material_index++;
-        return PM->NewMaterial(std::string(str),desc);
+        if (last_hit.m_pBody)
+        {
+            palVector3 vec = last_hit.m_vHitPosition;
+            x = vec[0];
+            y = vec[1];
+            z = vec[2];
+        }
+    }
+}
+/*********************************************************
+ *                                                       *
+ *               the collision class functions           *
+ *                                                       *
+ *********************************************************/
+extern "C"
+{
+    void collision_notify(palBox*b,bool enable)
+    {   
+        palBodyBase *body = dynamic_cast<palBodyBase*>(b);
+        pcd->NotifyCollision(body,true);
     }
 
-    void physics_init(float x, float y, float z)
+    palContact* get_contacts(palBody*b)
     {
-        palPhysicsDesc desc;
-        desc.m_vGravity[0] = x; 
-        desc.m_vGravity[1] = y; 
-        desc.m_vGravity[2] = z;
-        pp->Init(desc);
+        palContact* pc = new palContact;
+        pcd->GetContacts(b,*pc);
+        return pc;
     }
 
-    void physics_update(float step)
+    int contacts_get_size(palContact*c)
     {
-        pp->Update(step);
+        return c->m_ContactPoints.size();
     }
 
-    float physics_get_time()
+    void* contacts_get_body_one(palContact*c,int pos)
     {
-        return pp->GetTime();
+        return castup_bodybase(c->m_ContactPoints[pos].m_pBody1);
     }
 
-    float physics_get_last_timestep()
+    void* contacts_get_body_two(palContact*c,int pos)
     {
-        return pp->GetLastTimestep();
+        return castup_bodybase(c->m_ContactPoints[pos].m_pBody2);
     }
 
-    void physics_set_group_collision(palGroup a, palGroup b, bool enabled)
+    float contacts_get_distance(palContact*c,int pos)
     {
-        pp->SetGroupCollision(a, b, enabled);
+        return c->m_ContactPoints[pos].m_fDistance;
     }
 
-    void physics_get_gravity(float vec[3])
+    void remove_contact(palContact *p)
     {
-        palVector3 v;
-        pp->GetGravity(v);
-        for (int i = 0; i < 3; i++)
-            vec[i] = v._vec[i];
-    }
-
-    int physics_get_up_axis()
-    {
-        return pp->GetUpAxis();
-    }
-
-    void remove_object(palFactoryObject*o){
-        delete o;
-        o = NULL;
+        delete p;
     }
 }
